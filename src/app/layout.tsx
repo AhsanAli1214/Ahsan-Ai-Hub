@@ -6,7 +6,7 @@ import { AuthProvider } from '@/contexts/auth-context';
 import { ThemeProvider } from '@/contexts/theme-context';
 
 export const metadata: Metadata = {
-  title: 'AI Hub Express',
+  title: 'Ahsan Ai Hub',
   description: 'A curated hub for AI tools and resources.',
 };
 

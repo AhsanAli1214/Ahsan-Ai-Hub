@@ -21,8 +21,8 @@ import { AppHeader } from '@/components/layout/AppHeader';
 import { AhsanAILogo } from '@/components/icons';
 
 export const metadata: Metadata = {
-  title: 'About | AI Hub Express',
-  description: 'Learn more about the creator of AI Hub Express.',
+  title: 'About | Ahsan Ai Hub',
+  description: 'Learn more about the creator of Ahsan Ai Hub.',
 };
 
 const SOCIAL_LINKS = [
@@ -111,7 +111,7 @@ export default function AboutPage() {
                     </Badge>
                   </div>
                    <p className="mt-4 text-muted-foreground">
-                    I created Ahsan AI Hub to democratize AI access—making it easier
+                    I created Ahsan Ai Hub to democratize AI access—making it easier
                     for everyone to leverage intelligent AI.
                   </p>
                 </div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
           {/* Support Section */}
           <Card className="bg-accent/15">
             <a
-              href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan AI Hub`}
+              href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan Ai Hub`}
               className="flex items-center p-6"
             >
               <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/25 text-accent">
@@ -219,7 +219,7 @@ export default function AboutPage() {
             <AhsanAILogo className="mx-auto mb-4 h-10 w-10 opacity-60" />
             <p className="text-sm">Crafted with passion by Ahsan Ali</p>
             <p className="mt-2 text-xs">
-              © {new Date().getFullYear()} Ahsan AI Hub. All rights reserved.
+              © {new Date().getFullYear()} Ahsan Ai Hub. All rights reserved.
             </p>
           </footer>
         </div>

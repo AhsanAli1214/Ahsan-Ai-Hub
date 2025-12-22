@@ -13,7 +13,7 @@ import {
   Smile,
 } from 'lucide-react';
 import Link from 'next/link';
-import { AIHubExpressLogo } from '@/components/icons';
+import { AhsanAiHubLogo } from '@/components/icons';
 
 const QUICK_ACTIONS = [
   {
@@ -62,11 +62,11 @@ export default function HomePage() {
           <div className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
             <div className="flex items-center gap-4 md:gap-6">
               <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-accent/80">
-                <AIHubExpressLogo className="h-12 w-12 text-accent-foreground" />
+                <AhsanAiHubLogo className="h-12 w-12 text-accent-foreground" />
               </div>
               <div>
                 <h1 className="font-headline text-3xl font-bold md:text-4xl">
-                  Ahsan AI
+                  Ahsan Ai Hub
                 </h1>
                 <p className="mt-1 text-lg text-accent-foreground/80">
                   Intelligent AI Companion

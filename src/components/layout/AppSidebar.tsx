@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
-import { AIHubExpressLogo } from '@/components/icons';
+import { AhsanAiHubLogo } from '@/components/icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings } from 'lucide-react';
@@ -40,8 +40,8 @@ export function AppSidebar() {
     <Sidebar side="left" collapsible="icon">
       <SidebarHeader className="border-b">
         <div className="flex items-center gap-2">
-          <AIHubExpressLogo className="h-8 w-8" />
-          <span className="font-headline text-lg font-semibold">AI Hub Express</span>
+          <AhsanAiHubLogo className="h-8 w-8" />
+          <span className="font-headline text-lg font-semibold">Ahsan Ai Hub</span>
         </div>
       </SidebarHeader>
       <SidebarContent>

@@ -14,8 +14,8 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact | AI Hub Express',
-  description: 'Get in touch with the creator of AI Hub Express.',
+  title: 'Contact | Ahsan Ai Hub',
+  description: 'Get in touch with the creator of Ahsan Ai Hub.',
 };
 
 const SOCIAL_LINKS = [
@@ -119,7 +119,7 @@ export default function ContactPage() {
             </h2>
             <Card className="bg-accent/15">
                 <a
-                href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan AI Hub`}
+                href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan Ai Hub`}
                 className="flex items-center p-6"
                 >
                 <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/25 text-accent">
@@ -143,7 +143,7 @@ export default function ContactPage() {
             <div className="flex-1">
               <h3 className="font-semibold">Feedback & Suggestions</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Have ideas to improve Ahsan AI Hub? Reach out on any of the
+                Have ideas to improve Ahsan Ai Hub? Reach out on any of the
                 social platforms above or email our support team!
               </p>
             </div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
           {/* Bug Report Card */}
             <Card className="border-destructive/50 bg-destructive/10">
                  <a
-                href={`mailto:${SUPPORT_EMAIL}?subject=Bug Report - Ahsan AI Hub`}
+                href={`mailto:${SUPPORT_EMAIL}?subject=Bug Report - Ahsan Ai Hub`}
                 className="flex items-center p-6"
                 >
                 <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-destructive/20 text-destructive">
@@ -173,7 +173,7 @@ export default function ContactPage() {
 
           {/* Footer */}
           <footer className="py-8 text-center text-sm text-muted-foreground">
-            <p>Thank you for using Ahsan AI Hub!</p>
+            <p>Thank you for using Ahsan Ai Hub!</p>
           </footer>
         </div>
       </div>

@@ -12,21 +12,21 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'FAQ | AI Hub Express',
-  description: 'Frequently Asked Questions about AI Hub Express.',
+  title: 'FAQ | Ahsan Ai Hub',
+  description: 'Frequently Asked Questions about Ahsan Ai Hub.',
 };
 
 const FAQData = [
-    { q: "What is Ahsan AI Hub?", a: "Ahsan AI Hub is an intelligent AI-powered chat platform designed to assist users in learning, writing, coding, generating ideas, solving queries, and more through a smart and responsive AI system." },
-    { q: "How does this AI work?", a: "Ahsan AI Hub uses advanced AI models to understand user queries and respond naturally, accurately, and instantly. It generates answers based on context, logic, and real-time interpretation of your message." },
+    { q: "What is Ahsan Ai Hub?", a: "Ahsan Ai Hub is an intelligent AI-powered chat platform designed to assist users in learning, writing, coding, generating ideas, solving queries, and more through a smart and responsive AI system." },
+    { q: "How does this AI work?", a: "Ahsan Ai Hub uses advanced AI models to understand user queries and respond naturally, accurately, and instantly. It generates answers based on context, logic, and real-time interpretation of your message." },
     { q: "Do I need an account to use the AI chatbot?", a: "An account is required to save favorite tools and get personalized recommendations, but many features are available without one." },
-    { q: "Is Ahsan AI Hub free to use?", a: "Yes, the main features of the app are currently free for all users. Any premium features added later will always have a basic free alternative." },
+    { q: "Is Ahsan Ai Hub free to use?", a: "Yes, the main features of the app are currently free for all users. Any premium features added later will always have a basic free alternative." },
     { q: "What kind of questions can I ask the AI?", a: "You can ask anything related to: General knowledge, Writing help (essays, stories, emails), Coding & debugging, Learning topics (ICT, networking, science, etc.), Daily life guidance, Creative ideas & summaries." },
     { q: "Can the chatbot write code or debug programs?", a: "Yes. The AI can generate, explain, review, and improve code in various languages like Python, C, JavaScript, HTML, CSS, Java, and more." },
-    { q: "Will Ahsan AI Hub remember chats?", a: "For now, conversations are not saved. In upcoming versions, cloud-based persistent chat history and saved prompts will be added." },
+    { q: "Will Ahsan Ai Hub remember chats?", a: "For now, conversations are not saved. In upcoming versions, cloud-based persistent chat history and saved prompts will be added." },
     { q: "Can I share or export my chat?", a: "Yes, the platform provides options to copy responses. Future updates may include export as PDF or text." },
-    { q: "Is my data safe?", a: "User privacy is important. Ahsan AI Hub does not store any personal chat content on servers unless the user enables account-based history features." },
-    { q: "How can I contact the developer?", a: "You can contact Ahsan Ali — the creator of Ahsan AI Hub — through the social media links on the 'Contact' page." },
+    { q: "Is my data safe?", a: "User privacy is important. Ahsan Ai Hub does not store any personal chat content on servers unless the user enables account-based history features." },
+    { q: "How can I contact the developer?", a: "You can contact Ahsan Ali — the creator of Ahsan Ai Hub — through the social media links on the 'Contact' page." },
     { q: "What features are coming soon?", a: "🚀 Custom chat personalities, 🚀 Cloud-based chat history & export, 🚀 Voice chat communication, 🚀 User accounts & premium tools, 🚀 Prompt library + AI tips section." },
 ];
 
@@ -39,7 +39,7 @@ export default function FaqPage() {
         <div className="mx-auto max-w-3xl space-y-8">
             <div className="mb-8">
                 <h1 className="font-headline text-3xl font-bold">Frequently Asked Questions</h1>
-                <p className="mt-2 text-muted-foreground">Find answers to common questions about Ahsan AI Hub.</p>
+                <p className="mt-2 text-muted-foreground">Find answers to common questions about Ahsan Ai Hub.</p>
             </div>
           
             <Accordion type="single" collapsible className="w-full">

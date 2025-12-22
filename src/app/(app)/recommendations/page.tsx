@@ -3,7 +3,7 @@ import { ChatInterface } from '@/components/recommendations/ChatInterface';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'AI Chat | AI Hub Express',
+  title: 'AI Chat | Ahsan Ai Hub',
   description: 'Get personalized AI tool recommendations through a conversation with our AI.',
 };
 
