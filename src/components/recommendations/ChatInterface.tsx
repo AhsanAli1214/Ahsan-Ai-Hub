@@ -5,8 +5,6 @@ import { AhsanAILogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
-import { useAuth } from '@/contexts/auth-context';
-import { tools } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Bot, Copy, Send, User as UserIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
@@ -97,7 +95,6 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const { user, favorites } = useAuth();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -124,14 +121,7 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
     setIsLoading(true);
     setInput('');
     
-    let previousActivity = 'No previous activity provided.';
-    if (user && favorites.length > 0) {
-      const favoriteTools = tools.filter(t => favorites.includes(t.id));
-      if (favoriteTools.length > 0) {
-        const favoriteToolNames = favoriteTools.map(t => t.name).join(', ');
-        previousActivity = `The user has previously shown interest in tools like: ${favoriteToolNames}.`;
-      }
-    }
+    const previousActivity = 'No previous activity provided.';
 
     const result = await getRecommendationsAction({
       interests: input,

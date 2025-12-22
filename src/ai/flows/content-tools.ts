@@ -25,21 +25,16 @@ const enhanceTextFlow = ai.defineFlow(
     inputSchema: EnhanceTextInputSchema,
     outputSchema: EnhanceTextOutputSchema,
   },
-  async ({text, mode}) => {
-    const prompt = `You are a text enhancement AI. The user wants to ${mode} the following text. Please provide the result.
-
-Text:
-"""
-${text}
-"""
-
-Result:`;
-
+  async ({ text, mode }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are a text enhancement AI. The user wants to ${mode} the following text. Please provide the result.\n\nText:\n"""\n${text}\n"""\n\nResult:`,
+      output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+
+    return output ?? { result: '' };
   }
 );
 
@@ -67,19 +62,15 @@ const generateEmailFlow = ai.defineFlow(
     inputSchema: GenerateEmailInputSchema,
     outputSchema: GenerateEmailOutputSchema,
   },
-  async ({context, tone, details}) => {
-    const prompt = `You are an email writing assistant. Write an email with the following requirements:
-- Purpose/Context: ${context}
-- Tone: ${tone}
-${details ? `- Additional Details: ${details}` : ''}
-
-Generated Email:`;
-
+  async ({ context, tone, details }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are an email writing assistant. Write an email with the following requirements:\n- Purpose/Context: ${context}\n- Tone: ${tone}\n${details ? `- Additional Details: ${details}` : ''}\n\nGenerated Email:`,
+      output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+    return output ?? { result: '' };
   }
 );
 
@@ -106,16 +97,15 @@ const generateBlogPostFlow = ai.defineFlow(
     inputSchema: GenerateBlogPostInputSchema,
     outputSchema: GenerateBlogPostOutputSchema,
   },
-  async ({topic, length}) => {
-    const prompt = `You are a blog post generator. Write a ${length} blog post about the following topic: "${topic}". Ensure it is well-structured and engaging.
-
-Blog Post:`;
-
+  async ({ topic, length }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are a blog post generator. Write a ${length} blog post about the following topic: "${topic}". Ensure it is well-structured and engaging.\n\nBlog Post:`,
+       output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+    return output ?? { result: '' };
   }
 );
 
@@ -141,16 +131,15 @@ const generateStudyMaterialFlow = ai.defineFlow(
     inputSchema: GenerateStudyMaterialInputSchema,
     outputSchema: GenerateStudyMaterialOutputSchema,
   },
-  async ({topic, type}) => {
-    const prompt = `You are a study assistant. Generate study material for the topic "${topic}". The desired format is "${type}".
-
-Study Material:`;
-
+  async ({ topic, type }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are a study assistant. Generate study material for the topic "${topic}". The desired format is "${type}".\n\nStudy Material:`,
+       output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+    return output ?? { result: '' };
   }
 );
 
@@ -177,21 +166,15 @@ const explainProgrammingFlow = ai.defineFlow(
     inputSchema: ExplainProgrammingInputSchema,
     outputSchema: ExplainProgrammingOutputSchema,
   },
-  async ({code, language}) => {
-    const prompt = `You are a code explainer. Explain the following ${language || ''} code snippet.
-
-Code:
-\`\`\`
-${code}
-\`\`\`
-
-Explanation:`;
-
+  async ({ code, language }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are a code explainer. Explain the following ${language || ''} code snippet.\n\nCode:\n\`\`\`\n${code}\n\`\`\`\n\nExplanation:`,
+       output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+    return output ?? { result: '' };
   }
 );
 
@@ -217,17 +200,14 @@ const solveMathFlow = ai.defineFlow(
     inputSchema: SolveMathInputSchema,
     outputSchema: SolveMathOutputSchema,
   },
-  async ({problem}) => {
-    const prompt = `You are a math solver. Solve the following problem and provide a step-by-step explanation.
-
-Problem: ${problem}
-
-Solution:`;
-
+  async ({ problem }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: prompt,
+      prompt: `You are a math solver. Solve the following problem and provide a step-by-step explanation.\n\nProblem: ${problem}\n\nSolution:`,
+       output: {
+        schema: z.object({ result: z.string() })
+      }
     });
-    return { result: output.text! };
+    return output ?? { result: '' };
   }
 );
