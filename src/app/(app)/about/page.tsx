@@ -80,23 +80,25 @@ export default function AboutPage() {
           <Card className="overflow-hidden shadow-lg">
             <CardContent className="p-0">
               <div className="grid grid-cols-1 items-center md:grid-cols-3">
-                <div className="relative h-64 w-full bg-card md:h-full md:col-span-1">
+                <div className="relative flex h-64 w-full items-center justify-center bg-card p-4 md:h-full md:col-span-1">
                   {developerImage && (
-                    <Image
-                      src={developerImage.imageUrl}
-                      alt="Developer Ahsan Ali"
-                      fill
-                      className="object-contain"
-                      data-ai-hint={developerImage.imageHint}
-                    />
+                     <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-accent shadow-lg">
+                        <Image
+                        src={developerImage.imageUrl}
+                        alt="Developer Ahsan Ali"
+                        fill
+                        className="object-cover"
+                        data-ai-hint={developerImage.imageHint}
+                        />
+                    </div>
                   )}
                 </div>
-                <div className="p-6 md:col-span-2">
+                <div className="p-6 text-center md:col-span-2 md:text-left">
                   <h1 className="font-headline text-3xl font-bold">Ahsan Ali</h1>
                   <p className="mt-2 text-muted-foreground">
                     CIT Student & Passionate Developer
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
                     <Badge
                       variant="secondary"
                       className="border border-accent bg-accent/20 text-accent"
