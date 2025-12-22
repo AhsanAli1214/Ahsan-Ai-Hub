@@ -38,6 +38,12 @@ const nextConfig: NextConfig = {
         hostname: 'play-lh.googleusercontent.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
