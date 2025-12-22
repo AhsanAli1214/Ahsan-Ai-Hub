@@ -106,7 +106,7 @@ export default function FeaturesPage() {
             <p className="mt-1 text-muted-foreground">
               Choose how the AI responds to you
             </p>
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {PERSONALITY_MODES.map((mode) => {
                 const isActive = personalityMode === mode.id;
                 return (
@@ -116,9 +116,9 @@ export default function FeaturesPage() {
                       setPersonalityMode(mode.id as PersonalityMode)
                     }
                     className={cn(
-                      'cursor-pointer transition-all hover:shadow-md',
+                      'cursor-pointer transition-all hover:shadow-lg',
                       isActive
-                        ? 'border-2 border-accent'
+                        ? 'border-accent ring-2 ring-accent'
                         : 'border'
                     )}
                   >
@@ -156,12 +156,15 @@ export default function FeaturesPage() {
             <h2 className="font-headline text-2xl font-bold">
               Core Capabilities
             </h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <p className="mt-1 text-muted-foreground">
+              Discover what our AI can do for you
+            </p>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {CORE_CAPABILITIES.map((feature, index) => (
-                 <Card key={index}>
+                 <Card key={index} className="bg-card">
                     <CardContent className="flex items-center gap-4 p-4">
-                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                            <feature.icon className="h-5 w-5" />
+                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/15 text-accent">
+                            <feature.icon className="h-6 w-6" />
                         </div>
                         <div className="flex-1">
                             <h3 className="font-semibold">{feature.label}</h3>
@@ -178,12 +181,15 @@ export default function FeaturesPage() {
             <h2 className="font-headline text-2xl font-bold">
               Productivity Tools
             </h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+             <p className="mt-1 text-muted-foreground">
+              Features to streamline your workflow
+            </p>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {PRODUCTIVITY_TOOLS.map((tool, index) => (
-                 <Card key={index}>
+                 <Card key={index} className="bg-card">
                     <CardContent className="flex items-center gap-4 p-4">
-                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                            <tool.icon className="h-5 w-5" />
+                         <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/15 text-accent">
+                            <tool.icon className="h-6 w-6" />
                         </div>
                         <div className="flex-1">
                             <h3 className="font-semibold">{tool.label}</h3>
