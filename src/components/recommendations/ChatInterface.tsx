@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, parseLinks } from '@/lib/utils';
-import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Speaker, Pause, Play, ChevronDown, Link as LinkIcon } from 'lucide-react';
+import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Speaker, Pause, Play, ChevronDown, Link as LinkIcon, User } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
@@ -83,9 +83,7 @@ function MessageBubble({
         )}
       >
         {!isUser && (
-          <div className="h-8 w-8 shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
-            <Bot className="h-5 w-5" />
-          </div>
+           <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full" />
         )}
         <div
           className={cn(
@@ -147,7 +145,7 @@ function MessageBubble({
         </div>
         {isUser && (
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
-            <UserIcon className="h-5 w-5" />
+            <User className="h-5 w-5" />
           </div>
         )}
       </div>
@@ -208,9 +206,7 @@ function MessageBubble({
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-3">
-       <div className="h-8 w-8 shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
-          <Bot className="h-5 w-5" />
-        </div>
+       <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full" />
       <div className="flex items-center space-x-1 rounded-2xl border bg-card p-3">
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
