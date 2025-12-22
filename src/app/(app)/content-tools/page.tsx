@@ -15,13 +15,14 @@ import {
   Loader2,
   Mail,
   PenTool,
-  Grid,
   ArrowRight,
   Languages,
   ChevronDown,
   Share2,
   FileText,
   Feather,
+  PlusCircle,
+  Grid,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -296,7 +297,7 @@ export default function ContentToolsPage() {
                 professional quality.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {toolsList.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} onSelect={() => setSelectedTool(tool.id)} />
                 ))}
@@ -309,184 +310,201 @@ export default function ContentToolsPage() {
     const currentTool = toolsList.find(t => t.id === selectedTool);
 
     return (
-      <div className="space-y-8 p-4 lg:p-6">
-        <div>
-          <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to All Tools
-          </Button>
-
-          <div className="flex items-center gap-4">
-              <div className={cn('flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10')}>
-                  {currentTool && <currentTool.icon className={cn('h-6 w-6', 'text-primary')} />}
-              </div>
+      <div className="space-y-6 p-4 lg:p-6 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-8">
+          {/* Left Column: Input */}
+          <div className="space-y-6">
               <div>
-                  <h2 className="font-headline text-3xl font-bold">{currentTool?.label}</h2>
-                  <p className="mt-1 text-muted-foreground">
-                      {
-                          selectedTool === 'enhance' ? 'Choose your enhancement type and input text.' :
-                          selectedTool === 'email' ? 'Select tone and provide context for the email.' :
-                          selectedTool === 'blog' ? 'Choose content length for your article.' :
-                          selectedTool === 'study' ? 'Select learning material format.' :
-                          selectedTool === 'code' ? 'Specify programming language and paste your code.' :
-                          selectedTool === 'translate' ? 'Select target language and enter text.' :
-                          selectedTool === 'social' ? 'Select the platform and enter your topic.' :
-                          selectedTool === 'resume' ? 'Select the resume section and paste your details.' :
-                          selectedTool === 'story' ? 'Enter a genre and a prompt for your story.' :
-                          'Enter your equation or problem to get a solution.'
-                      }
-                  </p>
+                  <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
+                      <ArrowLeft className="mr-2 h-4 w-4" />
+                      Back to All Tools
+                  </Button>
+                  <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                          {currentTool && <currentTool.icon className="h-6 w-6" />}
+                      </div>
+                      <div>
+                          <h2 className="font-headline text-3xl font-bold">{currentTool?.label}</h2>
+                          <p className="text-muted-foreground">
+                              {currentTool?.desc}
+                          </p>
+                      </div>
+                  </div>
               </div>
+              <Card>
+                  <CardHeader>
+                      <CardTitle>Your Input</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                      {/* Options */}
+                      <div className="mb-4 space-y-4">
+                          {selectedTool === 'enhance' && (
+                              <div className="flex flex-wrap gap-2">
+                                  {(['grammar', 'improve', 'rewrite'] as EnhanceTextInput['mode'][]).map(opt => (
+                                      <Button key={opt} variant={(options.enhanceMode || 'improve') === opt ? 'default' : 'outline'} onClick={() => handleOptionChange('enhanceMode', opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</Button>
+                                  ))}
+                              </div>
+                          )}
+                          {selectedTool === 'email' && (
+                              <div className="space-y-4">
+                                  <div className="flex flex-wrap gap-2">
+                                      {(['professional', 'casual', 'formal'] as GenerateEmailInput['tone'][]).map(tone => (
+                                          <Button key={tone} variant={(options.emailTone || 'professional') === tone ? 'default' : 'outline'} onClick={() => handleOptionChange('emailTone', tone)}>{tone.charAt(0).toUpperCase() + tone.slice(1)}</Button>
+                                      ))}
+                                  </div>
+                                  <Input placeholder="Additional details (optional)..." value={options.emailDetails || ''} onChange={e => handleOptionChange('emailDetails', e.target.value)} />
+                              </div>
+                          )}
+                          {selectedTool === 'blog' && (
+                              <div className="flex flex-wrap gap-2">
+                                  {(['short', 'medium', 'long'] as GenerateBlogPostInput['length'][]).map(len => (
+                                      <Button key={len} variant={(options.blogLength || 'medium') === len ? 'default' : 'outline'} onClick={() => handleOptionChange('blogLength', len)}>{len.charAt(0).toUpperCase() + len.slice(1)}</Button>
+                                  ))}
+                              </div>
+                          )}
+                          {selectedTool === 'study' && (
+                              <div className="flex flex-wrap gap-2">
+                                  {(['explanation', 'notes', 'flashcards'] as GenerateStudyMaterialInput['type'][]).map(type => (
+                                      <Button key={type} variant={(options.studyType || 'explanation') === type ? 'default' : 'outline'} onClick={() => handleOptionChange('studyType', type)}>{type.charAt(0).toUpperCase() + type.slice(1)}</Button>
+                                  ))}
+                              </div>
+                          )}
+                          {selectedTool === 'code' && (
+                              <Input placeholder="Language (e.g., JavaScript, Python)" value={options.codeLanguage || ''} onChange={e => handleOptionChange('codeLanguage', e.target.value)} />
+                          )}
+                          {selectedTool === 'translate' && (
+                              <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                      <Button variant="outline">
+                                          {options.targetLanguage || 'Select Language'}
+                                          <ChevronDown className="ml-2 h-4 w-4" />
+                                      </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent>
+                                      <ScrollArea className="h-64">
+                                          {LANGUAGES.map(lang => (
+                                              <DropdownMenuItem key={lang.code} onSelect={() => handleOptionChange('targetLanguage', lang.name)}>
+                                                  {lang.name}
+                                              </DropdownMenuItem>
+                                          ))}
+                                      </ScrollArea>
+                                  </DropdownMenuContent>
+                              </DropdownMenu>
+                          )}
+                          {selectedTool === 'social' && (
+                              <div className="flex flex-wrap gap-2">
+                                  {(['Twitter', 'Instagram', 'LinkedIn'] as GenerateSocialMediaPostInput['platform'][]).map(platform => (
+                                      <Button key={platform} variant={(options.socialPlatform || 'Twitter') === platform ? 'default' : 'outline'} onClick={() => handleOptionChange('socialPlatform', platform)}>{platform}</Button>
+                                  ))}
+                              </div>
+                          )}
+                          {selectedTool === 'resume' && (
+                              <div className="flex flex-wrap gap-2">
+                                  {(['summary', 'experience', 'skills'] as AssistResumeInput['section'][]).map(section => (
+                                      <Button key={section} variant={(options.resumeSection || 'summary') === section ? 'default' : 'outline'} onClick={() => handleOptionChange('resumeSection', section)}>{section.charAt(0).toUpperCase() + section.slice(1)}</Button>
+                                  ))}
+                              </div>
+                          )}
+                          {selectedTool === 'story' && (
+                              <Input placeholder="Genre (e.g., Fantasy, Sci-Fi) (optional)" value={options.storyGenre || ''} onChange={e => handleOptionChange('storyGenre', e.target.value)} />
+                          )}
+                      </div>
+
+                      {/* Input Textarea */}
+                      <Textarea 
+                          placeholder={
+                              selectedTool === 'enhance' ? 'Enter text to enhance...' :
+                              selectedTool === 'email' ? 'Enter the purpose or main points of your email...' :
+                              selectedTool === 'blog' ? 'Enter the topic for your blog post...' :
+                              selectedTool === 'study' ? 'Enter the topic you want to study...' :
+                              selectedTool === 'code' ? 'Paste your code snippet here...' :
+                              selectedTool === 'translate' ? 'Enter text to translate...' :
+                              selectedTool === 'social' ? 'Enter the topic for your social media post...' :
+                              selectedTool === 'resume' ? 'Paste your current resume section details...' :
+                              selectedTool === 'story' ? 'Enter your story idea or prompt...' :
+                              'Enter your math problem here...'
+                          }
+                          value={input}
+                          onChange={e => setInput(e.target.value)}
+                          className="min-h-[250px] text-base"
+                      />
+
+                      <Button onClick={handleProcess} disabled={loading} size="lg" className="mt-4 w-full">
+                          {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          {loading ? 'Generating...' : 'Generate'}
+                      </Button>
+                  </CardContent>
+              </Card>
           </div>
-        </div>
-            
-        <div className="grid grid-cols-1 gap-8">
-            <Card>
-                <CardContent className="p-6">
-                    {/* Options */}
-                    <div className="mb-6 space-y-4">
-                        {selectedTool === 'enhance' && (
-                            <div className="flex flex-wrap gap-2">
-                                {(['grammar', 'improve', 'rewrite'] as EnhanceTextInput['mode'][]).map(opt => (
-                                    <Button key={opt} variant={(options.enhanceMode || 'improve') === opt ? 'default' : 'outline'} onClick={() => handleOptionChange('enhanceMode', opt)}>{opt.charAt(0).toUpperCase() + opt.slice(1)}</Button>
-                                ))}
-                            </div>
-                        )}
-                        {selectedTool === 'email' && (
-                            <div className="space-y-4">
-                                <div className="flex flex-wrap gap-2">
-                                    {(['professional', 'casual', 'formal'] as GenerateEmailInput['tone'][]).map(tone => (
-                                        <Button key={tone} variant={(options.emailTone || 'professional') === tone ? 'default' : 'outline'} onClick={() => handleOptionChange('emailTone', tone)}>{tone.charAt(0).toUpperCase() + tone.slice(1)}</Button>
-                                    ))}
-                                </div>
-                                <Input placeholder="Additional details (optional)..." value={options.emailDetails || ''} onChange={e => handleOptionChange('emailDetails', e.target.value)} />
-                            </div>
-                        )}
-                        {selectedTool === 'blog' && (
-                            <div className="flex flex-wrap gap-2">
-                                {(['short', 'medium', 'long'] as GenerateBlogPostInput['length'][]).map(len => (
-                                    <Button key={len} variant={(options.blogLength || 'medium') === len ? 'default' : 'outline'} onClick={() => handleOptionChange('blogLength', len)}>{len.charAt(0).toUpperCase() + len.slice(1)}</Button>
-                                ))}
-                            </div>
-                        )}
-                        {selectedTool === 'study' && (
-                            <div className="flex flex-wrap gap-2">
-                                {(['explanation', 'notes', 'flashcards'] as GenerateStudyMaterialInput['type'][]).map(type => (
-                                    <Button key={type} variant={(options.studyType || 'explanation') === type ? 'default' : 'outline'} onClick={() => handleOptionChange('studyType', type)}>{type.charAt(0).toUpperCase() + type.slice(1)}</Button>
-                                ))}
-                            </div>
-                        )}
-                        {selectedTool === 'code' && (
-                            <Input placeholder="Language (e.g., JavaScript, Python)" value={options.codeLanguage || ''} onChange={e => handleOptionChange('codeLanguage', e.target.value)} />
-                        )}
-                        {selectedTool === 'translate' && (
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="outline">
-                                        {options.targetLanguage || 'Select Language'}
-                                        <ChevronDown className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <ScrollArea className="h-64">
-                                        {LANGUAGES.map(lang => (
-                                            <DropdownMenuItem key={lang.code} onSelect={() => handleOptionChange('targetLanguage', lang.name)}>
-                                                {lang.name}
-                                            </DropdownMenuItem>
-                                        ))}
-                                    </ScrollArea>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        )}
-                        {selectedTool === 'social' && (
-                            <div className="flex flex-wrap gap-2">
-                                {(['Twitter', 'Instagram', 'LinkedIn'] as GenerateSocialMediaPostInput['platform'][]).map(platform => (
-                                    <Button key={platform} variant={(options.socialPlatform || 'Twitter') === platform ? 'default' : 'outline'} onClick={() => handleOptionChange('socialPlatform', platform)}>{platform}</Button>
-                                ))}
-                            </div>
-                        )}
-                        {selectedTool === 'resume' && (
-                            <div className="flex flex-wrap gap-2">
-                                {(['summary', 'experience', 'skills'] as AssistResumeInput['section'][]).map(section => (
-                                    <Button key={section} variant={(options.resumeSection || 'summary') === section ? 'default' : 'outline'} onClick={() => handleOptionChange('resumeSection', section)}>{section.charAt(0).toUpperCase() + section.slice(1)}</Button>
-                                ))}
-                            </div>
-                        )}
-                        {selectedTool === 'story' && (
-                            <Input placeholder="Genre (e.g., Fantasy, Sci-Fi) (optional)" value={options.storyGenre || ''} onChange={e => handleOptionChange('storyGenre', e.target.value)} />
-                        )}
-                    </div>
-
-                    {/* Input */}
-                    <Textarea 
-                        placeholder={
-                            selectedTool === 'enhance' ? 'Enter text to enhance...' :
-                            selectedTool === 'email' ? 'Enter the purpose or main points of your email...' :
-                            selectedTool === 'blog' ? 'Enter the topic for your blog post...' :
-                            selectedTool === 'study' ? 'Enter the topic you want to study...' :
-                            selectedTool === 'code' ? 'Paste your code snippet here...' :
-                            selectedTool === 'translate' ? 'Enter text to translate...' :
-                            selectedTool === 'social' ? 'Enter the topic for your social media post...' :
-                            selectedTool === 'resume' ? 'Paste your current resume section details...' :
-                            selectedTool === 'story' ? 'Enter your story idea or prompt...' :
-                            'Enter your math problem here...'
-                        }
-                        value={input}
-                        onChange={e => setInput(e.target.value)}
-                        className="min-h-[200px] text-base"
-                    />
-
-                    <Button onClick={handleProcess} disabled={loading} size="lg" className="mt-4 w-full">
-                        {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        {loading ? 'Generating...' : 'Generate Result'}
-                    </Button>
-                </CardContent>
-            </Card>
-            
-            {/* Output */}
-            {(loading || output) && (
-                <Card>
-                      <CardHeader className="flex flex-row items-center justify-between w-full">
-                        <CardTitle>Result</CardTitle>
-                        {output && !loading && (
-                            <Button variant="ghost" size="sm" onClick={handleCopy}>
-                                <Copy className="mr-2 h-4 w-4" />
-                                Copy
-                            </Button>
-                        )}
-                    </CardHeader>
-                    <CardContent>
-                        {loading && (
-                          <div className="flex items-center justify-center p-8">
-                            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+          
+          {/* Right Column: Output */}
+          <div className="flex flex-col">
+              <Card className="flex-1">
+                  <CardHeader className="flex flex-row items-center justify-between">
+                      <CardTitle>Result</CardTitle>
+                      {output && !loading && (
+                          <Button variant="ghost" size="sm" onClick={handleCopy}>
+                              <Copy className="mr-2 h-4 w-4" />
+                              Copy
+                          </Button>
+                      )}
+                  </CardHeader>
+                  <CardContent className="h-full">
+                      {loading && (
+                        <div className="flex h-full min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed bg-card">
+                          <div className="text-center text-muted-foreground">
+                            <Loader2 className="mx-auto mb-4 h-10 w-10 animate-spin text-primary" />
+                            <p>Generating content...</p>
                           </div>
-                        )}
-                        {output && (
-                            <div className="prose prose-sm dark:prose-invert mt-4 max-w-none rounded-lg border bg-secondary/20 p-4">
-                                <ReactMarkdown
-                                    remarkPlugins={[remarkGfm]}
-                                    rehypePlugins={[rehypeRaw]}
-                                    components={{
-                                        p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
-                                        a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
-                                    }}
-                                >
-                                    {output}
-                                </ReactMarkdown>
-                          </div>
-                        )}
-                    </CardContent>
-                </Card>
-            )}
-
-              {!loading && !output && (
-                <Card className="flex items-center justify-center h-64 border-dashed">
-                    <div className="text-center text-muted-foreground">
-                        <p>Your generated content will appear here.</p>
-                    </div>
-                </Card>
-              )}
-        </div>
+                        </div>
+                      )}
+                      {!loading && !output && (
+                         <div className="flex h-full min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed bg-card">
+                            <div className="text-center text-muted-foreground">
+                                <PlusCircle className="mx-auto mb-4 h-10 w-10" />
+                                <p className="text-lg font-medium">Your generated content will appear here.</p>
+                                <p className="text-sm">Enter your input and click "Generate".</p>
+                            </div>
+                        </div>
+                      )}
+                      {output && !loading &&(
+                          <ScrollArea className="h-full max-h-[60vh] rounded-lg border bg-secondary/30 p-4">
+                              <div className="prose prose-sm dark:prose-invert max-w-none">
+                                  <ReactMarkdown
+                                      remarkPlugins={[remarkGfm]}
+                                      rehypePlugins={[rehypeRaw]}
+                                      components={{
+                                          p: ({ node, ...props }) => <p className="mb-4 last:mb-0" {...props} />,
+                                          a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
+                                          h1: ({node, ...props}) => <h1 className="font-headline text-2xl mb-4" {...props} />,
+                                          h2: ({node, ...props}) => <h2 className="font-headline text-xl mb-3" {...props} />,
+                                          h3: ({node, ...props}) => <h3 className="font-headline text-lg mb-2" {...props} />,
+                                          ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-4" {...props} />,
+                                          ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-4" {...props} />,
+                                          li: ({node, ...props}) => <li className="mb-2" {...props} />,
+                                          code: ({node, inline, className, children, ...props}) => {
+                                            const match = /language-(\w+)/.exec(className || '')
+                                            return !inline ? (
+                                              <div className="my-4 rounded-md bg-card p-4 overflow-x-auto">
+                                                <code className={cn("text-sm", className)} {...props}>
+                                                  {children}
+                                                </code>
+                                              </div>
+                                            ) : (
+                                              <code className="px-1 py-0.5 bg-card rounded-sm" {...props}>
+                                                {children}
+                                              </code>
+                                            )
+                                          }
+                                      }}
+                                  >
+                                      {output}
+                                  </ReactMarkdown>
+                            </div>
+                          </ScrollArea>
+                      )}
+                  </CardContent>
+              </Card>
+          </div>
       </div>
     );
   };
