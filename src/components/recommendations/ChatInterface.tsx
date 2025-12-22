@@ -11,15 +11,18 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
 import { useAppContext } from '@/context/AppContext';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { LANGUAGES, type Language } from '@/lib/languages';
 
 type Message = {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   originalContent?: string;
+  translatedTo?: Language;
 };
 
-function MessageBubble({ message, onTranslate }: { message: Message, onTranslate: (messageId: string, text: string) => void }) {
+function MessageBubble({ message, onTranslate }: { message: Message, onTranslate: (messageId: string, text: string, lang: Language) => void }) {
   const { toast } = useToast();
   const isUser = message.role === 'user';
   const [isTranslating, setIsTranslating] = useState(false);
@@ -38,9 +41,9 @@ function MessageBubble({ message, onTranslate }: { message: Message, onTranslate
     toast({ title: 'Copied to clipboard' });
   };
   
-  const handleTranslate = async () => {
+  const handleTranslate = async (lang: Language) => {
     setIsTranslating(true);
-    await onTranslate(message.id, message.originalContent || message.content);
+    await onTranslate(message.id, message.originalContent || message.content, lang);
     setIsTranslating(false);
   }
 
@@ -69,7 +72,7 @@ function MessageBubble({ message, onTranslate }: { message: Message, onTranslate
              {message.originalContent && (
                 <button 
                   className="mt-2 text-xs text-muted-foreground hover:underline"
-                  onClick={() => onTranslate(message.id, message.content)}
+                  onClick={() => onTranslate(message.id, message.content, message.translatedTo || 'en')}
                 >
                   Show Original
                 </button>
@@ -108,15 +111,27 @@ function MessageBubble({ message, onTranslate }: { message: Message, onTranslate
             >
               <Copy className="h-4 w-4 text-muted-foreground" />
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7"
-              onClick={handleTranslate}
-              disabled={isTranslating}
-            >
-                {isTranslating ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" /> : <Languages className="h-4 w-4 text-muted-foreground" />}
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7"
+                  disabled={isTranslating}
+                >
+                    {isTranslating ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" /> : <Languages className="h-4 w-4 text-muted-foreground" />}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <ScrollArea className="h-64">
+                  {LANGUAGES.map((lang) => (
+                    <DropdownMenuItem key={lang.code} onSelect={() => handleTranslate(lang.code as Language)}>
+                      {lang.name}
+                    </DropdownMenuItem>
+                  ))}
+                </ScrollArea>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
       </div>
@@ -219,20 +234,20 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
     setInput(prompt);
   }
   
-  const handleTranslateMessage = async (messageId: string, text: string) => {
+  const handleTranslateMessage = async (messageId: string, text: string, lang: Language) => {
     const targetMessage = messages.find(m => m.id === messageId);
     if (!targetMessage) return;
 
     // If it's already translated, revert to original
     if(targetMessage.originalContent) {
-        setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: m.originalContent!, originalContent: undefined} : m));
+        setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: m.originalContent!, originalContent: undefined, translatedTo: undefined} : m));
         return;
     }
 
-    const result = await translateTextAction({ text, targetLanguage: language });
+    const result = await translateTextAction({ text, targetLanguage: lang });
     if (result.success) {
-      setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: result.data, originalContent: text } : m));
-      toast({ title: `Translated to ${language}` });
+      setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: result.data, originalContent: text, translatedTo: lang } : m));
+      toast({ title: `Translated to ${LANGUAGES.find(l => l.code === lang)?.name || lang}` });
     } else {
       toast({
         variant: 'destructive',
@@ -304,3 +319,5 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
     </div>
   );
 }
+
+    

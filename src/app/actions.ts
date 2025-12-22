@@ -21,6 +21,7 @@ import {
   type SolveMathInput,
   type TranslateTextInput,
 } from '@/ai/flows/content-tools';
+import type { Language } from '@/lib/languages';
 
 // Personalized Recommendations Action
 type RecommendationsActionResult =
@@ -102,12 +103,14 @@ export async function solveMathAction(input: SolveMathInput): Promise<ContentToo
   }
 }
 
-export async function translateTextAction(input: TranslateTextInput): Promise<{ success: true, data: string } | { success: false, error: string }> {
+export async function translateTextAction(input: {text: string; targetLanguage: Language;}): Promise<{ success: true, data: string } | { success: false, error: string }> {
   try {
-    const { translatedText } = await translateText(input);
+    const { translatedText } = await translateText({text: input.text, targetLanguage: input.targetLanguage});
     return { success: true, data: translatedText };
   } catch (error) {
     console.error('Error translating text:', error);
     return { success: false, error: 'Failed to translate text.' };
   }
 }
+
+    
