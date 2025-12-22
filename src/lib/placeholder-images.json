@@ -63,14 +63,8 @@
     {
       "id": "content-tool-story",
       "description": "Creative Story Writer",
-      "imageUrl": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%D%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "imageHint": "old typewriter"
-    },
-    {
-      "id": "content-tool-image",
-      "description": "AI Image Generator",
-      "imageUrl": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageHint": "abstract art"
     }
   ]
 }
