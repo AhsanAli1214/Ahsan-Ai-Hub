@@ -54,36 +54,32 @@ export function AppSidebar() {
         <SidebarMenu>
           {mainNav.map((item) => (
             <SidebarMenuItem key={item.name}>
-              <Link href={item.href} passHref legacyBehavior>
-                <SidebarMenuButton
-                  onClick={handleLinkClick}
-                  asChild
-                  isActive={pathname === item.href && !currentCategory && pathname !== '/favorites'}
-                  tooltip={item.name}
-                >
-                  <a>
-                    <item.icon />
-                    <span>{item.name}</span>
-                  </a>
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                onClick={handleLinkClick}
+                asChild
+                isActive={pathname === item.href && !currentCategory && pathname !== '/favorites'}
+                tooltip={item.name}
+              >
+                <Link href={item.href}>
+                  <item.icon />
+                  <span>{item.name}</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
           {user && (
             <SidebarMenuItem>
-              <Link href="/favorites" passHref legacyBehavior>
-                <SidebarMenuButton
-                  onClick={handleLinkClick}
-                  asChild
-                  isActive={pathname === '/favorites'}
-                  tooltip="My Favorites"
-                >
-                  <a>
-                    <Heart />
-                    <span>My Favorites</span>
-                  </a>
-                </SidebarMenuButton>
-              </Link>
+              <SidebarMenuButton
+                onClick={handleLinkClick}
+                asChild
+                isActive={pathname === '/favorites'}
+                tooltip="My Favorites"
+              >
+                <Link href="/favorites">
+                  <Heart />
+                  <span>My Favorites</span>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           )}
         </SidebarMenu>
@@ -95,19 +91,17 @@ export function AppSidebar() {
           <SidebarMenu>
             {categories.map((category) => (
               <SidebarMenuItem key={category.name}>
-                <Link href={`/browse?category=${encodeURIComponent(category.name)}`} passHref legacyBehavior>
-                  <SidebarMenuButton
-                    onClick={handleLinkClick}
-                    asChild
-                    isActive={currentCategory === category.name}
-                    tooltip={category.name}
-                  >
-                    <a>
-                      <category.icon />
-                      <span>{category.name}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </Link>
+                <SidebarMenuButton
+                  onClick={handleLinkClick}
+                  asChild
+                  isActive={currentCategory === category.name}
+                  tooltip={category.name}
+                >
+                  <Link href={`/browse?category=${encodeURIComponent(category.name)}`}>
+                    <category.icon />
+                    <span>{category.name}</span>
+                  </Link>
+                </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
