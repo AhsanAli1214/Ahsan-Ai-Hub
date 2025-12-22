@@ -17,6 +17,7 @@ import {
   PenTool,
   Grid,
   ArrowRight,
+  Languages,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -26,6 +27,7 @@ import {
   generateStudyMaterialAction,
   explainProgrammingAction,
   solveMathAction,
+  translateTextAction,
 } from '@/app/actions';
 import { cn } from '@/lib/utils';
 import type {
@@ -33,11 +35,18 @@ import type {
   GenerateEmailInput,
   GenerateBlogPostInput,
   GenerateStudyMaterialInput,
+  TranslateTextInput,
 } from '@/ai/flows/content-tools';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { LANGUAGES, Language } from '@/lib/languages';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
-type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math';
+type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate';
 
 const toolsList: {
   id: Tool;
@@ -57,7 +66,7 @@ const toolsList: {
     id: 'email',
     label: 'Email Writer',
     icon: Mail,
-    desc: 'Craft professional, casual, or formal emails',
+    desc: 'Craft professional or casual emails',
     imageId: 'content-tool-email',
   },
   {
@@ -71,22 +80,29 @@ const toolsList: {
     id: 'study',
     label: 'Study Assistant',
     icon: BookOpen,
-    desc: 'Generate notes, explanations, and flashcards',
+    desc: 'Generate notes and explanations',
     imageId: 'content-tool-study',
   },
   {
     id: 'code',
     label: 'Code Explainer',
     icon: Code,
-    desc: 'Understand programming concepts and snippets',
+    desc: 'Understand programming concepts',
     imageId: 'content-tool-code',
   },
   {
     id: 'math',
     label: 'Math Solver',
     icon: Grid,
-    desc: 'Get step-by-step solutions and explanations',
+    desc: 'Get step-by-step solutions',
     imageId: 'content-tool-math',
+  },
+    {
+    id: 'translate',
+    label: 'Translator',
+    icon: Languages,
+    desc: 'Translate text between languages',
+    imageId: 'content-tool-translate',
   },
 ];
 
@@ -183,6 +199,12 @@ export default function ContentToolsPage() {
         case 'math':
             result = await solveMathAction({ problem: input });
             break;
+        case 'translate':
+            result = await translateTextAction({
+                text: input,
+                targetLanguage: (options.targetLanguage as TranslateTextInput['targetLanguage']) || 'Spanish',
+            });
+            break;
         default:
           throw new Error('No tool selected');
       }
@@ -257,6 +279,7 @@ export default function ContentToolsPage() {
                             selectedTool === 'blog' ? 'Choose content length for your article.' :
                             selectedTool === 'study' ? 'Select learning material format.' :
                             selectedTool === 'code' ? 'Specify programming language and paste your code.' :
+                            selectedTool === 'translate' ? 'Select target language and enter text.' :
                             'Enter your equation or problem to get a solution.'
                         }
                     </p>
@@ -301,6 +324,25 @@ export default function ContentToolsPage() {
                         {selectedTool === 'code' && (
                             <Input placeholder="Language (e.g., JavaScript, Python)" value={options.codeLanguage || ''} onChange={e => handleOptionChange('codeLanguage', e.target.value)} />
                         )}
+                        {selectedTool === 'translate' && (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline">
+                                        {options.targetLanguage || 'Select Language'}
+                                        <ChevronDown className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent>
+                                    <ScrollArea className="h-64">
+                                        {LANGUAGES.map(lang => (
+                                            <DropdownMenuItem key={lang.code} onSelect={() => handleOptionChange('targetLanguage', lang.name)}>
+                                                {lang.name}
+                                            </DropdownMenuItem>
+                                        ))}
+                                    </ScrollArea>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        )}
                     </div>
 
                     {/* Input */}
@@ -311,6 +353,7 @@ export default function ContentToolsPage() {
                             selectedTool === 'blog' ? 'Enter the topic for your blog post...' :
                             selectedTool === 'study' ? 'Enter the topic you want to study...' :
                             selectedTool === 'code' ? 'Paste your code snippet here...' :
+                            selectedTool === 'translate' ? 'Enter text to translate...' :
                             'Enter your math problem here...'
                         }
                         value={input}
@@ -344,8 +387,17 @@ export default function ContentToolsPage() {
                            </div>
                         )}
                         {output && (
-                           <div className="prose prose-sm dark:prose-invert mt-4 max-w-none whitespace-pre-wrap rounded-lg border bg-secondary/20 p-4">
-                                {output}
+                            <div className="prose prose-sm dark:prose-invert mt-4 max-w-none rounded-lg border bg-secondary/20 p-4">
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw]}
+                                    components={{
+                                        p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                                        a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
+                                    }}
+                                >
+                                    {output}
+                                </ReactMarkdown>
                            </div>
                         )}
                     </CardContent>

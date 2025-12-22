@@ -13,6 +13,9 @@ import { Card } from '@/components/ui/card';
 import { useAppContext } from '@/context/AppContext';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LANGUAGES, type Language } from '@/lib/languages';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 type Message = {
   id: string;
@@ -29,12 +32,13 @@ function MessageBubble({ message, onTranslate }: { message: Message, onTranslate
 
   const links = useMemo(() => parseLinks(message.content), [message.content]);
   const textContent = useMemo(() => {
+    if (isUser) return message.content;
     let content = message.content;
     links.forEach(link => {
       content = content.replace(link.link, '');
     });
     return content.trim();
-  }, [message.content, links]);
+  }, [message.content, links, isUser]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -67,8 +71,18 @@ function MessageBubble({ message, onTranslate }: { message: Message, onTranslate
             : 'rounded-bl-none border bg-card'
         )}
       >
-        <div className="p-3">
-            <p className="text-sm leading-relaxed whitespace-pre-wrap">{textContent}</p>
+        <div className="prose prose-sm dark:prose-invert max-w-none p-3">
+             <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+                  a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
+                }}
+            >
+                {textContent}
+            </ReactMarkdown>
+
              {message.originalContent && (
                 <button 
                   className="mt-2 text-xs text-muted-foreground hover:underline"
@@ -319,5 +333,3 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
     </div>
   );
 }
-
-    
