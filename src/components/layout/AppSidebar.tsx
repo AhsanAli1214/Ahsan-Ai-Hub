@@ -7,23 +7,16 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarSeparator,
 } from '@/components/ui/sidebar';
-import { AhsanAILogo, AIHubExpressLogo } from '@/components/icons';
-import { categories } from '@/lib/data';
+import { AIHubExpressLogo } from '@/components/icons';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { LayoutGrid, Sparkles, Heart, Home, Info, Mail, PenTool, HelpCircle, Settings } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
+import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from '@/components/ui/sidebar';
-import { useAuth } from '@/contexts/auth-context';
 
 const mainNav = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Browse Tools', href: '/browse', icon: LayoutGrid },
   { name: 'AI Chat', href: '/recommendations', icon: Sparkles },
   { name: 'Content Tools', href: '/content-tools', icon: PenTool },
   { name: 'Features', href: '/features', icon: Settings },
@@ -34,11 +27,8 @@ const mainNav = [
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentCategory = searchParams.get('category');
   const isMobile = useIsMobile();
   const { setOpenMobile } = useSidebar();
-  const { user } = useAuth();
 
   const handleLinkClick = () => {
     if (isMobile) {
@@ -61,7 +51,7 @@ export function AppSidebar() {
               <SidebarMenuButton
                 onClick={handleLinkClick}
                 asChild
-                isActive={pathname === item.href && !currentCategory && pathname !== '/favorites'}
+                isActive={pathname === item.href}
                 tooltip={item.name}
               >
                 <Link href={item.href}>
@@ -71,45 +61,7 @@ export function AppSidebar() {
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
-          {user && (
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                onClick={handleLinkClick}
-                asChild
-                isActive={pathname === '/favorites'}
-                tooltip="My Favorites"
-              >
-                <Link href="/favorites">
-                  <Heart />
-                  <span>My Favorites</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
         </SidebarMenu>
-
-        <SidebarSeparator />
-
-        <SidebarGroup>
-          <SidebarGroupLabel>Categories</SidebarGroupLabel>
-          <SidebarMenu>
-            {categories.map((category) => (
-              <SidebarMenuItem key={category.name}>
-                <SidebarMenuButton
-                  onClick={handleLinkClick}
-                  asChild
-                  isActive={currentCategory === category.name}
-                  tooltip={category.name}
-                >
-                  <Link href={`/browse?category=${encodeURIComponent(category.name)}`}>
-                    <category.icon />
-                    <span>{category.name}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );
