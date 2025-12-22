@@ -145,7 +145,7 @@ const getImageForTool = (tool: (typeof toolsList)[0]): ImagePlaceholder | undefi
 function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0], onSelect: () => void }) {
   const image = getImageForTool(tool);
   return (
-    <Card className="group flex flex-col overflow-hidden transition-all hover:shadow-xl">
+    <Card onClick={onSelect} className="group flex cursor-pointer flex-col overflow-hidden transition-all hover:shadow-xl">
       <CardHeader className="p-0">
         <div className="relative h-48 w-full">
           {image && (
@@ -234,7 +234,7 @@ export default function ContentToolsPage() {
         case 'translate':
             result = await translateTextAction({
                 text: input,
-                targetLanguage: (options.targetLanguage as TranslateTextInput['targetLanguage']) || 'Spanish',
+                targetLanguage: options.targetLanguage || 'Spanish',
             });
             break;
         case 'social':
@@ -310,26 +310,29 @@ export default function ContentToolsPage() {
     const currentTool = toolsList.find(t => t.id === selectedTool);
 
     return (
-      <div className="space-y-6 p-4 lg:p-6 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-8">
-          {/* Left Column: Input */}
-          <div className="space-y-6">
-              <div>
-                  <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
-                      <ArrowLeft className="mr-2 h-4 w-4" />
-                      Back to All Tools
-                  </Button>
-                  <div className="flex items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                          {currentTool && <currentTool.icon className="h-6 w-6" />}
-                      </div>
-                      <div>
-                          <h2 className="font-headline text-3xl font-bold">{currentTool?.label}</h2>
-                          <p className="text-muted-foreground">
-                              {currentTool?.desc}
-                          </p>
-                      </div>
+      <div className="mx-auto max-w-4xl space-y-8 p-4 lg:p-6">
+          {/* Header */}
+          <div>
+              <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to All Tools
+              </Button>
+              <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      {currentTool && <currentTool.icon className="h-6 w-6" />}
+                  </div>
+                  <div>
+                      <h2 className="font-headline text-3xl font-bold">{currentTool?.label}</h2>
+                      <p className="text-muted-foreground">
+                          {currentTool?.desc}
+                      </p>
                   </div>
               </div>
+          </div>
+          
+          {/* Main Content */}
+          <div className="space-y-8">
+              {/* Input Card */}
               <Card>
                   <CardHeader>
                       <CardTitle>Your Input</CardTitle>
@@ -434,11 +437,9 @@ export default function ContentToolsPage() {
                       </Button>
                   </CardContent>
               </Card>
-          </div>
-          
-          {/* Right Column: Output */}
-          <div className="flex flex-col">
-              <Card className="flex-1">
+
+              {/* Output Card */}
+              <Card>
                   <CardHeader className="flex flex-row items-center justify-between">
                       <CardTitle>Result</CardTitle>
                       {output && !loading && (
@@ -448,7 +449,7 @@ export default function ContentToolsPage() {
                           </Button>
                       )}
                   </CardHeader>
-                  <CardContent className="h-full">
+                  <CardContent>
                       {loading && (
                         <div className="flex h-full min-h-[300px] items-center justify-center rounded-lg border-2 border-dashed bg-card">
                           <div className="text-center text-muted-foreground">

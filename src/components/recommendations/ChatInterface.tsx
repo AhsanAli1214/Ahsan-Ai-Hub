@@ -208,7 +208,9 @@ function MessageBubble({
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-3">
-       <AhsanAiHubLogo className="h-10 w-10 shrink-0" />
+       <div className="h-8 w-8 shrink-0 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
+          <Bot className="h-5 w-5" />
+        </div>
       <div className="flex items-center space-x-1 rounded-2xl border bg-card p-3">
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
