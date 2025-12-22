@@ -19,7 +19,7 @@ const mainNav = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'AI Chat', href: '/recommendations', icon: Sparkles },
   { name: 'Content Tools', href: '/content-tools', icon: PenTool },
-  { name: 'Features', href: '/features', icon: Settings },
+  { name: 'Settings', href: '/settings', icon: Settings },
   { name: 'About', href: '/about', icon: Info },
   { name: 'Contact', href: '/contact', icon: Mail },
   { name: 'FAQ', href: '/faq', icon: HelpCircle },
