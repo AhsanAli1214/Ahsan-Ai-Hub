@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, parseLinks } from '@/lib/utils';
-import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Speaker, Pause, Play, ChevronDown } from 'lucide-react';
+import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Speaker, Pause, Play, ChevronDown, Link as LinkIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
@@ -82,118 +82,121 @@ function MessageBubble({
       )}
     >
       {!isUser && (
-        <AhsanAiHubLogo className="h-10 w-10 shrink-0" />
+        <AhsanAiHubLogo className="h-10 w-10 shrink-0 self-start" />
       )}
       <div
         className={cn(
-          'relative max-w-[85%] sm:max-w-[80%] rounded-2xl p-0.5',
+          'relative max-w-[85%] sm:max-w-[80%] rounded-2xl p-3',
           isUser
             ? 'rounded-br-lg bg-primary text-primary-foreground'
             : 'rounded-bl-lg border bg-card'
         )}
       >
-        <div className="p-3 break-words">
-             <div className="break-words">
-                <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeRaw]}
-                    components={{
-                    p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
-                    a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
-                    }}
-                >
-                    {textContent}
-                </ReactMarkdown>
-            </div>
-
-             {message.originalContent && (
-                <button 
-                  className="mt-2 text-xs text-muted-foreground hover:underline"
-                  onClick={() => onTranslate(message.id, message.content, message.translatedTo || 'en')}
-                >
-                  Show Original
-                </button>
-            )}
-        </div>
-
-        {links.length > 0 && (
-            <div className="border-t p-3 space-y-2">
-                {links.map((link, index) => (
-                    <Card key={index} className="overflow-hidden">
-                        <div className="p-2">
-                            <a href={link.link} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 truncate block hover:underline">{link.text}</a>
-                        </div>
-                        <div className="flex border-t">
-                            <Button variant="ghost" size="sm" className="flex-1 rounded-none border-r" asChild>
-                                <a href={link.link} target="_blank" rel="noopener noreferrer">
-                                    <ExternalLink className="mr-2 h-4 w-4" /> Open
-                                </a>
-                            </Button>
-                            <Button variant="ghost" size="sm" className="flex-1 rounded-none" onClick={() => handleCopy(link.link)}>
-                                <Copy className="mr-2 h-4 w-4" /> Copy
-                            </Button>
-                        </div>
-                    </Card>
-                ))}
-            </div>
-        )}
-
-        <div className={cn("absolute -bottom-2 flex items-center gap-1 transition-opacity opacity-0 group-hover:opacity-100", isUser ? 'left-2' : 'right-2' )}>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
-            onClick={() => handleCopy(message.content)}
+        <div className="break-words">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
+              a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
+            }}
           >
-            <Copy className="h-4 w-4 text-muted-foreground" />
-          </Button>
-          {!isUser && (
-            <>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
-                    disabled={isTranslating}
-                  >
-                      {isTranslating ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" /> : <Languages className="h-4 w-4 text-muted-foreground" />}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <ScrollArea className="h-64">
-                    {LANGUAGES.map((lang) => (
-                      <DropdownMenuItem key={lang.code} onSelect={() => handleTranslate(lang.code as Language)}>
-                        {lang.name}
-                      </DropdownMenuItem>
-                    ))}
-                  </ScrollArea>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
-                  onClick={handleAudioClick}
-                  disabled={isBuffering}
-                >
-                  {isBuffering ? (
-                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                  ) : isPlaying ? (
-                    <Pause className="h-4 w-4 text-muted-foreground" />
-                  ) : (
-                    <Speaker className="h-4 w-4 text-muted-foreground" />
-                  )}
-                </Button>
-            </>
-          )}
+            {textContent}
+          </ReactMarkdown>
         </div>
+        {message.originalContent && (
+          <button 
+            className="mt-2 text-xs text-muted-foreground hover:underline"
+            onClick={() => onTranslate(message.id, message.content, message.translatedTo || 'en')}
+          >
+            Show Original
+          </button>
+        )}
+        
+        {links.length > 0 && (
+          <div className="mt-3 border-t pt-3 space-y-2">
+            {links.map((link, index) => (
+              <Card key={index} className="overflow-hidden bg-card/50">
+                <div className="p-3 flex items-center gap-2">
+                   <a href={link.link} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 truncate flex-1 hover:underline">{link.text}</a>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0">
+                          <LinkIcon className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem asChild>
+                          <a href={link.link} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="mr-2 h-4 w-4" /> Open Link
+                          </a>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleCopy(link.link)}>
+                           <Copy className="mr-2 h-4 w-4" /> Copy Link
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
       {isUser && (
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground">
           <UserIcon className="h-5 w-5" />
         </div>
       )}
+      <div className={cn("absolute -bottom-7 flex items-center gap-1 transition-opacity opacity-0 group-hover:opacity-100", isUser ? 'right-12' : 'left-12' )}>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
+          onClick={() => handleCopy(message.content)}
+        >
+          <Copy className="h-4 w-4 text-muted-foreground" />
+        </Button>
+        {!isUser && (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
+                  disabled={isTranslating}
+                >
+                    {isTranslating ? <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" /> : <Languages className="h-4 w-4 text-muted-foreground" />}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <ScrollArea className="h-64">
+                  {LANGUAGES.map((lang) => (
+                    <DropdownMenuItem key={lang.code} onSelect={() => handleTranslate(lang.code as Language)}>
+                      {lang.name}
+                    </DropdownMenuItem>
+                  ))}
+                </ScrollArea>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 bg-card/80 backdrop-blur-sm hover:bg-card"
+                onClick={handleAudioClick}
+                disabled={isBuffering}
+              >
+                {isBuffering ? (
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                ) : isPlaying ? (
+                  <Pause className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <Speaker className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -422,7 +425,7 @@ export function ChatInterface({
   return (
     <div className="relative flex h-full flex-col">
       <ScrollArea className="flex-1" ref={scrollAreaRef} onScroll={handleScroll}>
-        <div className="mx-auto max-w-3xl space-y-6 p-4">
+        <div className="mx-auto max-w-3xl space-y-8 p-4">
           {messages.length === 0 && !isLoading ? (
             <div className="flex h-full flex-col items-center justify-center gap-6 pt-10 text-center">
                 <AhsanAiHubLogo className="h-24 w-24" />
@@ -458,15 +461,15 @@ export function ChatInterface({
           )}
           {isLoading && enableTypingIndicator && <TypingIndicator />}
         </div>
-         {showScrollButton && (
-            <div className="absolute bottom-4 right-4 z-10">
-                <Button size="icon" className="rounded-full shadow-lg" onClick={() => scrollToBottom('smooth')}>
-                    <ChevronDown className="h-5 w-5" />
-                </Button>
-            </div>
-        )}
       </ScrollArea>
-      <div className="border-t bg-background/95 p-4">
+       {showScrollButton && (
+        <div className="absolute bottom-24 right-4 z-10 md:bottom-20">
+            <Button size="icon" className="rounded-full shadow-lg" onClick={() => scrollToBottom('smooth')}>
+                <ChevronDown className="h-5 w-5" />
+            </Button>
+        </div>
+      )}
+      <div className="border-t bg-background/95 p-4 sticky bottom-0">
         <div className="mx-auto max-w-3xl rounded-lg border bg-card p-2 shadow-sm">
            <div className="flex items-end gap-3">
             <Textarea
@@ -493,5 +496,3 @@ export function ChatInterface({
     </div>
   );
 }
-
-    
