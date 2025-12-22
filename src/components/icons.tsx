@@ -1,13 +1,13 @@
 import type { SVGProps } from 'react';
 import Image from 'next/image';
 
-export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement>) {
+export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number; height?: number}) {
   return (
     <Image
       src="https://i.postimg.cc/Y2dztjVk/icon.png"
       alt="Ahsan Ai Hub Logo"
-      width={60}
-      height={60}
+      width={props.width || 60}
+      height={props.height || 60}
       className={props.className}
     />
   );
