@@ -6,8 +6,8 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement>) {
     <Image
       src="https://i.postimg.cc/Y2dztjVk/icon.png"
       alt="Ahsan Ai Hub Logo"
-      width={40}
-      height={40}
+      width={60}
+      height={60}
       className={props.className}
     />
   );

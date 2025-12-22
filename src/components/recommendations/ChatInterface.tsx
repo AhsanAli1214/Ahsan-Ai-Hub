@@ -82,8 +82,8 @@ function MessageBubble({
       )}
     >
       {!isUser && (
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
-          <AhsanAiHubLogo className="h-5 w-5" />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+          <AhsanAiHubLogo className="h-6 w-6" />
         </div>
       )}
       <div
@@ -199,8 +199,8 @@ function MessageBubble({
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-3">
-       <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/20 p-1.5 text-primary">
-          <AhsanAiHubLogo className="h-5 w-5" />
+       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 p-1.5 text-primary">
+          <AhsanAiHubLogo className="h-6 w-6" />
         </div>
       <div className="flex items-center space-x-1 rounded-lg border bg-card p-3">
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
@@ -417,8 +417,8 @@ export function ChatInterface({
         <div className="mx-auto max-w-3xl space-y-6 p-4">
           {messages.length === 0 && !isLoading ? (
             <div className="flex h-full flex-col items-center justify-center gap-6 pt-10 text-center">
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-accent/20">
-                    <AhsanAiHubLogo className="h-12 w-12 text-accent" />
+                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-lg bg-accent/20">
+                    <AhsanAiHubLogo className="h-16 w-16 text-accent" />
                 </div>
                 <div>
                     <h2 className="text-2xl font-semibold">How can I help you today?</h2>
