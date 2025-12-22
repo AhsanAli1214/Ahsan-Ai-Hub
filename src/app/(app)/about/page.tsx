@@ -81,13 +81,14 @@ export default function AboutPage() {
             <div className="bg-accent/30 p-8">
               <div className="mx-auto w-fit rounded-full border-4 border-accent bg-accent/20 p-1">
                 <Avatar className="h-32 w-32">
-                  {developerImage && (
+                  {developerImage ? (
                     <AvatarImage
                       src={developerImage.imageUrl}
                       alt="Developer Ahsan Ali"
                     />
+                  ) : (
+                     <AvatarFallback>AA</AvatarFallback>
                   )}
-                  <AvatarFallback>AA</AvatarFallback>
                 </Avatar>
               </div>
             </div>
