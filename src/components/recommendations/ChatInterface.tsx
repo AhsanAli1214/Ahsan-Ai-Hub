@@ -92,7 +92,7 @@ function MessageBubble({
             : 'rounded-bl-none border bg-card'
         )}
       >
-        <div className="prose prose-sm dark:prose-invert max-w-none p-3">
+        <div className="prose prose-sm dark:prose-invert max-w-none p-3 break-words">
              <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
