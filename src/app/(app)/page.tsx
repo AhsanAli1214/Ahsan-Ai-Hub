@@ -16,7 +16,6 @@ import {
 import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
-import { useMemo } from 'react';
 
 const QUICK_ACTIONS = [
   {
@@ -68,10 +67,10 @@ const PERSONALITY_MODES_CONFIG: Record<
 export default function HomePage() {
   const { personalityMode } = useAppContext();
 
-  const currentMode = useMemo(() => {
-    return PERSONALITY_MODES_CONFIG[personalityMode] || PERSONALITY_MODES_CONFIG.creative;
-  }, [personalityMode]);
-  
+  const currentMode =
+    PERSONALITY_MODES_CONFIG[personalityMode] ||
+    PERSONALITY_MODES_CONFIG.creative;
+
   return (
     <div className="flex h-full flex-col">
       <AppHeader title="Home" />
