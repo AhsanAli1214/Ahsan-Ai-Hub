@@ -192,8 +192,8 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
           {isLoading && <TypingIndicator />}
         </div>
       </ScrollArea>
-      <div className="border-t bg-background/95">
-        <div className="mx-auto flex max-w-3xl items-end gap-2 p-4">
+      <div className="border-t bg-background/95 p-4">
+        <div className="mx-auto flex max-w-3xl items-end gap-3 rounded-lg border bg-card p-2 shadow-sm">
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -204,11 +204,11 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
               }
             }}
             placeholder="Ask me anything..."
-            className="flex-1 resize-none"
+            className="flex-1 resize-none border-0 bg-transparent shadow-none focus-visible:ring-0"
             rows={1}
             disabled={isLoading}
           />
-          <Button onClick={handleSend} disabled={isLoading || !input.trim()} size="icon" className="h-10 w-10 shrink-0">
+          <Button onClick={handleSend} disabled={isLoading || !input.trim()} size="icon" className="h-9 w-9 shrink-0">
             <Send className="h-4 w-4" />
             <span className="sr-only">Send</span>
           </Button>
