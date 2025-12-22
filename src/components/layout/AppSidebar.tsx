@@ -15,7 +15,7 @@ import { AhsanAILogo, AIHubExpressLogo } from '@/components/icons';
 import { categories } from '@/lib/data';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { LayoutGrid, Sparkles, Heart, Home, Info } from 'lucide-react';
+import { LayoutGrid, Sparkles, Heart, Home, Info, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from '@/components/ui/sidebar';
@@ -26,6 +26,7 @@ const mainNav = [
   { name: 'Browse Tools', href: '/browse', icon: LayoutGrid },
   { name: 'AI Chat', href: '/recommendations', icon: Sparkles },
   { name: 'About', href: '/about', icon: Info },
+  { name: 'Contact', href: '/contact', icon: Mail },
 ];
 
 export function AppSidebar() {
