@@ -1,9 +1,6 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbopack: {},
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -40,7 +37,8 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https'
+        ,
         hostname: 'encrypted-tbn0.gstatic.com',
         port: '',
         pathname: '/**',
