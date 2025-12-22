@@ -3,9 +3,6 @@
 /**
  * @fileOverview This file defines a Genkit flow for providing personalized AI tool recommendations.
  *
- * The flow takes user interests and activity as input and recommends relevant AI tools.
- * @param {PersonalizedToolRecommendationsInput} input - The input to the flow.
- * @returns {Promise<PersonalizedToolRecommendationsOutput>} - A promise that resolves with the AI tool recommendations.
  */
 
 import {ai} from '@/ai/genkit';
