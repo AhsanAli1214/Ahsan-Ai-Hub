@@ -305,3 +305,138 @@ ${text}
     return output ?? { translatedText: '' };
   }
 );
+
+// Social Media Post Generator
+const GenerateSocialMediaPostInputSchema = z.object({
+  topic: z.string().describe("The topic or main message of the post."),
+  platform: z.enum(['Twitter', 'Instagram', 'LinkedIn']).describe("The social media platform."),
+});
+export type GenerateSocialMediaPostInput = z.infer<typeof GenerateSocialMediaPostInputSchema>;
+
+const GenerateSocialMediaPostOutputSchema = z.object({
+  result: z.string().describe("The generated social media post."),
+});
+export type GenerateSocialMediaPostOutput = z.infer<typeof GenerateSocialMediaPostOutputSchema>;
+
+export async function generateSocialMediaPost(input: GenerateSocialMediaPostInput): Promise<GenerateSocialMediaPostOutput> {
+  return generateSocialMediaPostFlow(input);
+}
+
+const generateSocialMediaPostFlow = ai.defineFlow(
+  {
+    name: 'generateSocialMediaPostFlow',
+    inputSchema: GenerateSocialMediaPostInputSchema,
+    outputSchema: GenerateSocialMediaPostOutputSchema,
+  },
+  async ({ topic, platform }) => {
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
+      prompt: `You are a social media marketing expert. Create a compelling post for ${platform}.
+
+Topic/Message: "${topic}"
+
+- For Twitter, be concise and use relevant hashtags.
+- For Instagram, write an engaging caption and suggest relevant hashtags.
+- For LinkedIn, be professional and focus on industry insights or career advice.
+
+Format the output as a complete post, including hashtags.
+
+Post:`,
+      output: {
+        schema: z.object({ result: z.string() })
+      }
+    });
+    return output ?? { result: '' };
+  }
+);
+
+
+// Resume Assistant
+const AssistResumeInputSchema = z.object({
+  section: z.enum(['summary', 'experience', 'skills']).describe("The resume section to work on."),
+  details: z.string().describe("User-provided details like job history, skills, or career goals."),
+});
+export type AssistResumeInput = z.infer<typeof AssistResumeInputSchema>;
+
+const AssistResumeOutputSchema = z.object({
+  result: z.string().describe("The generated or improved resume content."),
+});
+export type AssistResumeOutput = z.infer<typeof AssistResumeOutputSchema>;
+
+export async function assistResume(input: AssistResumeInput): Promise<AssistResumeOutput> {
+  return assistResumeFlow(input);
+}
+
+const assistResumeFlow = ai.defineFlow(
+  {
+    name: 'assistResumeFlow',
+    inputSchema: AssistResumeInputSchema,
+    outputSchema: AssistResumeOutputSchema,
+  },
+  async ({ section, details }) => {
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
+      prompt: `You are a professional resume writer and career coach. Help the user with their resume.
+
+Section: ${section}
+User's Details:
+"""
+${details}
+"""
+
+- If 'summary', write a compelling professional summary (3-4 sentences).
+- If 'experience', rewrite the provided job description using action verbs and quantifiable achievements.
+- If 'skills', organize the listed skills into relevant categories.
+
+Provide only the generated content for the specified section.
+
+Result:`,
+      output: {
+        schema: z.odject({ result: z.string() })
+      }
+    });
+    return output ?? { result: '' };
+  }
+);
+
+
+// Creative Story Writer
+const GenerateStoryInputSchema = z.object({
+  prompt: z.string().describe("The user's story prompt or idea."),
+  genre: z.string().optional().describe("The genre of the story (e.g., fantasy, sci-fi, mystery)."),
+});
+export type GenerateStoryInput = z.infer<typeof GenerateStoryInputSchema>;
+
+const GenerateStoryOutputSchema = z.object({
+  result: z.string().describe("The generated story or story part."),
+});
+export type GenerateStoryOutput = z.infer<typeof GenerateStoryOutputSchema>;
+
+export async function generateStory(input: GenerateStoryInput): Promise<GenerateStoryOutput> {
+  return generateStoryFlow(input);
+}
+
+const generateStoryFlow = ai.defineFlow(
+  {
+    name: 'generateStoryFlow',
+    inputSchema: GenerateStoryInputSchema,
+    outputSchema: GenerateStoryOutputSchema,
+  },
+  async ({ prompt, genre }) => {
+    const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
+      prompt: `You are a creative writer. Write a short story based on the user's prompt.
+
+Genre: ${genre || 'any'}
+Prompt: "${prompt}"
+
+Begin the story. Make it engaging and imaginative.
+
+Story:`,
+      output: {
+        schema: z.object({ result: z.string() })
+      }
+    });
+    return output ?? { result: '' };
+  }
+);

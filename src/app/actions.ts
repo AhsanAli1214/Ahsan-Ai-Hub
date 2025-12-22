@@ -13,6 +13,9 @@ import {
   explainProgramming,
   solveMath,
   translateText,
+  generateSocialMediaPost,
+  assistResume,
+  generateStory,
   type EnhanceTextInput,
   type GenerateEmailInput,
   type GenerateBlogPostInput,
@@ -20,6 +23,9 @@ import {
   type ExplainProgrammingInput,
   type SolveMathInput,
   type TranslateTextInput,
+  type GenerateSocialMediaPostInput,
+  type AssistResumeInput,
+  type GenerateStoryInput,
 } from '@/ai/flows/content-tools';
 import { textToSpeech, TextToSpeechInput } from '@/ai/flows/tts';
 import type { Language } from '@/lib/languages';
@@ -112,6 +118,36 @@ export async function translateTextAction(input: {text: string; targetLanguage: 
     console.error('Error translating text:', error);
     return { success: false, error: 'Failed to translate text.' };
   }
+}
+
+export async function generateSocialMediaPostAction(input: GenerateSocialMediaPostInput): Promise<ContentToolResult> {
+    try {
+        const { result } = await generateSocialMediaPost(input);
+        return { success: true, data: result };
+    } catch (error) {
+        console.error('Error generating social media post:', error);
+        return { success: false, error: 'Failed to generate social media post.' };
+    }
+}
+
+export async function assistResumeAction(input: AssistResumeInput): Promise<ContentToolResult> {
+    try {
+        const { result } = await assistResume(input);
+        return { success: true, data: result };
+    } catch (error) {
+        console.error('Error assisting with resume:', error);
+        return { success: false, error: 'Failed to assist with resume.' };
+    }
+}
+
+export async function generateStoryAction(input: GenerateStoryInput): Promise<ContentToolResult> {
+    try {
+        const { result } = await generateStory(input);
+        return { success: true, data: result };
+    } catch (error) {
+        console.error('Error generating story:', error);
+        return { success: false, error: 'Failed to generate story.' };
+    }
 }
 
 

@@ -19,6 +19,9 @@ import {
   ArrowRight,
   Languages,
   ChevronDown,
+  Share2,
+  FileText,
+  Feather,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -29,6 +32,9 @@ import {
   explainProgrammingAction,
   solveMathAction,
   translateTextAction,
+  generateSocialMediaPostAction,
+  assistResumeAction,
+  generateStoryAction,
 } from '@/app/actions';
 import { cn } from '@/lib/utils';
 import type {
@@ -37,6 +43,9 @@ import type {
   GenerateBlogPostInput,
   GenerateStudyMaterialInput,
   TranslateTextInput,
+  GenerateSocialMediaPostInput,
+  AssistResumeInput,
+  GenerateStoryInput,
 } from '@/ai/flows/content-tools';
 import Image from 'next/image';
 import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
@@ -47,7 +56,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { LANGUAGES, Language } from '@/lib/languages';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate';
+type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story';
 
 const toolsList: {
   id: Tool;
@@ -104,6 +113,27 @@ const toolsList: {
     icon: Languages,
     desc: 'Translate text between languages',
     imageId: 'content-tool-translate',
+  },
+  {
+    id: 'social',
+    label: 'Social Media Post',
+    icon: Share2,
+    desc: 'Generate posts for social platforms',
+    imageId: 'content-tool-social',
+  },
+  {
+    id: 'resume',
+    label: 'Resume Assistant',
+    icon: FileText,
+    desc: 'Improve your resume sections',
+    imageId: 'content-tool-resume',
+  },
+  {
+    id: 'story',
+    label: 'Creative Story Writer',
+    icon: Feather,
+    desc: 'Generate story ideas and plots',
+    imageId: 'content-tool-story',
   },
 ];
 
@@ -206,6 +236,24 @@ export default function ContentToolsPage() {
                 targetLanguage: (options.targetLanguage as TranslateTextInput['targetLanguage']) || 'Spanish',
             });
             break;
+        case 'social':
+            result = await generateSocialMediaPostAction({
+                topic: input,
+                platform: (options.socialPlatform as GenerateSocialMediaPostInput['platform']) || 'Twitter',
+            });
+            break;
+        case 'resume':
+            result = await assistResumeAction({
+                section: (options.resumeSection as AssistResumeInput['section']) || 'summary',
+                details: input,
+            });
+            break;
+        case 'story':
+            result = await generateStoryAction({
+                prompt: input,
+                genre: options.storyGenre,
+            });
+            break;
         default:
           throw new Error('No tool selected');
       }
@@ -281,6 +329,9 @@ export default function ContentToolsPage() {
                             selectedTool === 'study' ? 'Select learning material format.' :
                             selectedTool === 'code' ? 'Specify programming language and paste your code.' :
                             selectedTool === 'translate' ? 'Select target language and enter text.' :
+                            selectedTool === 'social' ? 'Select the platform and enter your topic.' :
+                            selectedTool === 'resume' ? 'Select the resume section and paste your details.' :
+                            selectedTool === 'story' ? 'Enter a genre and a prompt for your story.' :
                             'Enter your equation or problem to get a solution.'
                         }
                     </p>
@@ -344,6 +395,23 @@ export default function ContentToolsPage() {
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         )}
+                        {selectedTool === 'social' && (
+                            <div className="flex flex-wrap gap-2">
+                                {(['Twitter', 'Instagram', 'LinkedIn'] as GenerateSocialMediaPostInput['platform'][]).map(platform => (
+                                    <Button key={platform} variant={(options.socialPlatform || 'Twitter') === platform ? 'default' : 'outline'} onClick={() => handleOptionChange('socialPlatform', platform)}>{platform}</Button>
+                                ))}
+                            </div>
+                        )}
+                        {selectedTool === 'resume' && (
+                            <div className="flex flex-wrap gap-2">
+                                {(['summary', 'experience', 'skills'] as AssistResumeInput['section'][]).map(section => (
+                                    <Button key={section} variant={(options.resumeSection || 'summary') === section ? 'default' : 'outline'} onClick={() => handleOptionChange('resumeSection', section)}>{section.charAt(0).toUpperCase() + section.slice(1)}</Button>
+                                ))}
+                            </div>
+                        )}
+                        {selectedTool === 'story' && (
+                            <Input placeholder="Genre (e.g., Fantasy, Sci-Fi) (optional)" value={options.storyGenre || ''} onChange={e => handleOptionChange('storyGenre', e.target.value)} />
+                        )}
                     </div>
 
                     {/* Input */}
@@ -355,6 +423,9 @@ export default function ContentToolsPage() {
                             selectedTool === 'study' ? 'Enter the topic you want to study...' :
                             selectedTool === 'code' ? 'Paste your code snippet here...' :
                             selectedTool === 'translate' ? 'Enter text to translate...' :
+                            selectedTool === 'social' ? 'Enter the topic for your social media post...' :
+                            selectedTool === 'resume' ? 'Paste your current resume section details...' :
+                            selectedTool === 'story' ? 'Enter your story idea or prompt...' :
                             'Enter your math problem here...'
                         }
                         value={input}
