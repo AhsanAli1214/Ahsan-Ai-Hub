@@ -80,13 +80,13 @@ export default function AboutPage() {
           <Card className="overflow-hidden shadow-lg">
             <CardContent className="p-0">
               <div className="grid grid-cols-1 items-center md:grid-cols-3">
-                <div className="relative h-64 w-full md:h-full md:col-span-1">
+                <div className="relative h-64 w-full bg-card md:h-full md:col-span-1">
                   {developerImage && (
                     <Image
                       src={developerImage.imageUrl}
                       alt="Developer Ahsan Ali"
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       data-ai-hint={developerImage.imageHint}
                     />
                   )}
