@@ -26,16 +26,16 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import {
-  enhanceTextAction,
-  generateEmailAction,
-  generateBlogPostAction,
-  generateStudyMaterialAction,
+  assistResumeAction,
   explainProgrammingAction,
+  generateBlogPostAction,
+  generateEmailAction,
+  generateSocialMediaPostAction,
+  generateStoryAction,
+  generateStudyMaterialAction,
+  enhanceTextAction,
   solveMathAction,
   translateTextAction,
-  generateSocialMediaPostAction,
-  assistResumeAction,
-  generateStoryAction,
 } from '@/app/actions';
 import { cn } from '@/lib/utils';
 import type {
@@ -310,10 +310,10 @@ export default function ContentToolsPage() {
     const currentTool = toolsList.find(t => t.id === selectedTool);
 
     return (
-      <div className="mx-auto max-w-4xl space-y-8 p-4 lg:p-6">
+      <div className="space-y-6 p-4 lg:p-6">
           {/* Header */}
-          <div>
-              <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
+          <div className="space-y-4">
+              <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="">
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back to All Tools
               </Button>
@@ -330,7 +330,6 @@ export default function ContentToolsPage() {
               </div>
           </div>
           
-          {/* Main Content */}
           <div className="space-y-8">
               {/* Input Card */}
               <Card>
