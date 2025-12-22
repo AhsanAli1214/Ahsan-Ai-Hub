@@ -11,7 +11,7 @@ import {
   SidebarGroupLabel,
   SidebarSeparator,
 } from '@/components/ui/sidebar';
-import { AIHubExpressLogo } from '@/components/icons';
+import { AhsanAILogo, AIHubExpressLogo } from '@/components/icons';
 import { categories } from '@/lib/data';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -24,7 +24,7 @@ import { useAuth } from '@/contexts/auth-context';
 const mainNav = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'Browse Tools', href: '/browse', icon: LayoutGrid },
-  { name: 'Get Recommendations', href: '/recommendations', icon: Sparkles },
+  { name: 'AI Chat', href: '/recommendations', icon: Sparkles },
   { name: 'About', href: '/about', icon: Info },
 ];
 
