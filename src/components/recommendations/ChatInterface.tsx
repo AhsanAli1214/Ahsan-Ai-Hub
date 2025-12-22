@@ -4,7 +4,6 @@ import { getRecommendationsAction } from '@/app/actions';
 import { AhsanAILogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/contexts/auth-context';
 import { tools } from '@/lib/data';
@@ -128,8 +127,10 @@ export function ChatInterface({ initialPrompt }: { initialPrompt?: string | null
     let previousActivity = 'No previous activity provided.';
     if (user && favorites.length > 0) {
       const favoriteTools = tools.filter(t => favorites.includes(t.id));
-      const favoriteToolNames = favoriteTools.map(t => t.name).join(', ');
-      previousActivity = `The user has previously shown interest in tools like: ${favoriteToolNames}.`;
+      if (favoriteTools.length > 0) {
+        const favoriteToolNames = favoriteTools.map(t => t.name).join(', ');
+        previousActivity = `The user has previously shown interest in tools like: ${favoriteToolNames}.`;
+      }
     }
 
     const result = await getRecommendationsAction({
