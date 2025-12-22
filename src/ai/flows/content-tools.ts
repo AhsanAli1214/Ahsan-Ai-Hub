@@ -392,7 +392,7 @@ Provide only the generated content for the specified section.
 
 Result:`,
       output: {
-        schema: z.odject({ result: z.string() })
+        schema: z.object({ result: z.string() })
       }
     });
     return output ?? { result: '' };
