@@ -7,18 +7,20 @@ export const metadata: Metadata = {
   description: 'Get personalized AI tool recommendations through a conversation with our AI.',
 };
 
-export default async function RecommendationsPage({
+export default function RecommendationsPage({
   searchParams,
 }: {
   searchParams?: {
     initialPrompt?: string;
   };
 }) {
+  const initialPrompt = searchParams?.initialPrompt;
+
   return (
     <div className="flex h-full flex-col">
       <AppHeader title="AI Chat" />
       <div className="flex-1 overflow-hidden">
-        <ChatInterface initialPrompt={searchParams?.initialPrompt} />
+        <ChatInterface initialPrompt={initialPrompt} />
       </div>
     </div>
   );
