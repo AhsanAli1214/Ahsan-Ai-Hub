@@ -18,7 +18,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
-import { AhsanAILogo } from '@/components/icons';
+import { AhsanAiHubLogo } from '@/components/icons';
 
 export const metadata: Metadata = {
   title: 'About | Ahsan Ai Hub',
@@ -218,7 +218,7 @@ export default function AboutPage() {
 
           {/* Footer */}
           <footer className="py-8 text-center text-muted-foreground">
-            <AhsanAILogo className="mx-auto mb-4 h-10 w-10 opacity-60" />
+            <AhsanAiHubLogo className="mx-auto mb-4 h-10 w-10 opacity-60" />
             <p className="text-sm">Crafted with passion by Ahsan Ali</p>
             <p className="mt-2 text-xs">
               © {new Date().getFullYear()} Ahsan Ai Hub. All rights reserved.
