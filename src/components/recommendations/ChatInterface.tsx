@@ -199,7 +199,7 @@ function TypingIndicator() {
   return (
     <div className="flex items-start gap-3">
        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/20 p-1.5 text-primary">
-          <AhsanAiHubLogo />
+          <AhsanAiHubLogo className="h-5 w-5" />
         </div>
       <div className="flex items-center space-x-1 rounded-lg border bg-card p-3">
         <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
@@ -346,7 +346,7 @@ export function ChatInterface({
        const newErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: "Sorry, I couldn't process that. Please try again.",
+        content: result.error || "Sorry, I couldn't process that. Please try again.",
       };
       setMessages((prev) => [...prev, newErrorMessage]);
     }

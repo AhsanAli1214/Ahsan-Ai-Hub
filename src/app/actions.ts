@@ -43,7 +43,8 @@ export async function getRecommendationsAction(
     return { success: true, data: recommendations };
   } catch (error) {
     console.error('Error getting recommendations:', error);
-    return { success: false, error: 'An unexpected error occurred.' };
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
+    return { success: false, error: errorMessage };
   }
 }
 
