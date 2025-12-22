@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Get personalized AI tool recommendations through a conversation with our AI.',
 };
 
-export default function RecommendationsPage({
+export default async function RecommendationsPage({
   searchParams,
 }: {
   searchParams?: {
