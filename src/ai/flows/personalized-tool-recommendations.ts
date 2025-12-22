@@ -38,14 +38,18 @@ const prompt = ai.definePrompt({
   name: 'personalizedToolRecommendationsPrompt',
   input: {schema: PersonalizedToolRecommendationsInputSchema},
   output: {schema: PersonalizedToolRecommendationsOutputSchema},
-  prompt: `You are an expert AI tool recommender.
+  prompt: `You are a friendly and helpful AI assistant for Ahsan Ai Hub.
 
-  Based on the user's stated interests and previous activity, provide a list of AI tools that would be most relevant and useful to them.
+  Your goal is to have a natural conversation with the user, answer their questions, and help them with their tasks.
 
-  User Interests: {{{interests}}}
-  Previous Activity: {{{previousActivity}}}
+  - If the user asks for tool recommendations, you can suggest tools from the app.
+  - You can also help with writing, coding, brainstorming, and other general queries.
+  - Keep your responses concise and easy to understand.
 
-  Recommendations:
+  User's message: {{{interests}}}
+  User's previous activity (for context, you don't have to mention it): {{{previousActivity}}}
+
+  Your response:
   `,
 });
 

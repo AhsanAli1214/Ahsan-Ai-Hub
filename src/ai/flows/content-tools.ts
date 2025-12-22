@@ -36,6 +36,7 @@ Text:
 Result:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: { text: input.text },
     });
@@ -76,6 +77,7 @@ const generateEmailFlow = ai.defineFlow(
 Generated Email:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: input,
     });
@@ -112,6 +114,7 @@ const generateBlogPostFlow = ai.defineFlow(
 Blog Post:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: input,
     });
@@ -147,6 +150,7 @@ const generateStudyMaterialFlow = ai.defineFlow(
 Study Material:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: input,
     });
@@ -188,6 +192,7 @@ Code:
 Explanation:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: input,
     });
@@ -205,7 +210,7 @@ export type SolveMathInput = z.infer<typeof SolveMathInputSchema>;
 const SolveMathOutputSchema = z.object({
     result: z.string().describe("The solution and explanation for the math problem."),
 });
-export type SolveMathOutput = z_infer<typeof SolveMathOutputSchema>;
+export type SolveMathOutput = z.infer<typeof SolveMathOutputSchema>;
 
 export async function solveMath(input: SolveMathInput): Promise<SolveMathOutput> {
     return solveMathFlow(input);
@@ -225,6 +230,7 @@ Problem: {{{problem}}}
 Solution:`;
 
     const { output } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash',
       prompt: prompt,
       input: input,
     });
