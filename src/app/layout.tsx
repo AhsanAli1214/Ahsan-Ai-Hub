@@ -5,6 +5,14 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { AppProvider } from '@/context/AppContext';
 import Script from 'next/script';
+import { Inter, Poppins } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-poppins',
+});
 
 export const metadata: Metadata = {
   title: 'Ahsan Ai Hub',
@@ -19,13 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
         <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer />
       </head>
-      <body className={cn('font-body antialiased')}>
+      <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

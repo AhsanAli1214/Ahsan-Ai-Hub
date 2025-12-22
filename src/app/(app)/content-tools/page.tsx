@@ -296,7 +296,7 @@ export default function ContentToolsPage() {
                 professional quality.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {toolsList.map((tool) => (
                     <ToolCard key={tool.id} tool={tool} onSelect={() => setSelectedTool(tool.id)} />
                 ))}
@@ -309,16 +309,16 @@ export default function ContentToolsPage() {
     const currentTool = toolsList.find(t => t.id === selectedTool);
 
     return (
-      <div className="space-y-8">
-        <div className="p-4 lg:p-6">
-          <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-2">
+      <div className="space-y-8 p-4 lg:p-6">
+        <div>
+          <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="mb-4">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to All Tools
           </Button>
 
           <div className="flex items-center gap-4">
-              <div className={cn('flex h-16 w-16 items-center justify-center rounded-lg bg-primary/10')}>
-                  {currentTool && <currentTool.icon className={cn('h-8 w-8', 'text-primary')} />}
+              <div className={cn('flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10')}>
+                  {currentTool && <currentTool.icon className={cn('h-6 w-6', 'text-primary')} />}
               </div>
               <div>
                   <h2 className="font-headline text-3xl font-bold">{currentTool?.label}</h2>
@@ -340,7 +340,7 @@ export default function ContentToolsPage() {
           </div>
         </div>
             
-        <div className="space-y-8 p-4 pt-0 lg:p-6 lg:pt-0">
+        <div className="grid grid-cols-1 gap-8">
             <Card>
                 <CardContent className="p-6">
                     {/* Options */}
