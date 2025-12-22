@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -76,35 +76,49 @@ export default function AboutPage() {
       <AppHeader title="About Me" />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-3xl space-y-8">
-          {/* Developer Hero Card */}
+          {/* Developer Hero Section */}
           <Card className="overflow-hidden shadow-lg">
-            <div className="bg-accent/30 p-8">
-              <div className="mx-auto w-fit rounded-full border-4 border-accent bg-accent/20 p-1">
-                <Avatar className="h-32 w-32">
-                  {developerImage ? (
-                    <AvatarImage
+            <CardContent className="p-0">
+              <div className="grid grid-cols-1 md:grid-cols-3">
+                <div className="relative aspect-[4/3] md:aspect-square">
+                  {developerImage && (
+                    <Image
                       src={developerImage.imageUrl}
                       alt="Developer Ahsan Ali"
+                      fill
+                      className="object-cover"
+                      data-ai-hint={developerImage.imageHint}
                     />
-                  ) : (
-                     <AvatarFallback>AA</AvatarFallback>
                   )}
-                </Avatar>
+                </div>
+                <div className="p-6 md:col-span-2">
+                  <h1 className="font-headline text-3xl font-bold">Ahsan Ali</h1>
+                  <p className="mt-2 text-muted-foreground">
+                    CIT Student & Passionate Developer
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Badge
+                      variant="secondary"
+                      className="border border-accent bg-accent/20 text-accent"
+                    >
+                      CIT Student
+                    </Badge>
+                    <Badge
+                      variant="secondary"
+                      className="border border-accent bg-accent/20 text-accent"
+                    >
+                      Developer
+                    </Badge>
+                  </div>
+                   <p className="mt-4 text-muted-foreground">
+                    I created Ahsan AI Hub to democratize AI access—making it easier
+                    for everyone to leverage intelligent AI.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="p-6 text-center">
-              <h1 className="font-headline text-3xl font-bold">Ahsan Ali</h1>
-              <div className="mt-4 flex flex-wrap justify-center gap-2">
-                <Badge variant="secondary" className="border border-accent bg-accent/20 text-accent">
-                  CIT Student
-                </Badge>
-                <Badge variant="secondary" className="border border-accent bg-accent/20 text-accent">
-                  Developer
-                </Badge>
-              </div>
-            </div>
+            </CardContent>
           </Card>
-
+          
           {/* Highlights Section */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <Card className="bg-accent/15 text-center">
@@ -141,11 +155,6 @@ export default function AboutPage() {
                 I'm a CIT student and passionate developer with a deep interest
                 in AI, automation, and building modern applications that solve
                 real problems.
-              </p>
-              <p>
-                I created Ahsan AI Hub to democratize AI access—making it easier
-                for students, developers, and everyone to leverage intelligent
-                AI for productivity and learning.
               </p>
             </CardContent>
           </Card>
