@@ -15,14 +15,15 @@ import { AIHubExpressLogo } from '@/components/icons';
 import { categories } from '@/lib/data';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { LayoutGrid, Sparkles, Heart } from 'lucide-react';
+import { LayoutGrid, Sparkles, Heart, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from '@/components/ui/sidebar';
 import { useAuth } from '@/contexts/auth-context';
 
 const mainNav = [
-  { name: 'Browse Tools', href: '/', icon: LayoutGrid },
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Browse Tools', href: '/browse', icon: LayoutGrid },
   { name: 'Get Recommendations', href: '/recommendations', icon: Sparkles },
 ];
 
@@ -93,7 +94,7 @@ export function AppSidebar() {
           <SidebarMenu>
             {categories.map((category) => (
               <SidebarMenuItem key={category.name}>
-                <Link href={`/?category=${encodeURIComponent(category.name)}`} passHref legacyBehavior>
+                <Link href={`/browse?category=${encodeURIComponent(category.name)}`} passHref legacyBehavior>
                   <SidebarMenuButton
                     onClick={handleLinkClick}
                     asChild

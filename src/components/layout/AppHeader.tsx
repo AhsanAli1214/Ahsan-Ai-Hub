@@ -29,10 +29,10 @@ export function AppHeader({ title }: { title: string }) {
     } else {
       params.delete('q');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`/browse?${params.toString()}`);
   }, 300);
 
-  const showSearch = pathname === '/';
+  const showSearch = pathname === '/browse';
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">

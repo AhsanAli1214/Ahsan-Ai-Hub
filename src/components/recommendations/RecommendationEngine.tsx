@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -36,14 +37,22 @@ export function RecommendationEngine() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { user, favorites } = useAuth();
+  const searchParams = useSearchParams();
+  const initialPrompt = searchParams.get('initialPrompt');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      interests: '',
+      interests: initialPrompt || '',
       previousActivity: '',
     },
   });
+
+   useEffect(() => {
+    if (initialPrompt) {
+      form.setValue('interests', initialPrompt);
+    }
+  }, [initialPrompt, form]);
 
   useEffect(() => {
     if (user && favorites.length > 0 && form.getValues('previousActivity') === '') {
@@ -90,14 +99,15 @@ export function RecommendationEngine() {
                 name="interests"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Your Interests</FormLabel>
+                    <FormLabel>Your Interests or Prompt</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="e.g., I'm interested in generative art, video creation, and automating my workflow."
                         {...field}
+                        rows={5}
                       />
                     </FormControl>
-                    <FormDescription>What kind of AI tools are you looking for?</FormDescription>
+                    <FormDescription>What kind of AI tools are you looking for? You can also enter a direct prompt.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -114,7 +124,7 @@ export function RecommendationEngine() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>What have you tried or worked on recently?</FormDescription>
+                    <FormDescription>What have you tried or worked on recently? (This helps the AI)</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
