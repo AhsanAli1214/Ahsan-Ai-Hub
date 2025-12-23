@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { AppProvider } from '@/context/AppContext';
+import { PWAInstall } from '@/components/PWAInstall';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
 import { VercelAnalytics } from '@/components/VercelAnalytics';
@@ -15,9 +16,26 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#3b82f6',
+};
+
 export const metadata: Metadata = {
   title: 'Ahsan Ai Hub',
-  description: 'A curated hub for AI tools and resources.',
+  description: 'Your Intelligent AI Companion',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Ahsan Ai Hub',
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +46,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
         <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer />
+        <Script id="pwa-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('/sw.js').catch(err => {
+                console.log('Service Worker registration failed:', err);
+              });
+            }
+          `}
+        </Script>
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <ThemeProvider
@@ -40,6 +71,7 @@ export default function RootLayout({
           <AppProvider>
             {children}
             <Toaster />
+            <PWAInstall />
           </AppProvider>
         </ThemeProvider>
         <VercelAnalytics />

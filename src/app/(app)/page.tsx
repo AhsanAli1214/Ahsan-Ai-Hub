@@ -66,8 +66,10 @@ const PERSONALITY_MODES_CONFIG: Record<
 };
 
 
-// App download configuration - Update with your app download URLs
-const APP_DOWNLOAD_URL = process.env.NEXT_PUBLIC_APP_DOWNLOAD_URL || '/downloads/app';
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
@@ -76,16 +78,20 @@ export default function HomePage() {
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
-  // Function to download app to device
-  const handleDownloadApp = () => {
-    if (typeof window !== 'undefined') {
-      // Create a link element and trigger download
-      const link = document.createElement('a');
-      link.href = APP_DOWNLOAD_URL;
-      link.download = 'app';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  // Function to trigger app installation
+  const handleInstallApp = async () => {
+    const event = (window as any).lastBeforeInstallPromptEvent;
+    
+    if (event) {
+      try {
+        event.prompt();
+        const { outcome } = await event.userChoice;
+        if (outcome === 'accepted') {
+          console.log('App installed');
+        }
+      } catch (error) {
+        console.error('Installation failed:', error);
+      }
     }
   };
 
@@ -149,10 +155,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* App Download Section */}
+          {/* Install App Section */}
           <div>
             <h2 className="mb-4 font-headline text-xl font-semibold">
-              Download App
+              Install App
             </h2>
             <Card className="flex flex-col items-center justify-center p-6 text-center md:p-8">
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
@@ -160,15 +166,15 @@ export default function HomePage() {
               </div>
               <h3 className="mb-2 text-lg font-semibold">Get Our App</h3>
               <p className="mb-6 text-sm text-muted-foreground">
-                Download our app on your device for easy access and better performance.
+                Install the Ahsan AI Hub app on your Android or desktop for easy access and offline support.
               </p>
               <Button
-                onClick={handleDownloadApp}
+                onClick={handleInstallApp}
                 size="lg"
                 className="w-full md:w-auto"
               >
                 <Cloud className="mr-2 h-5 w-5" />
-                Download App
+                Install App
               </Button>
             </Card>
           </div>
