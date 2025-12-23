@@ -66,14 +66,8 @@ const PERSONALITY_MODES_CONFIG: Record<
 };
 
 
-// AWS App download URLs for different platforms
-const AWS_APP_URLS = {
-  windows: 'https://aws.amazon.com/windows/applications/',
-  mac: 'https://aws.amazon.com/mac/applications/',
-  linux: 'https://aws.amazon.com/linux/applications/',
-  ios: 'https://apps.apple.com/us/app/aws-mobile-console/id1435001185',
-  android: 'https://play.google.com/store/apps/details?id=com.amazon.aws.console',
-};
+// App download configuration - Update with your app download URLs
+const APP_DOWNLOAD_URL = process.env.NEXT_PUBLIC_APP_DOWNLOAD_URL || '/downloads/app';
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
@@ -82,27 +76,16 @@ export default function HomePage() {
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
-  // Function to detect device type and download AWS app
-  const handleDownloadAWSApp = () => {
-    const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
-    
-    let downloadUrl = AWS_APP_URLS.windows; // default
-
-    if (/iPad|iPhone|iPod/.test(userAgent)) {
-      downloadUrl = AWS_APP_URLS.ios;
-    } else if (/Android/.test(userAgent)) {
-      downloadUrl = AWS_APP_URLS.android;
-    } else if (/Mac/.test(userAgent)) {
-      downloadUrl = AWS_APP_URLS.mac;
-    } else if (/Linux/.test(userAgent)) {
-      downloadUrl = AWS_APP_URLS.linux;
-    } else if (/Win/.test(userAgent)) {
-      downloadUrl = AWS_APP_URLS.windows;
-    }
-
-    // Open download link in new window
+  // Function to download app to device
+  const handleDownloadApp = () => {
     if (typeof window !== 'undefined') {
-      window.open(downloadUrl, '_blank');
+      // Create a link element and trigger download
+      const link = document.createElement('a');
+      link.href = APP_DOWNLOAD_URL;
+      link.download = 'app';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 
@@ -166,26 +149,26 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* AWS App Download Section */}
+          {/* App Download Section */}
           <div>
             <h2 className="mb-4 font-headline text-xl font-semibold">
-              Download AWS App
+              Download App
             </h2>
             <Card className="flex flex-col items-center justify-center p-6 text-center md:p-8">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
                 <Cloud className="h-7 w-7" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold">AWS Console App</h3>
+              <h3 className="mb-2 text-lg font-semibold">Get Our App</h3>
               <p className="mb-6 text-sm text-muted-foreground">
-                Download the AWS Console app on your device for easy access and management on the go.
+                Download our app on your device for easy access and better performance.
               </p>
               <Button
-                onClick={handleDownloadAWSApp}
+                onClick={handleDownloadApp}
                 size="lg"
                 className="w-full md:w-auto"
               >
                 <Cloud className="mr-2 h-5 w-5" />
-                Download AWS App
+                Download App
               </Button>
             </Card>
           </div>
