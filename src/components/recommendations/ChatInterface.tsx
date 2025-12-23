@@ -233,6 +233,7 @@ export function ChatInterface({
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, enableAnimations, enableTypingIndicator } = useAppContext();
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
@@ -270,8 +271,11 @@ export function ChatInterface({
   }, [messages]);
   
   const scrollToBottom = (behavior: 'smooth' | 'auto' = 'auto') => {
-    if (scrollAreaRef.current) {
-        scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior });
+    const scrollElement = scrollViewportRef.current || scrollAreaRef.current;
+    if (scrollElement) {
+      setTimeout(() => {
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+      }, 0);
     }
   }
   
@@ -418,15 +422,34 @@ export function ChatInterface({
   };
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    const atBottom = scrollHeight - scrollTop - clientHeight < 10;
+    const element = e.currentTarget;
+    const { scrollTop, scrollHeight, clientHeight } = element;
+    const atBottom = scrollHeight - scrollTop - clientHeight < 50;
     setShowScrollButton(!atBottom);
   }
+  
+  useEffect(() => {
+    const viewport = scrollViewportRef.current;
+    if (!viewport) return;
+    
+    const handleViewportScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = viewport;
+      const atBottom = scrollHeight - scrollTop - clientHeight < 50;
+      setShowScrollButton(!atBottom);
+    };
+    
+    viewport.addEventListener('scroll', handleViewportScroll);
+    return () => viewport.removeEventListener('scroll', handleViewportScroll);
+  }, []);
 
   return (
     <div className="relative flex h-full flex-col bg-background w-full">
-      <ScrollArea className="flex-1 w-full overflow-hidden" ref={scrollAreaRef} onScroll={handleScroll}>
-        <div className="mx-auto w-full max-w-4xl space-y-3 sm:space-y-4 px-3 sm:px-4 py-4 sm:py-6">
+      <ScrollArea className="flex-1 w-full overflow-hidden" ref={scrollAreaRef}>
+        <div 
+          ref={scrollViewportRef}
+          className="h-full overflow-y-auto"
+        >
+          <div className="mx-auto w-full max-w-4xl space-y-3 sm:space-y-4 px-3 sm:px-4 py-4 sm:py-6">
           {messages.length === 0 && !isLoading ? (
             <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 sm:gap-6 text-center px-4">
                 <AhsanAiHubLogo className="h-16 w-16 sm:h-24 sm:w-24" />
@@ -461,6 +484,7 @@ export function ChatInterface({
             ))
           )}
           {isLoading && enableTypingIndicator && <TypingIndicator />}
+          </div>
         </div>
       </ScrollArea>
        {showScrollButton && (
