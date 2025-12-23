@@ -13,6 +13,7 @@ import {
   Zap,
   BookOpen,
   MessageCircle,
+  Cloud,
 } from 'lucide-react';
 import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
@@ -65,12 +66,45 @@ const PERSONALITY_MODES_CONFIG: Record<
 };
 
 
+// AWS App download URLs for different platforms
+const AWS_APP_URLS = {
+  windows: 'https://aws.amazon.com/windows/applications/',
+  mac: 'https://aws.amazon.com/mac/applications/',
+  linux: 'https://aws.amazon.com/linux/applications/',
+  ios: 'https://apps.apple.com/us/app/aws-mobile-console/id1435001185',
+  android: 'https://play.google.com/store/apps/details?id=com.amazon.aws.console',
+};
+
 export default function HomePage() {
   const { personalityMode } = useAppContext();
 
   const currentMode =
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
+
+  // Function to detect device type and download AWS app
+  const handleDownloadAWSApp = () => {
+    const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+    
+    let downloadUrl = AWS_APP_URLS.windows; // default
+
+    if (/iPad|iPhone|iPod/.test(userAgent)) {
+      downloadUrl = AWS_APP_URLS.ios;
+    } else if (/Android/.test(userAgent)) {
+      downloadUrl = AWS_APP_URLS.android;
+    } else if (/Mac/.test(userAgent)) {
+      downloadUrl = AWS_APP_URLS.mac;
+    } else if (/Linux/.test(userAgent)) {
+      downloadUrl = AWS_APP_URLS.linux;
+    } else if (/Win/.test(userAgent)) {
+      downloadUrl = AWS_APP_URLS.windows;
+    }
+
+    // Open download link in new window
+    if (typeof window !== 'undefined') {
+      window.open(downloadUrl, '_blank');
+    }
+  };
 
   return (
     <div className="flex h-full flex-col">
@@ -130,6 +164,30 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
+          </div>
+
+          {/* AWS App Download Section */}
+          <div>
+            <h2 className="mb-4 font-headline text-xl font-semibold">
+              Download AWS App
+            </h2>
+            <Card className="flex flex-col items-center justify-center p-6 text-center md:p-8">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
+                <Cloud className="h-7 w-7" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold">AWS Console App</h3>
+              <p className="mb-6 text-sm text-muted-foreground">
+                Download the AWS Console app on your device for easy access and management on the go.
+              </p>
+              <Button
+                onClick={handleDownloadAWSApp}
+                size="lg"
+                className="w-full md:w-auto"
+              >
+                <Cloud className="mr-2 h-5 w-5" />
+                Download AWS App
+              </Button>
+            </Card>
           </div>
           
           {/* Mode Section */}
