@@ -77,12 +77,12 @@ export default function AboutPage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-3xl space-y-8">
           {/* Developer Hero Section */}
-          <Card className="overflow-hidden shadow-lg">
+          <Card className="overflow-hidden shadow-lg border-accent/30">
             <CardContent className="p-0">
-              <div className="grid grid-cols-1 items-center md:grid-cols-3">
-                <div className="relative flex h-64 w-full items-center justify-center bg-card p-4 md:h-full md:col-span-1">
+              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-3 md:gap-0">
+                <div className="relative flex min-h-64 w-full items-center justify-center bg-gradient-to-br from-accent/20 via-card to-card p-6 md:min-h-full md:col-span-1">
                   {developerImage && (
-                     <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-accent shadow-lg">
+                     <div className="relative h-44 w-44 overflow-hidden rounded-2xl border-4 border-accent shadow-xl ring-4 ring-accent/30">
                         <Image
                         src={developerImage.imageUrl}
                         alt="Developer Ahsan Ali"
@@ -93,26 +93,26 @@ export default function AboutPage() {
                     </div>
                   )}
                 </div>
-                <div className="p-6 text-center md:col-span-2 md:text-left">
-                  <h1 className="font-headline text-3xl font-bold">Ahsan Ali</h1>
-                  <p className="mt-2 text-muted-foreground">
+                <div className="p-6 text-center md:col-span-2 md:text-left md:pr-8">
+                  <h1 className="font-headline text-4xl md:text-3xl font-bold">Ahsan Ali</h1>
+                  <p className="mt-2 text-lg text-muted-foreground">
                     CIT Student & Passionate Developer
                   </p>
                   <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
                     <Badge
                       variant="secondary"
-                      className="border border-accent bg-accent/20 text-accent"
+                      className="border border-accent bg-accent/20 text-accent font-semibold"
                     >
                       CIT Student
                     </Badge>
                     <Badge
                       variant="secondary"
-                      className="border border-accent bg-accent/20 text-accent"
+                      className="border border-accent bg-accent/20 text-accent font-semibold"
                     >
                       Developer
                     </Badge>
                   </div>
-                   <p className="mt-4 text-muted-foreground">
+                   <p className="mt-4 text-muted-foreground leading-relaxed">
                     I created Ahsan Ai Hub to democratize AI access—making it easier
                     for everyone to leverage intelligent AI.
                   </p>
@@ -123,24 +123,28 @@ export default function AboutPage() {
           
           {/* Highlights Section */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Card className="bg-accent/15 text-center">
+            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow text-center">
               <CardContent className="flex flex-col items-center justify-center p-6">
-                <Code className="mb-2 h-8 w-8 text-accent" />
-                <h3 className="font-headline text-lg font-semibold text-accent">
+                <div className="mb-4 rounded-full bg-accent/25 p-3">
+                  <Code className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="font-headline text-lg font-semibold text-foreground">
                   Development
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mt-2">
                   Building modern solutions
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-accent/15 text-center">
+            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow text-center">
               <CardContent className="flex flex-col items-center justify-center p-6">
-                <Zap className="mb-2 h-8 w-8 text-accent" />
-                <h3 className="font-headline text-lg font-semibold text-accent">
+                <div className="mb-4 rounded-full bg-accent/25 p-3">
+                  <Zap className="h-6 w-6 text-accent" />
+                </div>
+                <h3 className="font-headline text-lg font-semibold text-foreground">
                   AI Integration
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mt-2">
                   Powering innovation
                 </p>
               </CardContent>
@@ -162,7 +166,7 @@ export default function AboutPage() {
           </Card>
 
           {/* Social Links */}
-          <Card>
+          <Card className="border-accent/30">
             <CardHeader>
               <h2 className="font-headline text-xl font-semibold">
                 Connect With Me
@@ -173,7 +177,7 @@ export default function AboutPage() {
                 <Button
                   key={link.id}
                   variant="outline"
-                  className="h-auto justify-start p-4"
+                  className="h-auto justify-start p-4 hover:bg-accent/10 transition-colors"
                   asChild
                 >
                   <a href={link.url} target="_blank" rel="noopener noreferrer">
@@ -217,11 +221,19 @@ export default function AboutPage() {
           </Card>
 
           {/* Footer */}
-          <footer className="py-8 text-center text-muted-foreground">
-            <AhsanAiHubLogo className="mx-auto mb-4 h-10 w-10 opacity-60" />
-            <p className="text-sm">Crafted with passion by Ahsan Ali</p>
-            <p className="text-sm">A❤️N</p>
-            <p className="mt-2 text-xs">
+          <footer className="space-y-6 py-12 text-center text-muted-foreground">
+            <div className="flex flex-col items-center gap-4">
+              <AhsanAiHubLogo className="mx-auto h-12 w-12 text-accent" />
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-foreground">Crafted with passion by Ahsan Ali</p>
+                <div className="mx-auto w-fit rounded-full bg-accent/20 px-6 py-3 border border-accent/50">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+                    A❤️N
+                  </span>
+                </div>
+              </div>
+            </div>
+            <p className="text-xs">
               © {new Date().getFullYear()} Ahsan Ai Hub. All rights reserved.
             </p>
           </footer>

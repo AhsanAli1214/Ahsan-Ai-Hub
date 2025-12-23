@@ -63,33 +63,41 @@ export default function FaqPage() {
       <AppHeader title="FAQ" />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-3xl space-y-8">
-            <div className="rounded-lg bg-accent p-8 text-center text-accent-foreground shadow-md">
-                <HelpCircle className="mx-auto h-12 w-12" />
-                <h1 className="mt-4 font-headline text-3xl font-bold">Frequently Asked Questions</h1>
-                <p className="mt-2 text-accent-foreground/80">Find answers to common questions about Ahsan Ai Hub.</p>
+            <div className="rounded-xl bg-gradient-to-r from-accent via-accent/95 to-accent/90 p-8 md:p-10 text-center text-accent-foreground shadow-lg">
+                <div className="flex justify-center mb-4">
+                  <div className="rounded-full bg-accent-foreground/20 p-4">
+                    <HelpCircle className="h-8 w-8" />
+                  </div>
+                </div>
+                <h1 className="font-headline text-3xl md:text-4xl font-bold">Frequently Asked Questions</h1>
+                <p className="mt-3 text-accent-foreground/90 text-lg">Find answers to common questions about Ahsan Ai Hub.</p>
             </div>
           
-            <Card>
-                <CardHeader>
-                    <CardTitle>Top Questions</CardTitle>
+            <Card className="border-accent/30">
+                <CardHeader className="pb-4">
+                    <CardTitle className="text-xl md:text-2xl">Top Questions</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Accordion type="single" collapsible className="w-full">
                     {FAQData.map((item, index) => (
-                        <AccordionItem value={`item-${index}`} key={index}>
-                        <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
+                        <AccordionItem value={`item-${index}`} key={index} className="border-accent/20">
+                        <AccordionTrigger className="text-left hover:text-accent transition-colors font-medium text-foreground">{item.q}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-relaxed pt-4">{item.a}</AccordionContent>
                         </AccordionItem>
                     ))}
                     </Accordion>
                 </CardContent>
             </Card>
 
-            <Card className="bg-accent/15 text-center">
-                <CardContent className="p-8">
-                    <LifeBuoy className="mx-auto mb-4 h-10 w-10 text-accent" />
-                    <h3 className="font-headline text-xl font-semibold">Still have questions?</h3>
-                    <p className="mt-2 text-muted-foreground">
+            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 text-center hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 md:p-10">
+                    <div className="flex justify-center mb-4">
+                      <div className="rounded-full bg-accent/20 p-4">
+                        <LifeBuoy className="h-8 w-8 text-accent" />
+                      </div>
+                    </div>
+                    <h3 className="font-headline text-xl md:text-2xl font-semibold">Still have questions?</h3>
+                    <p className="mt-3 text-muted-foreground leading-relaxed">
                         If you can't find the answer you're looking for, feel free to reach out to the developer.
                     </p>
                     <Button asChild className="mt-6">

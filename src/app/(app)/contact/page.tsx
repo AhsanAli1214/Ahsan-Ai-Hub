@@ -66,29 +66,33 @@ export default function ContactPage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-3xl space-y-8">
           {/* Header Card */}
-          <div className="rounded-lg bg-accent p-8 text-center text-accent-foreground shadow-md">
-            <Mail className="mx-auto h-12 w-12" />
-            <h1 className="mt-4 font-headline text-3xl font-bold">
+          <div className="rounded-xl bg-gradient-to-r from-accent via-accent/95 to-accent/90 p-8 md:p-10 text-center text-accent-foreground shadow-lg">
+            <div className="flex justify-center mb-4">
+              <div className="rounded-full bg-accent-foreground/20 p-4">
+                <Mail className="h-8 w-8" />
+              </div>
+            </div>
+            <h1 className="font-headline text-3xl md:text-4xl font-bold">
               Get in Touch
             </h1>
-            <p className="mt-2 text-accent-foreground/80">
+            <p className="mt-3 text-accent-foreground/90 text-lg">
               Connect with Ahsan Ali on social media
             </p>
           </div>
 
           {/* Social Links Section */}
-          <Card>
+          <Card className="border-accent/30">
             <CardHeader>
-              <h2 className="font-headline text-xl font-semibold">
+              <h2 className="font-headline text-xl md:text-2xl font-semibold">
                 Social Media
               </h2>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <CardContent className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {SOCIAL_LINKS.map((link) => (
                 <Button
                   key={link.id}
                   variant="outline"
-                  className="h-auto justify-start p-4"
+                  className="h-auto justify-start p-4 hover:bg-accent/10 hover:border-accent/50 transition-colors"
                   asChild
                 >
                   <a href={link.url} target="_blank" rel="noopener noreferrer">
@@ -114,35 +118,37 @@ export default function ContactPage() {
 
           {/* Support Section */}
           <div>
-             <h2 className="mb-4 font-headline text-xl font-semibold">
+             <h2 className="mb-4 font-headline text-xl md:text-2xl font-semibold">
                 Support
             </h2>
-            <Card className="bg-accent/15">
+            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow">
                 <a
                 href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan Ai Hub`}
-                className="flex items-center p-6"
+                className="flex items-center p-6 md:p-8"
                 >
-                <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/25 text-accent">
+                <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/30 text-accent flex-shrink-0">
                     <Mail className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                    <h3 className="font-semibold text-foreground">
+                    <h3 className="font-semibold text-foreground text-base md:text-lg">
                     Support Email
                     </h3>
-                    <p className="text-sm text-muted-foreground">{SUPPORT_EMAIL}</p>
+                    <p className="text-sm text-muted-foreground break-all">{SUPPORT_EMAIL}</p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
                 </a>
             </Card>
           </div>
           
 
           {/* Note Card */}
-          <Card className="flex items-start p-6">
-            <Info className="mr-4 h-6 w-6 text-accent" />
+          <Card className="flex items-start p-6 md:p-8 border-accent/30 hover:shadow-lg transition-shadow">
+            <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20 flex-shrink-0">
+              <Info className="h-6 w-6 text-accent" />
+            </div>
             <div className="flex-1">
-              <h3 className="font-semibold">Feedback & Suggestions</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <h3 className="font-semibold text-lg">Feedback & Suggestions</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                 Have ideas to improve Ahsan Ai Hub? Reach out on any of the
                 social platforms above or email our support team!
               </p>
@@ -150,23 +156,23 @@ export default function ContactPage() {
           </Card>
 
           {/* Bug Report Card */}
-            <Card className="border-destructive/50 bg-destructive/10">
+            <Card className="border-destructive/50 bg-gradient-to-br from-destructive/20 to-destructive/5 hover:shadow-lg transition-shadow">
                  <a
                 href={`mailto:${SUPPORT_EMAIL}?subject=Bug Report - Ahsan Ai Hub`}
-                className="flex items-center p-6"
+                className="flex items-center p-6 md:p-8"
                 >
-                <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-destructive/20 text-destructive">
+                <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-destructive/25 text-destructive flex-shrink-0">
                     <AlertCircle className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                    <h3 className="font-semibold text-destructive">
+                    <h3 className="font-semibold text-destructive text-base md:text-lg">
                     Report a Bug or Error
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mt-1">
                         Found an issue? Let us know immediately - tap to contact support
                     </p>
                 </div>
-                <ChevronRight className="h-5 w-5 text-destructive/80" />
+                <ChevronRight className="h-5 w-5 text-destructive/80 flex-shrink-0" />
                 </a>
             </Card>
          
