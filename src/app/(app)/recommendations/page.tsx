@@ -7,12 +7,13 @@ export const metadata: Metadata = {
   description: 'Get personalized AI tool recommendations through a conversation with our AI.',
 };
 
-export default function RecommendationsPage({
+export default async function RecommendationsPage({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const initialPrompt = searchParams?.initialPrompt || '';
+  const params = await searchParams;
+  const initialPrompt = params?.initialPrompt || '';
 
   return (
     <div className="flex h-full flex-col">
