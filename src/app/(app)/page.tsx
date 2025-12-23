@@ -12,6 +12,7 @@ import {
   Briefcase,
   Zap,
   BookOpen,
+  MessageCircle,
 } from 'lucide-react';
 import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
@@ -82,7 +83,7 @@ export default function HomePage() {
               <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-accent/80">
                 <AhsanAiHubLogo fill className="text-accent-foreground" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h1 className="font-headline text-3xl font-bold md:text-4xl">
                   Ahsan Ai Hub
                 </h1>
@@ -90,7 +91,20 @@ export default function HomePage() {
                   Your Intelligent AI Companion
                 </p>
               </div>
+              <Button asChild size="lg" variant="secondary" className="hidden md:flex">
+                <Link href="/recommendations">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Start Chatting
+                </Link>
+              </Button>
             </div>
+            {/* Mobile Start Chatting Button */}
+            <Button asChild size="lg" className="mt-6 w-full md:hidden">
+              <Link href="/recommendations" className="justify-center">
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Start Chatting
+              </Link>
+            </Button>
           </div>
 
           {/* Quick Actions Section */}
