@@ -1,8 +1,8 @@
 import type { SVGProps } from 'react';
 import Image from 'next/image';
 
-export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number; height?: number, fill?: boolean}) {
-  if (props.fill) {
+export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number; height?: number, fillContainer?: boolean}) {
+  if (props.fillContainer) {
     return (
       <Image
         src="https://i.postimg.cc/Y2dztjVk/icon.png"
