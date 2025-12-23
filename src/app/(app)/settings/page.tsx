@@ -2,6 +2,7 @@
 
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
+import { AWSAppInstall } from '@/components/AWSSAppInstall';
 import {
   Card,
   CardContent,
@@ -73,6 +74,15 @@ const THEME_MODES = [
   { id: 'light', label: 'Light', icon: Sun },
   { id: 'dark', label: 'Dark', icon: Moon },
   { id: 'system', label: 'System', icon: Computer },
+];
+
+const COLOR_THEMES = [
+  { id: 'default', label: 'Blue (Default)', color: 'bg-blue-500' },
+  { id: 'aurora', label: 'Aurora (Purple)', color: 'bg-purple-500' },
+  { id: 'ocean', label: 'Ocean (Teal)', color: 'bg-cyan-500' },
+  { id: 'sunset', label: 'Sunset (Orange)', color: 'bg-orange-500' },
+  { id: 'forest', label: 'Forest (Green)', color: 'bg-green-500' },
+  { id: 'midnight', label: 'Midnight (Navy)', color: 'bg-indigo-700' },
 ];
 
 const RESPONSE_LENGTH_MODES = [
@@ -153,25 +163,48 @@ export default function SettingsPage() {
             <CardHeader>
               <CardTitle>Theme</CardTitle>
               <CardDescription>
-                Select the theme for the application.
+                Select the theme and color scheme for the application.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-4">
-                {THEME_MODES.map((mode) => {
-                  const isActive = theme === mode.id;
-                  return (
-                    <Button
-                      key={mode.id}
-                      variant={isActive ? 'default' : 'outline'}
-                      onClick={() => setTheme(mode.id)}
-                      className="flex h-auto flex-col items-center justify-center gap-2 rounded-lg p-4"
+            <CardContent className="space-y-6">
+              <div>
+                <p className="text-sm font-medium mb-4">Light/Dark Mode</p>
+                <div className="grid grid-cols-3 gap-4">
+                  {THEME_MODES.map((mode) => {
+                    const isActive = theme === mode.id;
+                    return (
+                      <Button
+                        key={mode.id}
+                        variant={isActive ? 'default' : 'outline'}
+                        onClick={() => setTheme(mode.id)}
+                        className="flex h-auto flex-col items-center justify-center gap-2 rounded-lg p-4"
+                      >
+                        <mode.icon className="h-6 w-6" />
+                        <span>{mode.label}</span>
+                      </Button>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-medium mb-4">Color Scheme</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                  {COLOR_THEMES.map((colorTheme) => (
+                    <button
+                      key={colorTheme.id}
+                      onClick={() => {
+                        const html = document.documentElement;
+                        html.setAttribute('data-theme', colorTheme.id);
+                        localStorage.setItem('selectedColorTheme', colorTheme.id);
+                      }}
+                      title={colorTheme.label}
+                      className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-muted transition-colors"
                     >
-                      <mode.icon className="h-6 w-6" />
-                      <span>{mode.label}</span>
-                    </Button>
-                  );
-                })}
+                      <div className={`h-10 w-10 rounded-lg ${colorTheme.color}`} />
+                      <span className="text-xs text-center">{colorTheme.label}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -354,6 +387,19 @@ export default function SettingsPage() {
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
+            </CardContent>
+          </Card>
+
+          {/* AWS & App Installation */}
+          <Card>
+            <CardHeader>
+              <CardTitle>AWS & Mobile/Desktop Apps</CardTitle>
+              <CardDescription>
+                Download and set up Ahsan AI Hub for Android, Desktop, and AWS backend.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AWSAppInstall />
             </CardContent>
           </Card>
 

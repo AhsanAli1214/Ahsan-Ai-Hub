@@ -7,7 +7,6 @@ import { AppProvider } from '@/context/AppContext';
 import { PWAInstall } from '@/components/PWAInstall';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
-import { VercelAnalytics } from '@/components/VercelAnalytics';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -74,7 +73,6 @@ export default function RootLayout({
             <PWAInstall />
           </AppProvider>
         </ThemeProvider>
-        <VercelAnalytics />
         <Script id="onesignal-init" strategy="afterInteractive">
           {`
             if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1')) {

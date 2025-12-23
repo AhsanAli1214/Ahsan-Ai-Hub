@@ -1,12 +1,12 @@
 'use client';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from '@vercel/analytics/next';
+import dynamic from 'next/dynamic';
+
+const Analytics = dynamic(() => import('@vercel/analytics/next').then(mod => mod.Analytics), { ssr: false });
 
 export function VercelAnalytics() {
   return (
     <>
-      <SpeedInsights />
       <Analytics />
     </>
   );
