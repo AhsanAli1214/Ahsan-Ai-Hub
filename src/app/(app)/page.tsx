@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -18,6 +19,7 @@ import {
 import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
+import { InstallInstructions } from '@/components/InstallInstructions';
 
 const QUICK_ACTIONS = [
   {
@@ -73,29 +75,64 @@ interface BeforeInstallPromptEvent extends Event {
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   const currentMode =
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
+  // Setup beforeinstallprompt event listener
+  useEffect(() => {
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsInstalled(true);
+      return;
+    }
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+      // Store globally for PWAInstall component
+      (window as any).lastBeforeInstallPromptEvent = e;
+    };
+
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+      (window as any).lastBeforeInstallPromptEvent = null;
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
   // Function to trigger app installation
   const handleInstallApp = async () => {
-    // Check if the beforeinstallprompt event is available
-    const event = (window as any).lastBeforeInstallPromptEvent;
-    
-    if (event) {
+    if (deferredPrompt) {
       try {
-        await event.prompt();
-        const { outcome } = await event.userChoice;
+        await deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
-          console.log('App installed');
+          setIsInstalled(true);
+          setDeferredPrompt(null);
+        } else {
+          // User dismissed the prompt, show manual instructions
+          setShowInstructions(true);
         }
       } catch (error) {
         console.error('Installation failed:', error);
+        setShowInstructions(true);
       }
     } else {
-      // If no event available, show a message to the user
-      alert('Installation is not available on your browser. Try using the install button in the address bar or menu.');
+      // No native install prompt available, show manual instructions
+      setShowInstructions(true);
     }
   };
 
@@ -104,6 +141,10 @@ export default function HomePage() {
       <AppHeader title="Home" />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-4xl space-y-8">
+          <InstallInstructions
+            open={showInstructions}
+            onOpenChange={setShowInstructions}
+          />
           {/* Hero Section */}
           <div className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
             <div className="flex items-center gap-4 md:gap-6">
