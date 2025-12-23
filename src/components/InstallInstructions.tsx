@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Smartphone, Monitor, Chrome, Safari } from 'lucide-react';
+import { Smartphone, Monitor, Chrome } from 'lucide-react';
 
 interface InstallInstructionsProps {
   open: boolean;
