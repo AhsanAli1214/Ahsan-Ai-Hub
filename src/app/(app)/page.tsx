@@ -20,6 +20,7 @@ import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { InstallInstructions } from '@/components/InstallInstructions';
+import { InstallGuide } from '@/components/InstallGuide';
 
 const QUICK_ACTIONS = [
   {
@@ -205,22 +206,31 @@ export default function HomePage() {
             <h2 className="mb-4 font-headline text-xl font-semibold">
               Install App
             </h2>
-            <Card className="flex flex-col items-center justify-center p-6 text-center md:p-8">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-                <Cloud className="h-7 w-7" />
+            <Card className="p-6 md:p-8 space-y-6">
+              <div className="flex flex-col items-center text-center md:flex-row md:text-left md:gap-6">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+                  <Cloud className="h-7 w-7" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">Get Our App</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Install the Ahsan AI Hub app on your device for easy access and offline support.
+                  </p>
+                </div>
+                <Button
+                  onClick={handleInstallApp}
+                  size="lg"
+                  className="mt-4 md:mt-0"
+                >
+                  <Cloud className="mr-2 h-5 w-5" />
+                  Install App
+                </Button>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">Get Our App</h3>
-              <p className="mb-6 text-sm text-muted-foreground">
-                Install the Ahsan AI Hub app on your Android or desktop for easy access and offline support.
-              </p>
-              <Button
-                onClick={handleInstallApp}
-                size="lg"
-                className="w-full md:w-auto"
-              >
-                <Cloud className="mr-2 h-5 w-5" />
-                Install App
-              </Button>
+
+              <div className="border-t pt-6">
+                <h4 className="font-semibold text-sm mb-4">How to Install</h4>
+                <InstallGuide />
+              </div>
             </Card>
           </div>
           
