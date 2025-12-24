@@ -23,7 +23,7 @@ import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { InstallInstructions } from '@/components/InstallInstructions';
 import { InstallGuide } from '@/components/InstallGuide';
-import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 const QUICK_ACTIONS = [
   {
