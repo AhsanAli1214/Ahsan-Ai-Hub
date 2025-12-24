@@ -146,6 +146,23 @@ export default function HomePage() {
   return (
     <div className="flex h-full flex-col">
       <AppHeader title="Home" />
+      {/* Crawlable Content for SEO */}
+      <div className="sr-only">
+        <h1>Ahsan AI Hub - Your Intelligent AI Companion</h1>
+        <p>
+          Ahsan AI Hub is an AI-powered platform offering smart chat, automation, and creative AI tools. 
+          Get instant help with writing, coding, brainstorming, and problem solving powered by advanced AI.
+        </p>
+        <nav>
+          <a href="/recommendations">AI Chat</a>
+          <a href="/content-tools">Content Tools</a>
+          <a href="/about">About</a>
+          <a href="/features">Features</a>
+          <a href="/contact">Contact</a>
+          <a href="/faq">FAQ</a>
+        </nav>
+      </div>
+      
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-4xl space-y-8">
           <InstallInstructions

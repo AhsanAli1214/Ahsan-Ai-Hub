@@ -24,8 +24,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Ahsan Ai Hub',
-  description: 'Your Intelligent AI Companion',
+  title: 'Ahsan AI Hub - Smart AI Chat, Content Tools & Automation',
+  description: 'Ahsan AI Hub is an AI-powered platform offering smart chat, automation, and creative AI tools. Get instant help with writing, coding, brainstorming, and problem solving.',
+  keywords: 'AI chat, content tools, AI writing, code explanation, brainstorming, AI assistant',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -34,6 +35,20 @@ export const metadata: Metadata = {
   },
   formatDetection: {
     telephone: false,
+  },
+  openGraph: {
+    title: 'Ahsan AI Hub - Your Intelligent AI Companion',
+    description: 'An AI-powered platform for smart chat, content creation, and automation',
+    url: 'https://ahsan-ai-hub.vercel.app',
+    siteName: 'Ahsan AI Hub',
+    images: [
+      {
+        url: '/icon-512.png',
+        width: 512,
+        height: 512,
+        alt: 'Ahsan AI Hub Logo',
+      },
+    ],
   },
 };
 

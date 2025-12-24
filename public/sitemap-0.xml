@@ -3,43 +3,49 @@
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/recommendations</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/content-tools</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/settings</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/about</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/contact</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://ahsan-ai-hub.vercel.app/faq</loc>
     <lastmod>2024-12-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://ahsan-ai-hub.vercel.app/features</loc>
+    <lastmod>2024-12-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
 </urlset>
