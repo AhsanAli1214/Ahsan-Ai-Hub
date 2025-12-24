@@ -1,8 +1,7 @@
-
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 import {
   ArrowRight,
   Code,
@@ -13,63 +12,63 @@ import {
   Twitter,
   Zap,
   ChevronRight,
-} from 'lucide-react';
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { AhsanAiHubLogo } from '@/components/icons';
+} from "lucide-react";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { AhsanAiHubLogo } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: 'About | Ahsan Ai Hub',
-  description: 'Learn more about the creator of Ahsan Ai Hub.',
+  title: "About | Ahsan Ai Hub",
+  description: "Learn more about the creator of Ahsan Ai Hub.",
 };
 
 const SOCIAL_LINKS = [
   {
-    id: 'instagram',
+    id: "instagram",
     icon: Instagram,
-    label: 'Instagram',
-    handle: '@ahsan.ali.wadani',
-    url: 'https://www.instagram.com/ahsan.ali.wadani?igsh=MzNlNGNkZWQ4Mg==',
-    color: 'text-[#E4405F]',
-    bgColor: 'bg-[#E4405F]/15',
+    label: "Instagram",
+    handle: "@ahsan.ali.wadani",
+    url: "https://www.instagram.com/ahsan.ali.wadani?igsh=MzNlNGNkZWQ4Mg==",
+    color: "text-[#E4405F]",
+    bgColor: "bg-[#E4405F]/15",
   },
   {
-    id: 'twitter',
+    id: "twitter",
     icon: Twitter,
-    label: 'Twitter',
-    handle: '@Ahsan_Ali_12',
-    url: 'https://x.com/Ahsan_Ali_12?s=09',
-    color: 'text-[#1DA1F2]',
-    bgColor: 'bg-[#1DA1F2]/15',
+    label: "Twitter",
+    handle: "@Ahsan_Ali_12",
+    url: "https://x.com/Ahsan_Ali_12?s=09",
+    color: "text-[#1DA1F2]",
+    bgColor: "bg-[#1DA1F2]/15",
   },
   {
-    id: 'facebook',
+    id: "facebook",
     icon: Facebook,
-    label: 'Facebook',
-    handle: 'Ahsan Ali',
-    url: 'https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu',
-    color: 'text-[#1877F2]',
-    bgColor: 'bg-[#1877F2]/15',
+    label: "Facebook",
+    handle: "Ahsan Ali",
+    url: "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu",
+    color: "text-[#1877F2]",
+    bgColor: "bg-[#1877F2]/15",
   },
   {
-    id: 'website',
+    id: "website",
     icon: Globe,
-    label: 'Portfolio',
-    handle: 'Personal Website',
-    url: 'http://a121472.website2.me/',
-    color: 'text-[#0F4C75]',
-    bgColor: 'bg-[#0F4C75]/15',
+    label: "Portfolio",
+    handle: "Personal Website",
+    url: "https://ahsan-tech-hub.blogspot.com/",
+    color: "text-[#0F4C75]",
+    bgColor: "bg-[#0F4C75]/15",
   },
 ];
 
 const developerImage = PlaceHolderImages.find(
-  (img) => img.id === 'developer-avatar'
+  (img) => img.id === "developer-avatar",
 );
 
 export default function AboutPage() {
-  const SUPPORT_EMAIL = 'tickets@ahsan-ai-hub.p.tawk.email';
+  const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
 
   return (
     <div className="flex h-full flex-col">
@@ -82,19 +81,21 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-3 md:gap-0">
                 <div className="relative flex min-h-64 w-full items-center justify-center bg-gradient-to-br from-accent/20 via-card to-card p-6 md:min-h-full md:col-span-1">
                   {developerImage && (
-                     <div className="relative h-44 w-44 overflow-hidden rounded-2xl border-4 border-accent shadow-xl ring-4 ring-accent/30">
-                        <Image
+                    <div className="relative h-44 w-44 overflow-hidden rounded-2xl border-4 border-accent shadow-xl ring-4 ring-accent/30">
+                      <Image
                         src={developerImage.imageUrl}
                         alt="Developer Ahsan Ali"
                         fill
                         className="object-cover"
                         data-ai-hint={developerImage.imageHint}
-                        />
+                      />
                     </div>
                   )}
                 </div>
                 <div className="p-6 text-center md:col-span-2 md:text-left md:pr-8">
-                  <h1 className="font-headline text-4xl md:text-3xl font-bold">Ahsan Ali</h1>
+                  <h1 className="font-headline text-4xl md:text-3xl font-bold">
+                    Ahsan Ali
+                  </h1>
                   <p className="mt-2 text-lg text-muted-foreground">
                     CIT Student & Passionate Developer
                   </p>
@@ -112,15 +113,15 @@ export default function AboutPage() {
                       Developer
                     </Badge>
                   </div>
-                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    I created Ahsan Ai Hub to democratize AI access—making it easier
-                    for everyone to leverage intelligent AI.
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
+                    I created Ahsan Ai Hub to democratize AI access—making it
+                    easier for everyone to leverage intelligent AI.
                   </p>
                 </div>
               </div>
             </CardContent>
           </Card>
-          
+
           {/* Highlights Section */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow text-center">
@@ -158,23 +159,33 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-6 text-muted-foreground">
               <p className="leading-relaxed">
-                I'm <span className="font-semibold text-foreground">Ahsan Ali</span>, a Computer & Information Technology (CIT) student, AI enthusiast, and passionate software developer focused on building intelligent tools that solve real-world problems.
+                I'm{" "}
+                <span className="font-semibold text-foreground">Ahsan Ali</span>
+                , a Computer & Information Technology (CIT) student, AI
+                enthusiast, and passionate software developer focused on
+                building intelligent tools that solve real-world problems.
               </p>
-              
+
               <div className="rounded-lg bg-accent/10 p-6 border border-accent/20">
-                <h3 className="font-semibold text-foreground mb-3">Core Expertise</h3>
+                <h3 className="font-semibold text-foreground mb-3">
+                  Core Expertise
+                </h3>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Artificial Intelligence & Automation
+                    <span className="text-accent">▪</span> Artificial
+                    Intelligence & Automation
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Mobile App Development
+                    <span className="text-accent">▪</span> Mobile App
+                    Development
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Full-stack Web Systems
+                    <span className="text-accent">▪</span> Full-stack Web
+                    Systems
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Natural Language Processing
+                    <span className="text-accent">▪</span> Natural Language
+                    Processing
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-accent">▪</span> UI/UX Chatbot Design
@@ -183,16 +194,28 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h3 className="font-semibold text-foreground mb-3">Mission & Vision</h3>
+                <h3 className="font-semibold text-foreground mb-3">
+                  Mission & Vision
+                </h3>
                 <p className="leading-relaxed">
-                  My mission is to make advanced AI technology accessible, useful, and simple for everyone—whether for productivity, creativity, education, or business use. I believe technology should help people, not complicate their lives.
+                  My mission is to make advanced AI technology accessible,
+                  useful, and simple for everyone—whether for productivity,
+                  creativity, education, or business use. I believe technology
+                  should help people, not complicate their lives.
                 </p>
               </div>
 
               <div className="rounded-lg bg-accent/10 p-6 border border-accent/20">
-                <h3 className="font-semibold text-foreground mb-3">Why Ahsan AI Hub?</h3>
+                <h3 className="font-semibold text-foreground mb-3">
+                  Why Ahsan AI Hub?
+                </h3>
                 <p className="text-sm leading-relaxed">
-                  Ahsan AI Hub is my personal AI project designed to assist with everyday tasks, boost productivity, and support students, freelancers, and professionals. It provides creative and technical assistance while being fast, reliable, easy to use, and multi-functional—bringing advanced AI features to everyone.
+                  Ahsan AI Hub is my personal AI project designed to assist with
+                  everyday tasks, boost productivity, and support students,
+                  freelancers, and professionals. It provides creative and
+                  technical assistance while being fast, reliable, easy to use,
+                  and multi-functional—bringing advanced AI features to
+                  everyone.
                 </p>
               </div>
             </CardContent>
@@ -258,7 +281,9 @@ export default function AboutPage() {
             <div className="flex flex-col items-center gap-4">
               <AhsanAiHubLogo className="mx-auto h-12 w-12 text-accent" />
               <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">Crafted with passion by Ahsan Ali</p>
+                <p className="text-sm font-medium text-foreground">
+                  Crafted with passion by Ahsan Ali
+                </p>
                 <div className="mx-auto w-fit rounded-full bg-accent/20 px-6 py-3 border border-accent/50">
                   <span className="text-2xl font-bold bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
                     A❤️N
