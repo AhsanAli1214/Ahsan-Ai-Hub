@@ -75,42 +75,35 @@ export default function RootLayout({
             `,
           }}
         />
-        <Script id="pwa-register" strategy="afterInteractive">
-          {`
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.register('/sw.js').catch(err => {
-                console.error('Service Worker registration failed:', err);
-              });
-            }
-          `}
-        </Script>
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" async />
-        <Script id="onesignal-sdk-init" strategy="afterInteractive">
-          {`
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            window.OneSignalDeferred.push(async function(OneSignal) {
-              try {
-                if (typeof OneSignal === 'undefined') {
-                  console.warn('OneSignal SDK not loaded');
-                  return;
-                }
-                
-                await OneSignal.init({
-                  appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                  safari_web_id: "web.onesignal.auto.1592f4e8-7629-48b3-b916-fa35b5011e11",
-                  allowLocalhostAsSecureOrigin: true,
-                });
-                
-                // Prompt user for notification permission
-                await OneSignal.Slidedown.promptPush();
-                
-                console.log('OneSignal initialized successfully');
-              } catch (error) {
-                console.error('OneSignal initialization error:', error);
-              }
+        <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(err => {
+              console.error('Service Worker registration failed:', err);
             });
-          `}
-        </Script>
+          }
+        `}} />
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" async />
+        <Script id="onesignal-sdk-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+          window.OneSignalDeferred = window.OneSignalDeferred || [];
+          window.OneSignalDeferred.push(async function(OneSignal) {
+            try {
+              if (typeof OneSignal === 'undefined') {
+                console.warn('OneSignal SDK not loaded');
+                return;
+              }
+              
+              await OneSignal.init({
+                appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                safari_web_id: "web.onesignal.auto.1592f4e8-7629-48b3-b916-fa35b5011e11",
+                allowLocalhostAsSecureOrigin: true,
+              });
+              
+              console.log('OneSignal initialized successfully');
+            } catch (error) {
+              console.error('OneSignal initialization error:', error);
+            }
+          });
+        `}} />
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <ThemeProvider
