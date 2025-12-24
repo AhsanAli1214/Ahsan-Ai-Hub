@@ -163,7 +163,7 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0], onSelect: (
         <div className={cn("relative h-40 w-full bg-gradient-to-br flex items-center justify-center group-hover:scale-110 transition-transform", tool.gradient)}>
           {image ? (
             <Image 
-              src={image.src} 
+              src={image.imageUrl} 
               alt={tool.label}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
