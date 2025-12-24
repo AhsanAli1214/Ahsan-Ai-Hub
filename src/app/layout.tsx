@@ -82,26 +82,13 @@ export default function RootLayout({
             });
           }
         `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" async />
-        <Script id="onesignal-sdk-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer />
+        <Script id="onesignal-sdk-init" dangerouslySetInnerHTML={{__html: `
           window.OneSignalDeferred = window.OneSignalDeferred || [];
-          window.OneSignalDeferred.push(async function(OneSignal) {
-            try {
-              if (typeof OneSignal === 'undefined') {
-                console.warn('OneSignal SDK not loaded');
-                return;
-              }
-              
-              await OneSignal.init({
-                appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                safari_web_id: "web.onesignal.auto.1592f4e8-7629-48b3-b916-fa35b5011e11",
-                allowLocalhostAsSecureOrigin: true,
-              });
-              
-              console.log('OneSignal initialized successfully');
-            } catch (error) {
-              console.error('OneSignal initialization error:', error);
-            }
+          OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+              appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+            });
           });
         `}} />
       </head>
