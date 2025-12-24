@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { AppProvider } from '@/context/AppContext';
 import { PWAInstall } from '@/components/PWAInstall';
+import { ColorThemeInitializer } from '@/components/ColorThemeInitializer';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
 
@@ -67,6 +68,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ColorThemeInitializer />
           <AppProvider>
             {children}
             <Toaster />

@@ -444,11 +444,11 @@ export function ChatInterface({
   }, []);
 
   return (
-    <div className="relative flex h-full flex-col bg-background w-full">
-      <ScrollArea className="flex-1 w-full overflow-hidden" ref={scrollAreaRef}>
+    <div className="flex h-full w-full flex-col bg-background">
+      <div className="flex-1 overflow-hidden" ref={scrollAreaRef}>
         <div 
           ref={scrollViewportRef}
-          className="h-full overflow-y-auto"
+          className="h-full w-full overflow-y-auto"
         >
           <div className="mx-auto w-full max-w-4xl space-y-3 sm:space-y-4 px-3 sm:px-4 py-4 sm:py-6">
           {messages.length === 0 && !isLoading ? (
@@ -487,7 +487,7 @@ export function ChatInterface({
           {isLoading && enableTypingIndicator && <TypingIndicator />}
           </div>
         </div>
-      </ScrollArea>
+      </div>
        {showScrollButton && (
         <div className="absolute bottom-20 sm:bottom-24 right-3 sm:right-4 z-10">
             <Button size="icon" className="rounded-full shadow-lg h-10 w-10 sm:h-11 sm:w-11" onClick={() => scrollToBottom('smooth')}>
@@ -495,7 +495,7 @@ export function ChatInterface({
             </Button>
         </div>
       )}
-      <div className="border-t bg-background/95 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-3 w-full">
+      <div className="sticky bottom-0 border-t bg-background/95 backdrop-blur-sm px-3 sm:px-4 py-2 sm:py-3 w-full">
         <div className="mx-auto w-full max-w-4xl">
            <div className="flex items-end gap-2 sm:gap-3 rounded-lg border bg-card p-2 sm:p-3 shadow-sm">
             <Textarea

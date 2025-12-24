@@ -310,7 +310,7 @@ export default function ContentToolsPage() {
     const currentTool = toolsList.find(t => t.id === selectedTool);
 
     return (
-      <div className="space-y-6 p-4 lg:p-6">
+      <div className="w-full space-y-6 p-4 lg:p-6">
           {/* Header */}
           <div className="space-y-4">
               <Button variant="ghost" onClick={() => { setSelectedTool(null); setInput(''); setOutput(''); setOptions({})}} className="">
@@ -330,7 +330,7 @@ export default function ContentToolsPage() {
               </div>
           </div>
           
-          <div className="space-y-6 max-w-4xl">
+          <div className="w-full space-y-6 max-w-4xl">
               {/* Input Card */}
               <Card>
                   <CardHeader>
