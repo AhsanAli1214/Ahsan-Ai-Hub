@@ -192,13 +192,17 @@ body {
 
 @layer components {
   .btm-nav {
-    @apply fixed bottom-0 left-0 right-0 z-50 flex h-16 items-stretch border-t bg-background/95 backdrop-blur-sm;
+    @apply fixed bottom-0 left-0 right-0 z-50 flex h-20 items-stretch border-t bg-background/95 backdrop-blur-md shadow-lg;
     padding-bottom: env(safe-area-inset-bottom);
   }
   .btm-nav > * {
-    @apply flex flex-1 flex-col items-center justify-center gap-1 text-muted-foreground;
+    @apply flex flex-1 flex-col items-center justify-center gap-1.5 text-muted-foreground;
   }
-  .btm-nav > .active, .btm-nav > *:active {
-    @apply bg-accent/10 text-accent;
+  .btm-nav-item {
+    @apply flex flex-col items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200;
+  }
+  .btm-nav-item-active {
+    @apply bg-gradient-to-b from-accent/20 to-accent/10 text-accent;
+    border-top: 3px solid hsl(var(--accent));
   }
 }

@@ -21,12 +21,18 @@ export function BottomNav() {
       {navItems.map((item) => {
         const isActive = pathname === item.href;
         return (
-          <Link href={item.href} key={item.href} className={cn(
-            "text-primary",
-            isActive && "active"
-          )}>
-            <item.icon className="h-5 w-5" />
-            <span className="btm-nav-label text-xs">{item.label}</span>
+          <Link 
+            href={item.href} 
+            key={item.href} 
+            className={cn(
+              "btm-nav-item transition-all duration-200",
+              isActive && "btm-nav-item-active"
+            )}
+          >
+            <div className="flex items-center justify-center">
+              <item.icon className={cn("transition-all duration-200", isActive ? "h-6 w-6" : "h-5 w-5")} />
+            </div>
+            <span className="btm-nav-label text-xs font-medium">{item.label}</span>
           </Link>
         );
       })}

@@ -45,3 +45,27 @@ Configured for Replit Autoscale deployment:
 - `next.config.mjs` - Next.js configuration with image optimization
 - `tailwind.config.ts` - Tailwind CSS configuration with custom theme
 - `tsconfig.json` - TypeScript compiler options
+
+## Recent Features & Improvements
+
+### Performance Optimizations
+- Image optimization with AVIF/WebP format support
+- Aggressive caching with 1-year duration for static assets
+- Gzip compression enabled for faster load times
+
+### User Experience Enhancements
+- **PWA Installation**: Fully functional "Install App" button with native PWA support and fallback manual instructions for all browsers/devices
+- **Auto-scroll Button**: Chat page now shows scroll button when user scrolls away from latest messages; auto-scrolls on page load
+- **Mobile Sidebar**: Improved bottom navigation with larger icons (h-20 height), gradient active states, and smooth transitions
+- **About Page Logo**: Enhanced "A❤️N" logo with gradient text, backdrop blur, and hover effects for better visual appeal
+
+### SEO Improvements
+- JSON-LD structured data added to FAQ, About, and Contact pages
+- FAQPage schema for search result snippets
+- Person and Organization schema for improved knowledge graph integration
+- Contact point and social media links in schema markup
+
+## User Preferences
+- Mobile-first responsive design priority
+- Smooth animations and transitions (when enabled in settings)
+- Accessibility considerations for all interactive elements
