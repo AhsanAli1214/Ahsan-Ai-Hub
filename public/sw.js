@@ -5,11 +5,14 @@ const urlsToCache = [
   '/settings',
 ];
 
+// Import OneSignal service worker
+importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js');
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache).catch(err => {
-        console.log('Cache addAll error:', err);
+        console.error('Cache addAll error:', err);
       });
     })
   );
