@@ -15,6 +15,8 @@ import {
   BookOpen,
   MessageCircle,
   Cloud,
+  Download,
+  Smartphone,
 } from 'lucide-react';
 import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
@@ -221,20 +223,52 @@ export default function HomePage() {
                     Install the Ahsan AI Hub app on your device for easy access and offline support.
                   </p>
                 </div>
-                <Button
-                  onClick={handleInstallApp}
-                  size="lg"
-                  className="mt-4 md:mt-0"
-                  disabled={isInstalled}
-                >
-                  <Cloud className="mr-2 h-5 w-5" />
-                  {isInstalled ? 'App Installed ✓' : 'Install App'}
-                </Button>
+                <div className="mt-4 md:mt-0 flex flex-col gap-2 w-full md:w-auto">
+                  <Button
+                    onClick={handleInstallApp}
+                    size="lg"
+                    className="w-full"
+                    disabled={isInstalled}
+                  >
+                    <Cloud className="mr-2 h-5 w-5" />
+                    {isInstalled ? 'App Installed ✓' : 'Install App'}
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <a href="/Ahsan%20Ai%20Hub.apk" download>
+                      <Download className="mr-2 h-5 w-5" />
+                      Download APK
+                    </a>
+                  </Button>
+                </div>
               </div>
 
               <div className="border-t pt-6">
-                <h4 className="font-semibold text-sm mb-4">How to Install</h4>
-                <InstallGuide />
+                <h4 className="font-semibold text-sm mb-4">Installation Methods</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg border bg-card">
+                    <div className="flex items-center mb-3">
+                      <Cloud className="mr-2 h-5 w-5 text-blue-600" />
+                      <h5 className="font-semibold text-sm">Chrome Browser</h5>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Click "Install App" to add the app as a native app on your Android or Desktop using Chrome's PWA feature.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-card">
+                    <div className="flex items-center mb-3">
+                      <Smartphone className="mr-2 h-5 w-5 text-green-600" />
+                      <h5 className="font-semibold text-sm">Android APK</h5>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Click "Download APK" to download the app file directly. Install it on your Android device.
+                    </p>
+                  </div>
+                </div>
               </div>
             </Card>
           </div>
