@@ -363,6 +363,24 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
           
+          {/* Push Notifications */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Push Notifications</CardTitle>
+              <CardDescription>
+                Get notified about updates and new features
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device.
+              </p>
+              <div className="flex items-center justify-center p-4 rounded-lg bg-accent/5 border border-accent/20">
+                <div className='onesignal-customlink-container'></div>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Data Management */}
           <Card>
              <CardHeader>

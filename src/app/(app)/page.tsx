@@ -23,6 +23,7 @@ import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { InstallInstructions } from '@/components/InstallInstructions';
 import { InstallGuide } from '@/components/InstallGuide';
+import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 
 const QUICK_ACTIONS = [
   {
@@ -306,6 +307,27 @@ export default function HomePage() {
             </Button>
           </Card>
 
+
+          {/* Push Notifications Section */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+              <div>
+                <CardTitle>Enable Push Notifications</CardTitle>
+                <CardDescription>
+                  Get notified about new features and important updates
+                </CardDescription>
+              </div>
+              <Smartphone className="h-6 w-6 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Subscribe to receive push notifications directly on your device. Stay updated with the latest features and announcements.
+              </p>
+              <div className="flex items-center justify-center p-4 rounded-lg bg-accent/5 border border-accent/20">
+                <div className='onesignal-customlink-container'></div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Smart Prompts Section */}
           <div>
