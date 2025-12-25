@@ -52,6 +52,7 @@ export function PWAInstall() {
       if (outcome === 'accepted') {
         setIsInstalled(true);
         setShowInstallPrompt(false);
+        localStorage.setItem('pwa-installed', 'true');
       }
       
       setDeferredPrompt(null);
@@ -64,52 +65,31 @@ export function PWAInstall() {
     setShowInstallPrompt(false);
   };
 
-  // Don't show if app is already installed or no install prompt available
-  if (isInstalled || !showInstallPrompt) {
-    return null;
+  // Don't show if app is already installed
+  if (isInstalled) {
+    return (
+      <Button disabled variant="outline" size="sm">
+        Installed
+      </Button>
+    );
+  }
+
+  if (!showInstallPrompt) {
+    return (
+      <Button disabled variant="ghost" size="sm">
+        Shortcut Not Available
+      </Button>
+    );
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm">
-      <div className="rounded-lg border bg-card p-4 shadow-lg">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-              <Cloud className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-semibold">Install App</h3>
-              <p className="text-sm text-muted-foreground">
-                Install Ahsan AI Hub on your device for quick access
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={handleDismiss}
-            className="text-muted-foreground hover:text-foreground"
-            aria-label="Dismiss"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-        <div className="mt-4 flex gap-2">
-          <Button
-            onClick={handleInstallClick}
-            size="sm"
-            className="flex-1"
-          >
-            Install
-          </Button>
-          <Button
-            onClick={handleDismiss}
-            size="sm"
-            variant="outline"
-            className="flex-1"
-          >
-            Cancel
-          </Button>
-        </div>
-      </div>
-    </div>
+    <Button
+      onClick={handleInstallClick}
+      size="sm"
+      className="flex items-center gap-2"
+    >
+      <Cloud className="h-4 w-4" />
+      Add Shortcut
+    </Button>
   );
 }

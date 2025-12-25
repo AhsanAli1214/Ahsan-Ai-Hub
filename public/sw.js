@@ -77,24 +77,24 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+      return response || fetch(event.request).then((fetchResponse) => {
+        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
+          return fetchResponse;
         }
 
-        const responseToCache = response.clone();
+        const responseToCache = fetchResponse.clone();
         caches.open(CACHE_NAME).then((cache) => {
           cache.put(event.request, responseToCache);
         });
 
-        return response;
+        return fetchResponse;
       });
     }).catch(() => {
-      return caches.match('/');
+      // Return the cached root for navigation requests when offline
+      if (event.request.mode === 'navigate') {
+        return caches.match('/');
+      }
+      return null;
     })
   );
 });
