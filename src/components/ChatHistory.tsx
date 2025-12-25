@@ -5,7 +5,7 @@ import { useChatHistory } from '@/context/ChatHistoryContext';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trash2, Plus, MessageSquare } from 'lucide-react';
+import { Trash2, Plus, MessageSquare, AlertTriangle, HardDrive } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   AlertDialog,
@@ -17,8 +17,9 @@ import {
 } from '@/components/ui/alert-dialog';
 
 export function ChatHistory() {
-  const { sessions, currentSessionId, createSession, switchSession, deleteSession } = useChatHistory();
+  const { sessions, currentSessionId, createSession, switchSession, deleteSession, deleteAllSessions } = useChatHistory();
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+  const [showDeleteAllWarning, setShowDeleteAllWarning] = useState(false);
 
   const handleNewChat = () => {
     createSession();
@@ -34,6 +35,26 @@ export function ChatHistory() {
       deleteSession(deleteTargetId);
       setDeleteTargetId(null);
     }
+  };
+
+  const handleDeleteAllClick = () => {
+    setShowDeleteAllWarning(true);
+  };
+
+  const handleConfirmDeleteAll = () => {
+    deleteAllSessions();
+    setShowDeleteAllWarning(false);
+  };
+
+  const calculateTotalStorage = () => {
+    let totalChars = 0;
+    sessions.forEach(session => {
+      totalChars += session.title.length;
+      session.messages.forEach(msg => {
+        totalChars += msg.content.length;
+      });
+    });
+    return (totalChars * 2 / 1024).toFixed(2); // Rough estimate in KB
   };
 
   const formatDate = (timestamp: number) => {
@@ -53,7 +74,7 @@ export function ChatHistory() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 sm:p-4 border-b">
+      <div className="p-3 sm:p-4 border-b space-y-2">
         <Button
           onClick={handleNewChat}
           className="w-full gap-2 rounded-lg"
@@ -62,6 +83,16 @@ export function ChatHistory() {
           <Plus className="h-4 w-4" />
           New Chat
         </Button>
+        {sessions.length > 0 && (
+          <Button
+            onClick={handleDeleteAllClick}
+            className="w-full gap-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/20"
+            variant="outline"
+          >
+            <Trash2 className="h-4 w-4" />
+            Delete All
+          </Button>
+        )}
       </div>
 
       <ScrollArea className="flex-1">
@@ -109,15 +140,63 @@ export function ChatHistory() {
       </ScrollArea>
 
       <AlertDialog open={deleteTargetId !== null} onOpenChange={(open) => !open && setDeleteTargetId(null)}>
-        <AlertDialogContent>
-          <AlertDialogTitle>Delete Chat Session?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. The chat history will be permanently deleted.
-          </AlertDialogDescription>
-          <div className="flex gap-3 justify-end">
+        <AlertDialogContent className="max-w-sm">
+          <div className="flex gap-3 items-start mb-2">
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div>
+              <AlertDialogTitle className="text-lg">Delete This Chat Session?</AlertDialogTitle>
+              <AlertDialogDescription className="mt-2">
+                This action cannot be undone. The chat history and all messages in this session will be permanently deleted from your device.
+              </AlertDialogDescription>
+            </div>
+          </div>
+          <div className="flex gap-3 justify-end mt-6">
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleConfirmDelete} className="bg-destructive hover:bg-destructive/90">
-              Delete
+              Delete Session
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={showDeleteAllWarning} onOpenChange={setShowDeleteAllWarning}>
+        <AlertDialogContent className="max-w-sm">
+          <div className="space-y-4">
+            <div className="flex gap-3 items-start">
+              <AlertTriangle className="h-6 w-6 text-destructive shrink-0 mt-0.5" />
+              <div>
+                <AlertDialogTitle className="text-lg">Delete All Chat Sessions?</AlertDialogTitle>
+                <AlertDialogDescription className="mt-2 leading-relaxed">
+                  This will permanently delete <span className="font-semibold text-foreground">{sessions.length} chat session{sessions.length !== 1 ? 's' : ''}</span> and all associated messages from your device.
+                </AlertDialogDescription>
+              </div>
+            </div>
+
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 space-y-2">
+              <div className="flex gap-2 items-start text-sm">
+                <HardDrive className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-amber-950 dark:text-amber-100">Storage & Performance Benefits:</p>
+                  <ul className="text-amber-900 dark:text-amber-200 space-y-1 mt-1">
+                    <li>• Free up <span className="font-medium">{calculateTotalStorage()} KB</span> of device storage</li>
+                    <li>• Improve website performance and speed</li>
+                    <li>• Reduce memory usage for faster browsing</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+              <p className="text-sm text-blue-900 dark:text-blue-100">
+                💡 <span className="font-medium">Tip:</span> Consider deleting old or unnecessary sessions periodically to keep your chat history organized and maintain optimal browsing experience.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-3 justify-end mt-6">
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmDeleteAll} className="bg-destructive hover:bg-destructive/90">
+              Delete All Sessions
             </AlertDialogAction>
           </div>
         </AlertDialogContent>

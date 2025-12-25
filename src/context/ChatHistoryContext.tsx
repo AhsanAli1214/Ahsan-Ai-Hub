@@ -25,6 +25,7 @@ interface ChatHistoryContextType {
   currentSession: ChatSession | null;
   createSession: (title?: string) => string;
   deleteSession: (id: string) => void;
+  deleteAllSessions: () => void;
   switchSession: (id: string) => void;
   addMessage: (message: Message) => void;
   updateCurrentSessionTitle: (title: string) => void;
@@ -119,6 +120,13 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const deleteAllSessions = () => {
+    setSessionsState([]);
+    saveSessions([]);
+    setCurrentSessionIdState(null);
+    saveCurrentSessionId(null);
+  };
+
   const switchSession = (id: string) => {
     if (sessions.some(s => s.id === id)) {
       setCurrentSessionIdState(id);
@@ -178,6 +186,7 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
         currentSession,
         createSession,
         deleteSession,
+        deleteAllSessions,
         switchSession,
         addMessage,
         updateCurrentSessionTitle,
