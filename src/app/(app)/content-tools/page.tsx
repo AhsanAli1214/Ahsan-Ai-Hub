@@ -676,16 +676,16 @@ export default function ContentToolsPage() {
                   <span className="font-semibold"><strong>Pro Tip:</strong> {tool.tip}</span>
                 </div>
                 
-                <Button onClick={handleProcess} disabled={loading} className="h-16 rounded-[1.5rem] text-xl font-black shadow-2xl shadow-primary/25 transition-all hover:scale-[1.02] active:scale-[0.98] w-full md:w-auto md:min-w-[300px] md:mx-auto">
+                <Button onClick={handleProcess} disabled={loading} className="h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] w-full md:w-auto md:px-8">
                   {loading ? (
                     <>
-                      <Loader2 className="h-6 w-6 animate-spin mr-3" />
-                      AI IS THINKING...
+                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      Generating...
                     </>
                   ) : (
                     <>
-                      <Sparkles className="h-6 w-6 mr-3" />
-                      GENERATE NOW
+                      <Sparkles className="h-5 w-5 mr-2" />
+                      Generate
                     </>
                   )}
                 </Button>
@@ -780,14 +780,6 @@ export default function ContentToolsPage() {
         {renderToolUI()}
       </main>
       
-      {selectedTool && !output && (
-        <div className="md:hidden fixed bottom-24 left-0 right-0 p-6 z-40">
-          <Button onClick={handleProcess} disabled={loading} className="w-full h-16 rounded-[1.25rem] shadow-2xl font-black text-lg gap-3">
-            {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : <Sparkles className="h-6 w-6" />}
-            {loading ? 'GENERATING...' : 'GENERATE NOW'}
-          </Button>
-        </div>
-      )}
     </div>
   );
 }
