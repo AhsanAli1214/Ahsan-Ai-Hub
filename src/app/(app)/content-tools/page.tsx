@@ -711,9 +711,6 @@ export default function ContentToolsPage() {
                             <Download className="h-5 w-5" />
                           </Button>
                           <TextToSpeech text={output} />
-                          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={handleProcess}>
-                            <RotateCcw className="h-5 w-5" />
-                          </Button>
                         </div>
                       )}
                     </div>

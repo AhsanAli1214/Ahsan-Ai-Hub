@@ -12,10 +12,11 @@ export function OneSignalButton() {
   const [hasNotificationSupport, setHasNotificationSupport] = useState(false);
 
   useEffect(() => {
-    setIsProduction(typeof window !== 'undefined' && window.location.hostname.includes('vercel.app'));
-    setHasNotificationSupport('Notification' in window || 'serviceWorker' in navigator);
+    const isProduction = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+    setIsProduction(isProduction);
+    setHasNotificationSupport('Notification' in window && 'serviceWorker' in navigator);
     
-    if (typeof window !== 'undefined' && (window as any).OneSignal && isProduction) {
+    if (typeof window !== 'undefined' && (window as any).OneSignal) {
       setTimeout(() => {
         try {
           (window as any).OneSignal.Slidedown.onPromptClose(() => {
@@ -23,11 +24,11 @@ export function OneSignalButton() {
           });
           checkSubscriptionStatus();
         } catch (e) {
-          console.log('OneSignal setup skipped in dev');
+          console.log('OneSignal setup - may not be available');
         }
-      }, 1000);
+      }, 500);
     }
-  }, [isProduction]);
+  }, []);
 
   const checkSubscriptionStatus = async () => {
     if (typeof window !== 'undefined' && (window as any).OneSignal) {
@@ -48,10 +49,15 @@ export function OneSignalButton() {
           await (window as any).OneSignal.User.pushSubscription.optOut();
           setIsSubscribed(false);
         } else {
-          const hasPermission = (window as any).OneSignal.Notifications.permission;
-          if (!hasPermission || hasPermission === 'default') {
-            await (window as any).OneSignal.Slidedown.promptPush();
-          } else {
+          try {
+            const hasPermission = (window as any).OneSignal.Notifications.permission;
+            if (!hasPermission || hasPermission === 'default') {
+              await (window as any).OneSignal.Slidedown.promptPush();
+            } else {
+              await (window as any).OneSignal.User.pushSubscription.optIn();
+            }
+          } catch {
+            // If Notifications API isn't available, try direct opt-in
             await (window as any).OneSignal.User.pushSubscription.optIn();
           }
           setTimeout(checkSubscriptionStatus, 500);
@@ -61,8 +67,8 @@ export function OneSignalButton() {
       } finally {
         setIsLoading(false);
       }
-    } else if (!isProduction) {
-      console.info('Push notifications only available on production');
+    } else {
+      console.info('OneSignal not available');
     }
   };
 

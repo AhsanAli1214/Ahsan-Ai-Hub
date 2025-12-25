@@ -15,11 +15,14 @@ export function PWAInstallButton() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstalled, setIsInstalled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
+    setIsClient(true);
+    
     // Check if already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    if (typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
@@ -38,13 +41,15 @@ export function PWAInstallButton() {
       });
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.addEventListener('appinstalled', handleAppInstalled);
 
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
-    };
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
   }, [toast]);
 
   const handleInstallClick = async () => {
@@ -86,6 +91,10 @@ export function PWAInstallButton() {
     }
   };
 
+  if (!isClient) {
+    return null;
+  }
+
   if (isInstalled) {
     return (
       <Button
@@ -105,13 +114,13 @@ export function PWAInstallButton() {
         onClick={handleInstallClick}
         disabled={isLoading || !deferredPrompt}
         size="lg"
-        className={`w-full font-semibold text-base py-6 transition-all duration-300 rounded-2xl ${
+        className={`w-full font-semibold text-base py-6 transition-all duration-300 rounded-2xl flex items-center justify-center gap-2 ${
           !deferredPrompt
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
+            ? 'bg-gray-400 cursor-not-allowed text-gray-600'
+            : 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl text-white'
         }`}
       >
-        <Cloud className="mr-2 h-5 w-5 animate-pulse" />
+        <Cloud className="h-5 w-5 animate-pulse" />
         {isLoading ? 'Installing...' : '⚡ Install App Now'}
       </Button>
       
