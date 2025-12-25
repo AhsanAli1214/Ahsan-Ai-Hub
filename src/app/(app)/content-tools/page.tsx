@@ -3,7 +3,6 @@
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -17,15 +16,18 @@ import {
   PenTool,
   ArrowRight,
   Languages,
-  ChevronDown,
   Share2,
   FileText,
   Feather,
-  PlusCircle,
   Grid,
   Sparkles,
+  Download,
+  RotateCcw,
+  Check,
+  CheckCircle2,
+  Lightbulb,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   assistResumeAction,
   explainProgrammingAction,
@@ -44,19 +46,13 @@ import type {
   GenerateEmailInput,
   GenerateBlogPostInput,
   GenerateStudyMaterialInput,
-  TranslateTextInput,
   GenerateSocialMediaPostInput,
   AssistResumeInput,
-  GenerateStoryInput,
 } from '@/ai/flows/content-tools';
-import Image from 'next/image';
-import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { LANGUAGES } from '@/lib/languages';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story';
 
@@ -65,126 +61,123 @@ const toolsList: {
   label: string;
   icon: React.ElementType;
   desc: string;
-  imageId: string;
-  gradient: string;
+  color: string;
+  placeholder: string;
+  tip: string;
 }[] = [
   {
     id: 'enhance',
     label: 'Text Enhancer',
     icon: Edit3,
     desc: 'Improve grammar, style, and clarity',
-    imageId: 'content-tool-enhance',
-    gradient: 'from-blue-500/10 to-cyan-500/10',
+    color: 'bg-blue-500',
+    placeholder: 'Paste your text here to enhance...',
+    tip: 'Use this for professionalizing casual messages or polishing drafts.',
   },
   {
     id: 'email',
     label: 'Email Writer',
     icon: Mail,
     desc: 'Craft professional or casual emails',
-    imageId: 'content-tool-email',
-    gradient: 'from-purple-500/10 to-pink-500/10',
+    color: 'bg-purple-500',
+    placeholder: 'Tell me who you are emailing and what it is about...',
+    tip: 'Mention the relationship with the recipient for a better tone.',
   },
   {
     id: 'blog',
     label: 'Blog Generator',
     icon: PenTool,
-    desc: 'Create engaging, SEO-optimized articles',
-    imageId: 'content-tool-blog',
-    gradient: 'from-orange-500/10 to-red-500/10',
+    desc: 'Create SEO-optimized articles',
+    color: 'bg-orange-500',
+    placeholder: 'Enter your blog topic or main keywords...',
+    tip: 'Specific keywords help in generating a more targeted SEO-friendly post.',
   },
   {
     id: 'study',
     label: 'Study Assistant',
     icon: BookOpen,
     desc: 'Generate notes and explanations',
-    imageId: 'content-tool-study',
-    gradient: 'from-green-500/10 to-emerald-500/10',
+    color: 'bg-emerald-500',
+    placeholder: 'Paste a topic or text you want to learn more about...',
+    tip: 'Ask for specific formats like "summaries" or "flashcard ideas".',
   },
   {
     id: 'code',
     label: 'Code Explainer',
     icon: Code,
     desc: 'Understand programming concepts',
-    imageId: 'content-tool-code',
-    gradient: 'from-indigo-500/10 to-blue-500/10',
+    color: 'bg-indigo-500',
+    placeholder: 'Paste the code snippet you want explained...',
+    tip: 'You can also ask about specific bugs or performance issues.',
   },
   {
     id: 'math',
     label: 'Math Solver',
     icon: Grid,
-    desc: 'Get step-by-step solutions',
-    imageId: 'content-tool-math',
-    gradient: 'from-rose-500/10 to-pink-500/10',
+    desc: 'Step-by-step solutions',
+    color: 'bg-rose-500',
+    placeholder: 'Enter your math problem step-by-step...',
+    tip: 'Works best for algebra, calculus, and word problems.',
   },
   {
     id: 'translate',
     label: 'Translator',
     icon: Languages,
-    desc: 'Translate text between languages',
-    imageId: 'content-tool-translate',
-    gradient: 'from-cyan-500/10 to-blue-500/10',
+    desc: 'Translate between languages',
+    color: 'bg-cyan-500',
+    placeholder: 'Paste text to translate...',
+    tip: 'AI handles idiomatic expressions better than basic translators.',
   },
   {
     id: 'social',
     label: 'Social Media Post',
     icon: Share2,
-    desc: 'Generate posts for social platforms',
-    imageId: 'content-tool-social',
-    gradient: 'from-yellow-500/10 to-orange-500/10',
+    desc: 'Platform-ready posts',
+    color: 'bg-yellow-500',
+    placeholder: 'What is your post about? Mention the goal...',
+    tip: 'Specify your target audience for better engagement.',
   },
   {
     id: 'resume',
     label: 'Resume Assistant',
     icon: FileText,
-    desc: 'Improve your resume sections',
-    imageId: 'content-tool-resume',
-    gradient: 'from-slate-500/10 to-gray-500/10',
+    desc: 'Improve resume sections',
+    color: 'bg-slate-500',
+    placeholder: 'Paste your current experience or skills...',
+    tip: 'Use action verbs and quantify achievements for best results.',
   },
   {
     id: 'story',
     label: 'Creative Story Writer',
     icon: Feather,
     desc: 'Generate story ideas and plots',
-    imageId: 'content-tool-story',
-    gradient: 'from-violet-500/10 to-purple-500/10',
+    color: 'bg-violet-500',
+    placeholder: 'Describe the story idea you want...',
+    tip: 'Give details about the genre or main character traits.',
   },
 ];
 
-const getImageForTool = (tool: (typeof toolsList)[0]): ImagePlaceholder | undefined => {
-    return PlaceHolderImages.find((img) => img.id === tool.imageId);
-}
-
-function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0], onSelect: () => void }) {
-  const image = getImageForTool(tool);
+function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: () => void }) {
   const IconComponent = tool.icon;
   return (
-    <Card onClick={onSelect} className={cn("group flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border border-border bg-card hover:border-accent/50")}>
-      <CardHeader className="p-0 relative">
-        <div className={cn("relative h-40 w-full bg-muted flex items-center justify-center group-hover:scale-105 transition-transform")}>
-          {image ? (
-            <Image 
-              src={image.imageUrl} 
-              alt={tool.label}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-          ) : (
-            <IconComponent className="h-16 w-16 text-muted-foreground/30" />
-          )}
+    <Card
+      onClick={onSelect}
+      className={cn(
+        'group flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-border bg-card/50 backdrop-blur-sm'
+      )}
+    >
+      <div className="p-4 flex flex-col h-full">
+        <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110', tool.color)}>
+          <IconComponent className="h-6 w-6 text-white" />
         </div>
-      </CardHeader>
-      <CardContent className="flex-1 p-4">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <IconComponent className="h-5 w-5 text-primary" />
-            <h3 className="font-semibold text-lg text-foreground">{tool.label}</h3>
-          </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">{tool.desc}</p>
+        <div className="space-y-2 mb-6">
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{tool.label}</h3>
+          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{tool.desc}</p>
         </div>
-      </CardContent>
-      <div className="px-4 pb-4">
-        <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
-          Use Tool <ArrowRight className="h-4 w-4" />
+        <div className="mt-auto">
+          <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all rounded-xl py-5" variant="secondary">
+            Use Tool
+          </Button>
         </div>
       </div>
     </Card>
@@ -196,6 +189,7 @@ export default function ContentToolsPage() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
   const [options, setOptions] = useState<Record<string, any>>({
     enhanceMode: 'improve',
@@ -207,6 +201,14 @@ export default function ContentToolsPage() {
     resumeSection: 'summary',
     targetLanguage: 'Spanish',
   });
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (output && scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [output]);
 
   const handleProcess = async () => {
     if (!input.trim()) {
@@ -232,49 +234,49 @@ export default function ContentToolsPage() {
           });
           break;
         case 'blog':
-            result = await generateBlogPostAction({
-                topic: input,
-                length: (options.blogLength as GenerateBlogPostInput['length']) || 'medium',
-            });
-            break;
+          result = await generateBlogPostAction({
+            topic: input,
+            length: (options.blogLength as GenerateBlogPostInput['length']) || 'medium',
+          });
+          break;
         case 'study':
-            result = await generateStudyMaterialAction({
-                topic: input,
-                type: (options.studyType as GenerateStudyMaterialInput['type']) || 'explanation',
-            });
-            break;
+          result = await generateStudyMaterialAction({
+            topic: input,
+            type: (options.studyType as GenerateStudyMaterialInput['type']) || 'explanation',
+          });
+          break;
         case 'code':
-            result = await explainProgrammingAction({
-                code: input,
-                language: options.codeLanguage,
-            });
-            break;
+          result = await explainProgrammingAction({
+            code: input,
+            language: options.codeLanguage,
+          });
+          break;
         case 'math':
-            result = await solveMathAction({ problem: input });
-            break;
+          result = await solveMathAction({ problem: input });
+          break;
         case 'translate':
-            result = await translateTextAction({
-                text: input,
-                targetLanguage: options.targetLanguage || 'Spanish',
-            });
-            break;
+          result = await translateTextAction({
+            text: input,
+            targetLanguage: options.targetLanguage || 'Spanish',
+          });
+          break;
         case 'social':
-            result = await generateSocialMediaPostAction({
-                topic: input,
-                platform: (options.socialPlatform as GenerateSocialMediaPostInput['platform']) || 'Twitter',
-            });
-            break;
+          result = await generateSocialMediaPostAction({
+            topic: input,
+            platform: (options.socialPlatform as GenerateSocialMediaPostInput['platform']) || 'Twitter',
+          });
+          break;
         case 'resume':
-            result = await assistResumeAction({
-                section: (options.resumeSection as AssistResumeInput['section']) || 'summary',
-                details: input,
-            });
-            break;
+          result = await assistResumeAction({
+            section: (options.resumeSection as AssistResumeInput['section']) || 'summary',
+            details: input,
+          });
+          break;
         case 'story':
-            result = await generateStoryAction({ prompt: input });
-            break;
+          result = await generateStoryAction({ prompt: input });
+          break;
         default:
-            return;
+          return;
       }
 
       if (result.success && result.data) {
@@ -290,16 +292,23 @@ export default function ContentToolsPage() {
     }
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(output);
+    setCopied(true);
+    toast({ title: 'Copied to clipboard' });
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   const renderToolUI = () => {
     if (!selectedTool) {
       return (
-        <div className="space-y-8 p-4 lg:p-6">
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold text-foreground">Professional Content Tools</h2>
-            <p className="text-muted-foreground text-lg">Select a tool to get started with AI-powered content creation</p>
+        <div className="space-y-8 p-4 lg:p-10 max-w-7xl mx-auto">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">AI Power Tools</h2>
+            <p className="text-muted-foreground text-lg">Pick a tool to transform your productivity with cutting-edge AI.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {toolsList.map(tool => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {toolsList.map((tool) => (
               <ToolCard key={tool.id} tool={tool} onSelect={() => setSelectedTool(tool.id)} />
             ))}
           </div>
@@ -307,12 +316,12 @@ export default function ContentToolsPage() {
       );
     }
 
-    const tool = toolsList.find(t => t.id === selectedTool);
+    const tool = toolsList.find((t) => t.id === selectedTool);
     if (!tool) return null;
 
     return (
-      <div className="p-4 lg:p-6 space-y-6 pb-32 md:pb-24">
-        <div>
+      <div className="h-full flex flex-col bg-background/50">
+        <div className="p-4 border-b bg-background sticky top-0 z-20 flex items-center justify-between">
           <Button
             variant="ghost"
             size="sm"
@@ -321,219 +330,203 @@ export default function ContentToolsPage() {
               setInput('');
               setOutput('');
             }}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors rounded-full"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to Tools
+            <ArrowLeft className="h-4 w-4" /> Back
           </Button>
+          <div className="flex items-center gap-2">
+            <div className={cn('w-2 h-2 rounded-full', tool.color)} />
+            <span className="font-bold text-sm uppercase tracking-wider">{tool.label}</span>
+          </div>
+          <div className="w-10" />
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Tool Header */}
-          <div className={cn("rounded-lg bg-gradient-to-r p-6 text-white", 
-            tool.gradient.replace('/10', '').replace('from-', 'from-').replace('to-', 'to-')
-          )}>
-            <div className="flex items-center gap-3">
-              <div className="bg-white/20 p-3 rounded-lg">
-                <tool.icon className="h-6 w-6" />
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-4xl mx-auto p-4 lg:p-8 space-y-8 pb-40 md:pb-24">
+            <div className="space-y-6">
+              <div className="flex items-center gap-2 text-primary font-semibold">
+                <Sparkles className="h-5 w-5" />
+                <span>Describe your request</span>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold">{tool.label}</h1>
-                <p className="text-white/80">{tool.desc}</p>
-              </div>
-            </div>
-          </div>
 
-          {/* Input Section */}
-          <Card className="border-accent/30 shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-primary" />
-                Input
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {selectedTool === 'enhance' && (
-                <div>
-                  <label className="block text-sm font-medium mb-2">Enhancement Mode</label>
-                  <select
-                    className="w-full px-3 py-2 rounded-lg border border-input bg-background"
-                    value={options.enhanceMode}
-                    onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
-                  >
-                    <option>improve</option>
-                    <option>academic</option>
-                    <option>casual</option>
-                    <option>formal</option>
-                  </select>
-                </div>
-              )}
-
-              {selectedTool === 'email' && (
-                <>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Tone</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedTool === 'enhance' && (
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground uppercase ml-1">Mode</label>
                     <select
-                      className="w-full px-3 py-2 rounded-lg border border-input bg-background"
+                      className="w-full h-11 px-4 rounded-xl border border-input bg-card shadow-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      value={options.enhanceMode}
+                      onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
+                    >
+                      <option value="improve">Improve Writing</option>
+                      <option value="academic">Academic Tone</option>
+                      <option value="casual">Friendly/Casual</option>
+                      <option value="formal">Formal Business</option>
+                    </select>
+                  </div>
+                )}
+
+                {selectedTool === 'email' && (
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground uppercase ml-1">Tone</label>
+                    <select
+                      className="w-full h-11 px-4 rounded-xl border border-input bg-card shadow-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       value={options.emailTone}
                       onChange={(e) => setOptions({ ...options, emailTone: e.target.value })}
                     >
-                      <option>professional</option>
-                      <option>casual</option>
-                      <option>formal</option>
+                      <option value="professional">Professional</option>
+                      <option value="casual">Casual</option>
+                      <option value="formal">Strictly Formal</option>
                     </select>
                   </div>
-                </>
-              )}
+                )}
 
-              {selectedTool === 'blog' && (
-                <div>
-                  <label className="block text-sm font-medium mb-2">Article Length</label>
-                  <select
-                    className="w-full px-3 py-2 rounded-lg border border-input bg-background"
-                    value={options.blogLength}
-                    onChange={(e) => setOptions({ ...options, blogLength: e.target.value })}
-                  >
-                    <option>short</option>
-                    <option>medium</option>
-                    <option>long</option>
-                  </select>
-                </div>
-              )}
+                {selectedTool === 'blog' && (
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground uppercase ml-1">Article Length</label>
+                    <select
+                      className="w-full h-11 px-4 rounded-xl border border-input bg-card shadow-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      value={options.blogLength}
+                      onChange={(e) => setOptions({ ...options, blogLength: e.target.value })}
+                    >
+                      <option value="short">Short (300 words)</option>
+                      <option value="medium">Medium (600 words)</option>
+                      <option value="long">Long (1000+ words)</option>
+                    </select>
+                  </div>
+                )}
 
-              {selectedTool === 'translate' && (
-                <div>
-                  <label className="block text-sm font-medium mb-2">Target Language</label>
-                  <select
-                    className="w-full px-3 py-2 rounded-lg border border-input bg-background"
-                    value={options.targetLanguage}
-                    onChange={(e) => setOptions({ ...options, targetLanguage: e.target.value })}
-                  >
-                    {LANGUAGES.map((lang) => (
-                      <option key={lang.code} value={lang.code}>
-                        {lang.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
+                {selectedTool === 'translate' && (
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground uppercase ml-1">Target Language</label>
+                    <select
+                      className="w-full h-11 px-4 rounded-xl border border-input bg-card shadow-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      value={options.targetLanguage}
+                      onChange={(e) => setOptions({ ...options, targetLanguage: e.target.value })}
+                    >
+                      {LANGUAGES.map((lang) => (
+                        <option key={lang.code} value={lang.code}>
+                          {lang.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">
-                  {selectedTool === 'code' ? 'Code' : selectedTool === 'math' ? 'Problem' : 'Text'}
-                </label>
+              <div className="relative group">
                 <Textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder={`Enter your ${selectedTool === 'code' ? 'code' : selectedTool === 'math' ? 'math problem' : 'text'} here...`}
-                  className="min-h-32 resize-none"
+                  placeholder={tool.placeholder}
+                  className="min-h-[200px] p-6 rounded-2xl border-2 border-muted hover:border-primary/30 focus-visible:border-primary transition-all text-base bg-card shadow-inner resize-none"
                 />
+                <div className="absolute bottom-4 right-4 text-xs font-medium text-muted-foreground bg-background/50 px-2 py-1 rounded">
+                  {input.length} characters
+                </div>
               </div>
 
-              <Button 
-                onClick={handleProcess} 
-                disabled={loading}
-                className="w-full gap-2"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" /> Processing...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-4 w-4" /> Generate
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Output Section */}
-          {output && !loading && (
-            <Card className="border-border shadow-md">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">
-                    {selectedTool === 'email' && 'Email Draft'}
-                    {selectedTool === 'blog' && 'Article'}
-                    {selectedTool === 'math' && 'Solution'}
-                    {selectedTool === 'code' && 'Explanation'}
-                    {selectedTool === 'social' && 'Post'}
-                    {selectedTool === 'resume' && 'Improved Content'}
-                    {selectedTool === 'story' && 'Story'}
-                    {selectedTool === 'study' && 'Study Material'}
-                    {selectedTool === 'enhance' && 'Enhanced Text'}
-                    {selectedTool === 'translate' && 'Translation'}
-                  </CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      navigator.clipboard.writeText(output);
-                      toast({ title: 'Copied!' });
-                    }}
-                    className="gap-2"
-                  >
-                    <Copy className="h-4 w-4" /> Copy
-                  </Button>
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg border border-border">
+                  <Lightbulb className="h-4 w-4 text-yellow-500 shrink-0" />
+                  <span><strong>Tip:</strong> {tool.tip}</span>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-96 rounded-md border border-border bg-background/50 p-4">
-                  <div className="space-y-3 max-w-none text-sm leading-relaxed text-foreground">
-                    {selectedTool === 'email' ? (
-                      <div className="space-y-3">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{output}</ReactMarkdown>
+                
+                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-2xl text-lg font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] w-full md:w-auto md:min-w-[200px] md:mx-auto">
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                      AI is thinking...
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-5 w-5 mr-2" />
+                      Generate Result
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            {(output || loading) && (
+              <div ref={scrollRef} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <Card className="border-2 border-primary/10 overflow-hidden shadow-2xl bg-card/80 backdrop-blur-md">
+                  <div className="p-4 border-b bg-muted/20 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {loading ? <div className="h-2 w-2 bg-primary rounded-full animate-pulse" /> : <CheckCircle2 className="h-4 w-4 text-emerald-500" />}
+                      <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{loading ? 'Processing...' : 'Result Ready'}</span>
+                    </div>
+                    {!loading && (
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" onClick={handleCopy}>
+                          {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg">
+                          <Download className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg" onClick={handleProcess}>
+                          <RotateCcw className="h-4 w-4" />
+                        </Button>
                       </div>
-                    ) : selectedTool === 'math' ? (
-                      <div className="space-y-4">
-                        <ReactMarkdown 
-                          remarkPlugins={[remarkGfm]} 
-                          rehypePlugins={[rehypeRaw]}
-                          components={{
-                            p: ({node, ...props}) => <p className="mb-2" {...props} />,
-                            strong: ({node, ...props}) => <strong className="font-semibold text-primary" {...props} />,
-                          }}
-                        >{output}</ReactMarkdown>
-                      </div>
-                    ) : (
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                          p: ({node, ...props}) => <p className="mb-3 last:mb-0" {...props} />,
-                          h1: ({node, ...props}) => <h1 className="font-semibold text-lg mb-2 mt-3 first:mt-0" {...props} />,
-                          h2: ({node, ...props}) => <h2 className="font-semibold text-base mb-2 mt-2 first:mt-0" {...props} />,
-                          h3: ({node, ...props}) => <h3 className="font-semibold mb-1 mt-2 first:mt-0" {...props} />,
-                          ul: ({node, ...props}) => <ul className="list-disc list-inside mb-3 space-y-1" {...props} />,
-                          ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-3 space-y-1" {...props} />,
-                          li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                          a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
-                          strong: ({node, ...props}) => <strong className="font-semibold" {...props} />,
-                          em: ({node, ...props}) => <em className="italic" {...props} />,
-                          code: ({node, inline, children, ...props}: any) => 
-                            inline ? (
-                              <code className="px-1.5 py-0.5 bg-muted rounded text-primary font-mono text-xs" {...props}>{children}</code>
-                            ) : null,
-                          blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-primary pl-3 italic my-2 text-muted-foreground" {...props} />,
-                        }}
-                      >{output}</ReactMarkdown>
                     )}
                   </div>
-                </ScrollArea>
-              </CardContent>
-            </Card>
-          )}
+                  <CardContent className="p-6 md:p-10">
+                    {loading ? (
+                      <div className="space-y-4 py-10">
+                        <div className="h-4 w-3/4 bg-muted rounded animate-pulse" />
+                        <div className="h-4 w-full bg-muted rounded animate-pulse" />
+                        <div className="h-4 w-5/6 bg-muted rounded animate-pulse" />
+                        <div className="flex justify-center mt-8">
+                          <p className="text-sm text-muted-foreground italic">Analyzing requirements & generating content...</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="prose prose-slate dark:prose-invert max-w-none">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeRaw]}
+                          components={{
+                            p: ({ node, ...props }) => <p className="mb-4 leading-relaxed" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-2" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-2" {...props} />,
+                            pre: ({ node, ...props }) => <pre className="bg-slate-900 text-slate-100 p-4 rounded-xl overflow-x-auto my-4 text-sm" {...props} />,
+                            code: ({ node, inline, children, ...props }: any) =>
+                              inline ? (
+                                <code className="px-1.5 py-0.5 bg-primary/10 text-primary rounded font-mono text-sm" {...props}>{children}</code>
+                              ) : (
+                                <code {...props}>{children}</code>
+                              ),
+                          }}
+                        >
+                          {output}
+                        </ReactMarkdown>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="flex h-full flex-col bg-background">
-      <AppHeader title="Content Tools" />
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex h-screen flex-col bg-background overflow-hidden">
+      <AppHeader title="Smart AI Tools" />
+      <main className="flex-1 overflow-y-auto">
         {renderToolUI()}
-      </div>
+      </main>
+      
+      {selectedTool && !output && (
+        <div className="md:hidden fixed bottom-20 left-0 right-0 p-4 bg-gradient-to-t from-background to-transparent z-40">
+          <Button onClick={handleProcess} disabled={loading} className="w-full h-14 rounded-2xl shadow-xl font-bold gap-2">
+            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Sparkles className="h-5 w-5" />}
+            {loading ? 'Processing...' : 'Generate Now'}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
