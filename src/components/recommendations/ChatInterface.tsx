@@ -421,20 +421,22 @@ export function ChatInterface({
     
     const handleViewportScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } = viewport;
-      const atBottom = scrollHeight - scrollTop - clientHeight < 50;
+      // Show button if more than 200px from bottom
+      const atBottom = scrollHeight - scrollTop - clientHeight < 200;
       setShowScrollButton(!atBottom);
     };
     
     viewport.addEventListener('scroll', handleViewportScroll);
+    handleViewportScroll(); // Initial check
     return () => viewport.removeEventListener('scroll', handleViewportScroll);
-  }, []);
+  }, [messages, isLoading]);
 
   return (
     <div className="flex h-full w-full flex-col bg-background relative overflow-hidden">
       <div className="flex-1 overflow-hidden" ref={scrollAreaRef}>
         <div 
           ref={scrollViewportRef}
-          className="h-full w-full overflow-y-auto pb-32 md:pb-24"
+          className="h-full w-full overflow-y-auto pb-32 md:pb-24 scroll-smooth"
           onScroll={handleScroll}
         >
           <div className="mx-auto w-full max-w-4xl space-y-3 sm:space-y-4 px-3 sm:px-4 py-4 sm:py-6">
@@ -476,9 +478,13 @@ export function ChatInterface({
         </div>
       </div>
        {showScrollButton && (
-        <div className="absolute bottom-40 sm:bottom-44 right-3 sm:right-4 z-10">
-            <Button size="icon" className="rounded-full shadow-lg h-10 w-10 sm:h-11 sm:w-11" onClick={() => scrollToBottom('smooth')}>
-                <ChevronDown className="h-5 w-5" />
+        <div className="absolute bottom-40 sm:bottom-44 right-3 sm:right-4 z-10 animate-in fade-in zoom-in duration-300">
+            <Button 
+              size="icon" 
+              className="rounded-full shadow-xl h-11 w-11 bg-primary hover:bg-primary/90 hover:scale-110 active:scale-95 transition-all" 
+              onClick={() => scrollToBottom('smooth')}
+            >
+                <ChevronDown className="h-6 w-6 animate-bounce" />
             </Button>
         </div>
       )}
