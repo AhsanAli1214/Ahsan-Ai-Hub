@@ -56,7 +56,8 @@ export async function enhanceTextAction(input: EnhanceTextInput): Promise<Conten
     return { success: true, data: result };
   } catch (error) {
     console.error('Error enhancing text:', error);
-    return { success: false, error: 'Failed to enhance text.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to enhance text. Please check your input and try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -66,7 +67,8 @@ export async function generateEmailAction(input: GenerateEmailInput): Promise<Co
     return { success: true, data: result };
   } catch (error) {
     console.error('Error generating email:', error);
-    return { success: false, error: 'Failed to generate email.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to generate email. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -76,7 +78,8 @@ export async function generateBlogPostAction(input: GenerateBlogPostInput): Prom
     return { success: true, data: result };
   } catch (error) {
     console.error('Error generating blog post:', error);
-    return { success: false, error: 'Failed to generate blog post.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to generate blog post. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -86,7 +89,8 @@ export async function generateStudyMaterialAction(input: GenerateStudyMaterialIn
     return { success: true, data: result };
   } catch (error) {
     console.error('Error generating study material:', error);
-    return { success: false, error: 'Failed to generate study material.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to generate study material. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -96,7 +100,8 @@ export async function explainProgrammingAction(input: ExplainProgrammingInput): 
     return { success: true, data: result };
   } catch (error) {
     console.error('Error explaining code:', error);
-    return { success: false, error: 'Failed to explain code.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to explain code. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -106,7 +111,8 @@ export async function solveMathAction(input: SolveMathInput): Promise<ContentToo
     return { success: true, data: result };
   } catch (error) {
     console.error('Error solving math problem:', error);
-    return { success: false, error: 'Failed to solve math problem.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to solve math problem. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
@@ -116,35 +122,38 @@ export async function translateTextAction(input: TranslateTextInput): Promise<{ 
     return { success: true, data: translatedText };
   } catch (error) {
     console.error('Error translating text:', error);
-    return { success: false, error: 'Failed to translate text.' };
+    const errorMsg = error instanceof Error ? error.message : 'Failed to translate text. Please try again.';
+    return { success: false, error: errorMsg };
   }
 }
 
 export async function generateSocialMediaPostAction(input: GenerateSocialMediaPostInput): Promise<ContentToolResult> {
-    try {
-        const { result } = await generateSocialMediaPost(input);
-        return { success: true, data: result };
-    } catch (error) {
-        console.error('Error generating social media post:', error);
-        return { success: false, error: 'Failed to generate social media post.' };
-    }
+  try {
+    const { result } = await generateSocialMediaPost(input);
+    return { success: true, data: result };
+  } catch (error) {
+    console.error('Error generating social media post:', error);
+    const errorMsg = error instanceof Error ? error.message : 'Failed to generate social media post. Please try again.';
+    return { success: false, error: errorMsg };
+  }
 }
 
 export async function assistResumeAction(input: AssistResumeInput): Promise<ContentToolResult> {
-    try {
-        const { result } = await assistResume(input);
-        return { success: true, data: result };
-    } catch (error) {
-        console.error('Error assisting with resume:', error);
-        return { success: false, error: 'Failed to assist with resume.' };
-    }
+  try {
+    const { result } = await assistResume(input);
+    return { success: true, data: result };
+  } catch (error) {
+    console.error('Error assisting with resume:', error);
+    const errorMsg = error instanceof Error ? error.message : 'Failed to assist with resume. Please try again.';
+    return { success: false, error: errorMsg };
+  }
 }
 
 export async function generateStoryAction(input: GenerateStoryInput): Promise<ContentToolResult> {
-    try {
-        const { result } = await generateStory(input);
-        return { success: true, data: result };
-    } catch (error) {
+  try {
+    const { result } = await generateStory(input);
+    return { success: true, data: result };
+  } catch (error) {
         console.error('Error generating story:', error);
         return { success: false, error: 'Failed to generate story.' };
     }
