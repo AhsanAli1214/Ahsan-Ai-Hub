@@ -25,11 +25,13 @@ interface ChatHistoryContextType {
   currentSession: ChatSession | null;
   createSession: (title?: string) => string;
   deleteSession: (id: string) => void;
+  deleteAllSessions: () => void;
   switchSession: (id: string) => void;
   addMessage: (message: Message) => void;
   updateCurrentSessionTitle: (title: string) => void;
   clearCurrentSession: () => void;
   loadSessions: () => void;
+  getStorageUsage: () => number;
 }
 
 const ChatHistoryContext = createContext<ChatHistoryContextType | undefined>(undefined);
@@ -119,6 +121,13 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const deleteAllSessions = () => {
+    setSessionsState([]);
+    setCurrentSessionIdState(null);
+    saveSessions([]);
+    saveCurrentSessionId(null);
+  };
+
   const switchSession = (id: string) => {
     if (sessions.some(s => s.id === id)) {
       setCurrentSessionIdState(id);
@@ -160,6 +169,15 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
     loadSessionsFromStorage();
   };
 
+  const getStorageUsage = (): number => {
+    try {
+      const stored = localStorage.getItem(SESSIONS_STORAGE_KEY);
+      return stored ? new Blob([stored]).size : 0;
+    } catch {
+      return 0;
+    }
+  };
+
   useEffect(() => {
     saveSessions(sessions);
   }, [sessions]);
@@ -178,11 +196,13 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
         currentSession,
         createSession,
         deleteSession,
+        deleteAllSessions,
         switchSession,
         addMessage,
         updateCurrentSessionTitle,
         clearCurrentSession,
         loadSessions,
+        getStorageUsage,
       }}
     >
       {children}
