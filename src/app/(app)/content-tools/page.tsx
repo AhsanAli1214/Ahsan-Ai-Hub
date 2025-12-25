@@ -178,8 +178,8 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
     <Card
       onClick={onSelect}
       className={cn(
-        'group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border-2 border-border/60 bg-card backdrop-blur-xl',
-        'hover:border-primary/40 hover:bg-card/80'
+        'group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-border/60 bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-xl hover:from-card/90 hover:to-card/70',
+        'hover:border-primary/50 hover:shadow-primary/20'
       )}
     >
       <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -427,7 +427,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Tone & Mode</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold appearance-none"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold appearance-none cursor-pointer"
                         value={options.enhanceMode}
                         onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
                       >
@@ -440,7 +440,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Focus Area</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold appearance-none"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer appearance-none"
                         value={options.enhanceFocus || 'all'}
                         onChange={(e) => setOptions({ ...options, enhanceFocus: e.target.value })}
                       >
@@ -458,7 +458,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Email Tone</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.emailTone}
                         onChange={(e) => setOptions({ ...options, emailTone: e.target.value })}
                       >
@@ -471,7 +471,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Email Type</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.emailType || 'general'}
                         onChange={(e) => setOptions({ ...options, emailType: e.target.value })}
                       >
@@ -490,7 +490,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Target Length</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.blogLength}
                         onChange={(e) => setOptions({ ...options, blogLength: e.target.value })}
                       >
@@ -502,7 +502,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Blog Style</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.blogStyle || 'informative'}
                         onChange={(e) => setOptions({ ...options, blogStyle: e.target.value })}
                       >
@@ -520,7 +520,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Study Type</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.studyType}
                         onChange={(e) => setOptions({ ...options, studyType: e.target.value })}
                       >
@@ -532,7 +532,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Education Level</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.educationLevel || 'high-school'}
                         onChange={(e) => setOptions({ ...options, educationLevel: e.target.value })}
                       >
@@ -549,7 +549,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Programming Language</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.codeLanguage}
                         onChange={(e) => setOptions({ ...options, codeLanguage: e.target.value })}
                       >
@@ -563,7 +563,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Focus</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.codeFocus || 'explanation'}
                         onChange={(e) => setOptions({ ...options, codeFocus: e.target.value })}
                       >
@@ -580,7 +580,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Resume Section</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.resumeSection}
                         onChange={(e) => setOptions({ ...options, resumeSection: e.target.value })}
                       >
@@ -593,7 +593,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Job Level</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.jobLevel || 'mid'}
                         onChange={(e) => setOptions({ ...options, jobLevel: e.target.value })}
                       >
@@ -611,7 +611,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Story Genre</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.storyGenre || 'adventure'}
                         onChange={(e) => setOptions({ ...options, storyGenre: e.target.value })}
                       >
@@ -625,7 +625,7 @@ export default function ContentToolsPage() {
                     <div className="space-y-2">
                       <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Story Length</label>
                       <select
-                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                         value={options.storyLength || 'short'}
                         onChange={(e) => setOptions({ ...options, storyLength: e.target.value })}
                       >
@@ -641,7 +641,7 @@ export default function ContentToolsPage() {
                   <div className="space-y-2">
                     <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Target Language</label>
                     <select
-                      className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                      className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                       value={options.targetLanguage}
                       onChange={(e) => setOptions({ ...options, targetLanguage: e.target.value })}
                     >
@@ -657,7 +657,7 @@ export default function ContentToolsPage() {
                 <div className="space-y-2">
                   <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Difficulty Level</label>
                   <select
-                    className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                    className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-gradient-to-r from-card/80 to-card/60 shadow-sm hover:shadow-md focus:border-primary/70 focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 font-bold cursor-pointer"
                     value={options.difficulty}
                     onChange={(e) => setOptions({ ...options, difficulty: e.target.value })}
                   >
@@ -669,24 +669,25 @@ export default function ContentToolsPage() {
               </div>
 
               <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/5 rounded-[1.75rem] blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
                 <Textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={tool.placeholder}
-                  className="min-h-[280px] p-8 rounded-3xl border-2 border-border hover:border-primary/50 focus-visible:border-primary transition-all text-lg bg-card shadow-lg resize-none leading-relaxed font-medium"
+                  className="relative min-h-[280px] p-6 lg:p-8 rounded-3xl border border-border/60 hover:border-primary/40 focus-visible:border-primary/70 transition-all duration-300 text-base lg:text-lg bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-sm shadow-lg hover:shadow-xl resize-none leading-relaxed font-medium focus-visible:ring-2 focus-visible:ring-primary/20"
                 />
-                <div className="absolute bottom-6 right-8 text-xs font-black text-muted-foreground/70 bg-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">
+                <div className="absolute bottom-6 right-6 lg:right-8 text-xs font-black text-muted-foreground/60 bg-gradient-to-r from-primary/15 to-primary/5 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20 backdrop-blur-sm pointer-events-none">
                   {input.length} chars
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6 pt-2">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground bg-yellow-500/10 p-5 rounded-2xl border-2 border-yellow-500/20 backdrop-blur-sm">
-                  <Lightbulb className="h-6 w-6 text-yellow-500 shrink-0" />
-                  <span className="font-semibold leading-relaxed"><strong className="text-foreground">Pro Tip:</strong> {tool.tip}</span>
+              <div className="flex flex-col gap-6 pt-4">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground bg-gradient-to-r from-amber-500/15 to-yellow-500/10 p-6 rounded-2xl border border-yellow-500/30 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300">
+                  <Lightbulb className="h-6 w-6 text-yellow-500 shrink-0 flex-shrink-0 animate-bounce" />
+                  <span className="font-semibold leading-relaxed"><strong className="text-foreground/90">💡 Pro Tip:</strong> {tool.tip}</span>
                 </div>
                 
-                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-xl text-base font-bold shadow-lg shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] w-full bg-primary hover:bg-primary/90">
+                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-2xl text-base font-bold shadow-lg shadow-primary/40 hover:shadow-xl hover:shadow-primary/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 disabled:opacity-70">
                   {loading ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin mr-2" />
@@ -705,25 +706,25 @@ export default function ContentToolsPage() {
             {(output || loading) && (
               <div ref={scrollRef} className="animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
                 <div className="relative group">
-                  <div className="absolute -inset-1 bg-primary/5 rounded-[2.5rem] blur-xl group-hover:bg-primary/10 transition-all duration-500" />
-                  <Card className="relative border-2 border-border overflow-hidden shadow-2xl bg-white/90 dark:bg-card/90 backdrop-blur-2xl rounded-[2rem]">
-                    <div className="px-8 py-5 border-b bg-muted/10 flex items-center justify-between">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/5 rounded-[2.5rem] blur-2xl group-hover:from-primary/30 group-hover:to-primary/10 transition-all duration-700" />
+                  <Card className="relative border border-border/60 overflow-hidden shadow-2xl shadow-primary/10 bg-gradient-to-br from-white/95 via-white/90 to-primary/5 dark:from-card/95 dark:via-card/90 dark:to-primary/10 backdrop-blur-2xl rounded-[2rem]">
+                    <div className="px-8 py-6 border-b bg-gradient-to-r from-primary/5 to-transparent flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        {loading ? <div className="h-3 w-3 bg-primary rounded-full animate-pulse shadow-sm shadow-primary/50" /> : <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
-                        <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">{loading ? 'Processing...' : 'Output Ready'}</span>
+                        {loading ? <div className="h-3 w-3 bg-primary rounded-full animate-pulse shadow-sm shadow-primary/70" /> : <CheckCircle2 className="h-5 w-5 text-emerald-500 animate-in spin duration-700" />}
+                        <span className="text-xs font-black uppercase tracking-[0.2em] text-muted-foreground">{loading ? '⚙️ Processing...' : '✓ Output Ready'}</span>
                       </div>
                       {!loading && (
                         <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={handleCopy}>
-                            {copied ? <Check className="h-5 w-5 text-emerald-500" /> : <Copy className="h-5 w-5" />}
+                          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/15 hover:text-primary transition-all duration-300 hover:shadow-md" onClick={handleCopy}>
+                            {copied ? <Check className="h-5 w-5 text-emerald-500 animate-pulse" /> : <Copy className="h-5 w-5" />}
                           </Button>
-                          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={() => handleDownload('txt')}>
+                          <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/15 hover:text-primary transition-all duration-300 hover:shadow-md" onClick={() => handleDownload('txt')}>
                             <Download className="h-5 w-5" />
                           </Button>
                         </div>
                       )}
                     </div>
-                    <CardContent className="p-8 md:p-14">
+                    <CardContent className="p-8 md:p-12 space-y-4">
                       {loading ? (
                         <div className="space-y-6 py-12">
                           <div className="h-5 w-3/4 bg-muted rounded-full animate-pulse" />
