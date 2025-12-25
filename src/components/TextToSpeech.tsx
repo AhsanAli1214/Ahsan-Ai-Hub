@@ -13,12 +13,7 @@ interface TextToSpeechProps {
 export function TextToSpeech({ text, disabled = false }: TextToSpeechProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
-  const [speed, setSpeed] = useState(1.8);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    setIsSupported('speechSynthesis' in window);
-  }, []);
+  const [speed, setSpeed] = useState(2.2);
 
   const handleSpeak = () => {
     if (!text.trim()) {
@@ -32,10 +27,21 @@ export function TextToSpeech({ text, disabled = false }: TextToSpeechProps) {
       return;
     }
 
+    // Cancel any existing speech before starting new one for faster response
+    window.speechSynthesis.cancel();
+
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = speed;
-    utterance.pitch = 1.1;
+    utterance.pitch = 1.0; 
     utterance.volume = 1;
+
+    // Pre-load voices for faster initialization if needed
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      // Prefer a natural sounding voice if available
+      const preferredVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) || voices[0];
+      utterance.voice = preferredVoice;
+    }
 
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => {
