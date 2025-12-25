@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export async function GET() {
-  const baseUrl = 'https://ahsan-ai-hub.replit.dev';
+  const baseUrl = 'https://ahsan-ai-hub.vercel.app';
 
   const pages = [
     '',

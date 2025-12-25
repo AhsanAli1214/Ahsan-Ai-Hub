@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Crawl-delay: 1
 
 # Sitemaps
-Sitemap: https://ahsan-ai-hub.replit.dev/sitemap.xml
+Sitemap: https://ahsan-ai-hub.vercel.app/sitemap.xml

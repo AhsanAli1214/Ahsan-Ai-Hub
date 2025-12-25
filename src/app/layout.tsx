@@ -24,31 +24,66 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Ahsan AI Hub - Smart AI Chat, Content Tools & Automation',
-  description: 'Ahsan AI Hub is an AI-powered platform offering smart chat, automation, and creative AI tools. Get instant help with writing, coding, brainstorming, and problem solving.',
-  keywords: 'AI chat, content tools, AI writing, code explanation, brainstorming, AI assistant',
+  metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
+  title: 'Ahsan AI Hub - Advanced AI Chat, Content Generation & Smart Tools',
+  description: 'Discover Ahsan AI Hub - the ultimate AI-powered platform for intelligent chat, content generation, email writing, code explanation, and creative tools. Boost productivity with 10+ AI tools for writing, email marketing, and creative projects.',
+  keywords: [
+    'AI chat',
+    'AI writing tools',
+    'content generation',
+    'email writer AI',
+    'code explanation',
+    'AI assistant',
+    'brainstorming tool',
+    'blog writing',
+    'resume assistant',
+    'study material generator',
+  ],
   manifest: '/manifest.json',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Ahsan Ai Hub',
+    title: 'Ahsan AI Hub',
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
-    title: 'Ahsan AI Hub - Your Intelligent AI Companion',
-    description: 'An AI-powered platform for smart chat, content creation, and automation',
+    type: 'website',
+    locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
     siteName: 'Ahsan AI Hub',
+    title: 'Ahsan AI Hub - Advanced AI Chat & Content Generation Platform',
+    description: 'Powerful AI tools for chat, content creation, writing, email marketing, and problem-solving. Get instant help with 10+ AI-powered tools.',
     images: [
       {
         url: '/icon-512.png',
         width: 512,
         height: 512,
         alt: 'Ahsan AI Hub Logo',
+        type: 'image/png',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ahsan AI Hub - Advanced AI Platform',
+    description: 'Powerful AI tools for chat, content creation, writing, and more',
+    images: ['/icon-512.png'],
+  },
+  alternates: {
+    canonical: 'https://ahsan-ai-hub.vercel.app',
   },
 };
 
@@ -61,10 +96,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="description" content="Discover Ahsan AI Hub - the ultimate AI-powered platform for intelligent chat, content generation, email writing, and creative tools." />
+        <meta name="author" content="Ahsan AI Hub" />
+        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
+        <link rel="alternate" hrefLang="en" href="https://ahsan-ai-hub.vercel.app" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -97,6 +139,28 @@ export default function RootLayout({
             });
           }
         `}} />
+        <Script id="schema-webapp" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          'name': 'Ahsan AI Hub',
+          'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
+          'url': 'https://ahsan-ai-hub.vercel.app',
+          'applicationCategory': 'Productivity',
+          'offers': {
+            '@type': 'AggregateOffer',
+            'priceCurrency': 'USD',
+            'lowPrice': '0',
+            'highPrice': '0',
+          },
+        })}} />
+        <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          'name': 'Ahsan AI Hub',
+          'url': 'https://ahsan-ai-hub.vercel.app',
+          'logo': 'https://ahsan-ai-hub.vercel.app/icon-512.png',
+          'description': 'Advanced AI-powered platform for intelligent chat, content generation, and creative tools',
+        })}} />
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <ThemeProvider
