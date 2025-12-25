@@ -26,48 +26,118 @@ export function Toaster() {
     return <Lightbulb className="h-5 w-5 text-blue-500 shrink-0" />
   }
 
-  const playNotificationSound = () => {
+  const playNotificationSound = (type: 'success' | 'error' | 'info' = 'info') => {
     try {
       const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
-      const oscillator = audioContext.createOscillator()
-      const gainNode = audioContext.createGain()
+      const now = audioContext.currentTime
       
-      oscillator.connect(gainNode)
-      gainNode.connect(audioContext.destination)
-      
-      oscillator.frequency.value = 800
-      oscillator.type = 'sine'
-      
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15)
-      
-      oscillator.start(audioContext.currentTime)
-      oscillator.stop(audioContext.currentTime + 0.15)
+      if (type === 'success') {
+        // Success: Two ascending tones (pleasant chime)
+        const osc1 = audioContext.createOscillator()
+        const osc2 = audioContext.createOscillator()
+        const gain1 = audioContext.createGain()
+        const gain2 = audioContext.createGain()
+        
+        osc1.connect(gain1)
+        osc2.connect(gain2)
+        gain1.connect(audioContext.destination)
+        gain2.connect(audioContext.destination)
+        
+        osc1.frequency.value = 523 // C5
+        osc2.frequency.value = 659 // E5
+        osc1.type = 'sine'
+        osc2.type = 'sine'
+        
+        gain1.gain.setValueAtTime(0.2, now)
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.2)
+        gain2.gain.setValueAtTime(0, now)
+        gain2.gain.linearRampToValueAtTime(0.2, now + 0.1)
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.35)
+        
+        osc1.start(now)
+        osc1.stop(now + 0.2)
+        osc2.start(now + 0.1)
+        osc2.stop(now + 0.35)
+      } else if (type === 'error') {
+        // Error: Descending tone (alert)
+        const osc = audioContext.createOscillator()
+        const gain = audioContext.createGain()
+        
+        osc.connect(gain)
+        gain.connect(audioContext.destination)
+        
+        osc.frequency.setValueAtTime(600, now)
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.3)
+        osc.type = 'sine'
+        
+        gain.gain.setValueAtTime(0.25, now)
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3)
+        
+        osc.start(now)
+        osc.stop(now + 0.3)
+      } else {
+        // Info: Single smooth tone
+        const osc = audioContext.createOscillator()
+        const gain = audioContext.createGain()
+        
+        osc.connect(gain)
+        gain.connect(audioContext.destination)
+        
+        osc.frequency.value = 440 // A4
+        osc.type = 'sine'
+        
+        gain.gain.setValueAtTime(0.15, now)
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25)
+        
+        osc.start(now)
+        osc.stop(now + 0.25)
+      }
     } catch (e) {
-      console.log('Audio notification unavailable')
+      // Audio context not available
     }
+  }
+
+  const getToastType = (title?: string): 'success' | 'error' | 'info' => {
+    if (!title) return 'info'
+    const titleStr = String(title).toLowerCase()
+    if (titleStr.includes('success') || titleStr.includes('copied')) return 'success'
+    if (titleStr.includes('error') || titleStr.includes('failed')) return 'error'
+    return 'info'
   }
 
   return (
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
+        const toastType = getToastType(title)
+        playNotificationSound(toastType)
+        
         return (
-          <Toast key={id} {...props} className="border-border shadow-md">
+          <Toast 
+            key={id} 
+            {...props} 
+            className="border border-border/50 shadow-lg bg-card rounded-lg backdrop-filter animate-in slide-in-from-right-full duration-300"
+          >
             <div className="flex items-start gap-3 flex-1">
               {getToastIcon(title)}
-              <div className="grid gap-1 flex-1">
-                {title && <ToastTitle className="text-sm font-semibold">{title}</ToastTitle>}
+              <div className="grid gap-1.5 flex-1 pr-2">
+                {title && (
+                  <ToastTitle className="text-sm font-semibold text-foreground leading-tight">
+                    {title}
+                  </ToastTitle>
+                )}
                 {description && (
-                  <ToastDescription className="text-xs text-muted-foreground">{description}</ToastDescription>
+                  <ToastDescription className="text-xs text-muted-foreground/80 leading-relaxed">
+                    {description}
+                  </ToastDescription>
                 )}
               </div>
             </div>
             {action}
-            <ToastClose />
+            <ToastClose className="text-muted-foreground hover:text-foreground transition-colors" />
           </Toast>
         )
       })}
-      <ToastViewport />
+      <ToastViewport className="pointer-events-none" />
     </ToastProvider>
   )
 }
