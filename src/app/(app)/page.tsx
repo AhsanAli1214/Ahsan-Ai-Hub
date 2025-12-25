@@ -23,6 +23,7 @@ import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { InstallInstructions } from '@/components/InstallInstructions';
 import { InstallGuide } from '@/components/InstallGuide';
+import { PWAInstallButton } from '@/components/PWAInstallButton';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { OneSignalButton } from '@/components/OneSignalButton';
 
@@ -242,25 +243,13 @@ export default function HomePage() {
                     Install the Ahsan AI Hub app on your device for easy access and offline support.
                   </p>
                 </div>
-                <div className="mt-4 md:mt-0 flex flex-col gap-2 w-full md:w-auto">
-                  <Button
-                    onClick={handleInstallApp}
-                    size="lg"
-                    className={`w-full font-semibold text-base py-6 transition-all duration-300 ${
-                      isInstalled 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg'
-                        : 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
-                    }`}
-                    disabled={isInstalled}
-                  >
-                    <Cloud className="mr-2 h-5 w-5 animate-pulse" />
-                    {isInstalled ? '✓ App Installed Successfully' : '⚡ Install App Now'}
-                  </Button>
+                <div className="mt-4 md:mt-0 space-y-3 w-full md:w-auto">
+                  <PWAInstallButton />
                   <Button
                     asChild
                     size="lg"
                     variant="outline"
-                    className="w-full font-semibold text-base py-6 border-2 hover:bg-accent"
+                    className="w-full font-semibold text-base py-6 border-2 hover:bg-accent rounded-2xl"
                   >
                     <a href="/Ahsan%20Ai%20Hub.apk" download>
                       <Download className="mr-2 h-5 w-5" />

@@ -67,6 +67,7 @@ const toolsList: {
   placeholder: string;
   tip: string;
   features?: string[];
+  image?: string;
 }[] = [
   {
     id: 'enhance',
@@ -77,6 +78,7 @@ const toolsList: {
     placeholder: 'Paste your text here to enhance...',
     tip: 'Use this for professionalizing casual messages or polishing drafts.',
     features: ['Grammar Check', 'Style Options', 'Tone Selection', 'Readability Analysis'],
+    image: '/tool-icons/text_enhancer_tool_icon.png',
   },
   {
     id: 'email',
@@ -87,6 +89,7 @@ const toolsList: {
     placeholder: 'Tell me who you are emailing and what it is about...',
     tip: 'Mention the relationship with the recipient for a better tone.',
     features: ['Tone Selection', 'Custom Details', 'Professional Templates', 'Preview'],
+    image: '/tool-icons/email_writer_tool_icon.png',
   },
   {
     id: 'blog',
@@ -97,6 +100,7 @@ const toolsList: {
     placeholder: 'Enter your blog topic or main keywords...',
     tip: 'Specific keywords help in generating a more targeted SEO-friendly post.',
     features: ['SEO Optimized', 'Length Control', 'Markdown Format', 'Image Suggestions'],
+    image: '/tool-icons/blog_generator_tool_icon.png',
   },
   {
     id: 'study',
@@ -106,6 +110,7 @@ const toolsList: {
     color: 'bg-emerald-500',
     placeholder: 'Paste a topic or text you want to learn more about...',
     tip: 'Ask for specific formats like "summaries" or "flashcard ideas".',
+    image: '/tool-icons/study_assistant_tool_icon.png',
   },
   {
     id: 'code',
@@ -115,6 +120,7 @@ const toolsList: {
     color: 'bg-indigo-500',
     placeholder: 'Paste the code snippet you want explained...',
     tip: 'You can also ask about specific bugs or performance issues.',
+    image: '/tool-icons/code_explainer_tool_icon.png',
   },
   {
     id: 'math',
@@ -124,6 +130,7 @@ const toolsList: {
     color: 'bg-rose-500',
     placeholder: 'Enter your math problem step-by-step...',
     tip: 'Works best for algebra, calculus, and word problems.',
+    image: '/tool-icons/math_solver_tool_icon.png',
   },
   {
     id: 'translate',
@@ -133,6 +140,7 @@ const toolsList: {
     color: 'bg-cyan-500',
     placeholder: 'Paste text to translate...',
     tip: 'AI handles idiomatic expressions better than basic translators.',
+    image: '/tool-icons/translator_tool_icon.png',
   },
   {
     id: 'social',
@@ -142,6 +150,7 @@ const toolsList: {
     color: 'bg-yellow-500',
     placeholder: 'What is your post about? Mention the goal...',
     tip: 'Specify your target audience for better engagement.',
+    image: '/tool-icons/social_media_post_tool_icon.png',
   },
   {
     id: 'resume',
@@ -151,6 +160,7 @@ const toolsList: {
     color: 'bg-slate-500',
     placeholder: 'Paste your current experience or skills...',
     tip: 'Use action verbs and quantify achievements for best results.',
+    image: '/tool-icons/resume_assistant_tool_icon.png',
   },
   {
     id: 'story',
@@ -160,6 +170,7 @@ const toolsList: {
     color: 'bg-violet-500',
     placeholder: 'Describe the story idea you want...',
     tip: 'Give details about the genre or main character traits.',
+    image: '/tool-icons/story_writer_tool_icon.png',
   },
 ];
 
@@ -169,20 +180,32 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
     <Card
       onClick={onSelect}
       className={cn(
-        'group flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-border bg-card'
+        'group flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 border-border bg-card'
       )}
     >
-      <div className="p-5 flex flex-col h-full">
-        <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center mb-5 transition-transform group-hover:scale-110 shadow-sm', tool.color)}>
-          <IconComponent className="h-6 w-6 text-white" />
+      {tool.image && (
+        <div className="relative w-full h-32 bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
+          <img 
+            src={tool.image} 
+            alt={tool.label}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+          <div className={cn('absolute inset-0', tool.color, 'opacity-0 group-hover:opacity-10 transition-opacity')} />
         </div>
-        <div className="space-y-2 mb-8">
-          <h3 className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">{tool.label}</h3>
+      )}
+      <div className="p-5 flex flex-col h-full flex-1">
+        <div className="flex items-center gap-3 mb-3">
+          <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm', tool.color)}>
+            <IconComponent className="h-6 w-6 text-white" />
+          </div>
+        </div>
+        <div className="space-y-2 mb-4 flex-1">
+          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{tool.label}</h3>
           <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{tool.desc}</p>
         </div>
         <div className="mt-auto">
-          <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all rounded-2xl py-6 font-bold text-base" variant="secondary">
-            Use Tool
+          <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all rounded-xl py-5 font-bold text-sm shadow-md" variant="default">
+            Use Tool →
           </Button>
         </div>
       </div>
