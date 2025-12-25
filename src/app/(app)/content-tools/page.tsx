@@ -26,7 +26,6 @@ import {
   CheckCircle2,
   Lightbulb,
   Upload,
-  Volume2,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import {
@@ -54,7 +53,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { LANGUAGES } from '@/lib/languages';
-import { TextToSpeech } from '@/components/TextToSpeech';
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story';
 
@@ -180,9 +178,11 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
     <Card
       onClick={onSelect}
       className={cn(
-        'group flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border-2 border-border bg-card'
+        'group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border-2 border-border/60 bg-gradient-to-br from-card to-card/80 backdrop-blur-xl',
+        'hover:border-primary/40 hover:bg-gradient-to-br hover:from-card hover:to-primary/5'
       )}
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       {tool.image && (
         <div className="relative w-full h-32 bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
           <img 
@@ -190,22 +190,24 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
             alt={tool.label}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
           />
-          <div className={cn('absolute inset-0', tool.color, 'opacity-0 group-hover:opacity-10 transition-opacity')} />
+          <div className={cn('absolute inset-0', tool.color, 'opacity-0 group-hover:opacity-20 transition-opacity')} />
         </div>
       )}
-      <div className="p-5 flex flex-col h-full flex-1">
-        <div className="flex items-center gap-3 mb-3">
-          <div className={cn('w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-sm', tool.color)}>
-            <IconComponent className="h-6 w-6 text-white" />
+      <div className="relative p-6 flex flex-col h-full flex-1 space-y-3">
+        <div className="flex items-center gap-3">
+          <div className={cn('w-14 h-14 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 group-hover:shadow-xl shadow-md', tool.color)}>
+            <IconComponent className="h-7 w-7 text-white" />
+          </div>
+          <div className="flex-1">
+            <h3 className="font-black text-lg text-foreground group-hover:text-primary transition-colors leading-tight">{tool.label}</h3>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider opacity-70">{tool.color === 'bg-blue-500' ? 'Writing' : tool.color === 'bg-purple-500' ? 'Email' : 'Creative'}</p>
           </div>
         </div>
-        <div className="space-y-2 mb-4 flex-1">
-          <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{tool.label}</h3>
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{tool.desc}</p>
-        </div>
-        <div className="mt-auto">
-          <Button className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-primary-foreground transition-all rounded-xl py-5 font-bold text-sm shadow-md" variant="default">
-            Use Tool →
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 flex-1">{tool.desc}</p>
+        <div className="mt-auto pt-2">
+          <Button className="w-full bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary text-primary-foreground transition-all rounded-xl py-6 font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]" variant="default">
+            <span>Use Tool</span>
+            <span className="ml-auto group-hover:translate-x-1 transition-transform">→</span>
           </Button>
         </div>
       </div>
@@ -358,12 +360,15 @@ export default function ContentToolsPage() {
   const renderToolUI = () => {
     if (!selectedTool) {
       return (
-        <div className="space-y-12 p-6 lg:p-14 max-w-7xl mx-auto">
-          <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground">AI Studio</h2>
-            <p className="text-muted-foreground text-xl font-medium">Select a specialized tool to enhance your workflow instantly.</p>
+        <div className="space-y-16 p-8 lg:p-16 max-w-7xl mx-auto">
+          <div className="text-center space-y-6 max-w-4xl mx-auto">
+            <div className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/30 mb-4">
+              <span className="text-sm font-black text-primary uppercase tracking-[0.2em]">Professional Tools</span>
+            </div>
+            <h2 className="text-6xl md:text-7xl font-black tracking-tight text-foreground">AI Studio</h2>
+            <p className="text-muted-foreground text-xl font-medium leading-relaxed max-w-2xl mx-auto">Harness the power of advanced AI to accelerate your creative and professional workflow with precision-engineered tools.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {toolsList.map((tool) => (
               <ToolCard key={tool.id} tool={tool} onSelect={() => setSelectedTool(tool.id)} />
             ))}
@@ -377,7 +382,7 @@ export default function ContentToolsPage() {
 
     return (
       <div className="h-full flex flex-col bg-background">
-        <div className="p-4 border-b bg-background sticky top-0 z-20 flex items-center justify-between shadow-sm">
+        <div className="p-6 border-b bg-gradient-to-r from-background to-background/80 sticky top-0 z-20 flex items-center justify-between shadow-md backdrop-blur-xl border-primary/10">
           <Button
             variant="ghost"
             size="sm"
@@ -386,13 +391,13 @@ export default function ContentToolsPage() {
               setInput('');
               setOutput('');
             }}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors rounded-xl font-bold"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all rounded-xl font-bold px-4 py-2"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to Studio
+            <ArrowLeft className="h-5 w-5" /> Back to Studio
           </Button>
-          <div className="flex items-center gap-3">
-            <div className={cn('w-3 h-3 rounded-full shadow-sm', tool.color)} />
-            <span className="font-black text-sm uppercase tracking-widest">{tool.label}</span>
+          <div className="flex items-center gap-3 px-4 py-2 bg-muted/50 rounded-2xl border border-border/60 backdrop-blur-sm">
+            <div className={cn('w-3 h-3 rounded-full shadow-md', tool.color)} />
+            <span className="font-black text-sm uppercase tracking-[0.15em] text-foreground">{tool.label}</span>
           </div>
           <div className="w-24 md:block hidden" />
         </div>
@@ -401,12 +406,12 @@ export default function ContentToolsPage() {
           <div className="max-w-5xl mx-auto p-6 lg:p-12 space-y-10 pb-44 md:pb-28">
             <div className="space-y-8">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-primary font-bold text-lg">
+                <div className="flex items-center gap-3 text-primary font-black text-lg">
                   <Sparkles className="h-6 w-6" />
                   <span>Your Input</span>
                 </div>
-                <Button variant="outline" size="sm" className="rounded-xl font-bold gap-2" onClick={() => fileInputRef.current?.click()}>
-                  <Upload className="h-4 w-4" /> Upload Doc
+                <Button variant="outline" size="sm" className="rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all" onClick={() => fileInputRef.current?.click()}>
+                  <Upload className="h-4 w-4" /> Upload File
                   <input type="file" ref={fileInputRef} className="hidden" accept=".txt,.md,.js,.ts,.py,.css,.html" onChange={handleFileUpload} />
                 </Button>
               </div>
@@ -663,29 +668,29 @@ export default function ContentToolsPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={tool.placeholder}
-                  className="min-h-[250px] p-8 rounded-[2rem] border-2 border-border hover:border-primary/50 focus-visible:border-primary transition-all text-lg bg-card shadow-inner-lg resize-none leading-relaxed font-medium"
+                  className="min-h-[280px] p-8 rounded-3xl border-2 border-border hover:border-primary/50 focus-visible:border-primary transition-all text-lg bg-gradient-to-br from-card to-card/80 shadow-lg resize-none leading-relaxed font-medium"
                 />
-                <div className="absolute bottom-6 right-8 text-xs font-black text-muted-foreground/60 bg-muted/50 px-3 py-1.5 rounded-full uppercase tracking-widest">
-                  {input.length} Characters
+                <div className="absolute bottom-6 right-8 text-xs font-black text-muted-foreground/70 bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">
+                  {input.length} chars
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-3 text-sm text-muted-foreground bg-secondary/50 p-5 rounded-3xl border-2 border-border/50">
+              <div className="flex flex-col gap-6 pt-2">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 p-5 rounded-2xl border-2 border-yellow-500/20 backdrop-blur-sm">
                   <Lightbulb className="h-6 w-6 text-yellow-500 shrink-0" />
-                  <span className="font-semibold"><strong>Pro Tip:</strong> {tool.tip}</span>
+                  <span className="font-semibold leading-relaxed"><strong className="text-foreground">Pro Tip:</strong> {tool.tip}</span>
                 </div>
                 
-                <Button onClick={handleProcess} disabled={loading} className="h-12 rounded-xl text-base font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98] w-full md:w-auto md:px-8">
+                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-xl text-base font-bold shadow-lg shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary/80">
                   {loading ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin mr-2" />
-                      Generating...
+                      <span>Generating...</span>
                     </>
                   ) : (
                     <>
                       <Sparkles className="h-5 w-5 mr-2" />
-                      Generate
+                      <span>Generate Content</span>
                     </>
                   )}
                 </Button>
@@ -710,7 +715,6 @@ export default function ContentToolsPage() {
                           <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={() => handleDownload('txt')}>
                             <Download className="h-5 w-5" />
                           </Button>
-                          <TextToSpeech text={output} />
                         </div>
                       )}
                     </div>
@@ -725,37 +729,18 @@ export default function ContentToolsPage() {
                           </div>
                         </div>
                       ) : (
-                        <div className="prose prose-lg dark:prose-invert max-w-none">
-                          <textarea
-                            className="w-full min-h-[400px] bg-transparent border-0 focus:ring-0 p-0 resize-none font-medium leading-relaxed text-foreground scrollbar-hide"
-                            value={output}
-                            onChange={(e) => setOutput(e.target.value)}
-                            placeholder="Generated content appears here..."
-                          />
-                          <div className="mt-10 pt-10 border-t border-border/50">
-                            <h4 className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em] mb-8">Preview Mode</h4>
-                            <div className="bg-muted/30 p-8 rounded-3xl border-2 border-border/40">
-                              <ReactMarkdown
-                                remarkPlugins={[remarkGfm]}
-                                rehypePlugins={[rehypeRaw]}
-                                components={{
-                                  p: ({ node, ...props }) => <p className="mb-6 leading-relaxed font-medium" {...props} />,
-                                  ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-6 space-y-3 font-medium" {...props} />,
-                                  ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-3 font-medium" {...props} />,
-                                  h1: ({ node, ...props }) => <h1 className="text-3xl font-black tracking-tight mb-8 mt-4" {...props} />,
-                                  h2: ({ node, ...props }) => <h2 className="text-2xl font-black tracking-tight mb-6 mt-4" {...props} />,
-                                  pre: ({ node, ...props }) => <pre className="bg-slate-900 text-slate-100 p-8 rounded-[1.5rem] overflow-x-auto my-8 shadow-xl border-2 border-white/5" {...props} />,
-                                  code: ({ node, inline, children, ...props }: any) =>
-                                    inline ? (
-                                      <code className="px-2 py-1 bg-primary/10 text-primary rounded-lg font-bold text-sm" {...props}>{children}</code>
-                                    ) : (
-                                      <code className="text-sm font-mono" {...props}>{children}</code>
-                                    ),
-                                }}
-                              >
-                                {output}
-                              </ReactMarkdown>
-                            </div>
+                        <div className="space-y-6">
+                          <div className="bg-gradient-to-br from-primary/5 via-transparent to-primary/5 p-8 rounded-3xl border-2 border-primary/20">
+                            <textarea
+                              className="w-full min-h-[450px] bg-transparent border-0 focus:ring-0 p-0 resize-none font-medium leading-relaxed text-foreground scrollbar-hide text-lg"
+                              value={output}
+                              onChange={(e) => setOutput(e.target.value)}
+                              placeholder="Generated content appears here..."
+                            />
+                          </div>
+                          <div className="flex items-center justify-between text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                            <span>{output.length} characters</span>
+                            <span className="text-emerald-500">Generated Successfully</span>
                           </div>
                         </div>
                       )}
