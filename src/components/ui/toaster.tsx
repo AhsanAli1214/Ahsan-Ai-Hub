@@ -115,25 +115,25 @@ export function Toaster() {
           <Toast 
             key={id} 
             {...props} 
-            className="border border-border/50 shadow-lg bg-card rounded-lg backdrop-filter animate-in slide-in-from-right-full duration-300"
+            className="border-2 border-border/40 shadow-2xl bg-card rounded-2xl animate-in slide-in-from-right-full duration-500 ease-out"
           >
-            <div className="flex items-start gap-3 flex-1">
-              {getToastIcon(title)}
-              <div className="grid gap-1.5 flex-1 pr-2">
+            <div className="flex items-start gap-4 flex-1">
+              <div className="mt-0.5">{getToastIcon(title)}</div>
+              <div className="grid gap-1 flex-1 pr-2">
                 {title && (
-                  <ToastTitle className="text-sm font-semibold text-foreground leading-tight">
+                  <ToastTitle className="text-sm font-bold text-foreground leading-tight tracking-tight">
                     {title}
                   </ToastTitle>
                 )}
                 {description && (
-                  <ToastDescription className="text-xs text-muted-foreground/80 leading-relaxed">
+                  <ToastDescription className="text-xs text-muted-foreground font-medium leading-relaxed">
                     {description}
                   </ToastDescription>
                 )}
               </div>
             </div>
             {action}
-            <ToastClose className="text-muted-foreground hover:text-foreground transition-colors" />
+            <ToastClose className="text-muted-foreground/50 hover:text-foreground transition-colors p-1" />
           </Toast>
         )
       })}

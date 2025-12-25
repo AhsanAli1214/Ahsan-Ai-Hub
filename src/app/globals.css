@@ -177,7 +177,7 @@ body {
     @apply flex flex-col items-center justify-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200;
   }
   .btm-nav-item-active {
-    @apply bg-gradient-to-b from-accent/20 to-accent/10 text-accent;
+    @apply bg-accent/10 text-accent;
     border-top: 3px solid hsl(var(--accent));
   }
 }
