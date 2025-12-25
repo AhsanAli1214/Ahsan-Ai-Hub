@@ -387,7 +387,7 @@ export default function SettingsPage() {
           </Card>
           
           {/* Push Notifications */}
-          <Card className="bg-gradient-to-br from-card to-card/50 border-primary/20">
+          <Card className="bg-card border-primary/20">
             <CardHeader>
               <CardTitle className="text-foreground">Push Notifications</CardTitle>
               <CardDescription className="text-muted-foreground">

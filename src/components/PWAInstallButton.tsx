@@ -100,7 +100,7 @@ export function PWAInstallButton() {
       <Button
         disabled
         size="lg"
-        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg py-6 text-base font-semibold rounded-2xl"
+        className="w-full bg-emerald-600 text-white shadow-lg py-6 text-base font-semibold rounded-2xl"
       >
         <Cloud className="mr-2 h-5 w-5" />
         ✓ App Installed Successfully
@@ -117,7 +117,7 @@ export function PWAInstallButton() {
         className={`w-full font-semibold text-base py-6 transition-all duration-300 rounded-2xl flex items-center justify-center gap-2 ${
           !deferredPrompt
             ? 'bg-gray-400 cursor-not-allowed text-gray-600'
-            : 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl text-white'
+            : 'bg-blue-700 hover:bg-blue-800 shadow-lg hover:shadow-xl text-white'
         }`}
       >
         <Cloud className="h-5 w-5 animate-pulse" />

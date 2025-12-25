@@ -233,7 +233,7 @@ export default function HomePage() {
 
 
           {/* Push Notifications Section */}
-          <Card className="bg-gradient-to-br from-card to-card/50 border-primary/20">
+          <Card className="bg-card border-primary/20">
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <div>
                 <CardTitle className="text-foreground">Enable Push Notifications</CardTitle>

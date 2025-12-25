@@ -103,8 +103,8 @@ export function OneSignalButton() {
       className={cn(
         'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
         isSubscribed
-          ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-md'
-          : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg'
+          ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+          : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
       )}
       size="lg"
     >

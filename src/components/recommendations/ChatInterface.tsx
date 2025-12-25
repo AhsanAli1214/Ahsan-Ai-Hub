@@ -89,8 +89,8 @@ function MessageBubble({
           className={cn(
             'relative max-w-[85%] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-3xl p-3 sm:p-4 break-words overflow-hidden shadow-md transition-all duration-200',
             isUser
-              ? 'rounded-br-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg'
-              : 'rounded-bl-lg border border-accent/20 bg-gradient-to-br from-card to-card/50 backdrop-blur-sm shadow-lg hover:shadow-xl hover:border-accent/40'
+              ? 'rounded-br-lg bg-primary text-primary-foreground shadow-lg'
+              : 'rounded-bl-lg border border-accent/20 bg-card backdrop-blur-sm shadow-lg hover:shadow-xl hover:border-accent/40'
           )}
         >
           <div className="break-words">

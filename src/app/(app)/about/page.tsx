@@ -104,7 +104,7 @@ export default function AboutPage() {
           <Card className="overflow-hidden shadow-lg border-accent/30">
             <CardContent className="p-0">
               <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-3 md:gap-0">
-                <div className="relative flex min-h-64 w-full items-center justify-center bg-gradient-to-br from-accent/20 via-card to-card p-6 md:min-h-full md:col-span-1">
+                <div className="relative flex min-h-64 w-full items-center justify-center bg-card p-6 md:min-h-full md:col-span-1">
                   {developerImage && (
                     <div className="relative h-44 w-44 overflow-hidden rounded-2xl border-4 border-accent shadow-xl ring-4 ring-accent/30">
                       <Image
@@ -149,7 +149,7 @@ export default function AboutPage() {
 
           {/* Highlights Section */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow text-center">
+            <Card className="bg-card border-accent/30 hover:shadow-lg transition-shadow text-center">
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <div className="mb-4 rounded-full bg-accent/25 p-3">
                   <Code className="h-6 w-6 text-accent" />
@@ -162,7 +162,7 @@ export default function AboutPage() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-gradient-to-br from-accent/20 to-accent/5 border-accent/30 hover:shadow-lg transition-shadow text-center">
+            <Card className="bg-card border-accent/30 hover:shadow-lg transition-shadow text-center">
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <div className="mb-4 rounded-full bg-accent/25 p-3">
                   <Zap className="h-6 w-6 text-accent" />
@@ -310,7 +310,7 @@ export default function AboutPage() {
                   Crafted with passion by Ahsan Ali
                 </p>
                 <div className="mx-auto w-fit rounded-full bg-accent/20 px-6 py-3 border border-accent/50">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+                  <span className="text-2xl font-bold text-accent">
                     A❤️N
                   </span>
                 </div>

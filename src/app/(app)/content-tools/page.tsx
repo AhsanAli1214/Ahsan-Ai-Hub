@@ -178,13 +178,13 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
     <Card
       onClick={onSelect}
       className={cn(
-        'group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border-2 border-border/60 bg-gradient-to-br from-card to-card/80 backdrop-blur-xl',
-        'hover:border-primary/40 hover:bg-gradient-to-br hover:from-card hover:to-primary/5'
+        'group relative flex cursor-pointer flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border-2 border-border/60 bg-card backdrop-blur-xl',
+        'hover:border-primary/40 hover:bg-card/80'
       )}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       {tool.image && (
-        <div className="relative w-full h-32 bg-gradient-to-br from-muted to-muted/50 overflow-hidden">
+        <div className="relative w-full h-32 bg-muted overflow-hidden">
           <img 
             src={tool.image} 
             alt={tool.label}
@@ -205,7 +205,7 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 flex-1">{tool.desc}</p>
         <div className="mt-auto pt-2">
-          <Button className="w-full bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary text-primary-foreground transition-all rounded-xl py-6 font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]" variant="default">
+          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all rounded-xl py-6 font-bold text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]" variant="default">
             <span>Use Tool</span>
             <span className="ml-auto group-hover:translate-x-1 transition-transform">→</span>
           </Button>
@@ -382,7 +382,7 @@ export default function ContentToolsPage() {
 
     return (
       <div className="h-full flex flex-col bg-background">
-        <div className="p-6 border-b bg-gradient-to-r from-background to-background/80 sticky top-0 z-20 flex items-center justify-between shadow-md backdrop-blur-xl border-primary/10">
+        <div className="p-6 border-b bg-background sticky top-0 z-20 flex items-center justify-between shadow-md backdrop-blur-xl border-primary/10">
           <Button
             variant="ghost"
             size="sm"
@@ -668,20 +668,20 @@ export default function ContentToolsPage() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={tool.placeholder}
-                  className="min-h-[280px] p-8 rounded-3xl border-2 border-border hover:border-primary/50 focus-visible:border-primary transition-all text-lg bg-gradient-to-br from-card to-card/80 shadow-lg resize-none leading-relaxed font-medium"
+                  className="min-h-[280px] p-8 rounded-3xl border-2 border-border hover:border-primary/50 focus-visible:border-primary transition-all text-lg bg-card shadow-lg resize-none leading-relaxed font-medium"
                 />
-                <div className="absolute bottom-6 right-8 text-xs font-black text-muted-foreground/70 bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">
+                <div className="absolute bottom-6 right-8 text-xs font-black text-muted-foreground/70 bg-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">
                   {input.length} chars
                 </div>
               </div>
 
               <div className="flex flex-col gap-6 pt-2">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 p-5 rounded-2xl border-2 border-yellow-500/20 backdrop-blur-sm">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground bg-yellow-500/10 p-5 rounded-2xl border-2 border-yellow-500/20 backdrop-blur-sm">
                   <Lightbulb className="h-6 w-6 text-yellow-500 shrink-0" />
                   <span className="font-semibold leading-relaxed"><strong className="text-foreground">Pro Tip:</strong> {tool.tip}</span>
                 </div>
                 
-                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-xl text-base font-bold shadow-lg shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary hover:to-primary/80">
+                <Button onClick={handleProcess} disabled={loading} className="h-14 rounded-xl text-base font-bold shadow-lg shadow-primary/30 transition-all hover:scale-[1.02] active:scale-[0.98] w-full bg-primary hover:bg-primary/90">
                   {loading ? (
                     <>
                       <Loader2 className="h-5 w-5 animate-spin mr-2" />
@@ -730,7 +730,7 @@ export default function ContentToolsPage() {
                         </div>
                       ) : (
                         <div className="space-y-6">
-                          <div className="bg-gradient-to-br from-primary/5 via-transparent to-primary/5 p-8 rounded-3xl border-2 border-primary/20">
+                          <div className="bg-primary/5 p-8 rounded-3xl border-2 border-primary/20">
                             <textarea
                               className="w-full min-h-[450px] bg-transparent border-0 focus:ring-0 p-0 resize-none font-medium leading-relaxed text-foreground scrollbar-hide text-lg"
                               value={output}
