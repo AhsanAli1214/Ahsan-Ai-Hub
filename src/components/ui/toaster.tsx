@@ -142,6 +142,8 @@ export function Toaster() {
 
   // Play sound only once per toast when it first appears
   useEffect(() => {
+    const toastIds = toasts.map(t => t.id)
+    
     toasts.forEach((toast) => {
       if (!soundPlayedIds.current.has(toast.id)) {
         const toastType = getToastType(toast.title)
@@ -151,11 +153,10 @@ export function Toaster() {
     })
     
     // Cleanup: Remove IDs of closed toasts
-    return () => {
-      const currentIds = new Set(toasts.map(t => t.id))
-      soundPlayedIds.current = new Set([...soundPlayedIds.current].filter(id => currentIds.has(id)))
-    }
-  }, [toasts])
+    soundPlayedIds.current = new Set(
+      [...soundPlayedIds.current].filter(id => toastIds.includes(id))
+    )
+  }, [toasts.length])
 
   return (
     <ToastProvider>
