@@ -76,7 +76,7 @@ const toolsList: {
     color: 'bg-blue-500',
     placeholder: 'Paste your text here to enhance...',
     tip: 'Use this for professionalizing casual messages or polishing drafts.',
-    features: ['Grammar Check', 'Style Options', 'Tone Selection', 'Readability Score'],
+    features: ['Grammar Check', 'Style Options', 'Tone Selection', 'Readability Analysis'],
   },
   {
     id: 'email',
@@ -390,49 +390,218 @@ export default function ContentToolsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {selectedTool === 'enhance' && (
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Tone & Mode</label>
-                    <select
-                      className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold appearance-none"
-                      value={options.enhanceMode}
-                      onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
-                    >
-                      <option value="improve">🚀 General Improvement</option>
-                      <option value="academic">🎓 Academic Perfection</option>
-                      <option value="casual">👋 Friendly & Casual</option>
-                      <option value="formal">👔 Formal Business</option>
-                    </select>
-                  </div>
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Tone & Mode</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold appearance-none"
+                        value={options.enhanceMode}
+                        onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
+                      >
+                        <option value="improve">🚀 General Improvement</option>
+                        <option value="academic">🎓 Academic Perfection</option>
+                        <option value="casual">👋 Friendly & Casual</option>
+                        <option value="formal">👔 Formal Business</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Focus Area</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold appearance-none"
+                        value={options.enhanceFocus || 'all'}
+                        onChange={(e) => setOptions({ ...options, enhanceFocus: e.target.value })}
+                      >
+                        <option value="all">✨ All (Grammar + Style)</option>
+                        <option value="grammar">📝 Grammar Only</option>
+                        <option value="style">🎨 Style Only</option>
+                        <option value="clarity">💡 Clarity & Conciseness</option>
+                      </select>
+                    </div>
+                  </>
                 )}
 
                 {selectedTool === 'email' && (
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Email Tone</label>
-                    <select
-                      className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
-                      value={options.emailTone}
-                      onChange={(e) => setOptions({ ...options, emailTone: e.target.value })}
-                    >
-                      <option value="professional">Professional</option>
-                      <option value="casual">Casual</option>
-                      <option value="formal">Formal</option>
-                    </select>
-                  </div>
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Email Tone</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.emailTone}
+                        onChange={(e) => setOptions({ ...options, emailTone: e.target.value })}
+                      >
+                        <option value="professional">💼 Professional</option>
+                        <option value="casual">👋 Casual & Friendly</option>
+                        <option value="formal">👔 Formal & Respectful</option>
+                        <option value="persuasive">🎯 Persuasive</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Email Type</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.emailType || 'general'}
+                        onChange={(e) => setOptions({ ...options, emailType: e.target.value })}
+                      >
+                        <option value="general">📧 General</option>
+                        <option value="request">❓ Request</option>
+                        <option value="complaint">⚠️ Complaint</option>
+                        <option value="followup">↩️ Follow-up</option>
+                        <option value="invitation">🎉 Invitation</option>
+                      </select>
+                    </div>
+                  </>
                 )}
 
                 {selectedTool === 'blog' && (
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Target Length</label>
-                    <select
-                      className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
-                      value={options.blogLength}
-                      onChange={(e) => setOptions({ ...options, blogLength: e.target.value })}
-                    >
-                      <option value="short">Short (Snippet)</option>
-                      <option value="medium">Medium (Standard)</option>
-                      <option value="long">Long (Full Article)</option>
-                    </select>
-                  </div>
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Target Length</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.blogLength}
+                        onChange={(e) => setOptions({ ...options, blogLength: e.target.value })}
+                      >
+                        <option value="short">📱 Short (Snippet)</option>
+                        <option value="medium">📄 Medium (Standard)</option>
+                        <option value="long">📚 Long (Full Article)</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Blog Style</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.blogStyle || 'informative'}
+                        onChange={(e) => setOptions({ ...options, blogStyle: e.target.value })}
+                      >
+                        <option value="informative">ℹ️ Informative</option>
+                        <option value="storytelling">📖 Storytelling</option>
+                        <option value="tutorial">🎓 Tutorial</option>
+                        <option value="opinion">💭 Opinion/Essay</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {selectedTool === 'study' && (
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Study Type</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.studyType}
+                        onChange={(e) => setOptions({ ...options, studyType: e.target.value })}
+                      >
+                        <option value="explanation">📚 Explanation</option>
+                        <option value="summary">📋 Summary</option>
+                        <option value="qa">❓ Q&A Format</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Education Level</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.educationLevel || 'high-school'}
+                        onChange={(e) => setOptions({ ...options, educationLevel: e.target.value })}
+                      >
+                        <option value="middle-school">🎒 Middle School</option>
+                        <option value="high-school">📖 High School</option>
+                        <option value="college">🎓 College/University</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {selectedTool === 'code' && (
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Programming Language</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.codeLanguage}
+                        onChange={(e) => setOptions({ ...options, codeLanguage: e.target.value })}
+                      >
+                        <option value="JavaScript">💛 JavaScript</option>
+                        <option value="Python">🐍 Python</option>
+                        <option value="Java">☕ Java</option>
+                        <option value="C++">⚙️ C++</option>
+                        <option value="TypeScript">📘 TypeScript</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Focus</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.codeFocus || 'explanation'}
+                        onChange={(e) => setOptions({ ...options, codeFocus: e.target.value })}
+                      >
+                        <option value="explanation">📝 Explanation</option>
+                        <option value="bugs">🐛 Find Bugs</option>
+                        <option value="optimize">⚡ Optimization</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {selectedTool === 'resume' && (
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Resume Section</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.resumeSection}
+                        onChange={(e) => setOptions({ ...options, resumeSection: e.target.value })}
+                      >
+                        <option value="summary">👤 Professional Summary</option>
+                        <option value="experience">💼 Work Experience</option>
+                        <option value="skills">🛠️ Skills</option>
+                        <option value="achievement">🏆 Achievements</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Job Level</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.jobLevel || 'mid'}
+                        onChange={(e) => setOptions({ ...options, jobLevel: e.target.value })}
+                      >
+                        <option value="entry">🌱 Entry Level</option>
+                        <option value="mid">📈 Mid Level</option>
+                        <option value="senior">👑 Senior</option>
+                        <option value="executive">🎯 Executive</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+
+                {selectedTool === 'story' && (
+                  <>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Story Genre</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.storyGenre || 'adventure'}
+                        onChange={(e) => setOptions({ ...options, storyGenre: e.target.value })}
+                      >
+                        <option value="adventure">🗺️ Adventure</option>
+                        <option value="fantasy">🐉 Fantasy</option>
+                        <option value="mystery">🔍 Mystery</option>
+                        <option value="romance">💕 Romance</option>
+                        <option value="scifi">🚀 Science Fiction</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Story Length</label>
+                      <select
+                        className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
+                        value={options.storyLength || 'short'}
+                        onChange={(e) => setOptions({ ...options, storyLength: e.target.value })}
+                      >
+                        <option value="short">📱 Short Story</option>
+                        <option value="medium">📖 Novella</option>
+                        <option value="long">📚 Novel Chapter</option>
+                      </select>
+                    </div>
+                  </>
                 )}
 
                 {selectedTool === 'translate' && (
@@ -453,15 +622,15 @@ export default function ContentToolsPage() {
                 )}
 
                 <div className="space-y-2">
-                  <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Difficulty</label>
+                  <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Difficulty Level</label>
                   <select
                     className="w-full h-12 px-4 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-primary outline-none transition-all font-bold"
                     value={options.difficulty}
                     onChange={(e) => setOptions({ ...options, difficulty: e.target.value })}
                   >
-                    <option value="beginner">Simple / Beginner</option>
-                    <option value="intermediate">Standard / Intermediate</option>
-                    <option value="expert">Complex / Expert</option>
+                    <option value="beginner">🟢 Beginner / Simple</option>
+                    <option value="intermediate">🟡 Intermediate / Standard</option>
+                    <option value="expert">🔴 Expert / Complex</option>
                   </select>
                 </div>
               </div>

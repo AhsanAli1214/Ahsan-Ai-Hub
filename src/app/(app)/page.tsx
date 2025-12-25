@@ -246,21 +246,25 @@ export default function HomePage() {
                   <Button
                     onClick={handleInstallApp}
                     size="lg"
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg font-semibold"
+                    className={`w-full font-semibold text-base py-6 transition-all duration-300 ${
+                      isInstalled 
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 shadow-lg'
+                        : 'bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl'
+                    }`}
                     disabled={isInstalled}
                   >
-                    <Cloud className="mr-2 h-5 w-5" />
-                    {isInstalled ? 'App Installed ✓' : 'Install App Now'}
+                    <Cloud className="mr-2 h-5 w-5 animate-pulse" />
+                    {isInstalled ? '✓ App Installed Successfully' : '⚡ Install App Now'}
                   </Button>
                   <Button
                     asChild
                     size="lg"
                     variant="outline"
-                    className="w-full font-semibold"
+                    className="w-full font-semibold text-base py-6 border-2 hover:bg-accent"
                   >
                     <a href="/Ahsan%20Ai%20Hub.apk" download>
                       <Download className="mr-2 h-5 w-5" />
-                      Download APK
+                      📥 Download APK File
                     </a>
                   </Button>
                 </div>
