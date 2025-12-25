@@ -246,17 +246,17 @@ export default function HomePage() {
                   <Button
                     onClick={handleInstallApp}
                     size="lg"
-                    className="w-full"
+                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg font-semibold"
                     disabled={isInstalled}
                   >
                     <Cloud className="mr-2 h-5 w-5" />
-                    {isInstalled ? 'App Installed ✓' : 'Install App'}
+                    {isInstalled ? 'App Installed ✓' : 'Install App Now'}
                   </Button>
                   <Button
                     asChild
                     size="lg"
                     variant="outline"
-                    className="w-full"
+                    className="w-full font-semibold"
                   >
                     <a href="/Ahsan%20Ai%20Hub.apk" download>
                       <Download className="mr-2 h-5 w-5" />

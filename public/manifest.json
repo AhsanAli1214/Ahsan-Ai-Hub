@@ -1,13 +1,30 @@
 {
-  "name": "Ahsan Ai Hub",
+  "name": "Ahsan Ai Hub - Intelligent AI Companion",
   "short_name": "Ahsan AI",
-  "description": "Your Intelligent AI Companion",
+  "description": "Your Intelligent AI Companion for smart chat, content creation, and automation",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": [".txt", ".md"]
+        }
+      ]
+    }
+  },
   "icons": [
     {
       "src": "/icon-192.png",
@@ -48,20 +65,39 @@
       "form_factor": "wide"
     }
   ],
-  "categories": ["productivity"],
+  "categories": ["productivity", "utilities"],
   "shortcuts": [
     {
       "name": "AI Chat",
       "short_name": "Chat",
-      "description": "Start AI Chat",
-      "url": "/recommendations",
+      "description": "Start AI Chat conversation",
+      "url": "/recommendations?mode=chat",
       "icons": [
         {
-          "src": "/icon-96.png",
-          "sizes": "96x96",
+          "src": "/icon-192.png",
+          "sizes": "192x192",
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Content Tools",
+      "short_name": "Tools",
+      "description": "Access AI content creation tools",
+      "url": "/content-tools",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+ahsan",
+      "url": "/recommendations?query=%s"
     }
   ]
 }

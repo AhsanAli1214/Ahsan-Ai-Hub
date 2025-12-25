@@ -26,6 +26,7 @@ import {
   CheckCircle2,
   Lightbulb,
   Upload,
+  Volume2,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import {
@@ -53,6 +54,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { LANGUAGES } from '@/lib/languages';
+import { TextToSpeech } from '@/components/TextToSpeech';
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story';
 
@@ -64,6 +66,7 @@ const toolsList: {
   color: string;
   placeholder: string;
   tip: string;
+  features?: string[];
 }[] = [
   {
     id: 'enhance',
@@ -73,6 +76,7 @@ const toolsList: {
     color: 'bg-blue-500',
     placeholder: 'Paste your text here to enhance...',
     tip: 'Use this for professionalizing casual messages or polishing drafts.',
+    features: ['Grammar Check', 'Style Options', 'Tone Selection', 'Readability Score'],
   },
   {
     id: 'email',
@@ -82,6 +86,7 @@ const toolsList: {
     color: 'bg-purple-500',
     placeholder: 'Tell me who you are emailing and what it is about...',
     tip: 'Mention the relationship with the recipient for a better tone.',
+    features: ['Tone Selection', 'Custom Details', 'Professional Templates', 'Preview'],
   },
   {
     id: 'blog',
@@ -91,6 +96,7 @@ const toolsList: {
     color: 'bg-orange-500',
     placeholder: 'Enter your blog topic or main keywords...',
     tip: 'Specific keywords help in generating a more targeted SEO-friendly post.',
+    features: ['SEO Optimized', 'Length Control', 'Markdown Format', 'Image Suggestions'],
   },
   {
     id: 'study',
@@ -512,6 +518,7 @@ export default function ContentToolsPage() {
                           <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={() => handleDownload('txt')}>
                             <Download className="h-5 w-5" />
                           </Button>
+                          <TextToSpeech text={output} />
                           <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 hover:text-primary transition-all" onClick={handleProcess}>
                             <RotateCcw className="h-5 w-5" />
                           </Button>

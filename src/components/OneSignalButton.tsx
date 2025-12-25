@@ -2,16 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Bell } from 'lucide-react';
+import { Bell, CheckCircle2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function OneSignalButton() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isProduction, setIsProduction] = useState(false);
+  const [hasNotificationSupport, setHasNotificationSupport] = useState(false);
 
   useEffect(() => {
     setIsProduction(typeof window !== 'undefined' && window.location.hostname.includes('vercel.app'));
+    setHasNotificationSupport('Notification' in window || 'serviceWorker' in navigator);
     
     if (typeof window !== 'undefined' && (window as any).OneSignal && isProduction) {
       setTimeout(() => {
@@ -44,42 +46,62 @@ export function OneSignalButton() {
       try {
         if (isSubscribed) {
           await (window as any).OneSignal.User.pushSubscription.optOut();
+          setIsSubscribed(false);
         } else {
-          // If they haven't been prompted yet, show the prompt
           const hasPermission = (window as any).OneSignal.Notifications.permission;
           if (!hasPermission || hasPermission === 'default') {
-             await (window as any).OneSignal.Slidedown.promptPush();
+            await (window as any).OneSignal.Slidedown.promptPush();
           } else {
-             await (window as any).OneSignal.User.pushSubscription.optIn();
+            await (window as any).OneSignal.User.pushSubscription.optIn();
           }
+          setTimeout(checkSubscriptionStatus, 500);
         }
-        // Small delay to let OneSignal update internal state
-        setTimeout(checkSubscriptionStatus, 500);
       } catch (error) {
         console.error('Error toggling subscription:', error);
-        alert('Failed to update notification settings. Please check your browser permissions.');
       } finally {
         setIsLoading(false);
       }
-    } else {
-      alert('Push notifications are only available on the live website.');
+    } else if (!isProduction) {
+      console.info('Push notifications only available on production');
     }
   };
 
   return (
-    <Button
-      onClick={handleToggleSubscription}
-      disabled={isLoading}
-      variant={isSubscribed ? "outline" : "default"}
-      className={`w-full gap-2 transition-all duration-300 ${
-        isSubscribed
-          ? 'border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900/30 dark:text-red-400 dark:hover:bg-red-900/20'
-          : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 shadow-md hover:shadow-lg'
-      }`}
-      size="lg"
-    >
-      <Bell className={cn("h-5 w-5", isSubscribed && "fill-current")} />
-      {isLoading ? 'Processing...' : isSubscribed ? 'Disable Notifications' : 'Enable Notifications'}
-    </Button>
+    <div className="space-y-4 w-full">
+      <Button
+        onClick={handleToggleSubscription}
+        disabled={isLoading}
+        className={cn(
+          'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
+          isSubscribed
+            ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-md'
+            : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-md hover:shadow-lg'
+        )}
+        size="lg"
+      >
+        {isSubscribed ? (
+          <>
+            <CheckCircle2 className="h-5 w-5" />
+            {isLoading ? 'Processing...' : 'Notifications Enabled ✓'}
+          </>
+        ) : (
+          <>
+            <Bell className="h-5 w-5" />
+            {isLoading ? 'Processing...' : 'Enable Notifications'}
+          </>
+        )}
+      </Button>
+      
+      {!hasNotificationSupport && (
+        <div className="flex gap-2 text-sm text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 p-3 rounded-xl border border-amber-200 dark:border-amber-800">
+          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+          <p>Your browser doesn't support notifications. Try using Chrome or Edge.</p>
+        </div>
+      )}
+      
+      <p className="text-xs text-muted-foreground leading-relaxed text-center">
+        Get real-time updates about new features, important announcements, and personalized recommendations.
+      </p>
+    </div>
   );
 }
