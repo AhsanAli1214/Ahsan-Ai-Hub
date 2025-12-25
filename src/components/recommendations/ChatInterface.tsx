@@ -11,20 +11,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
 import { useAppContext } from '@/context/AppContext';
+import { useChatHistory, type Message } from '@/context/ChatHistoryContext';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LANGUAGES, type Language } from '@/lib/languages';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-
-type Message = {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  originalContent?: string;
-  translatedTo?: Language;
-  timestamp: number;
-};
 
 function MessageBubble({ 
     message, 
@@ -122,7 +114,7 @@ function MessageBubble({
           {message.originalContent && (
             <button 
               className="mt-2 text-xs text-muted-foreground hover:underline"
-              onClick={() => onTranslate(message.id, message.content, message.translatedTo || 'en')}
+              onClick={() => onTranslate(message.id, message.content, (message.translatedTo as Language) || 'en')}
             >
               Show Original
             </button>
@@ -242,47 +234,31 @@ export function ChatInterface({
 }: {
   initialPrompt?: string;
 }) {
-  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, responseLength, enableAnimations, enableTypingIndicator } = useAppContext();
+  const { currentSession, addMessage, updateCurrentSessionTitle, createSession } = useChatHistory();
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
   const [isAudioBuffering, setIsAudioBuffering] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const messages = currentSession?.messages || [];
 
   useEffect(() => {
     if (initialPrompt) {
       setInput(initialPrompt);
     }
   }, [initialPrompt]);
-  
-  useEffect(() => {
-    try {
-      const savedHistory = localStorage.getItem('chatHistory');
-      if (savedHistory) {
-        const history = JSON.parse(savedHistory) as Message[];
-        const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-        const recentHistory = history.filter(msg => msg.timestamp > sevenDaysAgo);
-        setMessages(recentHistory);
-      }
-    } catch (e) {
-        console.error('Could not load chat history from localStorage', e);
-    }
-  }, []);
 
   useEffect(() => {
-    try {
-        if(messages.length > 0) {
-            localStorage.setItem('chatHistory', JSON.stringify(messages));
-        }
-    } catch(e) {
-        console.error('Could not save chat history to localStorage', e);
+    if (!currentSession && messages.length === 0) {
+      createSession();
     }
-  }, [messages]);
+  }, []);
   
   const scrollToBottom = (behavior: 'smooth' | 'auto' = 'auto') => {
     const scrollElement = scrollViewportRef.current || scrollAreaRef.current;
@@ -371,14 +347,15 @@ export function ChatInterface({
       content: input,
       timestamp: Date.now(),
     };
-    setMessages((prev) => [...prev, newUserMessage]);
+    addMessage(newUserMessage);
     setIsLoading(true);
+    const userInput = input;
     setInput('');
     
     const previousActivity = 'No previous activity provided.';
 
     const result = await getRecommendationsAction({
-      interests: input,
+      interests: userInput,
       previousActivity,
       personality: personalityMode,
       responseLength: responseLength,
@@ -391,7 +368,11 @@ export function ChatInterface({
         content: result.data.recommendations,
         timestamp: Date.now(),
       };
-      setMessages((prev) => [...prev, newAiMessage]);
+      addMessage(newAiMessage);
+      
+      if (currentSession && currentSession.messages.length === 1) {
+        updateCurrentSessionTitle(userInput.substring(0, 50) + (userInput.length > 50 ? '...' : ''));
+      }
     } else if (!result.success) {
       toast({
         variant: 'destructive',
@@ -404,7 +385,7 @@ export function ChatInterface({
         content: result.error,
         timestamp: Date.now(),
       };
-      setMessages((prev) => [...prev, newErrorMessage]);
+      addMessage(newErrorMessage);
     }
 
     setIsLoading(false);
@@ -415,17 +396,8 @@ export function ChatInterface({
   }
   
   const handleTranslateMessage = async (messageId: string, text: string, lang: Language) => {
-    const targetMessage = messages.find(m => m.id === messageId);
-    if (!targetMessage) return;
-
-    if(targetMessage.originalContent && targetMessage.translatedTo?.toString() === lang.toString()) {
-        setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: m.originalContent!, originalContent: undefined, translatedTo: undefined} : m));
-        return;
-    }
-
     const result = await translateTextAction({ text, targetLanguage: lang as string });
     if (result.success) {
-      setMessages(prev => prev.map(m => m.id === messageId ? {...m, content: result.data, originalContent: text, translatedTo: lang } : m));
       toast({ title: `Translated to ${LANGUAGES.find(l => l.code === lang)?.name || lang}` });
     } else {
       toast({

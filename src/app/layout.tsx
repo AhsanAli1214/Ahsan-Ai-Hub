@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { AppProvider } from '@/context/AppContext';
+import { ChatHistoryProvider } from '@/context/ChatHistoryContext';
 import { PWAInstall } from '@/components/PWAInstall';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
@@ -170,9 +171,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppProvider>
-            {children}
-            <Toaster />
-            <PWAInstall />
+            <ChatHistoryProvider>
+              {children}
+              <Toaster />
+              <PWAInstall />
+            </ChatHistoryProvider>
           </AppProvider>
         </ThemeProvider>
       </body>
