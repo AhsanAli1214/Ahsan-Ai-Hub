@@ -5,13 +5,19 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import {
   ArrowRight,
   Code,
-  Facebook,
   Globe,
   Instagram,
   Mail,
-  Twitter,
   Zap,
   ChevronRight,
+  Github,
+  Award,
+  Book,
+  Rocket,
+  Shield,
+  Linkedin,
+  Twitter,
+  Facebook
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -20,8 +26,8 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { AhsanAiHubLogo } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "About | Ahsan Ai Hub",
-  description: "Learn more about the creator of Ahsan Ai Hub.",
+  title: "About | Ahsan AI Hub",
+  description: "Learn more about Ahsan Ali, the developer behind Ahsan AI Hub, and the mission to democratize AI.",
 };
 
 const SOCIAL_LINKS = [
@@ -63,6 +69,21 @@ const SOCIAL_LINKS = [
   },
 ];
 
+const SKILLS = [
+  { name: "Next.js 15", level: "Expert" },
+  { name: "TypeScript", level: "Expert" },
+  { name: "AI Integration", level: "Advanced" },
+  { name: "Tailwind CSS", level: "Expert" },
+  { name: "Google Genkit", level: "Advanced" },
+  { name: "Mobile PWA", level: "Expert" },
+];
+
+const MILESTONES = [
+  { date: "Oct 2024", title: "Project Inception", desc: "First vision for a privacy-first AI hub." },
+  { date: "Dec 2024", title: "v1.0 Launch", desc: "Released core chat and translation tools." },
+  { date: "Dec 2025", title: "Global Reach", desc: "Optimized for speed and SEO (currently serving users)." },
+];
+
 const developerImage = PlaceHolderImages.find(
   (img) => img.id === "developer-avatar",
 );
@@ -77,248 +98,224 @@ export default function AboutPage() {
     "url": "https://ahsan-ai-hub.replit.dev",
     "image": "https://ahsan-ai-hub.replit.dev/api/og",
     "description": "CIT Student & Passionate Developer - Creator of Ahsan AI Hub",
-    "jobTitle": "Developer",
-    "sameAs": [
-      "https://www.instagram.com/ahsan.ali.wadani",
-      "https://x.com/Ahsan_Ali_12",
-      "https://www.facebook.com/profile.php?id=100091175299202",
-      "https://ahsan-tech-hub.blogspot.com/"
-    ],
+    "jobTitle": "Lead Developer",
+    "sameAs": SOCIAL_LINKS.map(l => l.url),
     "contactPoint": {
       "@type": "ContactPoint",
-      "contactType": "Support",
+      "contactType": "Technical Support",
       "email": SUPPORT_EMAIL
     }
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />
-      <AppHeader title="About Me" />
-      <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-        <div className="mx-auto max-w-3xl space-y-8">
-          {/* Developer Hero Section */}
-          <Card className="overflow-hidden shadow-lg border-accent/30">
-            <CardContent className="p-0">
-              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-3 md:gap-0">
-                <div className="relative flex min-h-64 w-full items-center justify-center bg-card p-6 md:min-h-full md:col-span-1">
-                  {developerImage && (
-                    <div className="relative h-44 w-44 overflow-hidden rounded-2xl border-4 border-accent shadow-xl ring-4 ring-accent/30">
-                      <Image
-                        src={developerImage.imageUrl}
-                        alt="Developer Ahsan Ali"
-                        fill
-                        className="object-cover"
-                        data-ai-hint={developerImage.imageHint}
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="p-6 text-center md:col-span-2 md:text-left md:pr-8">
-                  <h1 className="font-headline text-4xl md:text-3xl font-bold">
-                    Ahsan Ali
-                  </h1>
-                  <p className="mt-2 text-lg text-muted-foreground">
-                    CIT Student & Passionate Developer
-                  </p>
-                  <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
-                    <Badge
-                      variant="secondary"
-                      className="border border-accent bg-accent/20 text-accent font-semibold"
-                    >
-                      CIT Student
-                    </Badge>
-                    <Badge
-                      variant="secondary"
-                      className="border border-accent bg-accent/20 text-accent font-semibold"
-                    >
-                      Developer
-                    </Badge>
+      <AppHeader title="About the Developer" />
+      <div className="flex-1 overflow-y-auto p-4 lg:p-8">
+        <div className="mx-auto max-w-5xl space-y-12 pb-20">
+          
+          {/* Hero Section */}
+          <section className="relative overflow-hidden rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-md shadow-2xl">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+            
+            <div className="relative grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-12">
+              <div className="flex justify-center md:col-span-4 lg:col-span-3">
+                {developerImage && (
+                  <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-accent shadow-2xl transition-transform hover:scale-105 duration-300">
+                    <Image
+                      src={developerImage.imageUrl}
+                      alt="Developer Ahsan Ali"
+                      fill
+                      className="object-cover"
+                      data-ai-hint={developerImage.imageHint}
+                      priority
+                    />
                   </div>
-                  <p className="mt-4 text-muted-foreground leading-relaxed">
-                    I created Ahsan Ai Hub to democratize AI access—making it
-                    easier for everyone to leverage intelligent AI.
-                  </p>
+                )}
+              </div>
+              
+              <div className="space-y-4 text-center md:col-span-8 md:text-left lg:col-span-9">
+                <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent border border-accent/20">
+                  <Award className="h-3 w-3" />
+                  Lead Developer
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
+                  Ahsan Ali
+                </h1>
+                <p className="max-w-xl text-lg text-muted-foreground">
+                  A CIT Student & Full-Stack Developer dedicated to building high-performance, privacy-focused AI solutions that empower users globally.
+                </p>
+                <div className="flex flex-wrap justify-center gap-3 md:justify-start pt-2">
+                   <Button size="lg" className="rounded-xl shadow-lg shadow-primary/20" asChild>
+                    <Link href="/contact">Get in Touch</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="rounded-xl border-accent/30 hover:bg-accent/5" asChild>
+                    <a href="https://ahsan-tech-hub.blogspot.com/" target="_blank">Portfolio</a>
+                  </Button>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </section>
 
-          {/* Highlights Section */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <Card className="bg-card border-accent/30 hover:shadow-lg transition-shadow text-center">
-              <CardContent className="flex flex-col items-center justify-center p-6">
-                <div className="mb-4 rounded-full bg-accent/25 p-3">
-                  <Code className="h-6 w-6 text-accent" />
+          {/* Vision Section */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            <Card className="group relative overflow-hidden border-accent/20 bg-card/50 transition-all hover:border-accent/40">
+              <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-accent to-primary" />
+              <CardHeader className="flex flex-row items-center gap-4">
+                <div className="rounded-2xl bg-accent/10 p-3 text-accent group-hover:scale-110 transition-transform">
+                  <Rocket className="h-6 w-6" />
                 </div>
-                <h3 className="font-headline text-lg font-semibold text-foreground">
-                  Development
-                </h3>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Building modern solutions
+                <div>
+                  <h3 className="text-xl font-bold">The Mission</h3>
+                  <p className="text-sm text-muted-foreground">Why Ahsan AI Hub exists</p>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 text-muted-foreground">
+                <p className="leading-relaxed">
+                  I believe that advanced AI should be a human right, not a luxury. My mission is to remove the barriers of entry—logins, data tracking, and high costs—so that students and professionals everywhere can innovate freely.
+                </p>
+                <p className="leading-relaxed">
+                  Ahsan AI Hub is engineered to be your "Privacy-First Companion," ensuring that your creative thoughts and technical challenges stay between you and the machine.
                 </p>
               </CardContent>
             </Card>
-            <Card className="bg-card border-accent/30 hover:shadow-lg transition-shadow text-center">
-              <CardContent className="flex flex-col items-center justify-center p-6">
-                <div className="mb-4 rounded-full bg-accent/25 p-3">
-                  <Zap className="h-6 w-6 text-accent" />
+
+            <Card className="group relative overflow-hidden border-primary/20 bg-card/50 transition-all hover:border-primary/40">
+              <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary to-accent" />
+              <CardHeader className="flex flex-row items-center gap-4">
+                <div className="rounded-2xl bg-primary/10 p-3 text-primary group-hover:scale-110 transition-transform">
+                  <Shield className="h-6 w-6" />
                 </div>
-                <h3 className="font-headline text-lg font-semibold text-foreground">
-                  AI Integration
-                </h3>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Powering innovation
+                <div>
+                  <h3 className="text-xl font-bold">Privacy Commitment</h3>
+                  <p className="text-sm text-muted-foreground">Zero logs, total freedom</p>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 text-muted-foreground">
+                <p className="leading-relaxed">
+                  Every line of code in this project is written with security in mind. I've eliminated server-side storage for chats and replaced it with local browser storage, putting you in total control of your data.
+                </p>
+                <p className="leading-relaxed">
+                  By using Google's Gemini 2.5 Flash via Genkit, we ensure high-speed responses while maintaining a lightweight footprint that works perfectly on any device.
                 </p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Bio Section */}
-          <Card className="border-accent/30">
-            <CardHeader>
-              <h2 className="font-headline text-2xl font-semibold">About Me</h2>
-            </CardHeader>
-            <CardContent className="space-y-6 text-muted-foreground">
-              <p className="leading-relaxed">
-                I'm{" "}
-                <span className="font-semibold text-foreground">Ahsan Ali</span>
-                , a Computer & Information Technology (CIT) student, AI
-                enthusiast, and passionate software developer focused on
-                building intelligent tools that solve real-world problems.
-              </p>
-
-              <div className="rounded-lg bg-accent/10 p-6 border border-accent/20">
-                <h3 className="font-semibold text-foreground mb-3">
-                  Core Expertise
-                </h3>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Artificial
-                    Intelligence & Automation
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Mobile App
-                    Development
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Full-stack Web
-                    Systems
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> Natural Language
-                    Processing
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-accent">▪</span> UI/UX Chatbot Design
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground mb-3">
-                  Mission & Vision
-                </h3>
-                <p className="leading-relaxed">
-                  My mission is to make advanced AI technology accessible,
-                  useful, and simple for everyone—whether for productivity,
-                  creativity, education, or business use. I believe technology
-                  should help people, not complicate their lives.
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-accent/10 p-6 border border-accent/20">
-                <h3 className="font-semibold text-foreground mb-3">
-                  Why Ahsan AI Hub?
-                </h3>
-                <p className="text-sm leading-relaxed">
-                  Ahsan AI Hub is my personal AI project designed to assist with
-                  everyday tasks, boost productivity, and support students,
-                  freelancers, and professionals. It provides creative and
-                  technical assistance while being fast, reliable, easy to use,
-                  and multi-functional—bringing advanced AI features to
-                  everyone.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Social Links */}
-          <Card className="border-accent/30">
-            <CardHeader>
-              <h2 className="font-headline text-xl font-semibold">
-                Connect With Me
-              </h2>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {SOCIAL_LINKS.map((link) => (
-                <Button
-                  key={link.id}
-                  variant="outline"
-                  className="h-auto justify-start p-4 hover:bg-accent/10 transition-colors"
-                  asChild
-                >
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <div
-                      className={`mr-4 flex h-10 w-10 items-center justify-center rounded-lg ${link.bgColor} ${link.color}`}
-                    >
-                      <link.icon className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1 text-left">
-                      <p className="font-semibold text-foreground">
-                        {link.label}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {link.handle}
-                      </p>
-                    </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                  </a>
-                </Button>
-              ))}
-            </CardContent>
-          </Card>
-
-          {/* Support Section */}
-          <Card className="bg-accent/15">
-            <a
-              href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan Ai Hub`}
-              className="flex items-center p-6"
-            >
-              <div className="mr-4 flex h-12 w-12 items-center justify-center rounded-lg bg-accent/25 text-accent">
-                <Mail className="h-6 w-6" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-foreground">
-                  Support & Feedback
-                </h3>
-                <p className="text-sm text-muted-foreground">{SUPPORT_EMAIL}</p>
-              </div>
-              <ChevronRight className="h-5 w-5 text-muted-foreground" />
-            </a>
-          </Card>
-
-          {/* Footer */}
-          <footer className="space-y-6 py-12 text-center text-muted-foreground">
-            <div className="flex flex-col items-center gap-4">
-              <AhsanAiHubLogo className="mx-auto h-12 w-12 text-accent" />
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">
-                  Crafted with passion by Ahsan Ali
-                </p>
-                <div className="mx-auto w-fit rounded-full bg-accent/20 px-6 py-3 border border-accent/50">
-                  <span className="text-2xl font-bold text-accent">
-                    A❤️N
-                  </span>
-                </div>
+          {/* Skills & Expertise */}
+          <section className="space-y-6">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h2 className="text-3xl font-bold tracking-tight">Technical Expertise</h2>
+              <div className="flex gap-2">
+                <div className="h-1 w-24 rounded-full bg-accent/30" />
+                <div className="h-1 w-8 rounded-full bg-accent" />
               </div>
             </div>
-            <p className="text-xs">
-              © {new Date().getFullYear()} Ahsan Ai Hub. All rights reserved.
-            </p>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+              {SKILLS.map((skill) => (
+                <Card key={skill.name} className="border-accent/10 bg-card/30 p-4 text-center hover:bg-accent/5 transition-colors">
+                  <div className="text-sm font-bold text-foreground">{skill.name}</div>
+                  <div className="mt-1 text-[10px] uppercase tracking-wider text-accent font-semibold">{skill.level}</div>
+                </Card>
+              ))}
+            </div>
+          </section>
+
+          {/* Roadmap / Milestones */}
+          <Card className="border-accent/20 bg-card/50 overflow-hidden">
+             <CardHeader className="bg-accent/5">
+                <h3 className="text-xl font-bold flex items-center gap-2">
+                  <Book className="h-5 w-5 text-accent" />
+                  Project Roadmap
+                </h3>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-accent/20 before:to-transparent">
+                  {MILESTONES.map((item, i) => (
+                    <div key={i} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-card shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                         <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+                      </div>
+                      <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-accent/10 bg-accent/5 shadow-sm">
+                        <div className="flex items-center justify-between space-x-2 mb-1">
+                          <div className="font-bold text-foreground">{item.title}</div>
+                          <time className="font-mono text-xs text-accent">{item.date}</time>
+                        </div>
+                        <div className="text-sm text-muted-foreground">{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+          </Card>
+
+          {/* Social Connect */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold">Connect & Collaborate</h3>
+              <p className="text-muted-foreground">
+                I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+              </p>
+              <div className="flex gap-4">
+                 {SOCIAL_LINKS.map(link => (
+                   <a 
+                    key={link.id} 
+                    href={link.url} 
+                    target="_blank" 
+                    className={cn(
+                      "flex h-12 w-12 items-center justify-center rounded-2xl border border-accent/20 transition-all hover:scale-110 hover:-translate-y-1 hover:shadow-xl",
+                      link.bgColor,
+                      link.color
+                    )}
+                   >
+                     <link.icon className="h-6 w-6" />
+                   </a>
+                 ))}
+              </div>
+            </div>
+            
+            <Card className="border-accent/30 bg-accent/5 backdrop-blur-sm">
+              <a
+                href={`mailto:${SUPPORT_EMAIL}?subject=Support Request - Ahsan Ai Hub`}
+                className="group flex h-full items-center p-8 transition-colors hover:bg-accent/10"
+              >
+                <div className="mr-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/20 text-accent group-hover:scale-110 transition-transform">
+                  <Mail className="h-8 w-8" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-xl font-bold text-foreground">Have a question?</h4>
+                  <p className="text-sm text-muted-foreground mt-1">Send a direct message to support</p>
+                  <p className="mt-2 font-mono text-xs text-accent font-bold uppercase tracking-widest">{SUPPORT_EMAIL}</p>
+                </div>
+                <ChevronRight className="h-6 w-6 text-muted-foreground group-hover:translate-x-2 transition-transform" />
+              </a>
+            </Card>
+          </div>
+
+          {/* Dynamic Footer Signature */}
+          <footer className="pt-20 text-center">
+             <div className="inline-flex flex-col items-center gap-6">
+                <div className="relative">
+                  <AhsanAiHubLogo className="h-20 w-20 text-accent opacity-20" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-2 w-2 rounded-full bg-accent animate-ping" />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                   <div className="mx-auto w-fit rounded-full bg-accent/10 px-8 py-4 border border-accent/40 shadow-xl backdrop-blur-xl">
+                      <span className="text-4xl font-black tracking-tighter text-accent drop-shadow-lg">
+                        A❤️N
+                      </span>
+                   </div>
+                   <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground/60">
+                     Built by Ahsan Ali • {new Date().getFullYear()}
+                   </p>
+                </div>
+             </div>
           </footer>
         </div>
       </div>

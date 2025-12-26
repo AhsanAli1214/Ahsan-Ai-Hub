@@ -8,82 +8,101 @@ import {
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { HelpCircle, LifeBuoy, Zap, Shield, MessageCircle, Settings, Smartphone, BookOpen } from 'lucide-react';
+import { HelpCircle, LifeBuoy, Zap, Shield, MessageCircle, Settings, Smartphone, BookOpen, Clock, Heart, Code, Globe, Mail } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'FAQ - Help & Support | Ahsan AI Hub',
   description: 'Find answers to common questions about Ahsan AI Hub features, AI chat usage, privacy, security, and installation. Get help with our free AI tools.',
-  keywords: [
-    'Ahsan AI Hub FAQ',
-    'AI chat help',
-    'how to use AI tools',
-    'AI privacy support',
-    'install AI app',
-    'free AI support',
-  ],
 };
 
-const FAQData = [
-    { 
-        q: "What is Ahsan AI Hub and how can it help me?", 
-        a: "Ahsan AI Hub is a comprehensive, privacy-first AI platform. It provides free access to advanced AI tools for professional writing, code debugging, creative brainstorming, and instant problem-solving. Our mission is to provide high-quality AI assistance with 100% privacy and no login requirements." 
-    },
-    { 
-        q: "How does the AI Chat work on Ahsan AI Hub?", 
-        a: "Our AI Chat uses advanced Gemini technology to provide human-like responses. Simply visit the AI Chat page, type your prompt, and get instant answers. You can even customize the AI's personality (Creative, Professional, Teacher, or Friendly) in the settings for a tailored experience." 
-    },
-    { 
-        q: "Are the AI content tools on Ahsan AI Hub really free?", 
-        a: "Yes! All tools on Ahsan AI Hub, including the Text Rewriter, Code Explainer, Idea Generator, and Email Writer, are completely free to use. We prioritize accessibility and privacy, meaning you can start using them immediately without creating an account." 
-    },
-    { 
-        q: "Can I customize how the AI responds?", 
-        a: "Yes! In the Settings page, you can choose from multiple personality modes (Friendly, Professional, Creative, Teacher) and adjust the response length (Short, Medium, Long) to match your preferences." 
-    },
-    { 
-        q: "Does the app support audio and translation?", 
-        a: "Absolutely! You can use the text-to-speech feature to listen to AI responses in audio format. You can also translate responses into 50+ languages. Both features are accessible directly from each message." 
-    },
-    { 
-        q: "How can I install the app on my device?", 
-        a: "Visit the home page and scroll to the 'Install App' section. You can install the app as a native app on mobile and desktop through the PWA (Progressive Web App) button, or download the APK file for direct Android installation." 
-    },
-    { 
-        q: "Is my chat history saved?", 
-        a: "Chat history is stored locally on your device for 7 days. This allows you to continue conversations within this period. For privacy reasons, we don't store conversations on our servers. You can clear your history anytime from the Settings page." 
-    },
-    { 
-        q: "Is my data secure and private?", 
-        a: "Your privacy is our top priority. We don't store personal chat content on our servers. All conversations remain confidential, and the app is designed with privacy-first principles. You have full control over your data." 
-    },
-    { 
-        q: "Can the AI help with coding?", 
-        a: "Yes, the AI can generate, debug, explain, and optimize code in multiple programming languages including Python, JavaScript, Java, C++, Go, Rust, and many others. Perfect for learning or solving coding problems." 
-    },
-    { 
-        q: "What is the Smart Prompts feature?", 
-        a: "Smart Prompts are pre-defined conversation starters that help you get started quickly. They include creative ideas, writing prompts, and common questions. Click any prompt to fill your message box and start a conversation." 
-    },
-    { 
-        q: "Can I enable push notifications?", 
-        a: "Yes! You can enable push notifications from the home page to stay updated about new features, improvements, and important announcements. Notifications are delivered directly to your device." 
-    },
-    { 
-        q: "Is Ahsan AI Hub free?", 
-        a: "Yes, all core features including AI Chat, Content Tools, customization options, and more are completely free. We believe powerful AI should be accessible to everyone." 
-    },
-    { 
-        q: "What should I do if I encounter an issue?", 
-        a: "If you experience any problems, visit the Contact page to reach out to the developer, Ahsan Ali. Provide details about the issue, and we'll help you resolve it quickly." 
-    },
-    { 
-        q: "What are future plans for the app?", 
-        a: "We're constantly improving! Upcoming features may include advanced chat history with cloud sync, voice input/output, custom AI personas, collaborative features, and an expanded library of specialized AI tools." 
-    },
+const FAQ_CATEGORIES = [
+  { id: 'general', name: 'General', icon: HelpCircle, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+  { id: 'features', name: 'Features', icon: Zap, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+  { id: 'privacy', name: 'Privacy', icon: Shield, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+  { id: 'technical', name: 'Technical', icon: Code, color: 'text-purple-500', bg: 'bg-purple-500/10' },
 ];
 
+const FAQData = [
+  // General
+  { 
+    cat: 'general',
+    q: "What makes Ahsan AI Hub different from other AI platforms?", 
+    a: "Unlike most platforms that require accounts and track your data, Ahsan AI Hub is 'Privacy-First' and 'Access-First'. We don't store your chats on our servers, we require zero login, and we provide unrestricted access to 10+ AI-powered tools for free." 
+  },
+  { 
+    cat: 'general',
+    q: "Is it really 100% free to use?", 
+    a: "Yes. Every tool—from the advanced AI Chat to the Code Explainer and Text Rewriter—is free. There are no hidden subscription tiers or 'Pro' locks on core functionality. My mission is to make powerful AI accessible to everyone." 
+  },
+  { 
+    cat: 'general',
+    q: "How can I contact the developer for feedback or issues?", 
+    a: "You can reach out directly via the Contact page or email me at tickets@ahsan-ai-hub.p.tawk.email. I personally review all feedback to improve the platform." 
+  },
+  
+  // Features
+  { 
+    cat: 'features',
+    q: "What AI model powers Ahsan AI Hub?", 
+    a: "We use Google's cutting-edge Gemini 2.5 Flash model through the Google Genkit framework. This ensures lightning-fast response times and high intelligence for complex tasks like coding and creative writing." 
+  },
+  { 
+    cat: 'features',
+    q: "How do the 'Personality Modes' work?", 
+    a: "In Settings, you can switch between modes like 'Professional' (for business/work), 'Teacher' (for learning), 'Creative' (for stories/art), or 'Friendly' (for casual chat). This changes how the AI structures its tone and vocabulary." 
+  },
+  { 
+    cat: 'features',
+    q: "Can I use the app for audio translations?", 
+    a: "Yes! Every AI message includes a speaker icon for text-to-speech and a translation menu. You can translate responses into 50+ languages and listen to them instantly, making it a great tool for language learning." 
+  },
+  { 
+    cat: 'features',
+    q: "What are 'Smart Prompts'?", 
+    a: "Smart Prompts are expertly crafted conversation starters designed to show you what the AI is capable of. They help you get high-quality results without having to think of a complex prompt yourself." 
+  },
+  
+  // Privacy
+  { 
+    cat: 'privacy',
+    q: "Where is my chat history stored?", 
+    a: "Your chat history never leaves your device. It is stored in your browser's local storage. This means if you clear your browser data or use a different device, the history will reset. We do this to ensure your absolute privacy." 
+  },
+  { 
+    cat: 'privacy',
+    q: "Does Ahsan AI Hub use my data to train AI?", 
+    a: "No. Since we don't store your personal conversations on our servers, your data is not used for training. You are interacting with the model through an encrypted API connection." 
+  },
+  { 
+    cat: 'privacy',
+    q: "Is there any tracking or analytics?", 
+    a: "We use minimal, anonymous performance analytics (like Vercel Analytics) to ensure the site is running fast and without errors. We do NOT track individual user identities or message content." 
+  },
+
+  // Technical
+  { 
+    cat: 'technical',
+    q: "How do I install the app on my phone or computer?", 
+    a: "Since this is a Progressive Web App (PWA), you can install it without an app store. On Chrome (Android/Desktop), click the 'Install App' button or the 'Add to Home Screen' option in your browser menu. On Safari (iOS), tap 'Share' then 'Add to Home Screen'." 
+  },
+  { 
+    cat: 'technical',
+    q: "What should I do if the AI stops responding?", 
+    a: "First, check your internet connection. If you're online and it's still stuck, try refreshing the page. If the issue persists, use the 'Report Error' button that appears when a crash is detected to notify the developer." 
+  },
+  { 
+    cat: 'technical',
+    q: "Can I use Ahsan AI Hub while offline?", 
+    a: "While the interface and your saved chat history work offline, generating new AI responses requires an active internet connection to communicate with the Gemini models." 
+  },
+  { 
+    cat: 'technical',
+    q: "Does it support dark mode?", 
+    a: "Yes! The app follows your system preference by default, but you can manually toggle between Light and Dark themes in the Settings page." 
+  }
+];
 
 export default function FaqPage() {
   const faqSchema = {
@@ -100,110 +119,132 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-background">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <AppHeader title="FAQ" />
-      <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-        <div className="mx-auto max-w-4xl space-y-8">
-            {/* Hero Section */}
-            <div className="rounded-2xl bg-primary/10 border border-primary/20 p-8 md:p-12 text-center">
-                <div className="flex justify-center mb-6">
-                  <div className="rounded-full bg-primary/20 p-5">
-                    <HelpCircle className="h-10 w-10 text-primary" />
-                  </div>
-                </div>
-                <h1 className="font-headline text-3xl md:text-4xl font-bold text-foreground">Frequently Asked Questions</h1>
-                <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Everything you need to know about Ahsan AI Hub. Find answers about features, usage, privacy, and more.</p>
-            </div>
+      <AppHeader title="Help Center" />
+      <div className="flex-1 overflow-y-auto p-4 lg:p-10">
+        <div className="mx-auto max-w-5xl space-y-12 pb-24">
           
-            {/* FAQ Categories */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card className="border border-primary/20 hover:shadow-md transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <MessageCircle className="h-6 w-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">AI Chat</h3>
-                    <p className="text-sm text-muted-foreground">Questions about chatting with AI</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border border-primary/20 hover:shadow-md transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <Zap className="h-6 w-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">Features</h3>
-                    <p className="text-sm text-muted-foreground">Learn about all features</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border border-primary/20 hover:shadow-md transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <Shield className="h-6 w-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">Privacy & Security</h3>
-                    <p className="text-sm text-muted-foreground">Your data protection</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="border border-primary/20 hover:shadow-md transition-shadow">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <Smartphone className="h-6 w-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">Installation</h3>
-                    <p className="text-sm text-muted-foreground">Setup on your device</p>
-                  </div>
-                </CardContent>
-              </Card>
+          {/* Enhanced Hero Section */}
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/20 via-primary/5 to-accent/20 border border-primary/20 p-10 md:p-16 text-center">
+            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl animate-pulse" />
+            <div className="relative">
+              <div className="flex justify-center mb-6">
+                <div className="rounded-2xl bg-primary/20 p-5 backdrop-blur-md shadow-inner">
+                  <HelpCircle className="h-12 w-12 text-primary" />
+                </div>
+              </div>
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-4">
+                How can we help?
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Explore our comprehensive guides and frequently asked questions to get the most out of Ahsan AI Hub.
+              </p>
             </div>
-
-            {/* Accordion */}
-            <Card className="border border-primary/20">
-                <CardHeader className="pb-6 border-b border-primary/10">
-                    <CardTitle className="text-2xl flex items-center gap-2">
-                      <BookOpen className="h-6 w-6 text-primary" />
-                      Common Questions
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                    <Accordion type="single" collapsible className="w-full">
-                    {FAQData.map((item, index) => (
-                        <AccordionItem value={`item-${index}`} key={index} className="border-b border-primary/10 last:border-b-0">
-                        <AccordionTrigger className="text-left hover:text-primary transition-colors font-semibold text-foreground py-4 text-base md:text-lg">{item.q}</AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground leading-relaxed pb-4 text-base">{item.a}</AccordionContent>
-                        </AccordionItem>
-                    ))}
-                    </Accordion>
+          </div>
+          
+          {/* Visual Categories */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {FAQ_CATEGORIES.map((cat) => (
+              <Card key={cat.id} className="group cursor-pointer border-accent/10 bg-card/50 backdrop-blur-sm transition-all hover:scale-105 hover:border-accent/40 hover:shadow-xl">
+                <CardContent className="p-6 text-center space-y-3">
+                  <div className={`mx-auto w-12 h-12 rounded-xl ${cat.bg} ${cat.color} flex items-center justify-center transition-transform group-hover:rotate-12`}>
+                    <cat.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="font-bold text-sm tracking-wide uppercase">{cat.name}</h3>
                 </CardContent>
-            </Card>
+              </Card>
+            ))}
+          </div>
 
-            {/* CTA Section */}
-            <Card className="border border-primary/20 bg-card hover:shadow-lg transition-shadow">
-                <CardContent className="p-8 md:p-12 text-center">
-                    <div className="flex justify-center mb-6">
-                      <div className="rounded-full bg-primary/20 p-5">
-                        <LifeBuoy className="h-10 w-10 text-primary" />
-                      </div>
-                    </div>
-                    <h3 className="font-headline text-2xl md:text-3xl font-semibold text-foreground mb-3">Still have questions?</h3>
-                    <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-                        Can't find what you're looking for? Get in touch with the developer directly through the Contact page.
-                    </p>
-                    <Button size="lg" asChild className="gap-2">
-                        <Link href="/contact">
-                          <LifeBuoy className="h-5 w-5" />
-                          Contact Developer
-                        </Link>
-                    </Button>
-                </CardContent>
+          {/* Main FAQ Accordion */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 px-2">
+              <div className="h-8 w-1 bg-primary rounded-full" />
+              <h2 className="text-2xl font-bold tracking-tight">Most Common Questions</h2>
+            </div>
+            
+            <Card className="border border-accent/20 overflow-hidden bg-card/30 backdrop-blur-sm shadow-2xl">
+              <CardContent className="p-2 sm:p-6 lg:p-8">
+                <Accordion type="single" collapsible className="w-full">
+                  {FAQData.map((item, index) => (
+                    <AccordionItem value={`item-${index}`} key={index} className="border-b border-accent/10 last:border-0 px-4">
+                      <AccordionTrigger className="text-left py-6 text-lg font-bold hover:no-underline group">
+                        <span className="group-hover:text-primary transition-colors flex items-center gap-4">
+                          <span className="text-xs font-mono text-accent/50">0{index + 1}</span>
+                          {item.q}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-8 text-base md:text-lg pl-8">
+                        <div className="bg-accent/5 rounded-2xl p-6 border border-accent/10">
+                          {item.a}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </CardContent>
             </Card>
+          </div>
 
-             {/* Footer */}
-            <footer className="py-8 text-center">
-                <p className="text-muted-foreground">Thank you for choosing Ahsan AI Hub. We're constantly improving to serve you better.</p>
-            </footer>
+          {/* New: Status Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="border-accent/10 bg-accent/5 p-6 flex items-center gap-4">
+              <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Systems: Operational</div>
+            </Card>
+            <Card className="border-accent/10 bg-accent/5 p-6 flex items-center gap-4">
+              <Globe className="h-5 w-5 text-accent" />
+              <div className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Global CDN: Active</div>
+            </Card>
+            <Card className="border-accent/10 bg-accent/5 p-6 flex items-center gap-4">
+              <Shield className="h-5 w-5 text-accent" />
+              <div className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Security: Encrypted</div>
+            </Card>
+          </div>
+
+          {/* Support Call-to-Action */}
+          <Card className="relative overflow-hidden border-none bg-primary text-primary-foreground p-1 shadow-2xl">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+            <CardContent className="relative bg-background/5 backdrop-blur-xl rounded-[calc(2.5rem-4px)] p-10 md:p-16 text-center">
+              <div className="flex justify-center mb-8">
+                <div className="rounded-3xl bg-primary p-6 shadow-2xl">
+                  <LifeBuoy className="h-12 w-12 text-primary-foreground" />
+                </div>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black mb-4">Still need assistance?</h2>
+              <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
+                I'm dedicated to providing the best AI experience. If you found a bug or have a suggestion, please reach out directly.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="default" className="rounded-2xl h-14 px-8 text-lg font-bold shadow-xl" asChild>
+                  <Link href="/contact">
+                    <MessageCircle className="mr-2 h-6 w-6" />
+                    Chat with Support
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="rounded-2xl h-14 px-8 text-lg font-bold border-accent/20" asChild>
+                  <a href="mailto:tickets@ahsan-ai-hub.p.tawk.email">
+                    <Mail className="mr-2 h-6 w-6" />
+                    Email Developer
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Updated FAQ Footer */}
+          <footer className="pt-10 pb-20 text-center space-y-6">
+            <div className="flex justify-center gap-2">
+               {[1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-accent/20" />)}
+            </div>
+            <p className="text-sm font-medium text-muted-foreground/60 tracking-[0.2em] uppercase">
+              Knowledge Base Updated: Dec 2025
+            </p>
+          </footer>
         </div>
       </div>
     </div>
