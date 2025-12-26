@@ -139,7 +139,7 @@ export function ChatHistory() {
               <Card
                 key={session.id}
                 className={cn(
-                  'relative group overflow-hidden border-transparent transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] cursor-pointer',
+                  'relative group border-transparent transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] cursor-pointer',
                   currentSessionId === session.id 
                     ? 'bg-primary/5 border-primary/20 shadow-sm' 
                     : 'bg-card border-border/40 hover:bg-accent/5'
@@ -151,7 +151,7 @@ export function ChatHistory() {
                 )}
                 
                 <div className="p-4">
-                  <div className="flex items-start gap-3 min-w-0">
+                  <div className="flex items-start gap-2 min-w-0">
                     <div className={cn(
                       "h-10 w-10 shrink-0 rounded-xl flex items-center justify-center transition-colors",
                       currentSessionId === session.id ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
@@ -161,7 +161,7 @@ export function ChatHistory() {
                     
                     <div className="flex-1 min-w-0 space-y-1">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="text-sm font-bold truncate pr-6">
+                        <p className="text-sm font-bold truncate">
                           {session.title}
                         </p>
                         <span className="text-[10px] font-medium text-muted-foreground/60 whitespace-nowrap">
@@ -183,8 +183,8 @@ export function ChatHistory() {
 
                     <Button
                       variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-2 h-8 w-8 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive/10 hover:text-destructive"
+                      size="sm"
+                      className="h-8 w-8 rounded-lg p-0 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive/10 hover:text-destructive"
                       onClick={(e) => handleDeleteClick(e, session.id)}
                     >
                       <Trash2 className="h-4 w-4" />
