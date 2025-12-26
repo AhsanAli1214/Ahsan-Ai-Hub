@@ -1,266 +1,190 @@
 'use client';
 
 import { AppHeader } from '@/components/layout/AppHeader';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
+import { Card, CardContent } from '@/components/ui/card';
 import { 
   Mail, 
   MessageSquare, 
-  Send, 
-  Github, 
   Twitter, 
   Facebook,
-  MapPin, 
-  Phone,
   Globe,
   Clock,
-  ExternalLink,
-  Sparkles,
   Instagram,
-  ArrowRight,
-  AlertCircle,
-  Info
+  ArrowUpRight,
+  Sparkles,
+  ExternalLink,
+  ShieldCheck,
+  Zap,
+  Star
 } from 'lucide-react';
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 export default function ContactPage() {
-  const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    toast({
-      title: "Message Sent Successfully",
-      description: "We'll get back to you as soon as possible. Thank you!",
-    });
-    setFormState({ name: '', email: '', subject: '', message: '' });
-    setLoading(false);
-  };
-
-  const contactInfo = [
+  const contactMethods = [
     {
       icon: Mail,
       title: "Email Support",
       value: SUPPORT_EMAIL,
-      description: "Reach our support team with any questions or concerns.",
+      description: "For official inquiries and technical support tickets.",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
-      href: `mailto:${SUPPORT_EMAIL}`
+      link: `mailto:${SUPPORT_EMAIL}`,
+      badge: "Official"
     },
     {
       icon: MessageSquare,
-      title: "Direct Message",
+      title: "Instagram DM",
       value: "@ahsan.ali.wadani",
-      description: "Connect on Instagram for quicker casual conversations.",
+      description: "The fastest way to get a quick response for casual chat.",
       color: "text-pink-500",
       bg: "bg-pink-500/10",
-      href: "https://www.instagram.com/ahsan.ali.wadani"
+      link: "https://www.instagram.com/ahsan.ali.wadani",
+      badge: "Fastest"
     },
     {
-      icon: Clock,
-      title: "Fast Response",
-      value: "Available 24/7",
-      description: "We typically respond to all inquiries within 24 hours.",
-      color: "text-emerald-500",
-      bg: "bg-emerald-500/10"
+      icon: Twitter,
+      title: "Twitter / X",
+      value: "@Ahsan_Ali_12",
+      description: "Follow for live updates, tips, and AI news.",
+      color: "text-sky-500",
+      bg: "bg-sky-500/10",
+      link: "https://x.com/Ahsan_Ali_12?s=09",
+    },
+    {
+      icon: Facebook,
+      title: "Facebook",
+      value: "Ahsan Ali",
+      description: "Join our community and stay connected.",
+      color: "text-blue-600",
+      bg: "bg-blue-600/10",
+      link: "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu",
     }
   ];
 
-  const socialLinks = [
-    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ahsan.ali.wadani?igsh=MzNlNGNkZWQ4Mg==", color: "hover:text-pink-500" },
-    { icon: Twitter, label: "Twitter", href: "https://x.com/Ahsan_Ali_12?s=09", color: "hover:text-blue-400" },
-    { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu", color: "hover:text-blue-600" },
-    { icon: Globe, label: "Website", href: "https://ahsan-tech-hub.blogspot.com/", color: "hover:text-emerald-400" }
+  const features = [
+    { icon: Clock, text: "24/7 Global Support" },
+    { icon: Zap, text: "Rapid Response Time" },
+    { icon: ShieldCheck, text: "Secure Communication" },
+    { icon: Star, text: "Priority for PWA Users" }
   ];
 
   return (
     <div className="flex h-full w-full flex-col bg-background selection:bg-primary/20">
       <AppHeader title="Contact & Support" />
       
-      <main className="flex-1 overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          {/* Header Section */}
-          <div className="mb-12 text-center space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary uppercase tracking-widest">
-              <Sparkles className="h-3 w-3" />
-              Get in Touch
+      <main className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl">
+          {/* Hero Section */}
+          <div className="mb-20 text-center space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] sm:text-xs font-black text-primary uppercase tracking-[0.2em] animate-fade-in">
+              <Sparkles className="h-3.5 w-3.5" />
+              Direct Connection
             </div>
-            <h1 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl text-foreground">
-              Let's Start a <span className="text-primary">Conversation</span>
+            <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]">
+              Get in <span className="text-primary">Touch</span>
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground font-medium">
-              Have questions, feedback, or found an issue? We're here to help you unlock the full potential of AI.
+            <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">
+              Skip the forms. Connect with us directly through our official channels for the fastest support and collaboration.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-start">
-            {/* Contact Info Sidebar */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="grid grid-cols-1 gap-6">
-                {contactInfo.map((info, idx) => {
-                  const Content = (
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className={cn("rounded-2xl p-4 transition-transform group-hover:scale-110", info.bg)}>
-                          <info.icon className={cn("h-6 w-6", info.color)} />
-                        </div>
-                        <div className="space-y-1 overflow-hidden">
-                          <h3 className="font-bold text-lg text-foreground">{info.title}</h3>
-                          <p className="font-semibold text-primary truncate break-all text-sm sm:text-base">{info.value}</p>
-                          <p className="text-sm text-muted-foreground">{info.description}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  );
-
-                  return info.href ? (
-                    <a key={idx} href={info.href} target="_blank" rel="noopener noreferrer" className="group">
-                      <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
-                        {Content}
-                      </Card>
-                    </a>
-                  ) : (
-                    <Card key={idx} className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
-                      {Content}
-                    </Card>
-                  );
-                })}
-              </div>
-
-              {/* Social Connect */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Connect with us</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {socialLinks.map((social, idx) => (
-                    <a
-                      key={idx}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "flex items-center gap-2 px-3 py-2.5 rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm text-xs font-bold text-muted-foreground transition-all hover:border-primary/40 hover:bg-primary/5 hover:scale-105",
-                        social.color
-                      )}
-                    >
-                      <social.icon className="h-4 w-4" />
-                      {social.label}
-                    </a>
-                  ))}
+            
+            {/* Quick Stats/Features */}
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8 pt-6">
+              {features.map((feature, i) => (
+                <div key={i} className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                  <feature.icon className="h-4 w-4 text-primary/60" />
+                  {feature.text}
                 </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="lg:col-span-7">
-              <Card className="border-border/50 bg-card shadow-2xl shadow-primary/5 rounded-3xl overflow-hidden relative">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
-                <CardHeader className="p-8 pb-0">
-                  <CardTitle className="text-2xl font-black flex items-center gap-3">
-                    <MessageSquare className="h-6 w-6 text-primary" />
-                    Send a Message
-                  </CardTitle>
-                  <CardDescription className="text-base font-medium">
-                    Fill out the form below and our team will get back to you shortly.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-8">
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                      <div className="space-y-2">
-                        <label className="text-xs font-black uppercase tracking-wider text-muted-foreground ml-1">Full Name</label>
-                        <Input
-                          placeholder="Ahsan AI"
-                          value={formState.name}
-                          onChange={(e) => setFormState({...formState, name: e.target.value})}
-                          className="rounded-xl border-border/60 bg-background/50 h-12 px-4 font-semibold focus-visible:ring-primary/20"
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-black uppercase tracking-wider text-muted-foreground ml-1">Email Address</label>
-                        <Input
-                          type="email"
-                          placeholder="hello@ahsan.ai"
-                          value={formState.email}
-                          onChange={(e) => setFormState({...formState, email: e.target.value})}
-                          className="rounded-xl border-border/60 bg-background/50 h-12 px-4 font-semibold focus-visible:ring-primary/20"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-wider text-muted-foreground ml-1">Subject</label>
-                      <Input
-                        placeholder="How can we help you?"
-                        value={formState.subject}
-                        onChange={(e) => setFormState({...formState, subject: e.target.value})}
-                        className="rounded-xl border-border/60 bg-background/50 h-12 px-4 font-semibold focus-visible:ring-primary/20"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-wider text-muted-foreground ml-1">Your Message</label>
-                      <Textarea
-                        placeholder="Type your message here..."
-                        value={formState.message}
-                        onChange={(e) => setFormState({...formState, message: e.target.value})}
-                        className="min-h-[160px] rounded-2xl border-border/60 bg-background/50 p-4 font-medium resize-none focus-visible:ring-primary/20"
-                        required
-                      />
-                    </div>
-                    <Button 
-                      type="submit" 
-                      disabled={loading}
-                      className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black text-lg shadow-xl shadow-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99]"
-                    >
-                      {loading ? (
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      ) : (
-                        <Send className="mr-2 h-5 w-5" />
-                      )}
-                      {loading ? 'Sending...' : 'Send Message'}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+              ))}
             </div>
           </div>
+
+          {/* Contact Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            {contactMethods.map((method, idx) => (
+              <a 
+                key={idx} 
+                href={method.link} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group"
+              >
+                <Card className="h-full relative overflow-hidden border-border/50 bg-card/40 backdrop-blur-md transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1.5 rounded-[2.5rem]">
+                  <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0">
+                    <ArrowUpRight className="h-6 w-6 text-primary" />
+                  </div>
+                  
+                  <CardContent className="p-8 sm:p-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between mb-8">
+                      <div className={cn("rounded-2xl p-4 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3", method.bg)}>
+                        <method.icon className={cn("h-8 w-8", method.color)} />
+                      </div>
+                      {method.badge && (
+                        <span className="px-3 py-1 rounded-full bg-primary/10 text-[10px] font-black uppercase tracking-widest text-primary border border-primary/20">
+                          {method.badge}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <div className="space-y-3 flex-1">
+                      <h3 className="text-2xl font-black text-foreground group-hover:text-primary transition-colors">
+                        {method.title}
+                      </h3>
+                      <p className="text-base font-bold text-muted-foreground leading-relaxed line-clamp-2">
+                        {method.description}
+                      </p>
+                    </div>
+                    
+                    <div className="mt-8 pt-8 border-t border-border/40">
+                      <p className="text-sm font-black text-primary break-all tracking-tight flex items-center gap-2">
+                        {method.value}
+                        <ExternalLink className="h-3.5 w-3.5 opacity-50" />
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
+          </div>
+
+          {/* Portfolio/Website Section */}
+          <div className="mt-12">
+            <a 
+              href="https://ahsan-tech-hub.blogspot.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group block"
+            >
+              <Card className="border-border/50 bg-gradient-to-br from-primary/5 to-transparent backdrop-blur-sm p-8 sm:p-10 rounded-[2.5rem] hover:border-primary/30 transition-all duration-500">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-6">
+                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Globe className="h-8 w-8 text-primary" />
+                    </div>
+                    <div className="text-center sm:text-left">
+                      <h3 className="text-2xl font-black text-foreground">Official Portfolio</h3>
+                      <p className="font-bold text-muted-foreground">Discover more projects and technical articles.</p>
+                    </div>
+                  </div>
+                  <Button className="rounded-2xl h-14 px-8 font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    Explore Now
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              </Card>
+            </a>
+          </div>
+
+          {/* Footer Branding */}
+          <footer className="mt-24 pb-12 text-center space-y-4 border-t border-border/40 pt-12">
+            <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.3em]">Ahsan AI Hub • Studio Edition</p>
+            <p className="text-xs text-muted-foreground/40 max-w-md mx-auto leading-relaxed">
+              Designed for performance. Optimized for speed. Built for the future of AI.
+            </p>
+          </footer>
         </div>
       </main>
     </div>
-  );
-}
-
-function Loader2({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={cn("animate-spin", className)}
-    >
-      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-    </svg>
   );
 }
