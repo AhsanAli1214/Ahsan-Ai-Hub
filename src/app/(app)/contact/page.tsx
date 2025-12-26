@@ -239,15 +239,16 @@ export default function ContactPage() {
           <footer className="mt-12 pb-12 text-center space-y-4 border-t border-border/40 pt-12">
             <p className="text-sm font-bold text-muted-foreground/60 uppercase tracking-[0.3em]">Ahsan AI Hub</p>
             <p className="text-xs text-muted-foreground/40 max-w-md mx-auto leading-relaxed">
-              Designed for performance. Optimized for speed. Built for the future of AI.
+              No Login Required • No Data Stored • Privacy First
             </p>
             <div className="flex justify-center gap-6 text-xs text-muted-foreground/50 pt-4">
               <Link href="/privacy" className="hover:text-primary transition-colors font-medium">Privacy Policy</Link>
               <span className="text-border/40">•</span>
               <Link href="/terms" className="hover:text-primary transition-colors font-medium">Terms of Service</Link>
               <span className="text-border/40">•</span>
-              <Link href="/data-rights" className="hover:text-primary transition-colors font-medium">Data Rights</Link>
+              <Link href="/data-rights" className="hover:text-primary transition-colors font-medium">Your Data Rights</Link>
             </div>
+            <p className="text-xs text-muted-foreground/50 pt-4">© 2025 Ahsan AI Hub. Built with privacy-first AI tools.</p>
           </footer>
         </div>
       </main>
