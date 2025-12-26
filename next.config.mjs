@@ -3,6 +3,10 @@ const config = {
   reactStrictMode: true,
   compress: true,
   productionBrowserSourceMaps: false,
+  swcMinify: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+  },
   
   // Sitemap configuration
   async rewrites() {

@@ -23,9 +23,9 @@ const navItems = [
 const moreItems = [
   { href: '/content-tools', icon: PenTool, label: 'Tools' },
   { href: '/settings', icon: Settings, label: 'Settings' },
-  { href: '/about', icon: Home, label: 'About' },
-  { href: '/faq', icon: Home, label: 'FAQ' },
-  { href: '/contact', icon: Home, label: 'Contact' },
+  { href: '/about', icon: Info, label: 'About' },
+  { href: '/faq', icon: HelpCircle, label: 'FAQ' },
+  { href: '/contact', icon: Mail, label: 'Contact' },
 ];
 
 export function BottomNav() {

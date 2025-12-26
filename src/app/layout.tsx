@@ -15,14 +15,14 @@ const inter = Inter({
   subsets: ['latin'], 
   variable: '--font-inter',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-poppins',
   display: 'swap',
-  preload: false,
+  preload: true,
 });
 
 export const viewport: Viewport = {
