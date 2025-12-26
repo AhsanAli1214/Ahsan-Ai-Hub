@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
