@@ -257,34 +257,49 @@ export default function ContentToolsPage() {
 
     setLoading(true);
     
-    // Show loading message immediately
-    const loadingToastId = toast({ 
-      title: 'Verifying security... Please wait',
-      description: 'Processing your request. This takes just a moment.',
-    });
+    // Track if we've already shown the patience message
+    let patienceMessageShown = false;
+    let timeoutHandle: NodeJS.Timeout | null = null;
 
     try {
-      // Verify reCAPTCHA before processing with timeout
-      const captchaTimeout = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Security verification timed out')), 15000)
-      );
-      
-      const token = await Promise.race([
-        executeReCaptcha('content_tool_use'),
-        captchaTimeout
-      ]) as string;
+      // Start reCAPTCHA verification in background
+      const captchaPromise = (async () => {
+        const token = await executeReCaptcha('content_tool_use');
+        return await verifyReCaptcha(token);
+      })();
 
-      // Update toast while verifying backend
-      toast({ 
-        title: 'Generating content... Almost done',
-        description: 'Your AI assistant is working on your request.',
+      // Set a timer to show message only if verification takes longer than 1.5 seconds
+      const showPatienceMessage = new Promise<void>((resolve) => {
+        timeoutHandle = setTimeout(() => {
+          patienceMessageShown = true;
+          toast({ 
+            title: 'Verifying security... Please wait',
+            description: 'This takes just a moment.',
+          });
+          resolve();
+        }, 1500);
       });
 
-      const captchaVerification = await verifyReCaptcha(token);
+      // Wait for either the reCAPTCHA to complete or timeout to show message
+      const captchaVerification = await captchaPromise;
+
+      // Clear the timeout if verification completed quickly
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
+
       if (!captchaVerification.success) {
         toast({ title: 'Security verification failed. Please try again.', variant: 'destructive' });
         setLoading(false);
         return;
+      }
+
+      // Show success message only if we showed the patience message
+      if (patienceMessageShown) {
+        toast({ 
+          title: 'Generating content... Almost done',
+          description: 'Your AI assistant is working on your request.',
+        });
       }
 
       let result;

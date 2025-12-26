@@ -14,10 +14,9 @@ export function ReCaptchaScript() {
     if (window.grecaptcha) return;
 
     const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=6LesbDcsAAAAALuDdNtUQEhyOP8O7K9vd0VSpsew';
+    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
     script.async = true;
     script.defer = true;
-    script.integrity = '';
     document.head.appendChild(script);
 
     return () => {
@@ -51,26 +50,48 @@ export async function verifyReCaptcha(token: string): Promise<{ success: boolean
 
 export function executeReCaptcha(action: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (!window.grecaptcha) {
-      reject(new Error('reCAPTCHA is not loaded'));
-      return;
-    }
-
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
     if (!siteKey) {
+      console.error('reCAPTCHA site key not configured');
       reject(new Error('reCAPTCHA site key is not configured'));
       return;
     }
 
-    window.grecaptcha.ready(() => {
-      window.grecaptcha
-        .execute(siteKey, { action })
-        .then((token: string) => {
-          resolve(token);
-        })
-        .catch((error: any) => {
+    // Timeout for reCAPTCHA execution
+    const executionTimeout = setTimeout(() => {
+      reject(new Error('reCAPTCHA execution timed out'));
+    }, 10000);
+
+    try {
+      if (!window.grecaptcha) {
+        clearTimeout(executionTimeout);
+        reject(new Error('reCAPTCHA script not loaded'));
+        return;
+      }
+
+      window.grecaptcha.ready(() => {
+        try {
+          window.grecaptcha
+            .execute(siteKey, { action })
+            .then((token: string) => {
+              clearTimeout(executionTimeout);
+              resolve(token);
+            })
+            .catch((error: any) => {
+              clearTimeout(executionTimeout);
+              console.error('reCAPTCHA execute error:', error);
+              reject(error);
+            });
+        } catch (error) {
+          clearTimeout(executionTimeout);
+          console.error('reCAPTCHA ready callback error:', error);
           reject(error);
-        });
-    });
+        }
+      });
+    } catch (error) {
+      clearTimeout(executionTimeout);
+      console.error('reCAPTCHA execution error:', error);
+      reject(error);
+    }
   });
 }
