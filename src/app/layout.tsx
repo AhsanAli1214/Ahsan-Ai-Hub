@@ -35,21 +35,23 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
-  title: 'Ahsan AI Hub - Best Free AI Chat & Content Creation Platform',
-  description: 'Ahsan AI Hub is the ultimate free AI platform for intelligent chat, content generation, and creative tools. Access 10+ powerful AI tools for writing, coding, and brainstorming with 100% privacy and no login required.',
+  title: {
+    default: 'Ahsan AI Hub - #1 Best Free AI Chat & Content Creation Platform',
+    template: '%s | Ahsan AI Hub'
+  },
+  description: 'Ahsan AI Hub is the world\'s leading privacy-first AI platform. Get unrestricted access to "Ahsan AI" tools for writing, coding, and brainstorming with zero data logging and no account required.',
   keywords: [
     'Ahsan AI Hub',
-    'free AI chat',
-    'best AI writing tools',
-    'privacy-first AI',
-    'content generator free',
-    'AI code explainer',
-    'no login AI',
-    'intelligent AI companion',
-    'creative content AI',
-    'AI study assistant',
-    'AI resume builder',
-    'Gemini AI platform',
+    'Ahsan AI',
+    'Wadani AI',
+    'Ahsan Ali AI Hub',
+    'free AI chat no login',
+    'best free AI text rewriter',
+    'privacy-protected AI assistant',
+    'Gemini powered Ahsan AI',
+    'AI tool hub 2025',
+    'anonymous AI chat',
+    'Ahsan Ali Developer AI',
   ],
   manifest: '/manifest.json',
   robots: {

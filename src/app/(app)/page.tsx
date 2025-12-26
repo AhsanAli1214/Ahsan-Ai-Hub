@@ -87,10 +87,11 @@ export default function HomePage() {
       <AppHeader title="Home" />
       {/* Crawlable Content for SEO */}
       <div className="sr-only">
-        <h1>Ahsan AI Hub - Your Intelligent AI Companion</h1>
+        <h1>Ahsan AI Hub - The World\'s #1 Privacy-First Free AI Companion</h1>
         <p>
-          Ahsan AI Hub is an AI-powered platform offering smart chat, automation, and creative AI tools. 
-          Get instant help with writing, coding, brainstorming, and problem solving powered by advanced AI.
+          Ahsan AI Hub (also known as Ahsan AI) is a powerful, anonymous AI platform developed by Ahsan Ali. 
+          We offer the best free AI chat experience, AI text rewriter, and code explainer with 100% privacy and no login required.
+          Ranked as a top free AI tool hub for 2025.
         </p>
         <nav>
           <a href="/recommendations">AI Chat</a>
