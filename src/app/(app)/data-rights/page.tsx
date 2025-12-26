@@ -137,18 +137,6 @@ export default function DataRightsPage() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Footer Links */}
-          <footer className="mt-16 pt-8 border-t border-border/40 text-center space-y-4">
-            <div className="flex justify-center gap-6 text-xs text-muted-foreground/60 flex-wrap">
-              <Link href="/privacy" className="hover:text-primary transition-colors font-medium">Privacy Policy</Link>
-              <span>•</span>
-              <Link href="/terms" className="hover:text-primary transition-colors font-medium">Terms of Service</Link>
-              <span>•</span>
-              <Link href="/contact" className="hover:text-primary transition-colors font-medium">Contact</Link>
-            </div>
-            <p className="text-xs text-muted-foreground/50 pt-2">© 2025 Ahsan AI Hub. Built with privacy-first AI tools.</p>
-          </footer>
         </div>
       </main>
     </div>

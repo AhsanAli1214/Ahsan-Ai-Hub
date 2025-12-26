@@ -297,28 +297,7 @@ export default function AboutPage() {
             </Card>
           </div>
 
-          {/* Dynamic Footer Signature */}
-          <footer className="pt-20 text-center">
-             <div className="inline-flex flex-col items-center gap-6">
-                <div className="relative">
-                  <AhsanAiHubLogo className="h-20 w-20 text-accent opacity-20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="h-2 w-2 rounded-full bg-accent animate-ping" />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                   <div className="mx-auto w-fit rounded-full bg-accent/10 px-8 py-4 border border-accent/40 shadow-xl backdrop-blur-xl">
-                      <span className="text-4xl font-black tracking-tighter text-accent drop-shadow-lg">
-                        A❤️N
-                      </span>
-                   </div>
-                   <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground/60">
-                     Built by Ahsan Ali • {new Date().getFullYear()}
-                   </p>
-                </div>
-             </div>
-          </footer>
-        </div>
+          </div>
       </div>
     </div>
   );
