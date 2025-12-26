@@ -210,7 +210,7 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
         
         {/* Button */}
         <div className="mt-auto pt-3">
-          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all rounded-2xl py-7 font-black text-base shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]" variant="default">
+          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all rounded-xl py-5 font-bold text-sm shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]" variant="default">
             <span>Use Tool</span>
             <span className="ml-auto group-hover:translate-x-1 transition-transform duration-200">→</span>
           </Button>

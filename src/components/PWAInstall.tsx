@@ -2,23 +2,34 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Cloud, X } from 'lucide-react';
+import { Bell, Cloud, X } from 'lucide-react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+declare global {
+  interface Window {
+    OneSignalDeferred: any[];
+  }
+}
+
 export function PWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   useEffect(() => {
+    // Check notification status
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setNotificationsEnabled(Notification.permission === 'granted');
+    }
+
     // Check if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
-      return;
     }
 
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -41,6 +52,19 @@ export function PWAInstall() {
       window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
+
+  const handleNotificationClick = () => {
+    if (typeof window !== 'undefined' && window.OneSignalDeferred) {
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        try {
+          await OneSignal.Notifications.requestPermission();
+          setNotificationsEnabled(Notification.permission === 'granted');
+        } catch (e) {
+          console.error('Notification error:', e);
+        }
+      });
+    }
+  };
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
@@ -65,31 +89,38 @@ export function PWAInstall() {
     setShowInstallPrompt(false);
   };
 
-  // Don't show if app is already installed
-  if (isInstalled) {
-    return (
-      <Button disabled variant="outline" size="sm">
-        Installed
-      </Button>
-    );
-  }
-
-  if (!showInstallPrompt) {
-    return (
-      <Button disabled variant="ghost" size="sm">
-        Install Not Available
-      </Button>
-    );
-  }
-
   return (
-    <Button
-      onClick={handleInstallClick}
-      size="sm"
-      className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md animate-pulse"
-    >
-      <Cloud className="h-4 w-4" />
-      Install App
-    </Button>
+    <div className="flex items-center gap-2">
+      {!notificationsEnabled && (
+        <Button
+          onClick={handleNotificationClick}
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-2 border-primary/30 hover:bg-primary/10 transition-all rounded-lg"
+        >
+          <Bell className="h-4 w-4 text-primary" />
+          Enable Notifications
+        </Button>
+      )}
+
+      {isInstalled ? (
+        <Button disabled variant="outline" size="sm" className="rounded-lg opacity-60">
+          App Installed
+        </Button>
+      ) : showInstallPrompt ? (
+        <Button
+          onClick={handleInstallClick}
+          size="sm"
+          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md animate-pulse rounded-lg"
+        >
+          <Cloud className="h-4 w-4" />
+          Install App
+        </Button>
+      ) : (
+        <Button disabled variant="ghost" size="sm" className="text-muted-foreground/50">
+          Install Not Available
+        </Button>
+      )}
+    </div>
   );
 }
