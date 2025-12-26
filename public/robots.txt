@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /_next/static/
+Allow: /api/sitemap
 Disallow: /api/
 Disallow: /admin/
 Crawl-delay: 1
