@@ -62,13 +62,6 @@ export default function ContactPage() {
     }
   };
 
-  return (
-    <div className="flex h-full w-full flex-col bg-background selection:bg-primary/20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
-      />
-      <AppHeader title="Contact & Support" />
   const contactMethods = [
     {
       icon: Mail,
@@ -119,6 +112,10 @@ export default function ContactPage() {
 
   return (
     <div className="flex h-full w-full flex-col bg-background selection:bg-primary/20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
+      />
       <AppHeader title="Contact & Support" />
       
       <main className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8">
