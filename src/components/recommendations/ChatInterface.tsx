@@ -274,8 +274,16 @@ export function ChatInterface({
   }
   
   useEffect(() => {
-    scrollToBottom('auto');
-  }, [messages.length, isLoading]);
+    // Scroll to bottom immediately on mount and when messages change
+    const timer = setTimeout(() => scrollToBottom('auto'), 100);
+    return () => clearTimeout(timer);
+  }, [messages.length]);
+
+  useEffect(() => {
+    if (isLoading) {
+      scrollToBottom('auto');
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     return () => {
