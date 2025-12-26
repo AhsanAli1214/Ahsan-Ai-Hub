@@ -275,8 +275,26 @@ export function ChatInterface({
   
   useEffect(() => {
     // Scroll to bottom immediately on mount and when messages change
-    const timer = setTimeout(() => scrollToBottom('auto'), 100);
-    return () => clearTimeout(timer);
+    // Using requestAnimationFrame to ensure DOM is updated and layout is calculated
+    const scroll = () => {
+      const viewport = scrollViewportRef.current;
+      if (viewport) {
+        viewport.scrollTop = viewport.scrollHeight;
+        // Also force a check for the scroll button
+        const distanceToBottom = 0;
+        setShowScrollButton(false);
+      }
+    };
+    
+    // Multiple attempts to ensure it works across different rendering cycles
+    requestAnimationFrame(scroll);
+    const timer = setTimeout(scroll, 100);
+    const timer2 = setTimeout(scroll, 300);
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+    };
   }, [messages.length]);
 
   useEffect(() => {
