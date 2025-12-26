@@ -1,6 +1,6 @@
 'use client';
 
-import { getRecommendationsAction, translateTextAction, textToSpeechAction, reportErrorAction } from '@/app/actions';
+import { getRecommendationsAction, translateTextAction, reportErrorAction } from '@/app/actions';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -17,6 +17,7 @@ import { LANGUAGES, type Language } from '@/lib/languages';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
 
 function MessageBubble({ 
     message, 
@@ -244,11 +245,9 @@ export function ChatInterface({
   const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, responseLength, enableAnimations, enableTypingIndicator } = useAppContext();
   const { currentSession, addMessage, updateCurrentSessionTitle, createSession, updateMessage } = useChatHistory();
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
-  const [isAudioBuffering, setIsAudioBuffering] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [lastAudioRequestTime, setLastAudioRequestTime] = useState<number>(0);
+  const stopSpeechRef = useRef<(() => void) | null>(null);
 
   const messages = currentSession?.messages || [];
 
@@ -279,18 +278,14 @@ export function ChatInterface({
   }, [messages.length, isLoading]);
 
   useEffect(() => {
-    if (audio) {
-      const handleEnded = () => {
-        setActiveMessageId(null);
-      };
-      audio.addEventListener('ended', handleEnded);
-      return () => {
-        audio.removeEventListener('ended', handleEnded);
-        audio.pause();
-        setAudio(null);
-      };
-    }
-  }, [audio]);
+    return () => {
+      // Clean up speech synthesis on unmount
+      stopSpeech();
+      if (stopSpeechRef.current) {
+        stopSpeechRef.current();
+      }
+    };
+  }, []);
   
   const handleReportError = async (errorMsg: string) => {
     try {
@@ -325,122 +320,63 @@ export function ChatInterface({
     }
   };
 
-  const playAudio = (audioDataUri: string) => {
-    try {
-      const newAudio = new Audio(audioDataUri);
-      newAudio.onerror = () => {
-        console.error('Audio playback error');
-        const errorMsg = 'Failed to play the generated audio file.';
-        toast({
-          variant: 'destructive',
-          title: 'Playback Failed',
-          description: errorMsg,
-          action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
-        });
-        setActiveMessageId(null);
-        setIsAudioBuffering(false);
-      };
-      setAudio(newAudio);
-      newAudio.play().catch((error) => {
-        console.error('Play error:', error);
-        const errorMsg = `Playback error: ${error instanceof Error ? error.message : 'Unknown error'}.`;
-        toast({
-          variant: 'destructive',
-          title: 'Playback Failed',
-          description: 'Unable to play the audio. Check browser permissions.',
-          action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
-        });
-        setActiveMessageId(null);
-        setIsAudioBuffering(false);
-      });
-    } catch (error) {
-      console.error('Audio error:', error);
-      const errorMsg = `Audio initialization error: ${error instanceof Error ? error.message : 'Unknown error'}.`;
-      toast({
-        variant: 'destructive',
-        title: 'Audio Error',
-        description: 'Failed to initialize audio player.',
-        action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
-      });
-      setActiveMessageId(null);
-      setIsAudioBuffering(false);
-    }
-  };
   
-  const handlePlayAudio = async (messageId: string, text: string) => {
-    if (activeMessageId === messageId && audio) {
-        if (!audio.paused) {
-            audio.pause();
-            setActiveMessageId(null);
-            return;
-        } else {
-            audio.play();
-            return;
-        }
-    }
-    
-    if (audio) {
-      audio.pause();
-    }
-    
-    // Rate limiting: prevent requests within 2 seconds of last request
-    const now = Date.now();
-    const timeSinceLastRequest = now - lastAudioRequestTime;
-    if (timeSinceLastRequest < 2000) {
-      const waitTime = Math.ceil((2000 - timeSinceLastRequest) / 1000);
-      const rateLimitMsg = `Audio requests are being processed. Please try again in ${waitTime} second${waitTime !== 1 ? 's' : ''}.`;
-      toast({
-        variant: 'destructive',
-        title: 'Request in Progress',
-        description: rateLimitMsg,
-        action: <Button size="sm" variant="outline" onClick={() => handleReportError(rateLimitMsg)}>Report Issue</Button>,
-      });
-      return;
-    }
-    
-    setLastAudioRequestTime(now);
-    setActiveMessageId(messageId);
-    setIsAudioBuffering(true);
-    
+  const handlePlayAudio = (messageId: string, text: string) => {
     try {
+      if (!isSpeechSynthesisSupported()) {
+        toast({
+          variant: 'destructive',
+          title: 'Not Supported',
+          description: 'Text-to-speech is not supported in your browser.',
+        });
+        return;
+      }
+
       if (!text || text.trim().length === 0) {
         throw new Error('No text to convert to speech');
       }
-      const result = await textToSpeechAction({ text });
-      if (result.success && result.data) {
-        playAudio(result.data);
-      } else if (!result.success) {
-        const isQuotaError = (result as any).isQuotaError;
-        let errorMsg = result.error || 'Failed to generate audio';
-        if (isQuotaError) {
-          errorMsg = 'Text-to-speech requests are temporarily unavailable. This may be due to high usage. Please try again in a few minutes.';
+
+      // If already playing this message, stop it
+      if (activeMessageId === messageId) {
+        if (stopSpeechRef.current) {
+          stopSpeechRef.current();
+          stopSpeechRef.current = null;
         }
-        throw new Error(errorMsg);
+        setActiveMessageId(null);
+        return;
       }
+
+      // Stop any previously playing speech
+      if (stopSpeechRef.current) {
+        stopSpeechRef.current();
+      }
+
+      // Start new speech
+      setActiveMessageId(messageId);
+      stopSpeechRef.current = speakText(text, () => {
+        setActiveMessageId(null);
+        stopSpeechRef.current = null;
+      });
+
+      toast({
+        title: 'Playing Audio',
+        description: 'Audio is now playing. Click the speaker icon again to stop.',
+      });
     } catch (error) {
       console.error('TTS Error:', error);
       const errorMsg = error instanceof Error ? error.message : 'Could not play audio. Please try again.';
-      const isQuotaError = errorMsg.includes('temporarily unavailable');
-      
       toast({
         variant: 'destructive',
-        title: isQuotaError ? 'Audio Temporarily Unavailable' : 'Audio Failed',
-        description: isQuotaError 
-          ? 'Audio generation is experiencing high demand. Please try again in a few moments or copy the response text to read manually.'
-          : errorMsg,
-        action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
+        title: 'Audio Failed',
+        description: errorMsg,
       });
       setActiveMessageId(null);
-    } finally {
-        setIsAudioBuffering(false);
     }
   };
 
   const handlePauseAudio = () => {
-    if (audio && !audio.paused) {
-      audio.pause();
-      setActiveMessageId(null);
-    }
+    stopSpeech();
+    setActiveMessageId(null);
   };
   
   const handleSend = async () => {
@@ -586,8 +522,8 @@ export function ChatInterface({
                 message={message} 
                 onTranslate={handleTranslateMessage} 
                 onPlayAudio={(text) => handlePlayAudio(message.id, text)}
-                isPlaying={activeMessageId === message.id && audio ? !audio.paused : false}
-                isBuffering={activeMessageId === message.id && isAudioBuffering}
+                isPlaying={activeMessageId === message.id}
+                isBuffering={false}
                 onPauseAudio={handlePauseAudio}
                 />
             ))
