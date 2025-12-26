@@ -256,9 +256,30 @@ export default function ContentToolsPage() {
     }
 
     setLoading(true);
+    
+    // Show loading message immediately
+    const loadingToastId = toast({ 
+      title: 'Verifying security... Please wait',
+      description: 'Processing your request. This takes just a moment.',
+    });
+
     try {
-      // Verify reCAPTCHA before processing
-      const token = await executeReCaptcha('content_tool_use');
+      // Verify reCAPTCHA before processing with timeout
+      const captchaTimeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Security verification timed out')), 15000)
+      );
+      
+      const token = await Promise.race([
+        executeReCaptcha('content_tool_use'),
+        captchaTimeout
+      ]) as string;
+
+      // Update toast while verifying backend
+      toast({ 
+        title: 'Generating content... Almost done',
+        description: 'Your AI assistant is working on your request.',
+      });
+
       const captchaVerification = await verifyReCaptcha(token);
       if (!captchaVerification.success) {
         toast({ title: 'Security verification failed. Please try again.', variant: 'destructive' });

@@ -10,15 +10,18 @@ declare global {
 
 export function ReCaptchaScript() {
   useEffect(() => {
-    // Load reCAPTCHA script
+    // Only load reCAPTCHA if not already present
+    if (window.grecaptcha) return;
+
     const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=6LesbDcsAAAAALuDdNtUQEhyOP8O7K9vd0VSpsew';
     script.async = true;
     script.defer = true;
+    script.integrity = '';
     document.head.appendChild(script);
 
     return () => {
-      // Cleanup if needed
+      // Keep script loaded for performance
     };
   }, []);
 
