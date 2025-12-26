@@ -113,10 +113,13 @@ function MessageBubble({
           </div>
           {message.originalContent && (
             <button 
-              className="mt-2 text-xs text-muted-foreground hover:underline"
-              onClick={() => onTranslate(message.id, message.content, (message.translatedTo as Language) || 'en')}
+              className="mt-2 text-xs text-muted-foreground hover:text-primary hover:underline transition-colors"
+              onClick={() => {
+                const originalLang = 'en' as Language;
+                onTranslate(message.id, message.originalContent || message.content, originalLang);
+              }}
             >
-              Show Original
+              ↺ Show Original
             </button>
           )}
           
@@ -289,9 +292,39 @@ export function ChatInterface({
   }, [audio]);
   
   const playAudio = (audioDataUri: string) => {
-    const newAudio = new Audio(audioDataUri);
-    setAudio(newAudio);
-    newAudio.play();
+    try {
+      const newAudio = new Audio(audioDataUri);
+      newAudio.onerror = () => {
+        console.error('Audio playback error');
+        toast({
+          variant: 'destructive',
+          title: 'Playback Failed',
+          description: 'Unable to play the generated audio.',
+        });
+        setActiveMessageId(null);
+        setIsAudioBuffering(false);
+      };
+      setAudio(newAudio);
+      newAudio.play().catch((error) => {
+        console.error('Play error:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Playback Failed',
+          description: 'Unable to play the audio. Check browser permissions.',
+        });
+        setActiveMessageId(null);
+        setIsAudioBuffering(false);
+      });
+    } catch (error) {
+      console.error('Audio error:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Audio Error',
+        description: 'Failed to initialize audio player.',
+      });
+      setActiveMessageId(null);
+      setIsAudioBuffering(false);
+    }
   };
   
   const handlePlayAudio = async (messageId: string, text: string) => {
@@ -314,17 +347,21 @@ export function ChatInterface({
     setIsAudioBuffering(true);
     
     try {
+      if (!text || text.trim().length === 0) {
+        throw new Error('No text to convert to speech');
+      }
       const result = await textToSpeechAction({ text });
-      if (result.success) {
+      if (result.success && result.data) {
         playAudio(result.data);
-      } else {
-        throw new Error(result.error);
+      } else if (!result.success) {
+        throw new Error(result.error || 'Failed to generate audio');
       }
     } catch (error) {
+      console.error('TTS Error:', error);
       toast({
         variant: 'destructive',
         title: 'Audio Failed',
-        description: error instanceof Error ? error.message : 'Could not play audio.',
+        description: error instanceof Error ? error.message : 'Could not play audio. Please try again.',
       });
       setActiveMessageId(null);
     } finally {

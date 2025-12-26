@@ -10,10 +10,12 @@ import {
 } from '@/components/ui/sidebar';
 import { AhsanAiHubLogo } from '@/components/icons';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings, Clock } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings, Clock, Plus } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { useChatHistory } from '@/context/ChatHistoryContext';
 
 import { ChatHistory } from '@/components/ChatHistory';
 
@@ -32,6 +34,8 @@ export function AppSidebar() {
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const { setOpenMobile } = useSidebar();
+  const router = useRouter();
+  const { createSession } = useChatHistory();
 
   const handleLinkClick = () => {
     if (isMobile) {
@@ -39,13 +43,30 @@ export function AppSidebar() {
     }
   };
 
+  const handleNewConversation = () => {
+    createSession();
+    router.push('/recommendations');
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
   return (
     <Sidebar side="left" collapsible="icon" className="hidden md:block">
-      <SidebarHeader className="border-b">
+      <SidebarHeader className="border-b space-y-3">
         <div className="flex items-center gap-2 p-2">
           <AhsanAiHubLogo className="h-8 w-8" />
           <span className="font-headline text-lg font-semibold">Ahsan Ai Hub</span>
         </div>
+        <Button
+          onClick={handleNewConversation}
+          className="w-full gap-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20 font-semibold transition-all duration-300"
+          variant="ghost"
+          size="sm"
+        >
+          <Plus className="h-4 w-4" />
+          <span className="hidden group-data-[state=expanded]/sidebar:inline">New Chat</span>
+        </Button>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
