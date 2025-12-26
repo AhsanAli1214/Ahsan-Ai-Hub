@@ -249,29 +249,6 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
               </div>
-
-              {/* Data Rights */}
-              <div className="text-center space-y-4">
-                <h4 className="font-black text-foreground">Your Rights</h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-                  <div className="space-y-2">
-                    <div className="text-primary font-black">Access</div>
-                    <p className="text-muted-foreground">View your data anytime</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-primary font-black">Control</div>
-                    <p className="text-muted-foreground">Manage preferences</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-primary font-black">Delete</div>
-                    <p className="text-muted-foreground">Request deletion</p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="text-primary font-black">Export</div>
-                    <p className="text-muted-foreground">Download your data</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
