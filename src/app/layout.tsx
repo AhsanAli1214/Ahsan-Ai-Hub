@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/contexts/theme-context';
 import { AppProvider } from '@/context/AppContext';
 import { ChatHistoryProvider } from '@/context/ChatHistoryContext';
 import { PWAInstall } from '@/components/PWAInstall';
+import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
 
@@ -181,6 +182,7 @@ export default function RootLayout({
               {children}
               <Toaster />
               <PWAInstall />
+              <ConnectionStatus />
             </ChatHistoryProvider>
           </AppProvider>
         </ThemeProvider>
