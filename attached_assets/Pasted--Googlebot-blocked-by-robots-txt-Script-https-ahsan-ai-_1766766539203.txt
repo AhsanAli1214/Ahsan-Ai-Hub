@@ -1,0 +1,96 @@
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/003d628a-c50f881b9f78d5ca.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/112-2291593a14bbedd4.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/169-1378a9013f2728ff.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/175-9bd40ee24f9858ca.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/418-104c90527d713aa2.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/438-0af79574e58ccca1.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/465-bab09fab57af0fb9.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/478-54e69090f2c391ee.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/628-3c7412fcb985a16d.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/764-e6c7594804f7d069.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/789-6b931ef4d4672fd8.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/866-eb380639342b1452.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/983-a4102e182aa5fa2c.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/app/(app)/layout-1f6c0a356ffb1356.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/app/(app)/page-a341f68784a056ff.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/app/layout-52191e6eff4b99a9.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/main-app-cf2cdc8c1a6eb183.js
+
+Googlebot blocked by robots.txt
+Script
+https://ahsan-ai-hub.vercel.app/_next/static/chunks/webpack-908e86f5583addd9.js
+
+Googlebot blocked by robots.txt
+Stylesheet
+https://ahsan-ai-hub.vercel.app/_next/static/css/03ab1ff4581b51b2.css
+
+Googlebot blocked by robots.txt
+Stylesheet
+https://ahsan-ai-hub.vercel.app/_next/static/css/e79d710f588f74d9.css
+
+Googlebot blocked by robots.txt
+Font
+https://ahsan-ai-hub.vercel.app/_next/static/media/0484562807a97172-s.p.woff2
+
+Googlebot blocked by robots.txt
+Font
+https://ahsan-ai-hub.vercel.app/_next/static/media/8888a3826f4a3af4-s.p.woff2
+
+Googlebot blocked by robots.txt
+Font
+https://ahsan-ai-hub.vercel.app/_next/static/media/b957ea75a84b6ea7-s.p.woff2
+
+Googlebot blocked by robots.txt
+Font
+https://ahsan-ai-hub.vercel.app/_next/static/media/e4af272ccee01ff0-s.p.woff2

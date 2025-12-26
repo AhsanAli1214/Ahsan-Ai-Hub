@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /_next/static/
 Disallow: /api/
 Disallow: /admin/
-Disallow: /_next/
 Crawl-delay: 1
 
 # Sitemaps
