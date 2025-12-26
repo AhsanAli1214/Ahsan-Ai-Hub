@@ -1,8 +1,15 @@
-const CACHE_NAME = 'ahsan-ai-hub-v1';
+const CACHE_NAME = 'ahsan-ai-hub-v2';
 const urlsToCache = [
   '/',
   '/recommendations',
+  '/content-tools',
+  '/about',
+  '/contact',
   '/settings',
+  '/globals.css',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/manifest.json'
 ];
 
 // Import OneSignal service worker
@@ -11,8 +18,14 @@ importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js');
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache).catch(err => {
-        console.error('Cache addAll error:', err);
+      // Use addAll but catch individual failures to ensure some caching happens
+      return Promise.allSettled(
+        urlsToCache.map(url => cache.add(url))
+      ).then(results => {
+        const failed = results.filter(r => r.status === 'rejected');
+        if (failed.length > 0) {
+          console.warn('Some PWA assets failed to cache during install:', failed);
+        }
       });
     })
   );
@@ -34,67 +47,45 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Handle push notifications from OneSignal
-self.addEventListener('push', (event) => {
-  if (!event.data) {
-    return;
-  }
-
-  const notificationData = event.data.json();
-  const options = {
-    body: notificationData.body || 'New notification',
-    icon: '/icon-192x192.png',
-    badge: '/badge-72x72.png',
-    data: notificationData.data || {},
-  };
-
-  event.waitUntil(
-    self.registration.showNotification(notificationData.title || 'Ahsan AI Hub', options)
-  );
-});
-
-// Handle notification click
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.matchAll({ type: 'window' }).then((clientList) => {
-      for (let client of clientList) {
-        if (client.url === '/' && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      if (clients.openWindow) {
-        return clients.openWindow('/');
-      }
-    })
-  );
-});
-
 self.addEventListener('fetch', (event) => {
+  // Skip non-GET requests and AI API calls for caching, but handle them for offline UX
   if (event.request.method !== 'GET') {
     return;
   }
 
+  const url = new URL(event.request.url);
+  
+  // Don't cache AI API routes or external analytics
+  if (url.pathname.startsWith('/api/ai') || 
+      url.hostname.includes('google-analytics') || 
+      url.hostname.includes('onesignal')) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request).then((fetchResponse) => {
-        if (!fetchResponse || fetchResponse.status !== 200 || fetchResponse.type !== 'basic') {
-          return fetchResponse;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
         }
 
-        const responseToCache = fetchResponse.clone();
+        const responseToCache = networkResponse.clone();
         caches.open(CACHE_NAME).then((cache) => {
           cache.put(event.request, responseToCache);
         });
 
-        return fetchResponse;
+        return networkResponse;
+      }).catch(() => {
+        // Fallback for navigation requests when offline
+        if (event.request.mode === 'navigate') {
+          return caches.match('/');
+        }
+        return null;
       });
-    }).catch(() => {
-      // Return the cached root for navigation requests when offline
-      if (event.request.mode === 'navigate') {
-        return caches.match('/');
-      }
-      return null;
     })
   );
 });
