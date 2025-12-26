@@ -65,10 +65,6 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
-        <div className="mt-4 px-4 py-2 border-t">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">History</h3>
-          <ChatHistory />
-        </div>
       </SidebarContent>
     </Sidebar>
   );

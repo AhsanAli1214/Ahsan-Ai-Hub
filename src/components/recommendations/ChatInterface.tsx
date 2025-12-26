@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, parseLinks } from '@/lib/utils';
-import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Speaker, Pause, Play, ChevronDown, Link as LinkIcon, User } from 'lucide-react';
+import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Volume2, Pause, Play, ChevronDown, Link as LinkIcon, User } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
@@ -199,7 +199,7 @@ function MessageBubble({
                 ) : isPlaying ? (
                   <Pause className="h-4 w-4 text-muted-foreground" />
                 ) : (
-                  <Speaker className="h-4 w-4 text-muted-foreground" />
+                  <Volume2 className="h-4 w-4 text-muted-foreground" />
                 )}
               </Button>
           </>
@@ -240,7 +240,7 @@ export function ChatInterface({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, responseLength, enableAnimations, enableTypingIndicator } = useAppContext();
-  const { currentSession, addMessage, updateCurrentSessionTitle, createSession } = useChatHistory();
+  const { currentSession, addMessage, updateCurrentSessionTitle, createSession, updateMessage } = useChatHistory();
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
   const [isAudioBuffering, setIsAudioBuffering] = useState(false);
@@ -408,9 +408,14 @@ export function ChatInterface({
   
   const handleTranslateMessage = async (messageId: string, text: string, lang: Language) => {
     const result = await translateTextAction({ text, targetLanguage: lang as string });
-    if (result.success) {
+    if (result.success && result.data) {
+      updateMessage(messageId, { 
+        content: result.data,
+        originalContent: text,
+        translatedTo: lang
+      });
       toast({ title: `Translated to ${LANGUAGES.find(l => l.code === lang)?.name || lang}` });
-    } else {
+    } else if (!result.success) {
       toast({
         variant: 'destructive',
         title: 'Translation Failed',
