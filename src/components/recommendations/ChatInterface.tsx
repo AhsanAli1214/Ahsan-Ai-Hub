@@ -1,6 +1,6 @@
 'use client';
 
-import { getRecommendationsAction, translateTextAction, textToSpeechAction } from '@/app/actions';
+import { getRecommendationsAction, translateTextAction, textToSpeechAction, reportErrorAction } from '@/app/actions';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -291,15 +291,39 @@ export function ChatInterface({
     }
   }, [audio]);
   
+  const handleReportError = async (errorMsg: string) => {
+    try {
+      await reportErrorAction({
+        errorMessage: errorMsg,
+        feature: 'Text-to-Speech',
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
+        timestamp: Date.now(),
+      });
+      toast({
+        title: 'Error Reported',
+        description: 'Thanks for reporting! Our team will investigate this issue.',
+        variant: 'default',
+      });
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Report Failed',
+        description: 'Could not send error report. Please try again.',
+      });
+    }
+  };
+
   const playAudio = (audioDataUri: string) => {
     try {
       const newAudio = new Audio(audioDataUri);
       newAudio.onerror = () => {
         console.error('Audio playback error');
+        const errorMsg = 'Failed to play the generated audio file.';
         toast({
           variant: 'destructive',
           title: 'Playback Failed',
-          description: 'Unable to play the generated audio.',
+          description: errorMsg,
+          action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
         });
         setActiveMessageId(null);
         setIsAudioBuffering(false);
@@ -307,20 +331,24 @@ export function ChatInterface({
       setAudio(newAudio);
       newAudio.play().catch((error) => {
         console.error('Play error:', error);
+        const errorMsg = `Playback error: ${error instanceof Error ? error.message : 'Unknown error'}.`;
         toast({
           variant: 'destructive',
           title: 'Playback Failed',
           description: 'Unable to play the audio. Check browser permissions.',
+          action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
         });
         setActiveMessageId(null);
         setIsAudioBuffering(false);
       });
     } catch (error) {
       console.error('Audio error:', error);
+      const errorMsg = `Audio initialization error: ${error instanceof Error ? error.message : 'Unknown error'}.`;
       toast({
         variant: 'destructive',
         title: 'Audio Error',
         description: 'Failed to initialize audio player.',
+        action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
       });
       setActiveMessageId(null);
       setIsAudioBuffering(false);
@@ -358,10 +386,12 @@ export function ChatInterface({
       }
     } catch (error) {
       console.error('TTS Error:', error);
+      const errorMsg = error instanceof Error ? error.message : 'Could not play audio. Please try again.';
       toast({
         variant: 'destructive',
         title: 'Audio Failed',
-        description: error instanceof Error ? error.message : 'Could not play audio. Please try again.',
+        description: errorMsg,
+        action: <Button size="sm" variant="outline" onClick={() => handleReportError(errorMsg)}>Report Error</Button>,
       });
       setActiveMessageId(null);
     } finally {
