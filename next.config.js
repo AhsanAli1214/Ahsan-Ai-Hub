@@ -16,7 +16,6 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',
