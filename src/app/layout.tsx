@@ -35,76 +35,56 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
-  title: 'Ahsan AI Hub',
-  description: 'Ahsan AI Hub is the #1 privacy-first AI platform with free AI chat, 9+ content generation tools, text-to-speech, and translation. No login required, zero data logging, powered by Google Gemini 2.0 Flash.',
+  title: {
+    default: 'Ahsan AI Hub - Free AI Chat & Content Tools',
+    template: '%s | Ahsan AI Hub'
+  },
+  description: 'Ahsan AI Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by Gemini 2.0 Flash. No login, zero tracking.',
   keywords: [
-    'free AI chat',
-    'AI content generator',
-    'text to speech',
-    'translation tool',
-    'AI writing assistant',
-    'no login AI',
-    'privacy-first AI',
-    'Gemini AI',
-    'free AI tools',
-    'online AI chat',
-    'AI brainstorming tool',
-    'email writer AI',
-    'code generator AI',
-    'AI story writer',
-    'social media caption generator',
+    'Ahsan AI Hub', 'free AI chat', 'Ahsan AI', 'best free AI tools 2025',
+    'AI text rewriter', 'AI code explainer', 'privacy-first AI', 'no login AI',
+    'Gemini 2.0 Flash free', 'AI email writer', 'AI story generator',
+    'free translation tools', 'unlimited text to speech', 'anonymous AI',
+    'AI productivity hub', 'Ahsan Ali AI'
   ],
   manifest: '/manifest.json',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-snippet': -1,
-      'max-image-preview': 'large',
-      'max-video-preview': -1,
-    },
-    nocache: false,
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'Ahsan AI Hub',
-  },
-  formatDetection: {
-    telephone: false,
-    email: false,
-    address: false,
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
     siteName: 'Ahsan AI Hub',
-    title: 'Ahsan AI Hub - Free AI Chat, Writing & Translation Tools',
-    description: 'The ultimate free AI platform with chat, content generation, writing, translation, text-to-speech, and 9+ creative tools. No login, no data tracking, zero fees.',
+    title: 'Ahsan AI Hub - Free AI Chat & Professional Content Tools',
+    description: 'Experience unlimited AI chat, 9+ generation tools, and 50+ language translations. 100% private, no account needed, completely free.',
     images: [
       {
-        url: '/icon-512.png',
-        width: 512,
-        height: 512,
-        alt: 'Ahsan AI Hub Logo',
-        type: 'image/png',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ahsan AI Hub - Your Privacy-First AI Companion',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     site: '@Ahsan_Ali_12',
-    title: 'Ahsan AI Hub - Free AI Chat & Tools',
-    description: 'Free AI platform with 10+ tools: chat, writing, translation, text-to-speech, and more. No login required.',
-    images: ['/icon-512.png'],
+    creator: '@Ahsan_Ali_12',
+    title: 'Ahsan AI Hub - Free AI Chat & Professional Content Tools',
+    description: 'Free AI chat and 10+ professional tools. No login, 100% private.',
+    images: ['/og-image.png'],
   },
-  alternates: {
-    canonical: 'https://ahsan-ai-hub.vercel.app',
-    languages: {
-      'en-US': 'https://ahsan-ai-hub.vercel.app',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   verification: {
@@ -131,10 +111,16 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
         <meta name="theme-color" content="#3b82f6" />
-        <meta name="description" content="Discover Ahsan AI Hub - the ultimate AI-powered platform for intelligent chat, content generation, email writing, and creative tools." />
-        <meta name="author" content="Ahsan AI Hub" />
-        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
-        <link rel="alternate" hrefLang="en" href="https://ahsan-ai-hub.vercel.app" />
+        <meta name="author" content="Ahsan Ali" />
+        <meta name="application-name" content="Ahsan AI Hub" />
+        <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
+        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
+        <link rel="mask-icon" href="/icon-512.png" color="#3b82f6" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <Script
           id="theme-init"
           strategy="beforeInteractive"
