@@ -254,9 +254,6 @@ export default function FaqPage() {
             <div className="flex justify-center gap-2">
                {[1, 2, 3].map(i => <div key={i} className="h-1.5 w-1.5 rounded-full bg-accent/20" />)}
             </div>
-            <p className="text-sm font-medium text-muted-foreground/60 tracking-[0.2em] uppercase">
-              Knowledge Base Updated: Dec 2025
-            </p>
           </footer>
         </div>
       </div>

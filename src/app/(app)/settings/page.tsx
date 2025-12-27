@@ -215,27 +215,6 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
 
-          {/* PWA Installation */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Application</CardTitle>
-              <CardDescription>
-                Manage app installation and shortcuts
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-between p-4 rounded-lg border bg-card/50">
-                   <div>
-                    <h4 className="font-semibold">Add to Home Screen</h4>
-                    <p className="text-sm text-muted-foreground">Add a shortcut to your device for quick access</p>
-                  </div>
-                  <PWAInstall />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Response Length */}
           <Card>
             <CardHeader>

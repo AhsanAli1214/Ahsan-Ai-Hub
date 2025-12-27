@@ -265,11 +265,11 @@ export default function HomePage() {
                   </div>
                   
                   <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
-                    <PWAInstallButton className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl" />
                     <Button
                       asChild
-                      variant="outline"
-                      className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest border-2 hover:bg-accent gap-3"
+                      variant="default"
+                      size="lg"
+                      className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all gap-3"
                     >
                       <Link href="/download-apk">
                         <Download className="h-4 w-4" />
