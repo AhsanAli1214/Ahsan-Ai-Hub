@@ -1,11 +1,11 @@
 {
-  "name": "Ahsan AI Hub",
+  "name": "Ahsan Ai Hub",
   "short_name": "Ahsan AI",
   "description": "Privacy-first AI platform with free AI chat, content generation, writing tools, translation, and text-to-speech. No login required.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",

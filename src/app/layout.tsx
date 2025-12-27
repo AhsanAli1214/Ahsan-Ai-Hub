@@ -37,12 +37,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
   title: {
-    default: 'Ahsan AI Hub - Free AI Chat & Content Tools',
-    template: '%s | Ahsan AI Hub'
+    default: 'Ahsan Ai Hub - Free AI Chat & Content Tools',
+    template: '%s | Ahsan Ai Hub'
   },
-  description: 'Ahsan AI Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by Gemini 2.0 Flash. No login, zero tracking.',
+  description: 'Ahsan Ai Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by Gemini 2.0 Flash. No login, zero tracking.',
   keywords: [
-    'Ahsan AI Hub', 'free AI chat', 'Ahsan AI', 'best free AI tools 2025',
+    'Ahsan Ai Hub', 'free AI chat', 'Ahsan AI', 'best free AI tools 2025',
     'AI text rewriter', 'AI code explainer', 'privacy-first AI', 'no login AI',
     'Gemini 2.0 Flash free', 'AI email writer', 'AI story generator',
     'free translation tools', 'unlimited text to speech', 'anonymous AI',
@@ -52,21 +52,21 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Ahsan AI Hub',
+    title: 'Ahsan Ai Hub',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
-    siteName: 'Ahsan AI Hub',
-    title: 'Ahsan AI Hub - Free AI Chat & Professional Content Tools',
+    siteName: 'Ahsan Ai Hub',
+    title: 'Ahsan Ai Hub - Free AI Chat & Professional Content Tools',
     description: 'Experience unlimited AI chat, 9+ generation tools, and 50+ language translations. 100% private, no account needed, completely free.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ahsan AI Hub - Your Privacy-First AI Companion',
+        alt: 'Ahsan Ai Hub - Your Privacy-First AI Companion',
       },
     ],
   },
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@Ahsan_Ali_12',
     creator: '@Ahsan_Ali_12',
-    title: 'Ahsan AI Hub - Free AI Chat & Professional Content Tools',
+    title: 'Ahsan Ai Hub - Free AI Chat & Professional Content Tools',
     description: 'Free AI chat and 10+ professional tools. No login, 100% private.',
     images: ['/og-image.png'],
   },
@@ -101,17 +101,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Ahsan AI Hub</title>
+        <title>Ahsan Ai Hub</title>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
+        <meta name="apple-mobile-web-app-title" content="Ahsan Ai Hub" />
         <meta name="theme-color" content="#3b82f6" />
         <meta name="author" content="Ahsan Ali" />
-        <meta name="application-name" content="Ahsan AI Hub" />
+        <meta name="application-name" content="Ahsan Ai Hub" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-tap-highlight" content="no" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
@@ -168,7 +168,7 @@ export default function RootLayout({
         <Script id="schema-webapp" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebApplication',
-          'name': 'Ahsan AI Hub',
+          'name': 'Ahsan Ai Hub',
           'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
           'url': 'https://ahsan-ai-hub.vercel.app',
           'applicationCategory': 'Productivity',
@@ -182,7 +182,7 @@ export default function RootLayout({
         <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Organization',
-          'name': 'Ahsan AI Hub',
+          'name': 'Ahsan Ai Hub',
           'url': 'https://ahsan-ai-hub.vercel.app',
           'logo': 'https://ahsan-ai-hub.vercel.app/icon-512.png',
           'description': 'Advanced AI-powered platform for intelligent chat, content generation, and creative tools',
