@@ -254,10 +254,10 @@ export default function HomePage() {
                     variant="outline"
                     className="w-full font-semibold text-base py-6 border-2 hover:bg-accent rounded-2xl"
                   >
-                    <a href="/Ahsan%20Ai%20Hub.apk" download>
+                    <Link href="/download-apk">
                       <Download className="mr-2 h-5 w-5" />
                       📥 Download APK File
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>
