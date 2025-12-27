@@ -42,13 +42,18 @@ export function PWAInstall() {
     };
 
     const handleAppInstalled = () => {
+      console.log('appinstalled event fired');
       setIsInstalled(true);
       setShowInstallPrompt(false);
       setDeferredPrompt(null);
-      toast({
-        title: '✓ App Installed Successfully!',
-        description: 'Ahsan Ai Hub is now installed as a native app on your device.',
-      });
+      
+      // Delay toast to ensure it shows after any dialogs
+      setTimeout(() => {
+        toast({
+          title: '✓ App Installed Successfully!',
+          description: 'Ahsan Ai Hub is now installed as a native app on your device. You can find it in your app drawer.',
+        });
+      }, 500);
     };
 
     if (typeof window !== 'undefined') {
@@ -89,9 +94,11 @@ export function PWAInstall() {
       const { outcome } = await deferredPrompt.userChoice;
       
       if (outcome === 'accepted') {
-        setIsInstalled(true);
+        // Don't set isInstalled here - wait for appinstalled event
         setShowInstallPrompt(false);
-        localStorage.setItem('pwa-installed', 'true');
+        console.log('User accepted install prompt, waiting for appinstalled event');
+      } else {
+        console.log('User dismissed install prompt');
       }
       
       setDeferredPrompt(null);
