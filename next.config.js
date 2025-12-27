@@ -4,7 +4,8 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-  allowedDevOrigins: ['*'],
+  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '127.0.0.1', 'localhost'],
+  transpilePackages: ['next-themes'],
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
