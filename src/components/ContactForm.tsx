@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -53,17 +53,17 @@ export function ContactForm() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     setError(null);
-  };
+  }, []);
 
-  const handleCategoryChange = (category: FormCategory) => {
+  const handleCategoryChange = useCallback((category: FormCategory) => {
     setFormData(prev => ({ ...prev, category }));
-  };
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
@@ -109,7 +109,7 @@ export function ContactForm() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [toast]);
 
   if (submitted) {
     return (

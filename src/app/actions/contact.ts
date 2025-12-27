@@ -118,7 +118,7 @@ ${validatedData.message}
         'Authorization': `Bearer ${resendKey}`,
       },
       body: JSON.stringify({
-        from: 'Ahsan AI Hub <onboarding@resend.dev>',
+        from: 'Acme <onboarding@resend.dev>',
         to: 'tickets@ahsan-ai-hub.p.tawk.email',
         replyTo: validatedData.email,
         subject: `[${categoryMap[validatedData.category] || 'Contact'}] ${validatedData.subject}`,
