@@ -90,23 +90,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Resources */}
-            <div className="space-y-4">
-              <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Resources</h4>
-              <ul className="space-y-2.5">
-                {footerSections.resources.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium inline-flex items-center gap-1 group"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             {/* Company */}
             <div className="space-y-4">
               <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Company</h4>
