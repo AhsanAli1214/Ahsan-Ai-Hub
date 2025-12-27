@@ -1,4 +1,5 @@
 const CACHE_NAME = 'ahsan-ai-hub-v2-2025-12-27';
+const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
   '/about',
@@ -8,6 +9,7 @@ const ASSETS_TO_CACHE = [
   '/settings',
   '/chat-history',
   '/recommendations',
+  OFFLINE_URL,
   '/icon-192.png?v=2025-12-27',
   '/icon-512.png?v=2025-12-27',
   '/icon-maskable-192.png?v=2025-12-27',
@@ -58,6 +60,17 @@ self.addEventListener('notificationclick', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          return cache.match(OFFLINE_URL);
+        });
+      })
+    );
+    return;
+  }
+
   if (event.request.method !== 'GET') {
     return;
   }
