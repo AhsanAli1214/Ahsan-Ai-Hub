@@ -1,12 +1,17 @@
-const CACHE_NAME = 'ahsan-ai-hub-v1-2025-12-27';
+const CACHE_NAME = 'ahsan-ai-hub-v2-2025-12-27';
 const URLS_TO_CACHE = [
   '/',
+  '/about',
+  '/content-tools',
+  '/faq',
+  '/contact',
+  '/settings',
+  '/chat-history',
+  '/recommendations',
   '/icon-192.png?v=2025-12-27',
   '/icon-512.png?v=2025-12-27',
   '/icon-maskable-192.png?v=2025-12-27',
   '/icon-maskable-512.png?v=2025-12-27',
-  '/screenshot-540.png?v=2025-12-27',
-  '/screenshot-desktop.png?v=2025-12-27',
 ];
 
 self.addEventListener('install', (event) => {
