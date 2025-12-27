@@ -13,8 +13,8 @@ export type Message = {
 };
 
 interface AppContextType {
-  aiApiKey: string | null;
-  setAiApiKey: (key: string | null) => void;
+  geminiApiKey: string | null;
+  setGeminiApiKey: (key: string | null) => void;
   personalityMode: PersonalityMode;
   setPersonalityMode: (mode: PersonalityMode) => void;
   responseLength: ResponseLength;
@@ -31,7 +31,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [aiApiKey, setAiApiKeyValue] = useState<string | null>(null);
+  const [geminiApiKey, setGeminiApiKeyValue] = useState<string | null>(null);
   const [personalityMode, setPersonalityModeValue] = useState<PersonalityMode>('creative');
   const [responseLength, setResponseLengthValue] = useState<ResponseLength>('medium');
   const [language, setLanguageValue] = useState<Language>('en');
@@ -42,14 +42,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     setIsMounted(true);
     try {
-      const storedApiKey = localStorage.getItem('aiApiKey');
+      const storedApiKey = localStorage.getItem('geminiApiKey');
       const storedPersonality = localStorage.getItem('personalityMode') as PersonalityMode;
       const storedResponseLength = localStorage.getItem('responseLength') as ResponseLength;
       const storedLanguage = localStorage.getItem('language') as Language;
       const storedAnimations = localStorage.getItem('enableAnimations');
       const storedTyping = localStorage.getItem('enableTypingIndicator');
 
-      if (storedApiKey) setAiApiKeyValue(storedApiKey);
+      if (storedApiKey) setGeminiApiKeyValue(storedApiKey);
       if (storedPersonality) setPersonalityModeValue(storedPersonality);
       if (storedResponseLength) setResponseLengthValue(storedResponseLength);
       if (storedLanguage) setLanguageValue(storedLanguage);
@@ -59,13 +59,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const setAiApiKey = (key: string | null) => {
-    setAiApiKeyValue(key);
+  const setGeminiApiKey = (key: string | null) => {
+    setGeminiApiKeyValue(key);
     if (isMounted) {
       if (key) {
-        localStorage.setItem('aiApiKey', key);
+        localStorage.setItem('geminiApiKey', key);
       } else {
-        localStorage.removeItem('aiApiKey');
+        localStorage.removeItem('geminiApiKey');
       }
     }
   };
@@ -117,7 +117,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   return (
     <AppContext.Provider value={{ 
-        aiApiKey, setAiApiKey, 
+        geminiApiKey, setGeminiApiKey, 
         personalityMode, setPersonalityMode, 
         responseLength, setResponseLength,
         language, setLanguage,
