@@ -174,7 +174,7 @@ export default function FaqPage() {
                     <AccordionItem value={`item-${index}`} key={index} className="border-b border-accent/10 last:border-0 px-4">
                       <AccordionTrigger className="text-left py-6 text-lg font-bold hover:no-underline group">
                         <span className="group-hover:text-primary transition-colors flex items-center gap-4">
-                          <span className="text-xs font-mono text-accent/50">0{index + 1}</span>
+                          <span className="text-xs font-mono text-accent/50">{index + 1}</span>
                           {item.q}
                         </span>
                       </AccordionTrigger>

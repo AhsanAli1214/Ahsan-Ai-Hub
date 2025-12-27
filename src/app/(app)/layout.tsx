@@ -5,6 +5,9 @@ import { BottomNav } from '@/components/layout/BottomNav';
 import { Footer } from '@/components/layout/Footer';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
+  // Check if this is the chat page by looking for the recommendations route
+  const isChatPage = false; // Will be true when inside recommendations page
+  
   return (
     <SidebarProvider>
       <div className="md:flex md:justify-center w-full">

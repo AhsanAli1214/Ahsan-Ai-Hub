@@ -1,22 +1,17 @@
+'use client';
+
 import { AppHeader } from '@/components/layout/AppHeader';
 import { ChatInterface } from '@/components/recommendations/ChatInterface';
-import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'AI Chat | Ahsan Ai Hub',
-  description: 'Get personalized AI tool recommendations through a conversation with our AI.',
-};
-
-export default async function RecommendationsPage({
+export default function RecommendationsPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const params = await searchParams;
-  const initialPrompt = params?.initialPrompt || '';
+  const initialPrompt = searchParams?.initialPrompt || '';
 
   return (
-    <div className="flex h-full flex-col bg-background">
+    <div className="flex h-full flex-col bg-background md:pb-0">
       <AppHeader title="AI Chat" />
       <div className="flex-1 overflow-hidden">
         <ChatInterface

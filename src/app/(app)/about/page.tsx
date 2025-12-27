@@ -4,19 +4,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { cn } from "@/lib/utils";
 import {
-  ArrowRight,
-  Code,
   Globe,
   Instagram,
   Mail,
-  Zap,
   ChevronRight,
-  Github,
   Award,
-  Book,
   Rocket,
   Shield,
-  Linkedin,
   Twitter,
   Facebook
 } from "lucide-react";
@@ -70,20 +64,6 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const SKILLS = [
-  { name: "Next.js 15", level: "Expert" },
-  { name: "TypeScript", level: "Expert" },
-  { name: "AI Integration", level: "Advanced" },
-  { name: "Tailwind CSS", level: "Expert" },
-  { name: "Google Genkit", level: "Advanced" },
-  { name: "Mobile PWA", level: "Expert" },
-];
-
-const MILESTONES = [
-  { date: "Oct 2024", title: "Project Inception", desc: "First vision for a privacy-first AI hub." },
-  { date: "Dec 2024", title: "v1.0 Launch", desc: "Released core chat and translation tools." },
-  { date: "Dec 2025", title: "Global Reach", desc: "Optimized for speed and SEO (currently serving users)." },
-];
 
 const developerImage = PlaceHolderImages.find(
   (img) => img.id === "developer-avatar",
@@ -207,52 +187,43 @@ export default function AboutPage() {
             </Card>
           </div>
 
-          {/* Skills & Expertise */}
+          {/* What is Ahsan AI Hub Section */}
           <section className="space-y-6">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-              <h2 className="text-3xl font-bold tracking-tight">Technical Expertise</h2>
+              <h2 className="text-3xl font-bold tracking-tight">What is Ahsan AI Hub?</h2>
               <div className="flex gap-2">
                 <div className="h-1 w-24 rounded-full bg-accent/30" />
                 <div className="h-1 w-8 rounded-full bg-accent" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-              {SKILLS.map((skill) => (
-                <Card key={skill.name} className="border-accent/10 bg-card/30 p-4 text-center hover:bg-accent/5 transition-colors">
-                  <div className="text-sm font-bold text-foreground">{skill.name}</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-wider text-accent font-semibold">{skill.level}</div>
-                </Card>
-              ))}
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <Card className="border-accent/20 bg-card/50 p-6 space-y-4">
+                <h3 className="text-lg font-bold text-foreground">Free AI Tools for Everyone</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Ahsan AI Hub provides completely free access to advanced AI tools powered by Google's Gemini 2.0 Flash. No login required, no data stored on servers. Perfect for professionals, students, and creative minds.
+                </p>
+                <div className="pt-2 space-y-2 text-sm text-muted-foreground">
+                  <p>✓ 100% Privacy-First - All data stays local</p>
+                  <p>✓ Zero Cost - All features free forever</p>
+                  <p>✓ 9 Content Tools - For writing, coding, creativity</p>
+                  <p>✓ 50+ Languages - Instant translation support</p>
+                </div>
+              </Card>
+
+              <Card className="border-primary/20 bg-card/50 p-6 space-y-4">
+                <h3 className="text-lg font-bold text-foreground">Key Features</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  From AI chat to text enhancement, code explanation to email writing, Ahsan AI Hub has tools for every task. Customize personality modes, response length, and theme to match your preference.
+                </p>
+                <div className="pt-2 space-y-2 text-sm text-muted-foreground">
+                  <p>✓ AI Chat - Real-time conversations</p>
+                  <p>✓ Text-to-Speech - Listen to responses</p>
+                  <p>✓ Content Generation - Blogs, emails, resumes</p>
+                  <p>✓ Code Assistance - Explain and debug code</p>
+                </div>
+              </Card>
             </div>
           </section>
-
-          {/* Roadmap / Milestones */}
-          <Card className="border-accent/20 bg-card/50 overflow-hidden">
-             <CardHeader className="bg-accent/5">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Book className="h-5 w-5 text-accent" />
-                  Project Roadmap
-                </h3>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-accent/20 before:to-transparent">
-                  {MILESTONES.map((item, i) => (
-                    <div key={i} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-card shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                         <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      </div>
-                      <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-accent/10 bg-accent/5 shadow-sm">
-                        <div className="flex items-center justify-between space-x-2 mb-1">
-                          <div className="font-bold text-foreground">{item.title}</div>
-                          <time className="font-mono text-xs text-accent">{item.date}</time>
-                        </div>
-                        <div className="text-sm text-muted-foreground">{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-          </Card>
 
           {/* Social Connect */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
