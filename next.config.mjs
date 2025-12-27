@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const config = {
+  allowedDevOrigins: ['*'],
   reactStrictMode: true,
   compress: true,
   productionBrowserSourceMaps: false,
