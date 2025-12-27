@@ -6,11 +6,14 @@
   "scope": "/",
   "id": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "minimal-ui"],
-  "orientation": "any",
+  "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
+  "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "en-US",
+  "prefer_related_applications": false,
+  "related_applications": [],
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
-  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icon-192.png?v=2025-12-27",

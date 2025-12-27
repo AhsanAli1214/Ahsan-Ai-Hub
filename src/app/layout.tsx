@@ -107,7 +107,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Ahsan Ai Hub" />
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)" />
         <meta name="author" content="Ahsan Ali" />
         <meta name="application-name" content="Ahsan Ai Hub" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
