@@ -16,14 +16,12 @@ const inter = Inter({
   subsets: ['latin'], 
   variable: '--font-inter',
   display: 'swap',
-  preload: true,
 });
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-poppins',
   display: 'swap',
-  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -114,6 +112,8 @@ export default function RootLayout({
         <meta name="application-name" content="Ahsan Ai Hub" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://i.postimg.cc" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
@@ -137,7 +137,7 @@ export default function RootLayout({
             `,
           }}
         />
-        <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+        <Script id="pwa-register" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
           if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
               navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -148,8 +148,8 @@ export default function RootLayout({
             });
           }
         `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
-        <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="lazyOnload" />
+        <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
