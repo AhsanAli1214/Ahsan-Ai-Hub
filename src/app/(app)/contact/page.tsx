@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { ContactForm } from '@/components/ContactForm';
 import { 
   Mail, 
   MessageSquare, 
@@ -140,6 +141,18 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Advanced Contact Form Section */}
+          <div className="my-20 py-12 border-t border-b border-border/40">
+            <ContactForm />
+          </div>
+
+          {/* Divider Section */}
+          <div className="my-12 flex items-center gap-4">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Or Connect Via</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           </div>
 
           {/* Contact Cards Grid */}
