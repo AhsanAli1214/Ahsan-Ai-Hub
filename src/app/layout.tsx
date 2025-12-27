@@ -35,10 +35,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
-  title: {
-    default: 'Ahsan AI Hub',
-    template: '%s | Ahsan AI Hub'
-  },
+  title: 'Ahsan AI Hub',
   description: 'Ahsan AI Hub is the #1 privacy-first AI platform with free AI chat, 9+ content generation tools, text-to-speech, and translation. No login required, zero data logging, powered by Google Gemini 2.0 Flash.',
   keywords: [
     'free AI chat',
@@ -125,6 +122,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <title>Ahsan AI Hub</title>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
@@ -163,17 +161,20 @@ export default function RootLayout({
         `}} />
         <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
         <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
-          if (window.location.hostname.includes('vercel.app')) {
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
                 await OneSignal.init({
                   appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                  safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", // Example placeholder, usually auto-detected
+                  notifyButton: {
+                    enable: true,
+                  },
                 });
               } catch (e) {
+                console.error('OneSignal initialization error:', e);
               }
             });
-          }
         `}} />
         <Script id="schema-webapp" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           '@context': 'https://schema.org',

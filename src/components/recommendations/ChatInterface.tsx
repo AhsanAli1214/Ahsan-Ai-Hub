@@ -579,9 +579,9 @@ export function ChatInterface({
             </Button>
         </div>
       )}
-      <div className="fixed bottom-0 left-0 right-0 z-30 px-3 sm:px-4 py-3 sm:py-4 w-full pb-[calc(1rem+env(safe-area-inset-bottom))] mb-20 md:mb-0">
-        <div className="mx-auto w-full max-w-4xl flex justify-center">
-           <div className="flex items-end gap-2 sm:gap-3 w-full">
+      <div className="fixed bottom-0 left-0 right-0 z-30 px-3 sm:px-4 py-3 sm:py-4 w-full pb-[calc(1rem+env(safe-area-inset-bottom))] mb-20 md:mb-0 pointer-events-none">
+        <div className="mx-auto w-full max-w-4xl flex justify-center pointer-events-auto">
+           <div className="flex items-end gap-2 sm:gap-3 w-full bg-background/80 backdrop-blur-lg p-2 rounded-3xl border border-border/40 shadow-2xl">
             <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
