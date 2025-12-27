@@ -7,7 +7,7 @@ export function FooterWrapper() {
   const pathname = usePathname();
   
   // Hide footer on chat/recommendations page
-  const isChatPage = pathname === '/recommendations' || pathname?.includes('/recommendations');
+  const isChatPage = pathname === '/recommendations' || pathname?.includes('/recommendations') || pathname === '/recommendations/';
   
   if (isChatPage) {
     return null;
