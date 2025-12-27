@@ -57,7 +57,7 @@ import rehypeRaw from 'rehype-raw';
 import { LANGUAGES } from '@/lib/languages';
 import { TextToSpeech } from '@/components/TextToSpeech';
 
-type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story';
+type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
 const toolsList: {
   id: Tool;
@@ -180,6 +180,17 @@ const toolsList: {
     features: ['World Building', 'Plot Twists', 'Character Dev', 'Genre Specific'],
     image: '/tool-icons/story_writer_tool_icon.png',
   },
+  {
+    id: 'tts',
+    label: 'Text to Speech',
+    icon: Volume2,
+    desc: 'Convert any text into high-quality human speech',
+    color: 'bg-orange-600',
+    placeholder: 'Paste the text you want to convert to speech...',
+    tip: 'Select from multiple natural-sounding voices and adjust the speed for the best result.',
+    features: ['Multi-Voice', 'Speed Control', '100% Private', 'HD Audio'],
+    image: '/tool-icons/text_to_speech_tool_icon.png',
+  },
 ];
 
 function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: () => void }) {
@@ -258,6 +269,11 @@ export default function ContentToolsPage() {
   const handleProcess = async () => {
     if (!input.trim()) {
       toast({ title: 'Please enter some text', variant: 'destructive' });
+      return;
+    }
+
+    if (selectedTool === 'tts') {
+      setOutput(input);
       return;
     }
 
@@ -491,27 +507,6 @@ export default function ContentToolsPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {selectedTool === 'enhance' && (
-                <>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-muted-foreground uppercase ml-1 tracking-wider">Tone & Mode</label>
-                    <select
-                      className="w-full h-12 px-4 rounded-2xl border border-border/60 bg-background/50 outline-none transition-all font-bold appearance-none cursor-pointer"
-                      value={options.enhanceMode}
-                      onChange={(e) => setOptions({ ...options, enhanceMode: e.target.value })}
-                    >
-                      <option value="improve">🚀 General Improvement</option>
-                      <option value="academic">🎓 Academic Perfection</option>
-                      <option value="casual">👋 Friendly & Casual</option>
-                      <option value="formal">👔 Formal Business</option>
-                    </select>
-                  </div>
-                </>
-              )}
-              {/* Add other tool options here as needed, simplified for speed */}
-            </div>
-
             <Textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -524,7 +519,7 @@ export default function ContentToolsPage() {
               disabled={loading}
               className="w-full h-16 rounded-2xl font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.01] transition-all bg-primary"
             >
-              {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : 'Generate Masterpiece'}
+              {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : (selectedTool === 'tts' ? 'Activate Audio Hub' : 'Generate Masterpiece')}
             </Button>
 
             {output && (

@@ -60,64 +60,56 @@ export async function sendContactForm(data: unknown): Promise<{
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Inquiry Received</title>
 </head>
-<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1a1a1a; background-color: #f4f7fa; margin: 0; padding: 0;">
-  <div style="max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eef2f6;">
-    <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 20px; text-align: center;">
-      <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">New Inquiry Received</h1>
-      <p style="color: rgba(255,255,255,0.9); margin-top: 10px; font-size: 16px;">Ahsan AI Hub • Professional Hub</p>
+<body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1e293b; background-color: #f8fafc; margin: 0; padding: 0;">
+  <div style="max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+    <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 60px 40px; text-align: center;">
+      <div style="background: rgba(255,255,255,0.2); width: 80px; height: 80px; border-radius: 20px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+      </div>
+      <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.025em;">New Inquiry</h1>
+      <p style="color: rgba(255,255,255,0.9); margin-top: 12px; font-size: 18px; font-weight: 500;">Ahsan AI Hub Portal</p>
     </div>
 
-    <div style="padding: 40px 30px;">
-      <div style="margin-bottom: 30px;">
-        <div style="display: flex; align-items: center; margin-bottom: 12px;">
-          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
-          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Sender Information</span>
-        </div>
-        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
-          <p style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">${validatedData.name}</p>
-          <p style="margin: 4px 0 0 0; font-size: 15px; color: #2563eb; font-weight: 500;">${validatedData.email}</p>
-        </div>
-      </div>
-
-      <div style="margin-bottom: 30px;">
-        <div style="display: flex; align-items: center; margin-bottom: 12px;">
-          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
-          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Request Category</span>
-        </div>
-        <div style="display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 700;">
-          ${categoryMap[validatedData.category] || validatedData.category}
-        </div>
-      </div>
-
-      <div style="margin-bottom: 30px;">
-        <div style="display: flex; align-items: center; margin-bottom: 12px;">
-          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
-          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Subject Line</span>
-        </div>
-        <div style="font-size: 16px; color: #334155; font-weight: 600; padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
-          ${validatedData.subject}
-        </div>
-      </div>
-
-      <div style="margin-bottom: 40px;">
-        <div style="display: flex; align-items: center; margin-bottom: 12px;">
-          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
-          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Message Details</span>
-        </div>
-        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; white-space: pre-wrap; color: #1e293b; font-size: 15px; line-height: 1.7; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+    <div style="padding: 48px 40px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding-bottom: 32px;">
+            <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em;">Sender Details</p>
+            <div style="background: #f1f5f9; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+              <p style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">${validatedData.name}</p>
+              <p style="margin: 4px 0 0 0; font-size: 15px; color: #3b82f6; font-weight: 600;">${validatedData.email}</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-bottom: 32px;">
+            <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em;">Category & Subject</p>
+            <div style="background: #ffffff; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0;">
+              <span style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: 800; margin-bottom: 12px; text-transform: uppercase;">${categoryMap[validatedData.category] || validatedData.category}</span>
+              <p style="margin: 0; font-size: 16px; color: #1e293b; font-weight: 600;">${validatedData.subject}</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-bottom: 40px;">
+            <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em;">Message Content</p>
+            <div style="background: #ffffff; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; white-space: pre-wrap; color: #334155; font-size: 16px; line-height: 1.8;">
 ${validatedData.message}
-        </div>
-      </div>
+            </div>
+          </td>
+        </tr>
+      </table>
 
-      <div style="text-align: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0; font-size: 13px; color: #94a3b8; font-weight: 500;">Submitted via Ahsan AI Hub Official Portal</p>
-        <p style="margin: 5px 0 0 0; font-size: 12px; color: #cbd5e1;">© ${new Date().getFullYear()} Ahsan AI Hub. All rights reserved.</p>
+      <div style="text-align: center; padding-top: 32px; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; font-size: 14px; color: #94a3b8; font-weight: 600;">Official Communication via Ahsan AI Hub</p>
+        <p style="margin: 8px 0 0 0; font-size: 12px; color: #cbd5e1;">&copy; ${new Date().getFullYear()} Ahsan AI Hub. All rights reserved.</p>
       </div>
     </div>
 
-    <div style="background: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-      <p style="margin: 0; font-size: 12px; color: #94a3b8; font-style: italic;">This is a priority automated notification. Please do not reply directly.</p>
+    <div style="background: #f8fafc; padding: 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+      <p style="margin: 0; font-size: 12px; color: #94a3b8; font-style: italic; font-weight: 500;">This is a system-generated secure notification. Reply directly to the sender's email provided above.</p>
     </div>
   </div>
 </body>
