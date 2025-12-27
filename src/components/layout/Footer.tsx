@@ -44,27 +44,6 @@ export function Footer() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Newsletter Section */}
-        <div className="py-12 md:py-16 border-b border-border/40">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-2xl md:text-3xl font-black text-foreground">Stay Updated</h3>
-              <p className="text-muted-foreground">Get the latest AI tools, features, and tips delivered to your inbox</p>
-            </div>
-            <div className="flex gap-2 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 h-12 px-4 rounded-xl bg-background/50 border border-border/40 focus:border-primary/40 focus:ring-primary/20 focus:outline-none transition text-sm"
-              />
-              <button className="h-12 px-6 rounded-xl bg-primary text-primary-foreground font-bold hover:scale-105 active:scale-95 transition-transform flex items-center gap-2 shadow-lg shadow-primary/20">
-                <Send className="h-4 w-4" />
-                <span className="hidden sm:inline">Subscribe</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
