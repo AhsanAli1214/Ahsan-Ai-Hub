@@ -123,6 +123,9 @@ export default function HomePage() {
                 <p className="mt-1 text-lg text-accent-foreground/80">
                   Your Intelligent AI Companion
                 </p>
+                <p className="mt-2 text-sm font-medium text-accent-foreground/70">
+                  Developed by Ahsan Ali
+                </p>
               </div>
               <Button asChild size="lg" variant="secondary" className="hidden md:flex">
                 <Link href="/recommendations">
