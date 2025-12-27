@@ -3,11 +3,11 @@
 import { z } from 'zod';
 
 const ContactFormSchema = z.object({
-  name: z.string().min(1, 'Name is required').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  subject: z.string().min(5, 'Subject must be at least 5 characters').max(100),
+  name: z.string().trim().min(1, 'Name is required').max(100),
+  email: z.string().trim().email('Please enter a valid email address'),
+  subject: z.string().trim().min(5, 'Subject must be at least 5 characters').max(100),
   category: z.enum(['bug_report', 'feature_request', 'general_inquiry', 'collaboration', 'feedback']),
-  message: z.string().min(10, 'Message must be at least 10 characters').max(5000),
+  message: z.string().trim().min(10, 'Message must be at least 10 characters').max(5000),
 });
 
 export type ContactFormInput = z.infer<typeof ContactFormSchema>;

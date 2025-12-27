@@ -69,6 +69,13 @@ export function ContactForm() {
     setError(null);
 
     try {
+      // Validate with a small delay to ensure state is caught
+      if (!formData.name.trim()) {
+        setError('Please enter your name');
+        setIsSubmitting(false);
+        return;
+      }
+      
       const result = await sendContactForm(formData);
 
       if (result.success) {
