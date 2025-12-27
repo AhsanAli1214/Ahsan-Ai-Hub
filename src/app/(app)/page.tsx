@@ -25,6 +25,7 @@ import Link from 'next/link';
 import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import dynamic from 'next/dynamic';
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { ssr: false });
 const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').then(mod => mod.PWAInstallButton), { ssr: false });
