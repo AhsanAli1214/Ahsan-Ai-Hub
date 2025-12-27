@@ -117,20 +117,25 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <Card className="border-primary/20 bg-primary/5 backdrop-blur-xl overflow-hidden p-12 text-center animate-in fade-in zoom-in duration-500 rounded-[2.5rem]">
-        <div className="flex flex-col items-center gap-6">
-          <div className="rounded-full bg-primary/20 p-6">
-            <CheckCircle2 className="h-16 w-16 text-primary" />
+      <Card className="border-primary/20 bg-primary/5 backdrop-blur-xl overflow-hidden p-12 text-center animate-in fade-in zoom-in duration-500 rounded-[2.5rem] shadow-2xl">
+        <div className="flex flex-col items-center gap-8">
+          <div className="relative">
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse" />
+            <div className="relative rounded-full bg-primary/20 p-8 shadow-inner border border-primary/30">
+              <CheckCircle2 className="h-20 w-20 text-primary" />
+            </div>
           </div>
-          <div className="space-y-2">
-            <h3 className="text-3xl font-black text-foreground uppercase tracking-tight">Message Received! 🎉</h3>
-            <p className="text-muted-foreground text-lg max-w-md mx-auto">
-              Thank you for reaching out. Your message has been sent directly to our team. We'll get back to you soon!
+          <div className="space-y-4">
+            <h3 className="text-4xl font-black text-foreground uppercase tracking-tight leading-none">Transmission Successful! 🚀</h3>
+            <p className="text-muted-foreground text-xl max-w-lg mx-auto font-medium leading-relaxed">
+              Your inquiry is being reviewed by our experts. You will receive a response at your provided email address within the next business day.
             </p>
           </div>
-          <Button variant="outline" onClick={() => setSubmitted(false)} className="rounded-xl border-2 font-bold px-8">
-            Send Another
-          </Button>
+          <div className="flex gap-4">
+            <Button variant="default" onClick={() => setSubmitted(false)} className="rounded-2xl font-black uppercase tracking-widest px-10 h-14 shadow-lg shadow-primary/25 bg-primary hover:scale-105 transition-transform">
+              Send Another
+            </Button>
+          </div>
         </div>
       </Card>
     );

@@ -61,50 +61,63 @@ export async function sendContactForm(data: unknown): Promise<{
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f9fafb;">
-  <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px 20px; text-align: center;">
-      <h1 style="color: white; margin: 0; font-size: 24px;">New Contact Submission</h1>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #1a1a1a; background-color: #f4f7fa; margin: 0; padding: 0;">
+  <div style="max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eef2f6;">
+    <div style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); padding: 40px 20px; text-align: center;">
+      <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px;">New Inquiry Received</h1>
+      <p style="color: rgba(255,255,255,0.9); margin-top: 10px; font-size: 16px;">Ahsan AI Hub • Professional Hub</p>
     </div>
 
-    <div style="padding: 30px 20px;">
-      <div style="margin-bottom: 25px;">
-        <p style="margin: 0 0 8px 0; font-weight: 600; color: #1f2937; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">From</p>
-        <div style="background: #f3f4f6; padding: 12px 16px; border-radius: 8px; border-left: 4px solid #3b82f6;">
-          <p style="margin: 0; font-size: 16px; font-weight: 500; color: #1f2937;">${validatedData.name}</p>
-          <p style="margin: 4px 0 0 0; font-size: 14px; color: #6b7280;">${validatedData.email}</p>
+    <div style="padding: 40px 30px;">
+      <div style="margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
+          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Sender Information</span>
+        </div>
+        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+          <p style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">${validatedData.name}</p>
+          <p style="margin: 4px 0 0 0; font-size: 15px; color: #2563eb; font-weight: 500;">${validatedData.email}</p>
         </div>
       </div>
 
-      <div style="margin-bottom: 25px;">
-        <p style="margin: 0 0 8px 0; font-weight: 600; color: #1f2937; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Category</p>
-        <div style="display: inline-block; background: #dbeafe; border: 1px solid #93c5fd; color: #1e40af; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;">
+      <div style="margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
+          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Request Category</span>
+        </div>
+        <div style="display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 700;">
           ${categoryMap[validatedData.category] || validatedData.category}
         </div>
       </div>
 
-      <div style="margin-bottom: 25px;">
-        <p style="margin: 0 0 8px 0; font-weight: 600; color: #1f2937; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Subject</p>
-        <p style="margin: 0; font-size: 16px; color: #1f2937; padding: 12px 16px; background: #f9fafb; border-radius: 8px; border-left: 4px solid #3b82f6;">${validatedData.subject}</p>
+      <div style="margin-bottom: 30px;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
+          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Subject Line</span>
+        </div>
+        <div style="font-size: 16px; color: #334155; font-weight: 600; padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+          ${validatedData.subject}
+        </div>
       </div>
 
-      <div style="margin-bottom: 25px;">
-        <p style="margin: 0 0 8px 0; font-weight: 600; color: #1f2937; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Message</p>
-        <div style="background: #f9fafb; padding: 16px; border-radius: 8px; border-left: 4px solid #3b82f6; white-space: pre-wrap; word-wrap: break-word; color: #374151; font-size: 14px; line-height: 1.6;">
+      <div style="margin-bottom: 40px;">
+        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+          <div style="width: 4px; height: 18px; background: #2563eb; border-radius: 2px; margin-right: 10px;"></div>
+          <span style="font-size: 13px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Message Details</span>
+        </div>
+        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; white-space: pre-wrap; color: #1e293b; font-size: 15px; line-height: 1.7; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
 ${validatedData.message}
         </div>
       </div>
 
-      <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
-
-      <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; text-align: center;">
-        <p style="margin: 0 0 6px 0; font-size: 12px; color: #6b7280;">Submitted via Ahsan AI Hub Contact Form</p>
-        <p style="margin: 0; font-size: 11px; color: #9ca3af;">© ${new Date().getFullYear()} Ahsan AI Hub. All rights reserved.</p>
+      <div style="text-align: center; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; font-size: 13px; color: #94a3b8; font-weight: 500;">Submitted via Ahsan AI Hub Official Portal</p>
+        <p style="margin: 5px 0 0 0; font-size: 12px; color: #cbd5e1;">© ${new Date().getFullYear()} Ahsan AI Hub. All rights reserved.</p>
       </div>
     </div>
 
-    <div style="background: #f9fafb; padding: 16px 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-      <p style="margin: 0; font-size: 11px; color: #9ca3af;">This is an automated message. Please do not reply to this email.</p>
+    <div style="background: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+      <p style="margin: 0; font-size: 12px; color: #94a3b8; font-style: italic;">This is a priority automated notification. Please do not reply directly.</p>
     </div>
   </div>
 </body>
@@ -140,7 +153,7 @@ ${validatedData.message}
 
     return {
       success: true,
-      message: 'Thank you! Your message has been sent successfully. We will review it and get back to you as soon as possible.',
+      message: 'Excellent! Your request has been securely transmitted. Our dedicated team will review your submission and reach out to you within 24 hours. We appreciate your patience!',
     };
   } catch (error) {
     console.error('Contact form error:', error);

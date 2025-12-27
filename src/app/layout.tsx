@@ -10,6 +10,8 @@ import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import { ReCaptchaScript } from '@/components/ReCaptcha';
 import Script from 'next/script';
 import { Inter, Poppins } from 'next/font/google';
+import { ViewTransitions } from 'next-view-transitions';
+import { ErrorBoundary } from '@/components/error-boundary';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -92,124 +94,123 @@ export const metadata: Metadata = {
   },
 };
 
-import { ErrorBoundary } from '@/components/error-boundary';
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <title>Ahsan AI Hub</title>
-        <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="author" content="Ahsan Ali" />
-        <meta name="application-name" content="Ahsan AI Hub" />
-        <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
-        <link rel="mask-icon" href="/icon-512.png" color="#3b82f6" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                const theme = localStorage.getItem('selectedColorTheme') || 'default';
-                document.documentElement.setAttribute('data-theme', theme);
-                const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                if (isDark) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              })();
-            `,
-          }}
-        />
-        <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-              navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-              }, function(err) {
-                console.log('ServiceWorker registration failed: ', err);
-              });
-            });
-          }
-        `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
-        <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal) {
-              try {
-                await OneSignal.init({
-                  appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                  safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", // Example placeholder, usually auto-detected
-                  notifyButton: {
-                    enable: true,
-                  },
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <title>Ahsan AI Hub</title>
+          <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
+          <meta name="theme-color" content="#3b82f6" />
+          <meta name="author" content="Ahsan Ali" />
+          <meta name="application-name" content="Ahsan AI Hub" />
+          <meta name="msapplication-TileColor" content="#3b82f6" />
+          <meta name="msapplication-tap-highlight" content="no" />
+          <link rel="apple-touch-icon" href="/icon-192.png" />
+          <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
+          <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
+          <link rel="mask-icon" href="/icon-512.png" color="#3b82f6" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <Script
+            id="theme-init"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  const theme = localStorage.getItem('selectedColorTheme') || 'default';
+                  document.documentElement.setAttribute('data-theme', theme);
+                  const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                })();
+              `,
+            }}
+          />
+          <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                  console.log('ServiceWorker registration failed: ', err);
                 });
-              } catch (e) {
-                console.error('OneSignal initialization error:', e);
-              }
-            });
-        `}} />
-        <Script id="schema-webapp" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebApplication',
-          'name': 'Ahsan AI Hub',
-          'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
-          'url': 'https://ahsan-ai-hub.vercel.app',
-          'applicationCategory': 'Productivity',
-          'offers': {
-            '@type': 'AggregateOffer',
-            'priceCurrency': 'USD',
-            'lowPrice': '0',
-            'highPrice': '0',
-          },
-        })}} />
-        <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          'name': 'Ahsan AI Hub',
-          'url': 'https://ahsan-ai-hub.vercel.app',
-          'logo': 'https://ahsan-ai-hub.vercel.app/icon-512.png',
-          'description': 'Advanced AI-powered platform for intelligent chat, content generation, and creative tools',
-        })}} />
-      </head>
-      <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AppProvider>
-            <ChatHistoryProvider>
-              <ReCaptchaScript />
-              <ErrorBoundary>
-                {children}
-              </ErrorBoundary>
-              <Toaster />
-              <PWAInstall />
-              <ConnectionStatus />
-            </ChatHistoryProvider>
-          </AppProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+              });
+            }
+          `}} />
+          <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
+          <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+              window.OneSignalDeferred = window.OneSignalDeferred || [];
+              OneSignalDeferred.push(async function(OneSignal) {
+                try {
+                  await OneSignal.init({
+                    appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                    safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
+                    notifyButton: {
+                      enable: true,
+                    },
+                  });
+                } catch (e) {
+                  console.error('OneSignal initialization error:', e);
+                }
+              });
+          `}} />
+          <Script id="schema-webapp" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            'name': 'Ahsan AI Hub',
+            'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
+            'url': 'https://ahsan-ai-hub.vercel.app',
+            'applicationCategory': 'Productivity',
+            'offers': {
+              '@type': 'AggregateOffer',
+              'priceCurrency': 'USD',
+              'lowPrice': '0',
+              'highPrice': '0',
+            },
+          })}} />
+          <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            'name': 'Ahsan AI Hub',
+            'url': 'https://ahsan-ai-hub.vercel.app',
+            'logo': 'https://ahsan-ai-hub.vercel.app/icon-512.png',
+            'description': 'Advanced AI-powered platform for intelligent chat, content generation, and creative tools',
+          })}} />
+        </head>
+        <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AppProvider>
+              <ChatHistoryProvider>
+                <ReCaptchaScript />
+                <ErrorBoundary>
+                  {children}
+                </ErrorBoundary>
+                <Toaster />
+                <PWAInstall />
+                <ConnectionStatus />
+              </ChatHistoryProvider>
+            </AppProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
