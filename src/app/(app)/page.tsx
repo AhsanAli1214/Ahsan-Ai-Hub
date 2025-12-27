@@ -137,69 +137,79 @@ export default function HomePage() {
           </div>
 
           {/* Privacy-First Banner */}
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-6 md:p-8 shadow-lg">
-            <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/5 blur-3xl" />
-            <div className="absolute -left-20 -bottom-10 h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-8 md:p-12 shadow-2xl">
+            <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-primary/10 blur-[100px]" />
+            <div className="absolute -left-20 -bottom-10 h-40 w-40 rounded-full bg-primary/10 blur-[80px]" />
             
             <div className="relative z-10">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="flex-1">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                    <Shield className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">Our Core Values</span>
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                <div className="flex-1 space-y-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                    <Shield className="h-4 w-4 text-primary" />
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">Core Values & Excellence</span>
                   </div>
                   
-                  <h2 className="text-2xl md:text-3xl font-black text-foreground mb-4 leading-tight">
-                    100% Privacy-First AI Tools
+                  <h2 className="text-3xl md:text-5xl font-black text-foreground leading-[1.1] tracking-tight">
+                    Premium AI Experience <br />
+                    <span className="text-primary">100% Privacy-First</span>
                   </h2>
                   
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
-                        <Lock className="h-4 w-4" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40 hover:border-primary/40 transition-all duration-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 group-hover:scale-110 transition-transform">
+                        <Lock className="h-5 w-5" />
                       </div>
-                      <p className="text-sm font-semibold text-foreground">No Login Required</p>
+                      <div>
+                        <p className="font-bold text-foreground">Zero Login</p>
+                        <p className="text-xs text-muted-foreground mt-1">Instant access without accounts or personal data.</p>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
-                        <Eye className="h-4 w-4" />
+                    
+                    <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40 hover:border-primary/40 transition-all duration-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 group-hover:scale-110 transition-transform">
+                        <Eye className="h-5 w-5" />
                       </div>
-                      <p className="text-sm font-semibold text-foreground">No Data Stored</p>
+                      <div>
+                        <p className="font-bold text-foreground">Local Storage</p>
+                        <p className="text-xs text-muted-foreground mt-1">All history stays in your browser. We see nothing.</p>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary flex-shrink-0">
-                        <Shield className="h-4 w-4" />
+
+                    <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40 hover:border-primary/40 transition-all duration-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 group-hover:scale-110 transition-transform">
+                        <Zap className="h-5 w-5" />
                       </div>
-                      <p className="text-sm font-semibold text-foreground">100% Privacy-Protected</p>
+                      <div>
+                        <p className="font-bold text-foreground">Gemini 2.0 Flash</p>
+                        <p className="text-xs text-muted-foreground mt-1">Powered by ultra-fast, next-gen Google AI models.</p>
+                      </div>
+                    </div>
+
+                    <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40 hover:border-primary/40 transition-all duration-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 group-hover:scale-110 transition-transform">
+                        <Smartphone className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-foreground">PWA Powered</p>
+                        <p className="text-xs text-muted-foreground mt-1">Native app experience on any device, anywhere.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="hidden md:flex flex-col gap-3 w-full md:w-auto">
-                  <Link href="/privacy">
-                    <Button variant="outline" className="w-full md:w-auto gap-2 rounded-xl font-semibold">
-                      Learn More
-                    </Button>
-                  </Link>
-                  <Link href="/data-rights">
-                    <Button variant="ghost" className="w-full md:w-auto gap-2 rounded-xl font-semibold">
-                      Our Commitment
-                    </Button>
-                  </Link>
+                <div className="flex flex-col gap-4 w-full lg:w-auto">
+                  <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20">
+                    <Link href="/recommendations">
+                      Start Exploring
+                      <Zap className="h-4 w-4 fill-current" />
+                    </Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 border-2">
+                    <Link href="/privacy">
+                      Privacy Policy
+                    </Link>
+                  </Button>
                 </div>
-              </div>
-              
-              <div className="md:hidden mt-6 flex flex-col gap-3 w-full">
-                <Link href="/privacy" className="w-full">
-                  <Button variant="outline" className="w-full gap-2 rounded-xl font-semibold">
-                    Learn More
-                  </Button>
-                </Link>
-                <Link href="/data-rights" className="w-full">
-                  <Button variant="ghost" className="w-full gap-2 rounded-xl font-semibold">
-                    Our Commitment
-                  </Button>
-                </Link>
               </div>
             </div>
           </div>
@@ -231,58 +241,66 @@ export default function HomePage() {
 
           
           {/* Install App Section */}
-          <div>
+          <div id="install-section">
             <h2 className="mb-4 font-headline text-xl font-semibold">
-              Install App
+              Get the Native Experience
             </h2>
-            <Card className="p-6 md:p-8 space-y-6">
-              <div className="flex flex-col items-center text-center md:flex-row md:text-left md:gap-6">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-                  <Cloud className="h-7 w-7" />
+            <Card className="relative overflow-hidden p-8 md:p-12 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background rounded-[2.5rem] shadow-xl">
+              <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-primary/10 blur-3xl opacity-50" />
+              
+              <div className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:text-left lg:gap-12">
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[2rem] bg-primary text-primary-foreground shadow-2xl shadow-primary/20 mb-8 lg:mb-0 transform hover:scale-110 transition-transform duration-500">
+                  <Smartphone className="h-10 w-10" />
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold">Get Our App</h3>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Install the Ahsan AI Hub app on your device for easy access and a better experience.
-                  </p>
-                </div>
-                <div className="mt-4 md:mt-0 space-y-3 w-full md:w-auto">
-                  <PWAInstallButton />
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="w-full font-semibold text-base py-6 border-2 hover:bg-accent rounded-2xl"
-                  >
-                    <Link href="/download-apk">
-                      <Download className="mr-2 h-5 w-5" />
-                      📥 Download APK File
-                    </Link>
-                  </Button>
+                
+                <div className="flex-1 space-y-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-3">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-primary">Highly Recommended</span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-black text-foreground">Ahsan AI Hub Mobile</h3>
+                    <p className="text-base text-muted-foreground mt-2 max-w-xl font-medium leading-relaxed">
+                      Transform your browser into a high-performance native app. Enjoy full-screen mode, faster loading, and offline access without any download.
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                    <PWAInstallButton className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl" />
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest border-2 hover:bg-accent gap-3"
+                    >
+                      <Link href="/download-apk">
+                        <Download className="h-4 w-4" />
+                        Download APK
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
 
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-sm mb-4">Installation Methods</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg border bg-card">
-                    <div className="flex items-center mb-3">
-                      <Cloud className="mr-2 h-5 w-5 text-blue-600" />
-                      <h5 className="font-semibold text-sm">Chrome Browser</h5>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Click "Install App" to add the app as a native app on your Android or Desktop using Chrome's PWA feature.
-                    </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-12 border-t border-border/40">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Zap className="h-4 w-4" />
+                    <p className="text-xs font-black uppercase tracking-widest">Speed</p>
                   </div>
-                  <div className="p-4 rounded-lg border bg-card">
-                    <div className="flex items-center mb-3">
-                      <Smartphone className="mr-2 h-5 w-5 text-green-600" />
-                      <h5 className="font-semibold text-sm">Android APK</h5>
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      Click "Download APK" to download the app file directly. Install it on your Android device.
-                    </p>
+                  <p className="text-xs text-muted-foreground font-medium">Instant load times with optimized caching.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Cloud className="h-4 w-4" />
+                    <p className="text-xs font-black uppercase tracking-widest">Offline</p>
                   </div>
+                  <p className="text-xs text-muted-foreground font-medium">Access your chat history even without internet.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-primary">
+                    <Smartphone className="h-4 w-4" />
+                    <p className="text-xs font-black uppercase tracking-widest">Native</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground font-medium">Full-screen experience without browser bars.</p>
                 </div>
               </div>
             </Card>
