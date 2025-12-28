@@ -89,8 +89,8 @@
 - **Facebook**: Ahsan Ali
 - **Portfolio**: ahsan-tech-hub.blogspot.com
 
-## Environment Variables
-- `RESEND_API_KEY` - Resend email service API key (configured)
+## Environment Variables & Secrets
+- `RESEND_API_KEY` - Resend email service API key (✅ Securely configured in secrets)
 - `NEXT_PUBLIC_GOOGLE_GENAI_API_KEY` - Google Genkit API (configured)
 
 ## Email Configuration
