@@ -124,7 +124,7 @@ ${validatedData.message}
       },
       body: JSON.stringify({
         from: 'Ahsan AI Hub <onboarding@resend.dev>',
-        to: 'ahsanaliwadani12@gmail.com',
+        to: 'a67515346@gmail.com',
         reply_to: validatedData.email,
         subject: `[${categoryMap[validatedData.category] || 'Contact'}] ${validatedData.subject}`,
         html: emailBody,
@@ -152,7 +152,7 @@ ${validatedData.message}
     return {
       success: false,
       message: 'Failed to send message',
-      error: 'An unexpected error occurred. Please try again or contact us directly at ahsanaliwadani12@gmail.com',
+      error: 'An unexpected error occurred. Please try again or contact us directly at tickets@ahsan-ai-hub.p.tawk.email',
     };
   }
 }

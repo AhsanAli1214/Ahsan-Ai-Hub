@@ -195,7 +195,7 @@ export async function reportErrorAction(errorData: {
         },
         body: JSON.stringify({
           from: 'Ahsan AI Hub <onboarding@resend.dev>',
-          to: 'ahsanaliwadani12@gmail.com',
+          to: 'tickets@ahsan-ai-hub.p.tawk.email',
           subject,
           html: `
             <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">

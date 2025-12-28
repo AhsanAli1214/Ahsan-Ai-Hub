@@ -358,7 +358,7 @@ Enable/Disable features:
 **Purpose:** Report issues and get support
 
 **Contact Methods:**
-1. **Email** 📧 - ahsanaliwadani12@gmail.com (Official support)
+1. **Email** 📧 - tickets@ahsan-ai-hub.p.tawk.email (Official support)
 2. **Instagram** 📸 - @ahsan.ali.wadani (Fastest response)
 3. **Twitter** 🐦 - @Ahsan_Ali_12 (Updates & support)
 4. **Facebook** 👥 - Ahsan Ali (Community)
@@ -797,7 +797,7 @@ A: Currently text-only. Voice input planned for future.
 ## 📞 SUPPORT & CONTACT
 
 **Need Help?** Contact us through:
-- **Email:** ahsanaliwadani12@gmail.com
+- **Email:** tickets@ahsan-ai-hub.p.tawk.email
 - **Instagram:** @ahsan.ali.wadani
 - **Twitter:** @Ahsan_Ali_12
 - **Facebook:** Ahsan Ali
