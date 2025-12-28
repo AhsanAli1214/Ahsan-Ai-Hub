@@ -75,7 +75,7 @@ const developerImage = PlaceHolderImages.find(
 );
 
 export default function AboutPage() {
-  const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
+  const SUPPORT_EMAIL = "ahsanaliwadani12@gmail.com";
 
   const aboutSchema = {
     "@context": "https://schema.org",

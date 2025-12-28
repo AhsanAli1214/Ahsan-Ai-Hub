@@ -61,8 +61,8 @@ export function Footer() {
                 <div className="space-y-3">
                   <div className="flex items-start gap-2 text-sm">
                     <Mail className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                    <a href="mailto:tickets@ahsan-ai-hub.p.tawk.email" className="text-muted-foreground hover:text-foreground transition-colors">
-                      tickets@ahsan-ai-hub.p.tawk.email
+                    <a href="mailto:ahsanaliwadani12@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
+                      ahsanaliwadani12@gmail.com
                     </a>
                   </div>
                   <div className="flex items-start gap-2 text-sm">

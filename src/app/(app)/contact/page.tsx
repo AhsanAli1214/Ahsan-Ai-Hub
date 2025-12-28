@@ -49,7 +49,7 @@ export default function ContactPage() {
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "email": SUPPORT_EMAIL,
+          "email": "ahsanaliwadani12@gmail.com",
           "contactType": "customer support"
         }
       ],
