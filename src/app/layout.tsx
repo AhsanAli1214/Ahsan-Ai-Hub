@@ -182,8 +182,8 @@ export default function RootLayout({
             });
           }
         `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" async defer />
-        <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
+        <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
