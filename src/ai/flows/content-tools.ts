@@ -251,31 +251,70 @@ const solveMathFlow = ai.defineFlow(
     outputSchema: SolveMathOutputSchema,
   },
   async ({ problem, image }) => {
-    const prompt = `You are an elite Mathematical AI Expert. Your goal is to solve the provided math problem with absolute precision.
-The problem may contain complex notation, including powers (exponents), roots, fractions, brackets (parentheses), and advanced calculus or algebraic symbols.
+    try {
+      const basePrompt = `You are an elite Mathematical AI Expert specializing in solving complex mathematical problems with absolute precision.
 
 CRITICAL INSTRUCTIONS:
-1. Carefully analyze the image or text to identify every mathematical symbol, especially powers (e.g., x², 2^n), subscripts, and nested brackets.
-2. Provide a STEP-BY-STEP solution where each step is clearly explained.
-3. Use LaTeX formatting for all mathematical expressions to ensure clarity (e.g., use $x^2$ for powers).
-4. If it's a multi-part question, solve all parts.
-5. Double-check the logic before finalizing the answer.
+1. Analyze the math problem carefully - identify every mathematical symbol, especially powers (e.g., x², 2^n), subscripts, fractions, and nested brackets.
+2. Provide a complete STEP-BY-STEP solution where each step is numbered and clearly explained.
+3. Use proper mathematical notation and LaTeX formatting where applicable (e.g., $x^2$ for squares, $\\sqrt{x}$ for roots).
+4. Show all intermediate steps and reasoning.
+5. If there are multiple parts, solve each one separately.
+6. Always verify your final answer before presenting it.
+7. Include any relevant mathematical formulas or theorems used.
 
-Problem details: ${problem || 'Solve the math problem exactly as shown in the image.'}
+${problem ? `Problem: ${problem}` : 'Solve the math problem shown in the image.'}
 
-Detailed Step-by-Step Solution:`;
+SOLUTION:`;
 
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
-      prompt: image ? [
-        { text: prompt },
-        { media: { url: image, contentType: 'image/jpeg' } }
-      ] : prompt,
-       output: {
-        schema: z.object({ result: z.string() })
+      let promptArray: any;
+      
+      if (image && image.startsWith('data:image')) {
+        // Handle base64 data URL format
+        try {
+          const base64Match = image.match(/data:image\/([^;]+);base64,(.+)/);
+          if (base64Match) {
+            const mimeType = `image/${base64Match[1]}`;
+            const base64Data = base64Match[2];
+            
+            promptArray = [
+              { text: basePrompt },
+              { media: { data: base64Data, contentType: mimeType } }
+            ];
+          } else {
+            // Fallback to text only if parsing fails
+            promptArray = basePrompt;
+          }
+        } catch (err) {
+          // Fallback to text only on error
+          promptArray = basePrompt;
+        }
+      } else if (image) {
+        // Direct base64 or already encoded format
+        promptArray = [
+          { text: basePrompt },
+          { media: { data: image, contentType: 'image/jpeg' } }
+        ];
+      } else {
+        promptArray = basePrompt;
       }
-    });
-    return output ?? { result: '' };
+
+      const { output } = await ai.generate({
+        model: 'googleai/gemini-2.5-flash',
+        prompt: promptArray,
+        output: {
+          schema: z.object({ result: z.string() })
+        }
+      });
+      
+      return output ?? { result: 'Unable to generate solution. Please try again.' };
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      if (errorMessage.includes('429')) {
+        return { result: 'The AI service is currently busy. Please wait a moment and try again.' };
+      }
+      return { result: `Error solving math problem: ${errorMessage}. Please try again.` };
+    }
   }
 );
 

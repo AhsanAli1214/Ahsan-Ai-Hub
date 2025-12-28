@@ -126,12 +126,24 @@ export async function explainProgrammingAction(input: ExplainProgrammingInput): 
 
 export async function solveMathAction(input: SolveMathInput): Promise<ContentToolResult> {
   try {
+    if (!input.problem && !input.image) {
+      return { success: false, error: 'Please provide either a math problem or upload an image.' };
+    }
+    
     const { result } = await solveMath(input);
+    
+    // Check if result is an error message
+    if (result && (result.includes('Error') || result.includes('Unable to generate'))) {
+      return { success: false, error: result };
+    }
+    
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error && error.message.includes('429') 
-      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
-      : 'Failed to solve math problem. Please try again or report the error.';
+    const errorMsg = error instanceof Error 
+      ? error.message.includes('429') 
+        ? 'The AI service is currently busy. Please wait a moment and try again.'
+        : `Error: ${error.message}`
+      : 'Failed to solve math problem. Please try again.';
     return { success: false, error: errorMsg };
   }
 }
