@@ -27,7 +27,6 @@ import {
   type AssistResumeInput,
   type GenerateStoryInput,
 } from '@/ai/flows/content-tools';
-import { textToSpeech, type TextToSpeechInput } from '@/ai/flows/tts';
 
 // Personalized Recommendations Action
 type RecommendationsActionResult =
@@ -178,7 +177,7 @@ export async function generateStoryAction(input: GenerateStoryInput): Promise<Co
 }
 
 // Text-to-Speech Action (Deprecated - use browser-native API)
-export async function textToSpeechAction(input: TextToSpeechInput): Promise<{ success: true; data: string } | { success: false; error: string }> {
+export async function textToSpeechAction(input: any): Promise<{ success: true; data: string } | { success: false; error: string }> {
   return { success: false, error: 'AI-based TTS is disabled. Please use the browser-native speech feature.' };
 }
 
