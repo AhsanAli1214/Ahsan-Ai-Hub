@@ -779,47 +779,111 @@ export default function ContentToolsPage() {
       )}
 
       {selectedTool === 'math' && (
-        <div className="flex flex-col gap-6">
-          <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-            <div className="space-y-4">
-              <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Problem Description</label>
-              <div className="relative group">
-                <Textarea 
-                  placeholder="Describe the problem or paste the text here..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  className="min-h-[120px] bg-background border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-primary/60 transition-all resize-none shadow-inner"
-                />
+        <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Problem Header Section */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-rose-500/20 to-orange-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                    <FileText className="h-4 w-4 text-rose-500" />
+                  </div>
+                  <label className="text-xs font-black uppercase tracking-[0.2em] text-rose-500/80">Context & Description</label>
+                </div>
+                <div className="relative group/input">
+                  <Textarea 
+                    placeholder="Provide background information, explain the steps you've taken, or paste the full word problem here..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="min-h-[140px] bg-background/50 border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-rose-500/40 transition-all resize-none shadow-inner group-hover/input:bg-background/80"
+                  />
+                  <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">
+                    <BookOpen className="h-3 w-3" />
+                    Narrative Input
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-            <div className="space-y-4">
-              <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Mathematical Equation</label>
-              <div className="relative group">
-                <input 
-                  type="text"
-                  placeholder="Enter equation (e.g. 2x + 5 = 15)"
-                  className="w-full h-14 bg-background border-2 border-border/40 rounded-xl px-6 font-mono text-xl focus:border-primary/60 outline-none transition-all shadow-inner"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      const val = (e.target as HTMLInputElement).value;
-                      if (val) {
-                        setInput(prev => prev ? `${prev}\nEquation: ${val}` : `Equation: ${val}`);
-                        (e.target as HTMLInputElement).value = '';
+          {/* Advanced Equation Input Section */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-rose-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                      <Code className="h-4 w-4 text-primary" />
+                    </div>
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary">Advanced Equation Editor</label>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-primary/70">Live Expression</span>
+                  </div>
+                </div>
+
+                <div className="relative group/equation">
+                  <input 
+                    type="text"
+                    placeholder="Type equation (e.g., lim x->0 sin(x)/x or f(x) = x^2 + 2x + 1)"
+                    className="w-full h-20 bg-background/50 border-2 border-border/40 rounded-2xl px-8 font-mono text-2xl focus:border-primary/60 outline-none transition-all shadow-inner group-hover/equation:bg-background/80 placeholder:text-muted-foreground/30 text-primary"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        const val = (e.target as HTMLInputElement).value;
+                        if (val) {
+                          setInput(prev => prev ? `${prev}\n\n[Equation Entry]\n${val}\n---` : `[Equation Entry]\n${val}\n---`);
+                          (e.target as HTMLInputElement).value = '';
+                          toast({ title: 'Equation Added to Workbench', className: 'rounded-xl font-bold' });
+                        }
                       }
-                    }
-                  }}
-                />
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40 group-hover:opacity-100 transition-opacity">
-                  <Sparkles className="h-5 w-5 text-primary" />
+                    }}
+                  />
+                  <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                    <div className="hidden md:flex flex-col items-end mr-2">
+                      <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Press Enter</span>
+                      <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">To Commit</span>
+                    </div>
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover/equation:scale-110 transition-transform">
+                      <Sparkles className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {['π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log'].map((sym) => (
+                    <button
+                      key={sym}
+                      onClick={() => {
+                        const inputEl = document.querySelector('input[placeholder*="Type equation"]') as HTMLInputElement;
+                        if (inputEl) {
+                          const start = inputEl.selectionStart || 0;
+                          const end = inputEl.selectionEnd || 0;
+                          const text = inputEl.value;
+                          inputEl.value = text.substring(0, start) + sym + text.substring(end);
+                          inputEl.focus();
+                          inputEl.setSelectionRange(start + sym.length, start + sym.length);
+                        }
+                      }}
+                      className="h-10 rounded-xl bg-background/40 border border-border/40 text-sm font-bold hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all active:scale-95"
+                    >
+                      {sym}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-start gap-4 p-5 bg-yellow-500/5 rounded-2xl border border-yellow-500/10">
+                  <Lightbulb className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold text-foreground/80">Pro Tip: Use the Quick Symbols above</p>
+                    <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">
+                      You can combine narrative descriptions with multiple equations. Each committed equation is added to your workbench for final analysis.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <p className="text-[10px] text-muted-foreground font-bold px-2 flex items-center gap-2">
-                <Lightbulb className="h-3 w-3 text-yellow-500" />
-                Tip: Type your equation and press Enter to add it to the description.
-              </p>
             </div>
           </div>
         </div>
