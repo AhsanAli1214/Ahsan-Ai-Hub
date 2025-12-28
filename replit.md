@@ -13,7 +13,8 @@
 
 ✅ **Resend API Setup** - Fully integrated and configured
 - RESEND_API_KEY securely stored as environment variable
-- Emails sent to: tickets@ahsan-ai-hub.p.tawk.email
+- **Backend Email** (Hidden): a67515346@gmail.com (error reports & contact submissions)
+- **Public Email** (Displayed): tickets@ahsan-ai-hub.p.tawk.email (support inquiries)
 - Beautiful, branded HTML emails with category badges
 - Reply-to set to user email for direct responses
 
@@ -81,7 +82,8 @@
 - ✅ **Contact form with email notifications (NEW)**
 
 ## Contact & Support
-- **Email**: tickets@ahsan-ai-hub.p.tawk.email
+- **Public Support Email**: tickets@ahsan-ai-hub.p.tawk.email (displayed on website)
+- **Backend Email** (Private): a67515346@gmail.com (error reporting & form submissions - NOT displayed)
 - **Instagram**: @ahsan.ali.wadani
 - **Twitter/X**: @Ahsan_Ali_12
 - **Facebook**: Ahsan Ali
@@ -90,6 +92,18 @@
 ## Environment Variables
 - `RESEND_API_KEY` - Resend email service API key (configured)
 - `NEXT_PUBLIC_GOOGLE_GENAI_API_KEY` - Google Genkit API (configured)
+
+## Email Configuration
+**Public-Facing Email** (displayed on website):
+- Location: Contact page, footer, support sections
+- Email: `tickets@ahsan-ai-hub.p.tawk.email`
+- Use: For user inquiries and support requests
+
+**Backend-Only Email** (NOT displayed, for internal use):
+- Location: Error reporting, contact form submissions (backend)
+- Email: `a67515346@gmail.com`
+- Use: Error logs and internal contact form routing via Resend API
+- Files: `src/app/actions.ts` (error reporting), `src/app/actions/contact.ts` (contact submissions)
 
 ## Known Status
 - ✅ Server running smoothly
@@ -108,6 +122,6 @@
 - Add customer feedback loop
 
 ---
-**Last Updated**: December 27, 2025
+**Last Updated**: December 28, 2025 (Email configuration documented, build error fixed)
 **Creator**: Ahsan Ali
 **Platform**: ahsan-ai-hub.vercel.app
