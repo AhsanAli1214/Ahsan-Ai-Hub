@@ -28,9 +28,10 @@ export function AppHeader({ title }: { title: string }) {
       </div>
       <h1 className="font-headline text-xl font-semibold md:text-2xl">{title}</h1>
       <div className={cn("ml-auto flex items-center gap-2 md:gap-4", "w-auto")}>
-        <Button asChild variant="ghost" size="icon" className="md:hidden rounded-lg">
-          <Link href="/content-tools" title="Tools">
-            <Wrench className="h-5 w-5" />
+        <Button asChild variant="outline" className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/10 hover:bg-primary/20 transition-all group border-primary/20 h-9" title="Tools">
+          <Link href="/content-tools">
+            <PenTool className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-primary">AI Tools</span>
           </Link>
         </Button>
       </div>

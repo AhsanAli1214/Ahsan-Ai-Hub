@@ -27,7 +27,7 @@ const enhanceTextFlow = ai.defineFlow(
   },
   async ({ text, mode }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are a text enhancement AI. Your task is to ${mode} the following text.
 - If the mode is 'grammar', correct any grammatical errors, spelling mistakes, and punctuation.
 - If the mode is 'improve', enhance the clarity, flow, and vocabulary of the text while preserving the original meaning.
@@ -76,7 +76,7 @@ const generateEmailFlow = ai.defineFlow(
   },
   async ({ context, tone, details }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are an expert email writing assistant. Write a complete email based on the following requirements. The email should include a subject line and a body.
 
 - Purpose/Context: ${context}
@@ -119,7 +119,7 @@ const generateBlogPostFlow = ai.defineFlow(
   },
   async ({ topic, length }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are an expert blog post generator. Write a well-structured, engaging, and SEO-friendly blog post.
 
 Topic: "${topic}"
@@ -166,7 +166,7 @@ const generateStudyMaterialFlow = ai.defineFlow(
   },
   async ({ topic, type }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are a helpful study assistant. Generate study material for the given topic and format.
 
 Topic: "${topic}"
@@ -210,7 +210,7 @@ const explainProgrammingFlow = ai.defineFlow(
   },
   async ({ code, language }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are an expert code explainer. Provide a clear, line-by-line explanation of the following ${language || ''} code snippet. Explain the purpose, logic, and what each part of the code does.
 
 Code:
@@ -268,7 +268,7 @@ Detailed Step-by-Step Solution:`;
     const base64Data = image ? (image.includes(',') ? image.split(',')[1] : image) : null;
 
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: base64Data ? [
         { text: prompt },
         { media: { url: `data:image/jpeg;base64,${base64Data}`, contentType: 'image/jpeg' } }
@@ -306,7 +306,7 @@ const translateTextFlow = ai.defineFlow(
   },
   async ({ text, targetLanguage }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `Translate the following text to ${targetLanguage}. Return ONLY the translated text.
 Text:
 """
@@ -346,7 +346,7 @@ const generateSocialMediaPostFlow = ai.defineFlow(
   },
   async ({ topic, platform }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are a social media marketing expert. Create a compelling post for ${platform}.
 
 Topic/Message: "${topic}"
@@ -391,7 +391,7 @@ const assistResumeFlow = ai.defineFlow(
   },
   async ({ section, details }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are a professional resume writer and career coach. Help the user with their resume.
 
 Section: ${section}
@@ -440,7 +440,7 @@ const generateStoryFlow = ai.defineFlow(
   },
   async ({ prompt, genre }) => {
     const { output } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
+      model: 'googleai/gemini-2.0-flash',
       prompt: `You are a creative writer. Write a short story based on the user's prompt.
 
 Genre: ${genre || 'any'}
