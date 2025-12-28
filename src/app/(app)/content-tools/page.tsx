@@ -354,19 +354,22 @@ export default function ContentToolsPage() {
         case 'blog':
           result = await generateBlogPostAction({
             topic: input,
-            length: (options.blogLength as GenerateBlogPostInput['length']) || 'medium',
+            length: options.blogLength || 'medium',
+            audience: options.blogAudience,
           });
           break;
         case 'study':
           result = await generateStudyMaterialAction({
             topic: input,
-            type: (options.studyType as GenerateStudyMaterialInput['type']) || 'explanation',
+            type: options.studyType || 'explanation',
+            difficulty: options.difficulty,
           });
           break;
         case 'code':
           result = await explainProgrammingAction({
             code: input,
             language: options.codeLanguage,
+            mode: options.codeMode,
           });
           break;
         case 'math':
@@ -379,18 +382,21 @@ export default function ContentToolsPage() {
           result = await translateTextAction({
             text: input,
             targetLanguage: options.targetLanguage || 'Spanish',
+            tone: options.translateTone,
           });
           break;
         case 'social':
           result = await generateSocialMediaPostAction({
             topic: input,
-            platform: (options.socialPlatform as GenerateSocialMediaPostInput['platform']) || 'Twitter',
+            platform: options.socialPlatform || 'Twitter',
+            goal: options.socialGoal,
           });
           break;
         case 'resume':
           result = await assistResumeAction({
-            section: (options.resumeSection as AssistResumeInput['section']) || 'summary',
+            section: options.resumeSection || 'summary',
             details: input,
+            role: options.resumeRole,
           });
           break;
         case 'story':
@@ -581,6 +587,404 @@ export default function ContentToolsPage() {
               onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
               className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
             />
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'translate' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
+            <select 
+              value={options.targetLanguage} 
+              onChange={(e) => setOptions({...options, targetLanguage: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              {LANGUAGES.map(lang => (
+                <option key={lang.code} value={lang.name}>{lang.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
+            <select 
+              value={options.translateTone || 'neutral'} 
+              onChange={(e) => setOptions({...options, translateTone: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="neutral">Neutral</option>
+              <option value="formal">Formal</option>
+              <option value="casual">Casual</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'social' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
+            <select 
+              value={options.socialPlatform} 
+              onChange={(e) => setOptions({...options, socialPlatform: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="Twitter">Twitter / X</option>
+              <option value="Instagram">Instagram</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Facebook">Facebook</option>
+              <option value="TikTok">TikTok (Script)</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
+            <select 
+              value={options.socialGoal || 'engagement'} 
+              onChange={(e) => setOptions({...options, socialGoal: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="engagement">Engagement</option>
+              <option value="informational">Informational</option>
+              <option value="promotional">Promotional</option>
+              <option value="humorous">Humorous</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'resume' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
+            <select 
+              value={options.resumeSection} 
+              onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="summary">Professional Summary</option>
+              <option value="experience">Work Experience</option>
+              <option value="skills">Skills Optimization</option>
+              <option value="education">Education</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
+            <input 
+              type="text"
+              placeholder="e.g. Senior Developer, Manager"
+              value={options.resumeRole || ''}
+              onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            />
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'code' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
+            <select 
+              value={options.codeLanguage} 
+              onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="Go">Go</option>
+              <option value="Rust">Rust</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
+            <select 
+              value={options.codeMode || 'explain'} 
+              onChange={(e) => setOptions({...options, codeMode: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explain">Explain Logic</option>
+              <option value="optimize">Optimize Performance</option>
+              <option value="debug">Find Bugs</option>
+              <option value="security">Security Audit</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'study' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
+            <select 
+              value={options.studyType} 
+              onChange={(e) => setOptions({...options, studyType: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explanation">Deep Explanation</option>
+              <option value="notes">Concise Notes</option>
+              <option value="flashcards">Flashcards (Q&A)</option>
+              <option value="quiz">Multiple Choice Quiz</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
+            <select 
+              value={options.difficulty} 
+              onChange={(e) => setOptions({...options, difficulty: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced / Expert</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'resume' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
+            <select 
+              value={options.resumeSection} 
+              onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="summary">Professional Summary</option>
+              <option value="experience">Work Experience</option>
+              <option value="skills">Skills Optimization</option>
+              <option value="education">Education</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
+            <input 
+              type="text"
+              placeholder="e.g. Senior Developer, Manager"
+              value={options.resumeRole || ''}
+              onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            />
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'code' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
+            <select 
+              value={options.codeLanguage} 
+              onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="Go">Go</option>
+              <option value="Rust">Rust</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
+            <select 
+              value={options.codeMode || 'explain'} 
+              onChange={(e) => setOptions({...options, codeMode: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explain">Explain Logic</option>
+              <option value="optimize">Optimize Performance</option>
+              <option value="debug">Find Bugs</option>
+              <option value="security">Security Audit</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'study' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
+            <select 
+              value={options.studyType} 
+              onChange={(e) => setOptions({...options, studyType: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explanation">Deep Explanation</option>
+              <option value="notes">Concise Notes</option>
+              <option value="flashcards">Flashcards (Q&A)</option>
+              <option value="quiz">Multiple Choice Quiz</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
+            <select 
+              value={options.difficulty} 
+              onChange={(e) => setOptions({...options, difficulty: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced / Expert</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'translate' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
+            <select 
+              value={options.targetLanguage} 
+              onChange={(e) => setOptions({...options, targetLanguage: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              {LANGUAGES.map(lang => (
+                <option key={lang.code} value={lang.name}>{lang.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
+            <select 
+              value={options.translateTone || 'neutral'} 
+              onChange={(e) => setOptions({...options, translateTone: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="neutral">Neutral</option>
+              <option value="formal">Formal</option>
+              <option value="casual">Casual</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'social' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
+            <select 
+              value={options.socialPlatform} 
+              onChange={(e) => setOptions({...options, socialPlatform: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="Twitter">Twitter / X</option>
+              <option value="Instagram">Instagram</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Facebook">Facebook</option>
+              <option value="TikTok">TikTok (Script)</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
+            <select 
+              value={options.socialGoal || 'engagement'} 
+              onChange={(e) => setOptions({...options, socialGoal: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="engagement">Engagement</option>
+              <option value="informational">Informational</option>
+              <option value="promotional">Promotional</option>
+              <option value="humorous">Humorous</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'resume' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
+            <select 
+              value={options.resumeSection} 
+              onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="summary">Professional Summary</option>
+              <option value="experience">Work Experience</option>
+              <option value="skills">Skills Optimization</option>
+              <option value="education">Education</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
+            <input 
+              type="text"
+              placeholder="e.g. Senior Developer, Manager"
+              value={options.resumeRole || ''}
+              onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            />
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'code' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
+            <select 
+              value={options.codeLanguage} 
+              onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Python">Python</option>
+              <option value="Java">Java</option>
+              <option value="C++">C++</option>
+              <option value="Go">Go</option>
+              <option value="Rust">Rust</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
+            <select 
+              value={options.codeMode || 'explain'} 
+              onChange={(e) => setOptions({...options, codeMode: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explain">Explain Logic</option>
+              <option value="optimize">Optimize Performance</option>
+              <option value="debug">Find Bugs</option>
+              <option value="security">Security Audit</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'study' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
+            <select 
+              value={options.studyType} 
+              onChange={(e) => setOptions({...options, studyType: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="explanation">Deep Explanation</option>
+              <option value="notes">Concise Notes</option>
+              <option value="flashcards">Flashcards (Q&A)</option>
+              <option value="quiz">Multiple Choice Quiz</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
+            <select 
+              value={options.difficulty} 
+              onChange={(e) => setOptions({...options, difficulty: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced / Expert</option>
+            </select>
           </div>
         </div>
       )}

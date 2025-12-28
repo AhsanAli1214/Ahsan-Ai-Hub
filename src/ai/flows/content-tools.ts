@@ -33,7 +33,7 @@ const enhanceTextFlow = ai.defineFlow(
 - If the mode is 'improve', enhance the clarity, flow, and vocabulary of the text while preserving the original meaning.
 - If the mode is 'rewrite', rewrite the entire text to make it sound more professional and compelling.
 
-Return only the resulting text.
+Return ONLY the resulting text.
 
 Text:
 """
@@ -54,7 +54,7 @@ Result:`,
 // Email Writer
 const GenerateEmailInputSchema = z.object({
     context: z.string().describe("The purpose or context of the email."),
-    tone: z.enum(['professional', 'casual', 'formal']).describe("The tone of the email."),
+    tone: z.string().describe("The tone of the email."),
     details: z.string().optional().describe("Any additional details to include."),
 });
 export type GenerateEmailInput = z.infer<typeof GenerateEmailInputSchema>;
@@ -77,13 +77,15 @@ const generateEmailFlow = ai.defineFlow(
   async ({ context, tone, details }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are an expert email writing assistant. Write a complete email based on the following requirements. The email should include a subject line and a body.
+      prompt: `You are an expert email writing assistant. Write a complete email based on the following requirements. 
 
 - Purpose/Context: ${context}
 - Tone: ${tone}
 ${details ? `- Additional Details to include: ${details}` : ''}
 
-Format the output clearly, starting with "Subject:".
+The email must include:
+1. A clear Subject Line starting with "Subject: ".
+2. A professional body with appropriate formatting.
 
 Generated Email:`,
       output: {
@@ -98,7 +100,8 @@ Generated Email:`,
 // Blog Post Generator
 const GenerateBlogPostInputSchema = z.object({
     topic: z.string().describe("The topic of the blog post."),
-    length: z.enum(['short', 'medium', 'long']).describe("The desired length of the blog post."),
+    length: z.string().describe("The desired length of the blog post."),
+    audience: z.string().optional().describe("The target audience."),
 });
 export type GenerateBlogPostInput = z.infer<typeof GenerateBlogPostInputSchema>;
 
@@ -117,13 +120,14 @@ const generateBlogPostFlow = ai.defineFlow(
     inputSchema: GenerateBlogPostInputSchema,
     outputSchema: GenerateBlogPostOutputSchema,
   },
-  async ({ topic, length }) => {
+  async ({ topic, length, audience }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
       prompt: `You are an expert blog post generator. Write a well-structured, engaging, and SEO-friendly blog post.
 
 Topic: "${topic}"
-Length: ${length} (short: ~300 words, medium: ~700 words, long: ~1200 words)
+Length: ${length}
+Target Audience: ${audience || 'General'}
 
 The blog post should include:
 1. A catchy and relevant title.
@@ -145,7 +149,8 @@ Blog Post:`,
 // Study Assistant
 const GenerateStudyMaterialInputSchema = z.object({
     topic: z.string().describe("The topic to generate study materials for."),
-    type: z.enum(['explanation', 'notes', 'flashcards']).describe("The type of study material to generate."),
+    type: z.string().describe("The type of study material to generate."),
+    difficulty: z.string().optional().describe("The difficulty level."),
 });
 export type GenerateStudyMaterialInput = z.infer<typeof GenerateStudyMaterialInputSchema>;
 
@@ -164,17 +169,19 @@ const generateStudyMaterialFlow = ai.defineFlow(
     inputSchema: GenerateStudyMaterialInputSchema,
     outputSchema: GenerateStudyMaterialOutputSchema,
   },
-  async ({ topic, type }) => {
+  async ({ topic, type, difficulty }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are a helpful study assistant. Generate study material for the given topic and format.
+      prompt: `You are a helpful study assistant. Generate study material for the given topic.
 
 Topic: "${topic}"
 Format: "${type}"
+Difficulty Level: "${difficulty || 'Intermediate'}"
 
-- If 'explanation', provide a clear and comprehensive explanation of the topic.
-- If 'notes', create structured, bulleted notes summarizing the key points.
-- If 'flashcards', generate a list of questions and answers in the format "Q: [Question]\nA: [Answer]".
+- If 'explanation', provide a clear and comprehensive explanation.
+- If 'notes', create structured, bulleted notes summarizing key points.
+- If 'flashcards', generate a list of questions and answers (Q: [Question] \n A: [Answer]).
+- If 'quiz', generate 5 multiple choice questions with answers at the end.
 
 Study Material:`,
        output: {
@@ -189,7 +196,8 @@ Study Material:`,
 // Code Explainer
 const ExplainProgrammingInputSchema = z.object({
     code: z.string().describe("The code snippet to explain."),
-    language: z.string().optional().describe("The programming language of the code."),
+    language: z.string().optional().describe("The programming language."),
+    mode: z.string().optional().describe("The analysis mode (explain, optimize, debug, security)."),
 });
 export type ExplainProgrammingInput = z.infer<typeof ExplainProgrammingInputSchema>;
 
@@ -208,17 +216,21 @@ const explainProgrammingFlow = ai.defineFlow(
     inputSchema: ExplainProgrammingInputSchema,
     outputSchema: ExplainProgrammingOutputSchema,
   },
-  async ({ code, language }) => {
+  async ({ code, language, mode }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are an expert code explainer. Provide a clear, line-by-line explanation of the following ${language || ''} code snippet. Explain the purpose, logic, and what each part of the code does.
+      prompt: `You are an expert software engineer. Perform a ${mode || 'explanation'} on the following ${language || ''} code snippet.
+
+Analysis Mode: ${mode || 'General Explanation'}
 
 Code:
 \`\`\`${language || ''}
 ${code}
 \`\`\`
 
-Explanation:`,
+Provide a clear, structured response. Use Markdown.
+
+Result:`,
        output: {
         schema: z.object({ result: z.string() })
       }
@@ -324,7 +336,8 @@ SOLUTION:`;
 // Translator
 const TranslateTextInputSchema = z.object({
   text: z.string().describe('The text to translate.'),
-  targetLanguage: z.string().describe('The target language to translate to.'),
+  targetLanguage: z.string().describe('The target language.'),
+  tone: z.string().optional().describe('The tone of the translation.'),
 });
 export type TranslateTextInput = z.infer<typeof TranslateTextInputSchema>;
 
@@ -343,10 +356,15 @@ const translateTextFlow = ai.defineFlow(
     inputSchema: TranslateTextInputSchema,
     outputSchema: TranslateTextOutputSchema,
   },
-  async ({ text, targetLanguage }) => {
+  async ({ text, targetLanguage, tone }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `Translate the following text to ${targetLanguage}. Return ONLY the translated text.
+      prompt: `Translate the following text to ${targetLanguage}. 
+
+Tone: ${tone || 'Neutral'}
+
+Return ONLY the translated text.
+
 Text:
 """
 ${text}
@@ -364,7 +382,8 @@ ${text}
 // Social Media Post Generator
 const GenerateSocialMediaPostInputSchema = z.object({
   topic: z.string().describe("The topic or main message of the post."),
-  platform: z.enum(['Twitter', 'Instagram', 'LinkedIn']).describe("The social media platform."),
+  platform: z.string().describe("The social media platform."),
+  goal: z.string().optional().describe("The goal of the post."),
 });
 export type GenerateSocialMediaPostInput = z.infer<typeof GenerateSocialMediaPostInputSchema>;
 
@@ -383,18 +402,21 @@ const generateSocialMediaPostFlow = ai.defineFlow(
     inputSchema: GenerateSocialMediaPostInputSchema,
     outputSchema: GenerateSocialMediaPostOutputSchema,
   },
-  async ({ topic, platform }) => {
+  async ({ topic, platform, goal }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
       prompt: `You are a social media marketing expert. Create a compelling post for ${platform}.
 
 Topic/Message: "${topic}"
+Post Goal: ${goal || 'Engagement'}
 
-- For Twitter, be concise and use relevant hashtags.
-- For Instagram, write an engaging caption and suggest relevant hashtags.
-- For LinkedIn, be professional and focus on industry insights or career advice.
+Requirements:
+- For Twitter, be concise and use hashtags.
+- For Instagram, write an engaging caption and hashtags.
+- For LinkedIn, be professional and insightful.
+- For TikTok, write a short script or hook.
 
-Format the output as a complete post, including hashtags.
+Format the output as a complete post.
 
 Post:`,
       output: {
@@ -408,13 +430,14 @@ Post:`,
 
 // Resume Assistant
 const AssistResumeInputSchema = z.object({
-  section: z.enum(['summary', 'experience', 'skills']).describe("The resume section to work on."),
-  details: z.string().describe("User-provided details like job history, skills, or career goals."),
+  section: z.string().describe("The resume section."),
+  details: z.string().describe("User-provided details."),
+  role: z.string().optional().describe("Target job role."),
 });
 export type AssistResumeInput = z.infer<typeof AssistResumeInputSchema>;
 
 const AssistResumeOutputSchema = z.object({
-  result: z.string().describe("The generated or improved resume content."),
+  result: z.string().describe("The generated resume content."),
 });
 export type AssistResumeOutput = z.infer<typeof AssistResumeOutputSchema>;
 
@@ -428,22 +451,24 @@ const assistResumeFlow = ai.defineFlow(
     inputSchema: AssistResumeInputSchema,
     outputSchema: AssistResumeOutputSchema,
   },
-  async ({ section, details }) => {
+  async ({ section, details, role }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are a professional resume writer and career coach. Help the user with their resume.
+      prompt: `You are a professional resume writer. Help the user optimize their resume.
 
 Section: ${section}
+Target Role: ${role || 'General'}
 User's Details:
 """
 ${details}
 """
 
-- If 'summary', write a compelling professional summary (3-4 sentences).
-- If 'experience', rewrite the provided job description using action verbs and quantifiable achievements.
-- If 'skills', organize the listed skills into relevant categories.
+Instructions:
+- If 'summary', write a powerful professional summary (3-4 sentences).
+- If 'experience', use action verbs and quantifiable results.
+- If 'skills', categorize them professionally.
 
-Provide only the generated content for the specified section.
+Provide only the generated content.
 
 Result:`,
       output: {
@@ -457,13 +482,13 @@ Result:`,
 
 // Creative Story Writer
 const GenerateStoryInputSchema = z.object({
-  prompt: z.string().describe("The user's story prompt or idea."),
-  genre: z.string().optional().describe("The genre of the story (e.g., fantasy, sci-fi, mystery)."),
+  prompt: z.string().describe("The story idea."),
+  genre: z.string().optional().describe("The genre."),
 });
 export type GenerateStoryInput = z.infer<typeof GenerateStoryInputSchema>;
 
 const GenerateStoryOutputSchema = z.object({
-  result: z.string().describe("The generated story or story part."),
+  result: z.string().describe("The story."),
 });
 export type GenerateStoryOutput = z.infer<typeof GenerateStoryOutputSchema>;
 
@@ -480,12 +505,10 @@ const generateStoryFlow = ai.defineFlow(
   async ({ prompt, genre }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are a creative writer. Write a short story based on the user's prompt.
+      prompt: `You are a creative writer. Write an engaging story.
 
 Genre: ${genre || 'any'}
 Prompt: "${prompt}"
-
-Begin the story. Make it engaging and imaginative.
 
 Story:`,
       output: {
