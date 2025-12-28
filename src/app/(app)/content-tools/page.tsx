@@ -28,6 +28,9 @@ import {
   Lightbulb,
   Upload,
   Volume2,
+  Camera,
+  Image as ImageIcon,
+  X,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import {
@@ -244,6 +247,7 @@ export default function ContentToolsPage() {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mathImage, setMathImage] = useState<string | null>(null);
   const { toast } = useToast();
   const [options, setOptions] = useState<Record<string, any>>({
     enhanceMode: 'improve',
@@ -267,8 +271,8 @@ export default function ContentToolsPage() {
   }, [output]);
 
   const handleProcess = async () => {
-    if (!input.trim()) {
-      toast({ title: 'Please enter some text', variant: 'destructive' });
+    if (!input.trim() && !mathImage) {
+      toast({ title: 'Please enter some text or provide an image', variant: 'destructive' });
       return;
     }
 
@@ -348,7 +352,10 @@ export default function ContentToolsPage() {
           });
           break;
         case 'math':
-          result = await solveMathAction({ problem: input });
+          result = await solveMathAction({ 
+            problem: input,
+            image: mathImage || undefined 
+          });
           break;
         case 'translate':
           result = await translateTextAction({
@@ -407,6 +414,18 @@ export default function ContentToolsPage() {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.type.startsWith('image/') && selectedTool === 'math') {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64 = e.target?.result;
+          if (typeof base64 === 'string') {
+            setMathImage(base64);
+            toast({ title: 'Image uploaded for math solving' });
+          }
+        };
+        reader.readAsDataURL(file);
+        return;
+      }
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result;
@@ -497,20 +516,81 @@ export default function ContentToolsPage() {
                 <span>Your Input</span>
               </div>
               <div className="flex items-center gap-3">
+                {selectedTool === 'math' && (
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="rounded-xl font-bold gap-2 border-primary/30" 
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.capture = 'environment';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => setMathImage(ev.target?.result as string);
+                            reader.readAsDataURL(file);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <Camera className="h-4 w-4" /> Camera
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="rounded-xl font-bold gap-2 border-primary/30" 
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = (e) => {
+                          const file = (e.target as HTMLInputElement).files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (ev) => setMathImage(ev.target?.result as string);
+                            reader.readAsDataURL(file);
+                          }
+                        };
+                        input.click();
+                      }}
+                    >
+                      <ImageIcon className="h-4 w-4" /> Gallery
+                    </Button>
+                  </div>
+                )}
                 <Button variant="outline" size="sm" className="rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all" onClick={() => fileInputRef.current?.click()}>
                   <Upload className="h-4 w-4" /> Upload File
-                  <input type="file" ref={fileInputRef} className="hidden" accept=".txt,.md,.js,.ts,.py,.css,.html" onChange={handleFileUpload} />
+                  <input type="file" ref={fileInputRef} className="hidden" accept={selectedTool === 'math' ? ".txt,.md,.js,.ts,.py,.css,.html,image/*" : ".txt,.md,.js,.ts,.py,.css,.html"} onChange={handleFileUpload} />
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => setInput('')} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
+                <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
                   <RotateCcw className="h-4 w-4" /> Clear
                 </Button>
               </div>
             </div>
 
+            {mathImage && (
+              <div className="relative w-full max-w-md mx-auto aspect-video rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl group">
+                <img src={mathImage} alt="Math problem" className="w-full h-full object-contain bg-muted" />
+                <Button 
+                  variant="destructive" 
+                  size="icon" 
+                  className="absolute top-2 right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => setMathImage(null)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+
             <Textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={tool.placeholder}
+              placeholder={selectedTool === 'math' ? 'Or describe your math problem here...' : tool.placeholder}
               className="min-h-[250px] rounded-[2rem] bg-card/60 border-2 border-border/40 p-8 text-lg font-medium focus:border-primary/60 transition-all shadow-inner"
             />
 

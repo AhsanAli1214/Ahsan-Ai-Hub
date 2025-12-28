@@ -230,7 +230,8 @@ Explanation:`,
 
 // Math Solver
 const SolveMathInputSchema = z.object({
-    problem: z.string().describe("The math problem to solve."),
+    problem: z.string().optional().describe("The math problem to solve."),
+    image: z.string().optional().describe("Base64 encoded image of the math problem."),
 });
 export type SolveMathInput = z.infer<typeof SolveMathInputSchema>;
 
@@ -249,14 +250,21 @@ const solveMathFlow = ai.defineFlow(
     inputSchema: SolveMathInputSchema,
     outputSchema: SolveMathOutputSchema,
   },
-  async ({ problem }) => {
+  async ({ problem, image }) => {
+    const prompt = `You are a math solver AI. Solve the math problem and provide a detailed, step-by-step explanation. 
+If an image is provided, focus on the problem in the image. 
+If text is provided, solve that.
+
+Problem details: ${problem || 'See image'}
+
+Solution:`;
+
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: `You are a math solver AI. Solve the following problem and provide a detailed, step-by-step explanation of how you arrived at the solution.
-
-Problem: ${problem}
-
-Solution:`,
+      prompt: image ? [
+        { text: prompt },
+        { media: { url: image, contentType: 'image/jpeg' } }
+      ] : prompt,
        output: {
         schema: z.object({ result: z.string() })
       }
