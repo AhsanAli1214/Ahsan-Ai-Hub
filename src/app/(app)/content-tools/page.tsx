@@ -656,7 +656,7 @@ export default function ContentToolsPage() {
                   </Card>
                   
                   <div className="space-y-6">
-                    <TextToSpeech text={output} />
+                    {selectedTool === 'tts' && <TextToSpeech text={output} />}
                     <Card className="border-border/40 bg-accent/30 p-6 rounded-[2rem] space-y-4 shadow-lg">
                       <h4 className="font-black uppercase tracking-widest text-xs">Export Options</h4>
                       <div className="grid grid-cols-2 gap-3">
