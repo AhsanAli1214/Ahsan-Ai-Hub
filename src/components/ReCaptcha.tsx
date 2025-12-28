@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -8,20 +8,38 @@ declare global {
   }
 }
 
+let recaptchaLoaded = false;
+
 export function ReCaptchaScript() {
-  useEffect(() => {
-    // Only load reCAPTCHA if not already present
-    if (window.grecaptcha) return;
+  const loadedRef = useRef(false);
 
-    const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
+  const loadReCaptcha = () => {
+    if (recaptchaLoaded || loadedRef.current) return;
+    loadedRef.current = true;
 
-    return () => {
-      // Keep script loaded for performance
+    // Delay loading until user interaction (lazy load)
+    const loadScript = () => {
+      if (window.grecaptcha) return;
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+      recaptchaLoaded = true;
     };
+
+    // Load on first user interaction
+    document.addEventListener('focus', loadScript, { once: true });
+    document.addEventListener('touchstart', loadScript, { once: true });
+    document.addEventListener('click', loadScript, { once: true });
+
+    // Also load after 5 seconds as fallback
+    setTimeout(loadScript, 5000);
+  };
+
+  useEffect(() => {
+    // Don't load on page load, wait for interaction
+    loadReCaptcha();
   }, []);
 
   return null;

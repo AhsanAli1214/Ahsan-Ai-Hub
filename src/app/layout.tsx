@@ -171,15 +171,15 @@ export default function RootLayout({
             `,
           }}
         />
-        <Script id="pwa-register" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
+        <Script id="pwa-register" strategy="afterInteractive" async defer dangerouslySetInnerHTML={{__html: `
           if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
               navigator.serviceWorker.register('/sw.js');
             });
           }
         `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="lazyOnload" />
-        <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" async defer />
+        <Script id="onesignal-init" strategy="afterInteractive" async defer dangerouslySetInnerHTML={{__html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
