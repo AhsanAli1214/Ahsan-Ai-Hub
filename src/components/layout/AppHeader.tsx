@@ -22,6 +22,7 @@ export function AppHeader({ title }: { title: string }) {
           size="icon"
           onClick={handleMobileMenuToggle}
           className="rounded-lg"
+          aria-label="Toggle mobile menu"
         >
           <Menu className="h-5 w-5" />
         </Button>

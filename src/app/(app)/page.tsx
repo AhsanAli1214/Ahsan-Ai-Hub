@@ -228,7 +228,7 @@ export default function HomePage() {
                   passHref
                 >
                   <Card className="flex h-full transform flex-col items-center justify-center p-4 text-center transition-transform hover:scale-105 hover:shadow-lg">
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/20 text-primary">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/20 text-primary" aria-hidden="true">
                       <action.icon className="h-6 w-6" />
                     </div>
                     <p className="text-sm font-medium">{action.label}</p>

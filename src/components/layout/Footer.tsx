@@ -60,13 +60,13 @@ export function Footer() {
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-start gap-2 text-sm">
-                    <Mail className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                    <a href="mailto:tickets@ahsan-ai-hub.p.tawk.email" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Mail className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
+                    <a href="mailto:tickets@ahsan-ai-hub.p.tawk.email" className="text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm">
                       tickets@ahsan-ai-hub.p.tawk.email
                     </a>
                   </div>
                   <div className="flex items-start gap-2 text-sm">
-                    <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />
                     <span className="text-muted-foreground">Global • Remote First</span>
                   </div>
                 </div>

@@ -202,6 +202,8 @@ export function ContactForm() {
                   key={cat.value}
                   type="button"
                   onClick={() => handleCategoryChange(cat.value)}
+                  aria-label={`Select category: ${cat.label}`}
+                  aria-pressed={formData.category === cat.value}
                   className={cn(
                     "group relative p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col items-center gap-3",
                     formData.category === cat.value
