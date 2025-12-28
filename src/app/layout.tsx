@@ -145,11 +145,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.onesignal.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
-        <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://api.onesignal.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://api.onesignal.com" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2025-12-28" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-28" />

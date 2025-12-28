@@ -27,8 +27,14 @@ import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import dynamic from 'next/dynamic';
-const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { ssr: false });
-const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').then(mod => mod.PWAInstallButton), { ssr: false });
+const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
+  ssr: false,
+  loading: () => <div className="h-10 w-32 animate-pulse rounded-lg bg-muted" /> 
+});
+const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').then(mod => mod.PWAInstallButton), { 
+  ssr: false,
+  loading: () => <div className="h-14 w-full animate-pulse rounded-2xl bg-muted" />
+});
 
 const QUICK_ACTIONS = [
   {
