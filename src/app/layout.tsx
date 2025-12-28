@@ -143,7 +143,11 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="msapplication-TileImage" content="/icon-192.png" />
         <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2025-12-28" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-28" />
@@ -179,7 +183,7 @@ export default function RootLayout({
           }
         `}} />
         <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" async defer />
-        <Script id="onesignal-init" strategy="afterInteractive" async defer dangerouslySetInnerHTML={{__html: `
+        <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
