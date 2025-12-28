@@ -66,7 +66,7 @@ export async function sendContactForm(data: unknown): Promise<{
   <div style="max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
     <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 60px 40px; text-align: center;">
       <div style="background: rgba(255,255,255,0.2); width: 90px; height: 90px; border-radius: 20px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-        <img src="https://i.postimg.cc/Y2dztjVk/icon.png" alt="Ahsan AI Hub" style="width: 80px; height: 80px; object-fit: contain; border-radius: 16px;" />
+        <img src="https://i.postimg.cc/Y2dztjVk/icon.png" alt="Ahsan AI Hub" style="width: 80px; height: 80px; object-fit: cover; border-radius: 16px;" />
       </div>
       <h1 style="color: #ffffff; margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.025em;">New Inquiry</h1>
       <p style="color: rgba(255,255,255,0.9); margin-top: 12px; font-size: 18px; font-weight: 500;">Ahsan AI Hub Portal</p>

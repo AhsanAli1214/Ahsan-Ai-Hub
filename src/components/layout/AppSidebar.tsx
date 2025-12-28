@@ -55,11 +55,7 @@ export function AppSidebar() {
     <Sidebar side="left" collapsible="icon" className="hidden md:block">
       <SidebarHeader className="border-b space-y-4 p-4">
         <div className="flex items-center gap-3 p-1">
-          <img 
-            src="https://i.postimg.cc/Y2dztjVk/icon.png" 
-            alt="Ahsan AI Hub Logo" 
-            className="h-10 w-10 shrink-0 object-contain"
-          />
+          <AhsanAiHubLogo className="h-10 w-10 shrink-0" />
           <span className="font-headline text-xl font-bold tracking-tight">Ahsan Ai Hub</span>
         </div>
         <Button
