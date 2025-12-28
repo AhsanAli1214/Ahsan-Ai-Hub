@@ -265,11 +265,13 @@ Problem details: ${problem || 'Solve the math problem exactly as shown in the im
 
 Detailed Step-by-Step Solution:`;
 
+    const base64Data = image ? (image.includes(',') ? image.split(',')[1] : image) : null;
+
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
-      prompt: image ? [
+      prompt: base64Data ? [
         { text: prompt },
-        { media: { url: image, contentType: 'image/jpeg' } }
+        { media: { url: `data:image/jpeg;base64,${base64Data}`, contentType: 'image/jpeg' } }
       ] : prompt,
        output: {
         schema: z.object({ result: z.string() })
