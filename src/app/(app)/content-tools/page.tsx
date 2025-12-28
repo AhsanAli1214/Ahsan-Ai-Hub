@@ -779,24 +779,48 @@ export default function ContentToolsPage() {
       )}
 
       {selectedTool === 'math' && (
-        <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-4">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Mathematical Input</label>
-            <div className="relative group">
-              <Textarea 
-                placeholder="Enter your math problem (e.g. solve 2x + 5 = 15 or differentiate sin(x))"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className="min-h-[120px] bg-background border-2 border-border/40 rounded-2xl p-6 font-mono text-lg focus:border-primary/60 transition-all resize-none shadow-inner"
-              />
-              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Sparkles className="h-5 w-5 text-primary/40" />
+        <div className="flex flex-col gap-6">
+          <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+            <div className="space-y-4">
+              <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Problem Description</label>
+              <div className="relative group">
+                <Textarea 
+                  placeholder="Describe the problem or paste the text here..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  className="min-h-[120px] bg-background border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-primary/60 transition-all resize-none shadow-inner"
+                />
               </div>
             </div>
-            <p className="text-[10px] text-muted-foreground font-bold px-2 flex items-center gap-2">
-              <Lightbulb className="h-3 w-3 text-yellow-500" />
-              Tip: You can also upload a photo of your handwritten problem below.
-            </p>
+          </div>
+          
+          <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+            <div className="space-y-4">
+              <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Mathematical Equation</label>
+              <div className="relative group">
+                <input 
+                  type="text"
+                  placeholder="Enter equation (e.g. 2x + 5 = 15)"
+                  className="w-full h-14 bg-background border-2 border-border/40 rounded-xl px-6 font-mono text-xl focus:border-primary/60 outline-none transition-all shadow-inner"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const val = (e.target as HTMLInputElement).value;
+                      if (val) {
+                        setInput(prev => prev ? `${prev}\nEquation: ${val}` : `Equation: ${val}`);
+                        (e.target as HTMLInputElement).value = '';
+                      }
+                    }
+                  }}
+                />
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-40 group-hover:opacity-100 transition-opacity">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </div>
+              </div>
+              <p className="text-[10px] text-muted-foreground font-bold px-2 flex items-center gap-2">
+                <Lightbulb className="h-3 w-3 text-yellow-500" />
+                Tip: Type your equation and press Enter to add it to the description.
+              </p>
+            </div>
           </div>
         </div>
       )}
