@@ -113,36 +113,53 @@ export default function HomePage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-4xl space-y-8">
           {/* Hero Section */}
-          <div className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
-            <div className="flex items-center gap-4 md:gap-6">
-              <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-accent/80">
-                <AhsanAiHubLogo fillContainer className="text-accent-foreground" />
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-accent p-8 md:p-12 shadow-2xl border border-primary/20">
+            {/* Background elements for visual flair */}
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-primary/5 blur-2xl" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <div className="relative group">
+                <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-tr from-primary to-primary-foreground opacity-20 blur-lg group-hover:opacity-40 transition duration-1000"></div>
+                <div className="relative flex h-24 w-24 md:h-32 md:w-32 items-center justify-center overflow-hidden rounded-[2rem] bg-background shadow-2xl">
+                  <AhsanAiHubLogo fillContainer className="text-primary h-12 w-12 md:h-16 md:w-16" />
+                </div>
               </div>
-              <div className="flex-1">
-                <h1 className="font-headline text-3xl font-bold md:text-4xl">
-                  Ahsan Ai Hub
-                </h1>
-                <p className="mt-1 text-lg text-accent-foreground/80">
-                  Your Intelligent AI Companion
+
+              <div className="flex-1 text-center md:text-left space-y-4">
+                <div className="space-y-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-2">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Official Platform</span>
+                  </div>
+                  <h1 className="font-headline text-4xl md:text-6xl font-black tracking-tight text-foreground">
+                    Ahsan <span className="text-primary">AI</span> Hub
+                  </h1>
+                </div>
+                
+                <p className="text-lg md:text-xl font-medium text-muted-foreground max-w-lg leading-relaxed">
+                  The world's most private, powerful, and free AI companion. No login, no tracking, just intelligence.
                 </p>
-                <p className="mt-2 text-sm font-medium text-accent-foreground/70">
-                  Developed by Ahsan Ali
-                </p>
+
+                <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+                  <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-background/50 border border-border/40 backdrop-blur-sm shadow-sm group hover:border-primary/30 transition-all duration-300">
+                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-primary/80">Creator</span>
+                      <span className="text-sm font-bold text-foreground tracking-wide">
+                        Developed by <span className="text-primary font-black underline decoration-primary/30 underline-offset-4">Ahsan Ali</span>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <Button asChild size="lg" className="h-12 px-8 rounded-xl font-black text-xs uppercase tracking-[0.15em] gap-2 shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    <Link href="/recommendations">
+                      <MessageCircle className="h-4 w-4" />
+                      Start Now
+                    </Link>
+                  </Button>
+                </div>
               </div>
-              <Button asChild size="lg" variant="secondary" className="hidden md:flex">
-                <Link href="/recommendations">
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  Start Chatting
-                </Link>
-              </Button>
             </div>
-            {/* Mobile Start Chatting Button */}
-            <Button asChild size="lg" variant="secondary" className="mt-6 w-full md:hidden">
-              <Link href="/recommendations" className="justify-center">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Start Chatting
-              </Link>
-            </Button>
           </div>
 
           {/* Privacy-First Banner */}
