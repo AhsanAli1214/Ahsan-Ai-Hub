@@ -1031,7 +1031,7 @@ export default function ContentToolsPage() {
                       </div>
                       {selectedTool === 'tts' && (
                         <div className="mt-10 pt-10 border-t border-border/40 flex flex-col items-center">
-                          <TextToSpeech text={output} className="w-full" />
+                          <TextToSpeech text={output} />
                         </div>
                       )}
                     </CardContent>
