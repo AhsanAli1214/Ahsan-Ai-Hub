@@ -291,6 +291,7 @@ export default function ContentToolsPage() {
 
     if (selectedTool === 'tts') {
       setOutput(input);
+      setLoading(false);
       return;
     }
 
