@@ -854,7 +854,7 @@ export default function ContentToolsPage() {
                           {[
                             'π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log',
                             'sin', 'cos', 'tan', 'θ', 'Δ', 'λ', '≈', '≠',
-                            '≤', '≥', '±', '→', '∂', '∇', '∩', '∪'
+                            '≤', '≥', '±', '→', '∂', '∇', '∩', '∪', 'μ', '^'
                           ].map((sym) => (
                             <button
                               key={sym}
