@@ -7,7 +7,7 @@ const apiKey = process.env.GEMINI_API_KEY;
 
 // Validate in production
 if (process.env.NODE_ENV === 'production' && !apiKey) {
-  throw new Error('Missing GEMINI_API_KEY environment variable');
+  throw new Error('Our AI is currently taking a short break. Please try again in a moment or refresh the page.');
 }
 
 export const ai = genkit({
@@ -16,5 +16,5 @@ export const ai = genkit({
       apiKey: apiKey || 'dummy-key-for-testing',
     })
   ],
-  model: 'googleai/gemini-2.5-flash',
+  model: 'googleai/gemini-2.0-flash',
 });
