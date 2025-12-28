@@ -35,16 +35,18 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
   title: {
-    default: 'Ahsan Ai Hub',
-    template: 'Ahsan Ai Hub'
+    default: 'Ahsan AI Hub by Ahsan Ali - Free AI Chat & Tools',
+    template: 'Ahsan AI Hub by Ahsan Ali'
   },
-  description: 'Ahsan Ai Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking.',
+  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking. Try Ahsan Ai and Ahsan Tech Hub today.',
   keywords: [
-    'Ahsan Ai Hub', 'free AI chat', 'Ahsan AI', 'best free AI tools 2025',
-    'AI text rewriter', 'AI code explainer', 'privacy-first AI', 'no login AI',
-    'advanced AI free', 'AI email writer', 'AI story generator',
-    'free translation tools', 'unlimited text to speech', 'anonymous AI',
-    'AI productivity hub', 'Ahsan Ali AI'
+    'Ahsan AI', 'Ahsan Ai Hub', 'Ahsan Ali Ai', 'Ahsan Ai by Ahsan Ali',
+    'Ahsan Ai Hub by Ahsan Ali', 'Ahsan Ali Wadani', 'Ahsan Wadani', 'Ahsan Tech Hub',
+    'free AI chat', 'best free AI tools 2025', 'AI text rewriter', 'AI code explainer',
+    'privacy-first AI', 'no login AI', 'advanced AI free', 'AI email writer',
+    'AI story generator', 'free translation tools', 'unlimited text to speech',
+    'anonymous AI', 'AI productivity hub', 'Ahsan Ali AI', 'AI generator tools',
+    'best AI platform 2025', 'free AI tools', 'AI assistant', 'creative AI tools'
   ],
   manifest: '/manifest.json',
   appleWebApp: {
@@ -68,15 +70,15 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
-    siteName: 'Ahsan Ai Hub',
-    title: 'Ahsan Ai Hub - Free AI Chat & Professional Content Tools',
-    description: 'Experience unlimited AI chat, 9+ generation tools, and 50+ language translations. 100% private, no account needed, completely free.',
+    siteName: 'Ahsan AI Hub by Ahsan Ali',
+    title: 'Ahsan AI Hub by Ahsan Ali Wadani - Free AI Chat & Professional Content Tools',
+    description: 'Experience unlimited AI chat with Ahsan AI, Ahsan Wadani\'s 9+ generation tools, and 50+ language translations. 100% private, no account needed, completely free. Try Ahsan Tech Hub today!',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ahsan Ai Hub - Your Privacy-First AI Companion',
+        alt: 'Ahsan AI Hub by Ahsan Ali - Your Privacy-First AI Companion',
       },
     ],
   },
@@ -84,8 +86,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@Ahsan_Ali_12',
     creator: '@Ahsan_Ali_12',
-    title: 'Ahsan Ai Hub - Free AI Chat & Professional Content Tools',
-    description: 'Free AI chat and 10+ professional tools. No login, 100% private.',
+    title: 'Ahsan AI Hub by Ahsan Ali Wadani - Free AI Chat & Tools',
+    description: 'Free AI chat and 10+ professional tools by Ahsan Ali. No login, 100% private. Try Ahsan AI and Ahsan Tech Hub!',
     images: ['/og-image.png'],
   },
   robots: {
@@ -111,7 +113,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Ahsan Ai Hub</title>
+        <title>Ahsan AI Hub by Ahsan Ali - Free AI Chat & Tools</title>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
@@ -198,11 +200,17 @@ export default function RootLayout({
         <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Organization',
-          'name': 'Ahsan Ai Hub',
+          'name': 'Ahsan AI Hub',
+          'alternateName': ['Ahsan AI', 'Ahsan Ali AI', 'Ahsan Ai by Ahsan Ali', 'Ahsan AI Hub by Ahsan Ali', 'Ahsan Wadani', 'Ahsan Tech Hub', 'Ahsan Ali Wadani'],
           'url': 'https://ahsan-ai-hub.vercel.app',
           'logo': 'https://ahsan-ai-hub.vercel.app/logo.png',
           'image': 'https://ahsan-ai-hub.vercel.app/og-image.png',
-          'description': 'Ahsan AI Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking.',
+          'description': 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking. Experience Ahsan AI, Ahsan Tech Hub, and more.',
+          'keywords': 'Ahsan AI, Ahsan Ali AI, Ahsan Ai Hub, Ahsan Tech Hub, Ahsan Wadani, Ahsan Ali Wadani, free AI chat, AI tools',
+          'founder': {
+            '@type': 'Person',
+            'name': 'Ahsan Ali'
+          },
           'sameAs': [
             'https://twitter.com/Ahsan_Ali_12'
           ],
