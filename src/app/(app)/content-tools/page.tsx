@@ -55,8 +55,8 @@ import type {
   AssistResumeInput,
 } from '@/ai/flows/content-tools';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import { LANGUAGES } from '@/lib/languages';
 import { TextToSpeech } from '@/components/TextToSpeech';
 import 'katex/dist/katex.min.css';
@@ -1021,12 +1021,8 @@ export default function ContentToolsPage() {
                     <CardContent className="p-10 flex-1 flex flex-col">
                       <div className="prose prose-invert prose-emerald max-w-none prose-headings:font-black prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium prose-pre:bg-muted/50 prose-pre:rounded-2xl prose-pre:border-2 prose-pre:border-border/40 prose-pre:p-6 prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none flex-1">
                         <ReactMarkdown
-                          remarkPlugins={[remarkGfm]}
-                          rehypePlugins={[rehypeRaw]}
-                          components={{
-                            math: ({ value }) => <BlockMath math={value} />,
-                            inlineMath: ({ value }) => <InlineMath math={value} />,
-                          }}
+                          remarkPlugins={[remarkGfm, remarkMath]}
+                          rehypePlugins={[rehypeRaw, rehypeKatex]}
                         >
                           {output}
                         </ReactMarkdown>
