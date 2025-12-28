@@ -342,6 +342,7 @@ export default function ContentToolsPage() {
           result = await enhanceTextAction({
             text: input,
             mode: (options.enhanceMode as EnhanceTextInput['mode']) || 'improve',
+            length: options.enhanceLength || 'original',
           });
           break;
         case 'email':
@@ -400,7 +401,11 @@ export default function ContentToolsPage() {
           });
           break;
         case 'story':
-          result = await generateStoryAction({ prompt: input });
+          result = await generateStoryAction({ 
+            prompt: input,
+            genre: options.storyGenre,
+            length: options.storyLength
+          });
           break;
         default:
           return;
@@ -535,6 +540,35 @@ export default function ContentToolsPage() {
             </Card>
 
     <div className="flex flex-col gap-6">
+      {selectedTool === 'enhance' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Enhancement Mode</label>
+            <select 
+              value={options.enhanceMode} 
+              onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="improve">Improve Flow</option>
+              <option value="grammar">Fix Grammar</option>
+              <option value="rewrite">Professional Rewrite</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
+            <select 
+              value={options.enhanceLength || 'original'} 
+              onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="original">Keep Original</option>
+              <option value="concise">More Concise</option>
+              <option value="detailed">More Detailed</option>
+            </select>
+          </div>
+        </div>
+      )}
+
       {selectedTool === 'email' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
           <div className="space-y-2">
@@ -984,6 +1018,38 @@ export default function ContentToolsPage() {
               <option value="beginner">Beginner</option>
               <option value="intermediate">Intermediate</option>
               <option value="advanced">Advanced / Expert</option>
+            </select>
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'story' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Genre</label>
+            <select 
+              value={options.storyGenre || 'fantasy'} 
+              onChange={(e) => setOptions({...options, storyGenre: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="fantasy">Fantasy</option>
+              <option value="scifi">Sci-Fi</option>
+              <option value="mystery">Mystery</option>
+              <option value="romance">Romance</option>
+              <option value="horror">Horror</option>
+              <option value="adventure">Adventure</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Story Length</label>
+            <select 
+              value={options.storyLength || 'short'} 
+              onChange={(e) => setOptions({...options, storyLength: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="short">Short Story</option>
+              <option value="medium">Medium Length</option>
+              <option value="long">Epic Tale</option>
             </select>
           </div>
         </div>

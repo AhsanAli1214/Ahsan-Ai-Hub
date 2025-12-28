@@ -7,6 +7,7 @@ import { z } from 'genkit';
 const EnhanceTextInputSchema = z.object({
   text: z.string().describe('The text to enhance.'),
   mode: z.enum(['grammar', 'improve', 'rewrite']).describe('The enhancement mode.'),
+  length: z.string().optional().describe('The length preference for enhanced text.'),
 });
 export type EnhanceTextInput = z.infer<typeof EnhanceTextInputSchema>;
 
@@ -25,13 +26,15 @@ const enhanceTextFlow = ai.defineFlow(
     inputSchema: EnhanceTextInputSchema,
     outputSchema: EnhanceTextOutputSchema,
   },
-  async ({ text, mode }) => {
+  async ({ text, mode, length }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
       prompt: `You are a text enhancement AI. Your task is to ${mode} the following text.
 - If the mode is 'grammar', correct any grammatical errors, spelling mistakes, and punctuation.
 - If the mode is 'improve', enhance the clarity, flow, and vocabulary of the text while preserving the original meaning.
 - If the mode is 'rewrite', rewrite the entire text to make it sound more professional and compelling.
+
+Length preference: ${length || 'original'} (original means maintain roughly the same length, concise means make it shorter, detailed means expand it)
 
 Return ONLY the resulting text.
 
@@ -484,6 +487,7 @@ Result:`,
 const GenerateStoryInputSchema = z.object({
   prompt: z.string().describe("The story idea."),
   genre: z.string().optional().describe("The genre."),
+  length: z.string().optional().describe("The length of the story."),
 });
 export type GenerateStoryInput = z.infer<typeof GenerateStoryInputSchema>;
 
@@ -502,12 +506,13 @@ const generateStoryFlow = ai.defineFlow(
     inputSchema: GenerateStoryInputSchema,
     outputSchema: GenerateStoryOutputSchema,
   },
-  async ({ prompt, genre }) => {
+  async ({ prompt, genre, length }) => {
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',
       prompt: `You are a creative writer. Write an engaging story.
 
 Genre: ${genre || 'any'}
+Length: ${length || 'short'}
 Prompt: "${prompt}"
 
 Story:`,
