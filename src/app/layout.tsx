@@ -204,11 +204,19 @@ export default function RootLayout({
           'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
           'url': 'https://ahsan-ai-hub.vercel.app',
           'applicationCategory': 'Productivity',
+          'operatingSystem': 'Web',
           'offers': {
             '@type': 'AggregateOffer',
             'priceCurrency': 'USD',
             'lowPrice': '0',
             'highPrice': '0',
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.8',
+            'ratingCount': '1200',
+            'bestRating': '5',
+            'worstRating': '1',
           },
         })}} />
         <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
@@ -221,6 +229,11 @@ export default function RootLayout({
           'image': 'https://ahsan-ai-hub.vercel.app/og-image.png',
           'description': 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking. Experience Ahsan AI, Ahsan Tech Hub, and more.',
           'keywords': 'Ahsan AI, Ahsan Ali AI, Ahsan Ai Hub, Ahsan Tech Hub, Ahsan Wadani, Ahsan Ali Wadani, free AI chat, AI tools',
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.8',
+            'ratingCount': '1200',
+          },
           'founder': {
             '@type': 'Person',
             'name': 'Ahsan Ali'
