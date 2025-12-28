@@ -148,6 +148,8 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
+        <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.onesignal.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2025-12-28" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-28" />
@@ -182,8 +184,8 @@ export default function RootLayout({
             });
           }
         `}} />
-        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
-        <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+        <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="lazyOnload" />
+        <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
@@ -234,12 +236,12 @@ export default function RootLayout({
             'name': 'Ahsan Ali'
           },
           'sameAs': [
-            'https://twitter.com/Ahsan_Ali_12'
+            'https://www.instagram.com/ahsan.ali.wadani'
           ],
           'contactPoint': {
             '@type': 'ContactPoint',
             'contactType': 'Support',
-            'email': 'support@ahsan-ai-hub.com'
+            'email': 'tickets@ahsan-ai-hub.p.tawk.email'
           }
         })}} />
       </head>
