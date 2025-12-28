@@ -274,7 +274,7 @@ export default function ContentToolsPage() {
 
   useEffect(() => {
     if (output && scrollRef.current) {
-      const offset = 100; // Adjust offset to show result header
+      const offset = 100;
       const elementPosition = scrollRef.current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
       
@@ -292,8 +292,6 @@ export default function ContentToolsPage() {
     }
 
     if (selectedTool === 'tts') {
-      // Browser-native TTS is handled within the TextToSpeech component
-      // We don't need to do anything here except ensure the component sees the input
       setOutput(input);
       setLoading(false);
       return;
@@ -539,515 +537,514 @@ export default function ContentToolsPage() {
               </div>
             </Card>
 
-    <div className="flex flex-col gap-6">
-      {selectedTool === 'enhance' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Enhancement Mode</label>
-            <select 
-              value={options.enhanceMode} 
-              onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="improve">Improve Flow</option>
-              <option value="grammar">Fix Grammar</option>
-              <option value="rewrite">Professional Rewrite</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
-            <select 
-              value={options.enhanceLength || 'original'} 
-              onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="original">Keep Original</option>
-              <option value="concise">More Concise</option>
-              <option value="detailed">More Detailed</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'email' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Email Tone</label>
-            <select 
-              value={options.emailTone} 
-              onChange={(e) => setOptions({...options, emailTone: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="professional">Professional</option>
-              <option value="formal">Formal</option>
-              <option value="casual">Casual</option>
-              <option value="friendly">Friendly</option>
-              <option value="urgent">Urgent</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Specific Details</label>
-            <input 
-              type="text"
-              placeholder="e.g. Include meeting time at 2PM"
-              value={options.emailDetails || ''}
-              onChange={(e) => setOptions({...options, emailDetails: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
-            />
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'blog' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Article Length</label>
-            <select 
-              value={options.blogLength} 
-              onChange={(e) => setOptions({...options, blogLength: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="short">Short (300 words)</option>
-              <option value="medium">Medium (700 words)</option>
-              <option value="long">Long (1200+ words)</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
-            <input 
-              type="text"
-              placeholder="e.g. Tech enthusiasts, Beginners"
-              value={options.blogAudience || ''}
-              onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
-            />
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'translate' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
-            <select 
-              value={options.targetLanguage} 
-              onChange={(e) => setOptions({...options, targetLanguage: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              {LANGUAGES.map(lang => (
-                <option key={lang.code} value={lang.name}>{lang.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
-            <select 
-              value={options.translateTone || 'neutral'} 
-              onChange={(e) => setOptions({...options, translateTone: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="neutral">Neutral</option>
-              <option value="formal">Formal</option>
-              <option value="casual">Casual</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'social' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
-            <select 
-              value={options.socialPlatform} 
-              onChange={(e) => setOptions({...options, socialPlatform: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="Twitter">Twitter / X</option>
-              <option value="Instagram">Instagram</option>
-              <option value="LinkedIn">LinkedIn</option>
-              <option value="Facebook">Facebook</option>
-              <option value="TikTok">TikTok (Script)</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
-            <select 
-              value={options.socialGoal || 'engagement'} 
-              onChange={(e) => setOptions({...options, socialGoal: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="engagement">Engagement</option>
-              <option value="informational">Informational</option>
-              <option value="promotional">Promotional</option>
-              <option value="humorous">Humorous</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'resume' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
-            <select 
-              value={options.resumeSection} 
-              onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="summary">Professional Summary</option>
-              <option value="experience">Work Experience</option>
-              <option value="skills">Skills Optimization</option>
-              <option value="education">Education</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
-            <input 
-              type="text"
-              placeholder="e.g. Senior Developer, Manager"
-              value={options.resumeRole || ''}
-              onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
-            />
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'code' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
-            <select 
-              value={options.codeLanguage} 
-              onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="JavaScript">JavaScript</option>
-              <option value="TypeScript">TypeScript</option>
-              <option value="Python">Python</option>
-              <option value="Java">Java</option>
-              <option value="C++">C++</option>
-              <option value="Go">Go</option>
-              <option value="Rust">Rust</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
-            <select 
-              value={options.codeMode || 'explain'} 
-              onChange={(e) => setOptions({...options, codeMode: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="explain">Explain Logic</option>
-              <option value="optimize">Optimize Performance</option>
-              <option value="debug">Find Bugs</option>
-              <option value="security">Security Audit</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'study' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
-            <select 
-              value={options.studyType} 
-              onChange={(e) => setOptions({...options, studyType: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="explanation">Deep Explanation</option>
-              <option value="notes">Concise Notes</option>
-              <option value="flashcards">Flashcards (Q&A)</option>
-              <option value="quiz">Multiple Choice Quiz</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
-            <select 
-              value={options.difficulty} 
-              onChange={(e) => setOptions({...options, difficulty: e.target.value})}
-              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced / Expert</option>
-            </select>
-          </div>
-        </div>
-      )}
-
-      {selectedTool === 'math' && (
-        <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          {/* Problem Header Section */}
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-rose-500/20 to-orange-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
-                    <FileText className="h-4 w-4 text-rose-500" />
-                  </div>
-                  <label className="text-xs font-black uppercase tracking-[0.2em] text-rose-500/80">Context & Description</label>
-                </div>
-                <div className="relative group/input">
-                  <Textarea 
-                    placeholder="Provide background information, explain the steps you've taken, or paste the full word problem here..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="min-h-[140px] bg-background/50 border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-rose-500/40 transition-all resize-none shadow-inner group-hover/input:bg-background/80"
-                  />
-                  <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">
-                    <BookOpen className="h-3 w-3" />
-                    Narrative Input
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Advanced Equation Input Section */}
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-rose-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
-                      <Code className="h-4 w-4 text-primary" />
-                    </div>
-                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary">Advanced Equation Editor</label>
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-primary/70">Live Expression</span>
-                  </div>
-                </div>
-
-                <div className="relative group/equation">
-                  <input 
-                    type="text"
-                    placeholder="Type equation (e.g., lim x->0 sin(x)/x or f(x) = x^2 + 2x + 1)"
-                    className="w-full h-20 bg-background/50 border-2 border-border/40 rounded-2xl px-8 font-mono text-2xl focus:border-primary/60 outline-none transition-all shadow-inner group-hover/equation:bg-background/80 placeholder:text-muted-foreground/30 text-primary"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        const val = (e.target as HTMLInputElement).value;
-                        if (val) {
-                          setInput(prev => prev ? `${prev}\n\n[Equation Entry]\n${val}\n---` : `[Equation Entry]\n${val}\n---`);
-                          (e.target as HTMLInputElement).value = '';
-                          toast({ title: 'Equation Added to Workbench', className: 'rounded-xl font-bold' });
-                        }
-                      }
-                    }}
-                  />
-                  <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                    <div className="hidden md:flex flex-col items-end mr-2">
-                      <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Press Enter</span>
-                      <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">To Commit</span>
-                    </div>
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover/equation:scale-110 transition-transform">
-                      <Sparkles className="h-5 w-5 text-primary" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {['π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log'].map((sym) => (
-                    <button
-                      key={sym}
-                      onClick={() => {
-                        const inputEl = document.querySelector('input[placeholder*="Type equation"]') as HTMLInputElement;
-                        if (inputEl) {
-                          const start = inputEl.selectionStart || 0;
-                          const end = inputEl.selectionEnd || 0;
-                          const text = inputEl.value;
-                          inputEl.value = text.substring(0, start) + sym + text.substring(end);
-                          inputEl.focus();
-                          inputEl.setSelectionRange(start + sym.length, start + sym.length);
-                        }
-                      }}
-                      className="h-10 rounded-xl bg-background/40 border border-border/40 text-sm font-bold hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all active:scale-95"
+            <div className="flex flex-col gap-6">
+              {selectedTool === 'enhance' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Enhancement Mode</label>
+                    <select 
+                      value={options.enhanceMode} 
+                      onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
                     >
-                      {sym}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex items-start gap-4 p-5 bg-yellow-500/5 rounded-2xl border border-yellow-500/10">
-                  <Lightbulb className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
-                  <div className="space-y-1">
-                    <p className="text-xs font-bold text-foreground/80">Pro Tip: Use the Quick Symbols above</p>
-                    <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">
-                      You can combine narrative descriptions with multiple equations. Each committed equation is added to your workbench for final analysis.
-                    </p>
+                      <option value="improve">Improve Flow</option>
+                      <option value="grammar">Fix Grammar</option>
+                      <option value="rewrite">Professional Rewrite</option>
+                    </select>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-
-          <div className="flex flex-col gap-6">
-            {selectedTool !== 'math' && (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between px-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                    </div>
-                    <label className="text-sm font-black uppercase tracking-widest text-foreground">Input Details</label>
-                  </div>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={() => {
-                      setInput('');
-                      setMathImage(null);
-                    }}
-                    className="text-[10px] font-black uppercase tracking-widest hover:bg-primary/10 rounded-lg h-8"
-                  >
-                    <RotateCcw className="h-3 w-3 mr-2" /> Reset
-                  </Button>
-                </div>
-                
-                <div className="relative group">
-                  <Textarea
-                    placeholder={tool.placeholder}
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="min-h-[180px] bg-card/60 border-2 border-primary/10 rounded-[2rem] p-8 text-lg font-medium focus:border-primary/40 transition-all backdrop-blur-xl shadow-inner resize-none group-hover:bg-card/80"
-                  />
-                  <div className="absolute bottom-6 right-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-50">AI Engine Ready</div>
-                </div>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Button
-                variant="outline"
-                className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-black text-xs uppercase tracking-widest gap-3 shadow-sm hover:shadow-md"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <Upload className="h-5 w-5 text-primary" />
-                <span>Upload File</span>
-              </Button>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                className="hidden"
-                accept={selectedTool === 'math' ? 'image/*,text/*' : 'text/*'}
-              />
-
-              <Button
-                onClick={handleProcess}
-                disabled={loading || (!input.trim() && !mathImage)}
-                className={cn(
-                  'h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-3',
-                  tool.color.replace('bg-', 'shadow-') + '/20'
-                )}
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Generating...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-5 w-5" />
-                    <span>Generate Content</span>
-                  </>
-                )}
-              </Button>
-            </div>
-
-            {mathImage && (
-              <div className="relative w-full max-w-md mx-auto aspect-video rounded-3xl overflow-hidden border-2 border-primary/20 shadow-2xl mt-4 group">
-                <img src={mathImage} alt="Math problem" className="w-full h-full object-cover" />
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  className="absolute top-4 right-4 rounded-full w-10 h-10 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                  onClick={() => setMathImage(null)}
-                >
-                  <X className="h-5 w-5" />
-                </Button>
-                <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md p-3 text-center">
-                  <p className="text-[10px] font-black text-white uppercase tracking-widest">Image for analysis attached</p>
-                </div>
-              </div>
-            )}
-
-            <div className="flex items-center gap-3 p-5 bg-primary/5 rounded-2xl border border-primary/10">
-              <Lightbulb className="h-5 w-5 text-primary animate-pulse" />
-              <p className="text-xs font-bold text-muted-foreground leading-relaxed">{tool.tip}</p>
-            </div>
-
-            {output && (
-              <div ref={scrollRef} className="space-y-6 pt-10 border-t border-primary/10 mt-10 animate-in fade-in slide-in-from-bottom-10 duration-700">
-                <div className="flex items-center justify-between px-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center border border-green-500/20">
-                      <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    </div>
-                    <label className="text-sm font-black uppercase tracking-widest text-foreground">AI Generated Result</label>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleCopy}
-                      className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
+                    <select 
+                      value={options.enhanceLength || 'original'} 
+                      onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
                     >
-                      {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-                      {copied ? 'Copied' : 'Copy'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDownload('txt')}
-                      className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
-                    >
-                      <Download className="h-3.5 w-3.5" />
-                      Save
-                    </Button>
+                      <option value="original">Keep Original</option>
+                      <option value="concise">More Concise</option>
+                      <option value="detailed">More Detailed</option>
+                    </select>
                   </div>
                 </div>
+              )}
 
-                <Card className="rounded-[2.5rem] border-2 border-primary/10 bg-card/60 backdrop-blur-xl shadow-2xl overflow-hidden min-h-[300px] flex flex-col">
-                  <CardContent className="p-10 flex-1 flex flex-col">
-                    <div className="prose prose-invert prose-emerald max-w-none prose-headings:font-black prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium prose-pre:bg-muted/50 prose-pre:rounded-2xl prose-pre:border-2 prose-pre:border-border/40 prose-pre:p-6 prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none flex-1">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                          math: ({ value }) => <BlockMath math={value} />,
-                          inlineMath: ({ value }) => <InlineMath math={value} />,
-                        }}
-                      >
-                        {output}
-                      </ReactMarkdown>
-                    </div>
-                    {selectedTool === 'tts' && (
-                      <div className="mt-10 pt-10 border-t border-border/40 flex flex-col items-center">
-                        <TextToSpeech text={output} className="w-full" />
+              {selectedTool === 'email' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Email Tone</label>
+                    <select 
+                      value={options.emailTone} 
+                      onChange={(e) => setOptions({...options, emailTone: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="professional">Professional</option>
+                      <option value="formal">Formal</option>
+                      <option value="casual">Casual</option>
+                      <option value="friendly">Friendly</option>
+                      <option value="urgent">Urgent</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Specific Details</label>
+                    <input 
+                      type="text"
+                      placeholder="e.g. Include meeting time at 2PM"
+                      value={options.emailDetails || ''}
+                      onChange={(e) => setOptions({...options, emailDetails: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'blog' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Article Length</label>
+                    <select 
+                      value={options.blogLength} 
+                      onChange={(e) => setOptions({...options, blogLength: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="short">Short (300 words)</option>
+                      <option value="medium">Medium (700 words)</option>
+                      <option value="long">Long (1200+ words)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
+                    <input 
+                      type="text"
+                      placeholder="e.g. Tech enthusiasts, Beginners"
+                      value={options.blogAudience || ''}
+                      onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'translate' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
+                    <select 
+                      value={options.targetLanguage} 
+                      onChange={(e) => setOptions({...options, targetLanguage: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      {LANGUAGES.map(lang => (
+                        <option key={lang.code} value={lang.name}>{lang.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
+                    <select 
+                      value={options.translateTone || 'neutral'} 
+                      onChange={(e) => setOptions({...options, translateTone: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="neutral">Neutral</option>
+                      <option value="formal">Formal</option>
+                      <option value="casual">Casual</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'social' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
+                    <select 
+                      value={options.socialPlatform} 
+                      onChange={(e) => setOptions({...options, socialPlatform: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="Twitter">Twitter / X</option>
+                      <option value="Instagram">Instagram</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Facebook">Facebook</option>
+                      <option value="TikTok">TikTok (Script)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
+                    <select 
+                      value={options.socialGoal || 'engagement'} 
+                      onChange={(e) => setOptions({...options, socialGoal: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="engagement">Engagement</option>
+                      <option value="informational">Informational</option>
+                      <option value="promotional">Promotional</option>
+                      <option value="humorous">Humorous</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'resume' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
+                    <select 
+                      value={options.resumeSection} 
+                      onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="summary">Professional Summary</option>
+                      <option value="experience">Work Experience</option>
+                      <option value="skills">Skills Optimization</option>
+                      <option value="education">Education</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
+                    <input 
+                      type="text"
+                      placeholder="e.g. Senior Developer, Manager"
+                      value={options.resumeRole || ''}
+                      onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'code' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
+                    <select 
+                      value={options.codeLanguage} 
+                      onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="JavaScript">JavaScript</option>
+                      <option value="TypeScript">TypeScript</option>
+                      <option value="Python">Python</option>
+                      <option value="Java">Java</option>
+                      <option value="C++">C++</option>
+                      <option value="Go">Go</option>
+                      <option value="Rust">Rust</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
+                    <select 
+                      value={options.codeMode || 'explain'} 
+                      onChange={(e) => setOptions({...options, codeMode: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="explain">Explain Logic</option>
+                      <option value="optimize">Optimize Performance</option>
+                      <option value="debug">Find Bugs</option>
+                      <option value="security">Security Audit</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'study' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
+                    <select 
+                      value={options.studyType} 
+                      onChange={(e) => setOptions({...options, studyType: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="explanation">Deep Explanation</option>
+                      <option value="notes">Concise Notes</option>
+                      <option value="flashcards">Flashcards (Q&A)</option>
+                      <option value="quiz">Multiple Choice Quiz</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
+                    <select 
+                      value={options.difficulty} 
+                      onChange={(e) => setOptions({...options, difficulty: e.target.value})}
+                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="beginner">Beginner</option>
+                      <option value="intermediate">Intermediate</option>
+                      <option value="advanced">Advanced / Expert</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'math' && (
+                <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-rose-500/20 to-orange-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                            <FileText className="h-4 w-4 text-rose-500" />
+                          </div>
+                          <label className="text-xs font-black uppercase tracking-[0.2em] text-rose-500/80">Context & Description</label>
+                        </div>
+                        <div className="relative group/input">
+                          <Textarea 
+                            placeholder="Provide background information, explain the steps you've taken, or paste the full word problem here..."
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className="min-h-[140px] bg-background/50 border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-rose-500/40 transition-all resize-none shadow-inner group-hover/input:bg-background/80"
+                          />
+                          <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">
+                            <BookOpen className="h-3 w-3" />
+                            Narrative Input
+                          </div>
+                        </div>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center py-10 opacity-60 hover:opacity-100 transition-opacity">
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Rate this result:</p>
-                  <div className="flex gap-4">
-                    <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-green-500/10 hover:text-green-500"><CheckCircle2 className="h-5 w-5" /></Button>
-                    <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-red-500/10 hover:text-red-500"><X className="h-5 w-5" /></Button>
+                    </div>
+                  </div>
+                  
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-rose-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
+                      <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                              <Code className="h-4 w-4 text-primary" />
+                            </div>
+                            <label className="text-xs font-black uppercase tracking-[0.2em] text-primary">Advanced Equation Editor</label>
+                          </div>
+                          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                            <span className="text-[10px] font-black uppercase tracking-widest text-primary/70">Live Expression</span>
+                          </div>
+                        </div>
+
+                        <div className="relative group/equation">
+                          <input 
+                            type="text"
+                            placeholder="Type equation (e.g., lim x->0 sin(x)/x or f(x) = x^2 + 2x + 1)"
+                            className="w-full h-20 bg-background/50 border-2 border-border/40 rounded-2xl px-8 font-mono text-2xl focus:border-primary/60 outline-none transition-all shadow-inner group-hover/equation:bg-background/80 placeholder:text-muted-foreground/30 text-primary"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                const val = (e.target as HTMLInputElement).value;
+                                if (val) {
+                                  setInput(prev => prev ? `${prev}\n\n[Equation Entry]\n${val}\n---` : `[Equation Entry]\n${val}\n---`);
+                                  (e.target as HTMLInputElement).value = '';
+                                  toast({ title: 'Equation Added to Workbench', className: 'rounded-xl font-bold' });
+                                }
+                              }
+                            }}
+                          />
+                          <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                            <div className="hidden md:flex flex-col items-end mr-2">
+                              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Press Enter</span>
+                              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">To Commit</span>
+                            </div>
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover/equation:scale-110 transition-transform">
+                              <Sparkles className="h-5 w-5 text-primary" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          {['π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log'].map((sym) => (
+                            <button
+                              key={sym}
+                              onClick={() => {
+                                const inputEl = document.querySelector('input[placeholder*="Type equation"]') as HTMLInputElement;
+                                if (inputEl) {
+                                  const start = inputEl.selectionStart || 0;
+                                  const end = inputEl.selectionEnd || 0;
+                                  const text = inputEl.value;
+                                  inputEl.value = text.substring(0, start) + sym + text.substring(end);
+                                  inputEl.focus();
+                                  inputEl.setSelectionRange(start + sym.length, start + sym.length);
+                                }
+                              }}
+                              className="h-10 rounded-xl bg-background/40 border border-border/40 text-sm font-bold hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all active:scale-95"
+                            >
+                              {sym}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="flex items-start gap-4 p-5 bg-yellow-500/5 rounded-2xl border border-yellow-500/10">
+                          <Lightbulb className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
+                          <div className="space-y-1">
+                            <p className="text-xs font-bold text-foreground/80">Pro Tip: Use the Quick Symbols above</p>
+                            <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">
+                              You can combine narrative descriptions with multiple equations. Each committed equation is added to your workbench for final analysis.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-6">
+              {selectedTool !== 'math' && (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between px-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <Sparkles className="h-4 w-4 text-primary" />
+                      </div>
+                      <label className="text-sm font-black uppercase tracking-widest text-foreground">Input Details</label>
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => {
+                        setInput('');
+                        setMathImage(null);
+                      }}
+                      className="text-[10px] font-black uppercase tracking-widest hover:bg-primary/10 rounded-lg h-8"
+                    >
+                      <RotateCcw className="h-3 w-3 mr-2" /> Reset
+                    </Button>
+                  </div>
+                  
+                  <div className="relative group">
+                    <Textarea
+                      placeholder={tool.placeholder}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      className="min-h-[180px] bg-card/60 border-2 border-primary/10 rounded-[2rem] p-8 text-lg font-medium focus:border-primary/40 transition-all backdrop-blur-xl shadow-inner resize-none group-hover:bg-card/80"
+                    />
+                    <div className="absolute bottom-6 right-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-50">AI Engine Ready</div>
+                  </div>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Button
+                  variant="outline"
+                  className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-black text-xs uppercase tracking-widest gap-3 shadow-sm hover:shadow-md"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Upload className="h-5 w-5 text-primary" />
+                  <span>Upload File</span>
+                </Button>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  accept={selectedTool === 'math' ? 'image/*,text/*' : 'text/*'}
+                />
+
+                <Button
+                  onClick={handleProcess}
+                  disabled={loading || (!input.trim() && !mathImage)}
+                  className={cn(
+                    'h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-3',
+                    tool.color.replace('bg-', 'shadow-') + '/20'
+                  )}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span>Generating...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-5 w-5" />
+                      <span>Generate Content</span>
+                    </>
+                  )}
+                </Button>
               </div>
-            )}
+
+              {mathImage && (
+                <div className="relative w-full max-w-md mx-auto aspect-video rounded-3xl overflow-hidden border-2 border-primary/20 shadow-2xl mt-4 group">
+                  <img src={mathImage} alt="Math problem" className="w-full h-full object-cover" />
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-4 right-4 rounded-full w-10 h-10 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => setMathImage(null)}
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md p-3 text-center">
+                    <p className="text-[10px] font-black text-white uppercase tracking-widest">Image for analysis attached</p>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center gap-3 p-5 bg-primary/5 rounded-2xl border border-primary/10">
+                <Lightbulb className="h-5 w-5 text-primary animate-pulse" />
+                <p className="text-xs font-bold text-muted-foreground leading-relaxed">{tool.tip}</p>
+              </div>
+
+              {output && (
+                <div ref={scrollRef} className="space-y-6 pt-10 border-t border-primary/10 mt-10 animate-in fade-in slide-in-from-bottom-10 duration-700">
+                  <div className="flex items-center justify-between px-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center border border-green-500/20">
+                        <CheckCircle2 className="h-4 w-4 text-green-500" />
+                      </div>
+                      <label className="text-sm font-black uppercase tracking-widest text-foreground">AI Generated Result</label>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleCopy}
+                        className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
+                      >
+                        {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
+                        {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDownload('txt')}
+                        className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                        Save
+                      </Button>
+                    </div>
+                  </div>
+
+                  <Card className="rounded-[2.5rem] border-2 border-primary/10 bg-card/60 backdrop-blur-xl shadow-2xl overflow-hidden min-h-[300px] flex flex-col">
+                    <CardContent className="p-10 flex-1 flex flex-col">
+                      <div className="prose prose-invert prose-emerald max-w-none prose-headings:font-black prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium prose-pre:bg-muted/50 prose-pre:rounded-2xl prose-pre:border-2 prose-pre:border-border/40 prose-pre:p-6 prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none flex-1">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          rehypePlugins={[rehypeRaw]}
+                          components={{
+                            math: ({ value }) => <BlockMath math={value} />,
+                            inlineMath: ({ value }) => <InlineMath math={value} />,
+                          }}
+                        >
+                          {output}
+                        </ReactMarkdown>
+                      </div>
+                      {selectedTool === 'tts' && (
+                        <div className="mt-10 pt-10 border-t border-border/40 flex flex-col items-center">
+                          <TextToSpeech text={output} className="w-full" />
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center py-10 opacity-60 hover:opacity-100 transition-opacity">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Rate this result:</p>
+                    <div className="flex gap-4">
+                      <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-green-500/10 hover:text-green-500"><CheckCircle2 className="h-5 w-5" /></Button>
+                      <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-red-500/10 hover:text-red-500"><X className="h-5 w-5" /></Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
