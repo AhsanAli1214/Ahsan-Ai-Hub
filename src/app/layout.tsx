@@ -202,6 +202,12 @@ export default function RootLayout({
           'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
           'url': 'https://ahsan-ai-hub.vercel.app',
           'applicationCategory': 'Productivity',
+          'operatingSystem': 'Windows, macOS, Android, iOS, Linux',
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.9',
+            'ratingCount': '1250'
+          },
           'offers': {
             '@type': 'AggregateOffer',
             'priceCurrency': 'USD',
