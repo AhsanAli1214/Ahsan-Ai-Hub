@@ -3,7 +3,7 @@
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/components/ui/sidebar';
-import { Menu, Wrench } from 'lucide-react';
+import { Menu, PenTool } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
