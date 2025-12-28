@@ -75,8 +75,16 @@ const nextConfig = {
             value: 'strict-origin-when-cross-origin'
           },
           {
+            key: 'Permissions-Policy',
+            value: 'geolocation=(), microphone=(), camera=()'
+          },
+          {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
+          },
+          {
+            key: 'Content-Encoding',
+            value: 'gzip'
           },
         ],
       },
