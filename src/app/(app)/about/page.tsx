@@ -110,18 +110,15 @@ export default function AboutPage() {
             
             <div className="relative grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-12">
               <div className="flex justify-center md:col-span-4 lg:col-span-3">
-                {developerImage && (
-                  <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-accent shadow-2xl transition-transform hover:scale-105 duration-300">
-                    <Image
-                      src={developerImage.imageUrl}
-                      alt="Developer Ahsan Ali"
-                      fill
-                      className="object-cover"
-                      data-ai-hint={developerImage.imageHint}
-                      priority
-                    />
-                  </div>
-                )}
+                <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-accent shadow-2xl transition-transform hover:scale-105 duration-300">
+                  <Image
+                    src="/images/developer.jpg"
+                    alt="Developer Ahsan Ali"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
               </div>
               
               <div className="space-y-4 text-center md:col-span-8 md:text-left lg:col-span-9">
