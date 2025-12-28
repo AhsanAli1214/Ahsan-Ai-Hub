@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import '../styles/accessibility.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/contexts/theme-context';
@@ -130,7 +129,6 @@ export default function RootLayout({
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="color-scheme" content="light dark" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -204,19 +202,11 @@ export default function RootLayout({
           'description': 'Advanced AI-powered platform for chat, content generation, and creative tools',
           'url': 'https://ahsan-ai-hub.vercel.app',
           'applicationCategory': 'Productivity',
-          'operatingSystem': 'Web',
           'offers': {
             '@type': 'AggregateOffer',
             'priceCurrency': 'USD',
             'lowPrice': '0',
             'highPrice': '0',
-          },
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.8',
-            'ratingCount': '1200',
-            'bestRating': '5',
-            'worstRating': '1',
           },
         })}} />
         <Script id="schema-org" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
@@ -229,11 +219,6 @@ export default function RootLayout({
           'image': 'https://ahsan-ai-hub.vercel.app/og-image.png',
           'description': 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking. Experience Ahsan AI, Ahsan Tech Hub, and more.',
           'keywords': 'Ahsan AI, Ahsan Ali AI, Ahsan Ai Hub, Ahsan Tech Hub, Ahsan Wadani, Ahsan Ali Wadani, free AI chat, AI tools',
-          'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': '4.8',
-            'ratingCount': '1200',
-          },
           'founder': {
             '@type': 'Person',
             'name': 'Ahsan Ali'
