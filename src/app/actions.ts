@@ -177,14 +177,9 @@ export async function generateStoryAction(input: GenerateStoryInput): Promise<Co
   }
 }
 
-// Text-to-Speech Action
+// Text-to-Speech Action (Deprecated - use browser-native API)
 export async function textToSpeechAction(input: TextToSpeechInput): Promise<{ success: true; data: string } | { success: false; error: string }> {
-  try {
-    const { audio } = await textToSpeech(input);
-    return { success: true, data: audio };
-  } catch (error) {
-    return { success: false, error: 'TTS conversion error' };
-  }
+  return { success: false, error: 'AI-based TTS is disabled. Please use the browser-native speech feature.' };
 }
 
 // Error Reporting Action

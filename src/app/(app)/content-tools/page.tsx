@@ -290,6 +290,8 @@ export default function ContentToolsPage() {
     }
 
     if (selectedTool === 'tts') {
+      // Browser-native TTS is handled within the TextToSpeech component
+      // We don't need to do anything here except ensure the component sees the input
       setOutput(input);
       setLoading(false);
       return;
