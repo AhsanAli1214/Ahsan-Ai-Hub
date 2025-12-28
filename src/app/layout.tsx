@@ -132,10 +132,6 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/icon-192.png" />
         <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
-        <link rel="preload" href="/logo.png" as="image" type="image/png" />
-        <link rel="preload" href="/favicon.png" as="image" type="image/png" />
-        <link rel="prefetch" href="/recommendations" />
-        <link rel="prefetch" href="/content-tools" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2025-12-28" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-28" />
@@ -223,74 +219,6 @@ export default function RootLayout({
             'contactType': 'Support',
             'email': 'support@ahsan-ai-hub.com'
           }
-        })}} />
-        <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'BreadcrumbList',
-          'itemListElement': [
-            {
-              '@type': 'ListItem',
-              'position': 1,
-              'name': 'Home',
-              'item': 'https://ahsan-ai-hub.vercel.app'
-            },
-            {
-              '@type': 'ListItem',
-              'position': 2,
-              'name': 'AI Chat',
-              'item': 'https://ahsan-ai-hub.vercel.app/'
-            },
-            {
-              '@type': 'ListItem',
-              'position': 3,
-              'name': 'Content Tools',
-              'item': 'https://ahsan-ai-hub.vercel.app/content-tools'
-            },
-            {
-              '@type': 'ListItem',
-              'position': 4,
-              'name': 'Features',
-              'item': 'https://ahsan-ai-hub.vercel.app/features'
-            }
-          ]
-        })}} />
-        <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          'mainEntity': [
-            {
-              '@type': 'Question',
-              'name': 'Is Ahsan AI Hub free?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, Ahsan AI Hub is completely free to use. All features are available without any login required.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Do you track my data?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'No, we have zero tracking. Your privacy is our priority. All data remains private and secure.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'What AI tools does Ahsan AI Hub offer?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Ahsan AI Hub offers 9+ generation tools including AI chat, text rewriting, code explanation, email writing, story generation, social media posts, and more.'
-              }
-            },
-            {
-              '@type': 'Question',
-              'name': 'Does Ahsan AI Hub support multiple languages?',
-              'acceptedAnswer': {
-                '@type': 'Answer',
-                'text': 'Yes, Ahsan AI Hub supports 50+ language translations powered by advanced AI technology.'
-              }
-            }
-          ]
         })}} />
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
