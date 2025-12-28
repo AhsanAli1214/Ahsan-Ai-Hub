@@ -35,8 +35,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
   title: {
-    default: 'Ahsan AI Hub by Ahsan Ali - Free AI Chat & Tools',
-    template: 'Ahsan AI Hub by Ahsan Ali'
+    default: 'Ahsan Ai Hub',
+    template: 'Ahsan Ai Hub'
   },
   description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 free AI chat assistant with no login required. Use our free AI writing assistant, blog post generator, resume builder, code explainer, math solver, translator (50+ languages), text-to-speech, and 9+ more tools. No signup needed. Zero tracking.',
   keywords: [
@@ -125,7 +125,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Ahsan AI Hub by Ahsan Ali - Free AI Chat & Tools</title>
+        <title>Ahsan Ai Hub</title>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
