@@ -51,6 +51,18 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'Ahsan Ai Hub',
+    startupImage: [
+      {
+        url: '/icon-512.png',
+        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+      }
+    ]
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  itunes: {
+    appId: 'com.ahsan_ai_hub.twa',
   },
   openGraph: {
     type: 'website',
