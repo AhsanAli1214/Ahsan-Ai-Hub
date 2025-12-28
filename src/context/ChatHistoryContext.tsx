@@ -8,6 +8,7 @@ export type Message = {
   content: string;
   originalContent?: string;
   translatedTo?: string;
+  showOriginal?: boolean;
   timestamp: number;
   isError?: boolean;
 };

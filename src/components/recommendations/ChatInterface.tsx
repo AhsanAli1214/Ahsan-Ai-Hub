@@ -26,7 +26,8 @@ function MessageBubble({
     isPlaying, 
     isBuffering,
     onPauseAudio,
-    onReportError
+    onReportError,
+    onToggleOriginal
 }: { 
     message: Message, 
     onTranslate: (messageId: string, text: string, lang: Language) => void,
@@ -34,7 +35,8 @@ function MessageBubble({
     isPlaying: boolean,
     isBuffering: boolean,
     onPauseAudio: () => void,
-    onReportError?: (error: string) => void
+    onReportError?: (error: string) => void,
+    onToggleOriginal?: (messageId: string) => void
 }) {
   const { toast } = useToast();
   const isUser = message.role === 'user';
@@ -158,15 +160,20 @@ function MessageBubble({
             )}
           </div>
           {message.originalContent && (
-            <button 
-              className="mt-2 text-xs text-muted-foreground hover:text-primary hover:underline transition-colors"
-              onClick={() => {
-                const originalLang = 'en' as Language;
-                onTranslate(message.id, message.originalContent || message.content, originalLang);
-              }}
-            >
-              ↺ Show Original
-            </button>
+            <div className="mt-3 pt-3 border-t border-border/30 space-y-2">
+              {message.showOriginal && (
+                <div className="text-xs text-muted-foreground bg-muted/30 rounded p-2">
+                  <div className="font-semibold mb-1 text-foreground/70">Original:</div>
+                  <div className="opacity-80">{message.originalContent}</div>
+                </div>
+              )}
+              <button 
+                className="text-xs text-primary hover:text-primary/80 hover:underline transition-colors font-medium"
+                onClick={() => onToggleOriginal?.(message.id)}
+              >
+                {message.showOriginal ? '↓ Hide Original' : '↑ Show Original'}
+              </button>
+            </div>
           )}
           
           {links.length > 0 && (
@@ -525,7 +532,8 @@ export function ChatInterface({
       updateMessage(messageId, { 
         content: result.data,
         originalContent: text,
-        translatedTo: lang
+        translatedTo: lang,
+        showOriginal: false
       });
       toast({ title: `Translated to ${LANGUAGES.find(l => l.code === lang)?.name || lang}` });
     } else if (!result.success) {
@@ -533,6 +541,15 @@ export function ChatInterface({
         variant: 'destructive',
         title: 'Translation Failed',
         description: result.error,
+      });
+    }
+  };
+
+  const handleToggleOriginal = (messageId: string) => {
+    const message = messages.find(m => m.id === messageId);
+    if (message) {
+      updateMessage(messageId, { 
+        showOriginal: !message.showOriginal 
       });
     }
   };
@@ -609,6 +626,7 @@ export function ChatInterface({
                 isBuffering={false}
                 onPauseAudio={handlePauseAudio}
                 onReportError={(error) => handleReportError(error)}
+                onToggleOriginal={handleToggleOriginal}
                 />
             ))
           )}
