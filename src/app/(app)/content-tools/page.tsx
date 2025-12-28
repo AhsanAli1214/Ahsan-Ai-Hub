@@ -57,6 +57,7 @@ import type {
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
+import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
 import { LANGUAGES } from '@/lib/languages';
 import { TextToSpeech } from '@/components/TextToSpeech';
