@@ -25,18 +25,22 @@ function MessageBubble({
     onPlayAudio, 
     isPlaying, 
     isBuffering,
-    onPauseAudio 
+    onPauseAudio,
+    onReportError
 }: { 
     message: Message, 
     onTranslate: (messageId: string, text: string, lang: Language) => void,
     onPlayAudio: (text: string) => void,
     isPlaying: boolean,
     isBuffering: boolean,
-    onPauseAudio: () => void 
+    onPauseAudio: () => void,
+    onReportError?: (error: string) => void
 }) {
   const { toast } = useToast();
   const isUser = message.role === 'user';
+  const isError = message.isError;
   const [isTranslating, setIsTranslating] = useState(false);
+  const [isReporting, setIsReporting] = useState(false);
 
   const links = useMemo(() => parseLinks(message.content), [message.content]);
   const textContent = useMemo(() => {
@@ -67,6 +71,13 @@ function MessageBubble({
     }
   }
 
+  const handleReport = async () => {
+    if (!onReportError) return;
+    setIsReporting(true);
+    await onReportError(message.originalContent || message.content);
+    setIsReporting(false);
+  }
+
   return (
     <div className="group relative flex flex-col">
        <div
@@ -83,34 +94,68 @@ function MessageBubble({
             'relative max-w-[85%] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-3xl p-3 sm:p-4 break-words overflow-hidden shadow-md transition-all duration-200',
             isUser
               ? 'rounded-br-lg bg-primary text-primary-foreground shadow-lg'
-              : 'rounded-bl-lg border border-accent/20 bg-card backdrop-blur-sm shadow-lg hover:shadow-xl hover:border-accent/40'
+              : isError
+                ? 'rounded-bl-lg border border-destructive/50 bg-destructive/10 text-destructive shadow-lg'
+                : 'rounded-bl-lg border border-accent/20 bg-card backdrop-blur-sm shadow-lg hover:shadow-xl hover:border-accent/40'
           )}
         >
           <div className="break-words">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
-                a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className={cn(isUser ? "text-white underline font-medium" : "text-primary hover:text-primary/80 underline font-medium")} />,
-                h1: ({node, ...props}) => <h1 className="font-bold text-xl mb-3 mt-3 first:mt-0" {...props} />,
-                h2: ({node, ...props}) => <h2 className="font-bold text-lg mb-2 mt-3 first:mt-0" {...props} />,
-                h3: ({node, ...props}) => <h3 className="font-semibold text-base mb-2 mt-2 first:mt-0" {...props} />,
-                ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
-                ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
-                li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                code: ({node, inline, className, children, ...props}: any) => 
-                  !inline ? (
-                    <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
-                      <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
-                    </div>
-                  ) : (
-                    <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>
-                  ),
-              }}
-            >
-              {textContent}
-            </ReactMarkdown>
+            {isError ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2 font-semibold text-destructive">
+                  <Bot className="h-5 w-5" />
+                  <span>Oops! Something went wrong</span>
+                </div>
+                <p className="text-sm opacity-90">
+                  {message.content}
+                </p>
+                <div className="flex gap-2 mt-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="h-8 text-xs bg-background/50 border-destructive/20 text-destructive hover:bg-destructive/10"
+                    onClick={() => window.location.reload()}
+                  >
+                    Try Again
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-8 text-xs text-destructive hover:bg-destructive/20"
+                    onClick={handleReport}
+                    disabled={isReporting}
+                  >
+                    {isReporting ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : null}
+                    Report Error
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
+                  a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className={cn(isUser ? "text-white underline font-medium" : "text-primary hover:text-primary/80 underline font-medium")} />,
+                  h1: ({node, ...props}) => <h1 className="font-bold text-xl mb-3 mt-3 first:mt-0" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="font-bold text-lg mb-2 mt-3 first:mt-0" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="font-semibold text-base mb-2 mt-2 first:mt-0" {...props} />,
+                  ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
+                  ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
+                  li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                  code: ({node, inline, className, children, ...props}: any) => 
+                    !inline ? (
+                      <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
+                        <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
+                      </div>
+                    ) : (
+                      <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>
+                    ),
+                }}
+              >
+                {textContent}
+              </ReactMarkdown>
+            )}
           </div>
           {message.originalContent && (
             <button 
@@ -460,7 +505,9 @@ export function ChatInterface({
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: result.error,
+        originalContent: userInput, // Store original error trigger for reporting
         timestamp: Date.now(),
+        isError: true,
       };
       addMessage(newErrorMessage);
     }
@@ -561,6 +608,7 @@ export function ChatInterface({
                 isPlaying={activeMessageId === message.id}
                 isBuffering={false}
                 onPauseAudio={handlePauseAudio}
+                onReportError={(error) => handleReportError(error)}
                 />
             ))
           )}

@@ -42,8 +42,8 @@ export async function getRecommendationsAction(
     return { success: true, data: recommendations };
   } catch (error) {
     const errorMessage = error instanceof Error && error.message.includes('429')
-      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
-      : 'An unexpected error occurred. Please try again.';
+      ? 'Our AI is currently very busy handling other requests. Please try again in a moment.'
+      : 'I encountered an unexpected issue. Please click the report button below so I can fix it, or try again.';
     return { success: false, error: errorMessage };
   }
 }
@@ -196,6 +196,18 @@ export async function reportErrorAction(errorData: {
 
     const resendKey = process.env.RESEND_API_KEY;
     if (resendKey) {
+      const reportHtml = `
+        <div style="font-family: sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #dc2626;">New AI Error Reported</h2>
+          <p><strong>Feature:</strong> ${feature}</p>
+          <p><strong>Error Message:</strong> ${errorMessage}</p>
+          <p><strong>User Agent:</strong> ${userAgent}</p>
+          <p><strong>Time:</strong> ${new Date(timestamp).toLocaleString()}</p>
+          <hr style="border: 1px solid #eee;" />
+          <p style="font-size: 12px; color: #666;">Sent from Ahsan AI Hub Monitoring</p>
+        </div>
+      `;
+
       await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -205,8 +217,8 @@ export async function reportErrorAction(errorData: {
         body: JSON.stringify({
           from: 'Ahsan AI Hub <onboarding@resend.dev>',
           to: 'a67515346@gmail.com',
-          subject,
-          text: body,
+          subject: `[AI ERROR] ${feature} - ${errorMessage.substring(0, 50)}...`,
+          html: reportHtml,
         }),
       });
     }

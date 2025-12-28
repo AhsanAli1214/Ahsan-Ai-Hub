@@ -9,6 +9,7 @@ export type Message = {
   originalContent?: string;
   translatedTo?: string;
   timestamp: number;
+  isError?: boolean;
 };
 
 export type ChatSession = {
