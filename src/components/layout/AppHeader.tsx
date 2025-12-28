@@ -15,7 +15,7 @@ export function AppHeader({ title }: { title: string }) {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="md:hidden flex items-center gap-2">
         <Button 
           variant="ghost" 
