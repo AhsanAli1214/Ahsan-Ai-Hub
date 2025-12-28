@@ -41,7 +41,9 @@ export async function getRecommendationsAction(
     const recommendations = await getPersonalizedToolRecommendations(input);
     return { success: true, data: recommendations };
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
+    const errorMessage = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'An unexpected error occurred. Please try again.';
     return { success: false, error: errorMessage };
   }
 }
@@ -68,7 +70,9 @@ export async function enhanceTextAction(input: EnhanceTextInput): Promise<Conten
     const { result } = await enhanceText(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to enhance text.';
+    const errorMsg = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to enhance text. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
@@ -78,7 +82,9 @@ export async function generateEmailAction(input: GenerateEmailInput): Promise<Co
     const { result } = await generateEmail(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to generate email.';
+    const errorMsg = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to generate email. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
@@ -88,7 +94,9 @@ export async function generateBlogPostAction(input: GenerateBlogPostInput): Prom
     const { result } = await generateBlogPost(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to generate blog post.';
+    const errorMsg = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to generate blog post. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
@@ -98,7 +106,9 @@ export async function generateStudyMaterialAction(input: GenerateStudyMaterialIn
     const { result } = await generateStudyMaterial(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to generate study material.';
+    const errorMsg = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to generate study material. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
@@ -108,7 +118,9 @@ export async function explainProgrammingAction(input: ExplainProgrammingInput): 
     const { result } = await explainProgramming(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to explain code.';
+    const errorMsg = error instanceof Error && error.message.includes('429')
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to explain code. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
@@ -118,7 +130,9 @@ export async function solveMathAction(input: SolveMathInput): Promise<ContentToo
     const { result } = await solveMath(input);
     return { success: true, data: result };
   } catch (error) {
-    const errorMsg = error instanceof Error ? error.message : 'Failed to solve math problem.';
+    const errorMsg = error instanceof Error && error.message.includes('429') 
+      ? 'Our AI is receiving a lot of requests right now. Please wait a minute and try again.'
+      : 'Failed to solve math problem. Please try again or report the error.';
     return { success: false, error: errorMsg };
   }
 }
