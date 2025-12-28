@@ -891,97 +891,99 @@ export default function ContentToolsPage() {
     </div>
 
           <div className="flex flex-col gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between px-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
-                    <Sparkles className="h-4 w-4 text-primary" />
+            {selectedTool !== 'math' && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between px-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                    </div>
+                    <label className="text-sm font-black uppercase tracking-widest text-foreground">Input Details</label>
                   </div>
-                  <label className="text-sm font-black uppercase tracking-widest text-foreground">Input Details</label>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={() => {
-                    setInput('');
-                    setMathImage(null);
-                  }}
-                  className="text-[10px] font-black uppercase tracking-widest hover:bg-primary/10 rounded-lg h-8"
-                >
-                  <RotateCcw className="h-3 w-3 mr-2" /> Reset
-                </Button>
-              </div>
-              
-              <div className="relative group">
-                <Textarea
-                  placeholder={tool.placeholder}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  className="min-h-[180px] bg-card/60 border-2 border-primary/10 rounded-[2rem] p-8 text-lg font-medium focus:border-primary/40 transition-all backdrop-blur-xl shadow-inner resize-none group-hover:bg-card/80"
-                />
-                <div className="absolute bottom-6 right-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-50">AI Engine Ready</div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Button
-                  variant="outline"
-                  className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-black text-xs uppercase tracking-widest gap-3 shadow-sm hover:shadow-md"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Upload className="h-5 w-5 text-primary" />
-                  <span>Upload File</span>
-                </Button>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  accept={selectedTool === 'math' ? 'image/*,text/*' : 'text/*'}
-                />
-
-                <Button
-                  onClick={handleProcess}
-                  disabled={loading || (!input.trim() && !mathImage)}
-                  className={cn(
-                    'h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-3',
-                    tool.color.replace('bg-', 'shadow-') + '/20'
-                  )}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span>Generating...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="h-5 w-5" />
-                      <span>Generate Content</span>
-                    </>
-                  )}
-                </Button>
-              </div>
-
-              {mathImage && (
-                <div className="relative w-full max-w-md mx-auto aspect-video rounded-3xl overflow-hidden border-2 border-primary/20 shadow-2xl mt-4 group">
-                  <img src={mathImage} alt="Math problem" className="w-full h-full object-cover" />
-                  <Button
-                    variant="destructive"
-                    size="icon"
-                    className="absolute top-4 right-4 rounded-full w-10 h-10 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    onClick={() => setMathImage(null)}
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => {
+                      setInput('');
+                      setMathImage(null);
+                    }}
+                    className="text-[10px] font-black uppercase tracking-widest hover:bg-primary/10 rounded-lg h-8"
                   >
-                    <X className="h-5 w-5" />
+                    <RotateCcw className="h-3 w-3 mr-2" /> Reset
                   </Button>
-                  <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md p-3 text-center">
-                    <p className="text-[10px] font-black text-white uppercase tracking-widest">Image for analysis attached</p>
-                  </div>
                 </div>
-              )}
-
-              <div className="flex items-center gap-3 p-5 bg-primary/5 rounded-2xl border border-primary/10">
-                <Lightbulb className="h-5 w-5 text-primary animate-pulse" />
-                <p className="text-xs font-bold text-muted-foreground leading-relaxed">{tool.tip}</p>
+                
+                <div className="relative group">
+                  <Textarea
+                    placeholder={tool.placeholder}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="min-h-[180px] bg-card/60 border-2 border-primary/10 rounded-[2rem] p-8 text-lg font-medium focus:border-primary/40 transition-all backdrop-blur-xl shadow-inner resize-none group-hover:bg-card/80"
+                  />
+                  <div className="absolute bottom-6 right-8 text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-50">AI Engine Ready</div>
+                </div>
               </div>
+            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Button
+                variant="outline"
+                className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-black text-xs uppercase tracking-widest gap-3 shadow-sm hover:shadow-md"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Upload className="h-5 w-5 text-primary" />
+                <span>Upload File</span>
+              </Button>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+                className="hidden"
+                accept={selectedTool === 'math' ? 'image/*,text/*' : 'text/*'}
+              />
+
+              <Button
+                onClick={handleProcess}
+                disabled={loading || (!input.trim() && !mathImage)}
+                className={cn(
+                  'h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-3',
+                  tool.color.replace('bg-', 'shadow-') + '/20'
+                )}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-5 w-5" />
+                    <span>Generate Content</span>
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {mathImage && (
+              <div className="relative w-full max-w-md mx-auto aspect-video rounded-3xl overflow-hidden border-2 border-primary/20 shadow-2xl mt-4 group">
+                <img src={mathImage} alt="Math problem" className="w-full h-full object-cover" />
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-4 right-4 rounded-full w-10 h-10 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => setMathImage(null)}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+                <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-md p-3 text-center">
+                  <p className="text-[10px] font-black text-white uppercase tracking-widest">Image for analysis attached</p>
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-3 p-5 bg-primary/5 rounded-2xl border border-primary/10">
+              <Lightbulb className="h-5 w-5 text-primary animate-pulse" />
+              <p className="text-xs font-bold text-muted-foreground leading-relaxed">{tool.tip}</p>
             </div>
 
             {output && (
