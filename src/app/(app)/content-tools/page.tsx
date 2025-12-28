@@ -59,6 +59,8 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { LANGUAGES } from '@/lib/languages';
 import { TextToSpeech } from '@/components/TextToSpeech';
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
@@ -526,77 +528,59 @@ export default function ContentToolsPage() {
               </div>
             </Card>
 
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-primary font-black text-lg">
-                  <Sparkles className="h-6 w-6" />
-                  <span>Your Input</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
-                    <RotateCcw className="h-4 w-4" /> Clear
-                  </Button>
-                </div>
-              </div>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3 text-primary font-black text-lg">
+          <Sparkles className="h-6 w-6" />
+          <span>Your Input</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
+            <RotateCcw className="h-4 w-4" /> Clear
+          </Button>
+        </div>
+      </div>
 
-              <div className="flex flex-wrap gap-2">
-                {selectedTool === 'math' && (
-                  <>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11" 
-                      onClick={() => {
-                        const input = document.createElement('input');
-                        input.type = 'file';
-                        input.accept = 'image/*';
-                        input.capture = 'environment';
-                        input.onchange = (e) => {
-                          const file = (e.target as HTMLInputElement).files?.[0];
-                          if (file) {
-                            const reader = new FileReader();
-                            reader.onload = (ev) => setMathImage(ev.target?.result as string);
-                            reader.readAsDataURL(file);
-                          }
-                        };
-                        input.click();
-                      }}
-                    >
-                      <Camera className="h-4 w-4" /> Camera
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11" 
-                      onClick={() => {
-                        const input = document.createElement('input');
-                        input.type = 'file';
-                        input.accept = 'image/*';
-                        input.onchange = (e) => {
-                          const file = (e.target as HTMLInputElement).files?.[0];
-                          if (file) {
-                            const reader = new FileReader();
-                            reader.onload = (ev) => setMathImage(ev.target?.result as string);
-                            reader.readAsDataURL(file);
-                          }
-                        };
-                        input.click();
-                      }}
-                    >
-                      <ImageIcon className="h-4 w-4" /> Gallery
-                    </Button>
-                  </>
-                )}
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="flex-1 rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all h-11" 
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Upload className="h-4 w-4" /> {selectedTool === 'math' ? 'File' : 'Upload File'}
-                  <input type="file" ref={fileInputRef} className="hidden" accept={selectedTool === 'math' ? ".txt,.md,.js,.ts,.py,.css,.html,image/*" : ".txt,.md,.js,.ts,.py,.css,.html"} onChange={handleFileUpload} />
-                </Button>
-              </div>
+      <div className="flex flex-wrap gap-2">
+        {selectedTool === 'math' && (
+          <div className="w-full mb-2 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl">
+            <p className="text-xs font-bold text-blue-500 uppercase tracking-wider">Note: Real-time image processing is coming soon. Please use text for now.</p>
+          </div>
+        )}
+        {selectedTool === 'math' && (
+          <>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11 opacity-50 cursor-not-allowed" 
+              onClick={() => {
+                toast({ title: 'Image support coming soon!', description: 'We are currently working on real-time image support for Math Solver.' });
+              }}
+            >
+              <Camera className="h-4 w-4" /> Camera
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11 opacity-50 cursor-not-allowed" 
+              onClick={() => {
+                toast({ title: 'Image support coming soon!', description: 'We are currently working on real-time image support for Math Solver.' });
+              }}
+            >
+              <ImageIcon className="h-4 w-4" /> Gallery
+            </Button>
+          </>
+        )}
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="flex-1 rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all h-11" 
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <Upload className="h-4 w-4" /> {selectedTool === 'math' ? 'File' : 'Upload File'}
+          <input type="file" ref={fileInputRef} className="hidden" accept={selectedTool === 'math' ? ".txt,.md,.js,.ts,.py,.css,.html,image/*" : ".txt,.md,.js,.ts,.py,.css,.html"} onChange={handleFileUpload} />
+        </Button>
+      </div>
             </div>
 
             {mathImage && (

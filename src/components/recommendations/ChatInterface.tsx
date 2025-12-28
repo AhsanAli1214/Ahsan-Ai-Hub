@@ -243,21 +243,6 @@ function MessageBubble({
                 </ScrollArea>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 opacity-80 hover:opacity-100"
-                onClick={handleAudioClick}
-                disabled={isBuffering}
-              >
-                {isBuffering ? (
-                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                ) : isPlaying ? (
-                  <Pause className="h-4 w-4 text-muted-foreground" />
-                ) : (
-                  <Volume2 className="h-4 w-4 text-muted-foreground" />
-                )}
-              </Button>
           </>
         )}
       </div>
