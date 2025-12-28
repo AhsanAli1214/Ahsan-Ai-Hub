@@ -251,13 +251,19 @@ const solveMathFlow = ai.defineFlow(
     outputSchema: SolveMathOutputSchema,
   },
   async ({ problem, image }) => {
-    const prompt = `You are a math solver AI. Solve the math problem and provide a detailed, step-by-step explanation. 
-If an image is provided, focus on the problem in the image. 
-If text is provided, solve that.
+    const prompt = `You are an elite Mathematical AI Expert. Your goal is to solve the provided math problem with absolute precision.
+The problem may contain complex notation, including powers (exponents), roots, fractions, brackets (parentheses), and advanced calculus or algebraic symbols.
 
-Problem details: ${problem || 'See image'}
+CRITICAL INSTRUCTIONS:
+1. Carefully analyze the image or text to identify every mathematical symbol, especially powers (e.g., x², 2^n), subscripts, and nested brackets.
+2. Provide a STEP-BY-STEP solution where each step is clearly explained.
+3. Use LaTeX formatting for all mathematical expressions to ensure clarity (e.g., use $x^2$ for powers).
+4. If it's a multi-part question, solve all parts.
+5. Double-check the logic before finalizing the answer.
 
-Solution:`;
+Problem details: ${problem || 'Solve the math problem exactly as shown in the image.'}
+
+Detailed Step-by-Step Solution:`;
 
     const { output } = await ai.generate({
       model: 'googleai/gemini-2.5-flash',

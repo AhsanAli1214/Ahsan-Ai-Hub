@@ -265,8 +265,21 @@ export default function ContentToolsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (selectedTool) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedTool]);
+
+  useEffect(() => {
     if (output && scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+      const offset = 100; // Adjust offset to show result header
+      const elementPosition = scrollRef.current.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   }, [output]);
 
