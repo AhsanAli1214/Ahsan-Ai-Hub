@@ -32,14 +32,11 @@ function MessageBubble({
     onPlayAudio: (text: string) => void,
     isPlaying: boolean,
     isBuffering: boolean,
-    onPauseAudio: () => void,
-    onRetry?: () => void,
-    onReport?: (error: string) => void
+    onPauseAudio: () => void 
 }) {
   const { toast } = useToast();
   const isUser = message.role === 'user';
-  const isError = (message as any).isError;
-  const [isReporting, setIsReporting] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   const links = useMemo(() => parseLinks(message.content), [message.content]);
   const textContent = useMemo(() => {
@@ -90,60 +87,30 @@ function MessageBubble({
           )}
         >
           <div className="break-words">
-            {isError ? (
-              <div className="space-y-4">
-                <p className="text-destructive-foreground/90 font-medium">{message.content}</p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  <Button 
-                    size="sm" 
-                    variant="secondary" 
-                    className="bg-white/20 hover:bg-white/30 text-white border-none h-8"
-                    onClick={onRetry}
-                  >
-                    Try Again
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    variant="ghost" 
-                    className="text-white/70 hover:text-white hover:bg-white/10 h-8"
-                    onClick={async () => {
-                      setIsReporting(true);
-                      await onReport?.((message as any).technicalError || message.content);
-                      setIsReporting(false);
-                    }}
-                    disabled={isReporting}
-                  >
-                    {isReporting ? <Loader2 className="h-3 w-3 animate-spin mr-2" /> : null}
-                    Report Error
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
-                  a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className={cn(isUser ? "text-white underline font-medium" : "text-primary hover:text-primary/80 underline font-medium")} />,
-                  h1: ({node, ...props}) => <h1 className="font-bold text-xl mb-3 mt-3 first:mt-0" {...props} />,
-                  h2: ({node, ...props}) => <h2 className="font-bold text-lg mb-2 mt-3 first:mt-0" {...props} />,
-                  h3: ({node, ...props}) => <h3 className="font-semibold text-base mb-2 mt-2 first:mt-0" {...props} />,
-                  ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
-                  ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
-                  li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                  code: ({node, inline, className, children, ...props}: any) => 
-                    !inline ? (
-                      <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
-                        <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
-                      </div>
-                    ) : (
-                      <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>
-                    ),
-                }}
-              >
-                {textContent}
-              </ReactMarkdown>
-            )}
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
+                a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className={cn(isUser ? "text-white underline font-medium" : "text-primary hover:text-primary/80 underline font-medium")} />,
+                h1: ({node, ...props}) => <h1 className="font-bold text-xl mb-3 mt-3 first:mt-0" {...props} />,
+                h2: ({node, ...props}) => <h2 className="font-bold text-lg mb-2 mt-3 first:mt-0" {...props} />,
+                h3: ({node, ...props}) => <h3 className="font-semibold text-base mb-2 mt-2 first:mt-0" {...props} />,
+                ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
+                ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
+                li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                code: ({node, inline, className, children, ...props}: any) => 
+                  !inline ? (
+                    <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
+                      <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
+                    </div>
+                  ) : (
+                    <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>
+                  ),
+              }}
+            >
+              {textContent}
+            </ReactMarkdown>
           </div>
           {message.originalContent && (
             <button 
@@ -350,7 +317,7 @@ export function ChatInterface({
     try {
       const result = await reportErrorAction({
         errorMessage: errorMsg,
-        feature: 'AI Chat System',
+        feature: 'Text-to-Speech',
         userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
         timestamp: Date.now(),
       });
@@ -484,18 +451,16 @@ export function ChatInterface({
         updateCurrentSessionTitle(userInput.substring(0, 50) + (userInput.length > 50 ? '...' : ''));
       }
     } else if (!result.success) {
-      const isQuotaError = result.error.includes('429') || result.error.includes('quota') || result.error.includes('limit');
-      const friendlyError = isQuotaError 
-        ? "The AI is currently receiving too many requests. Please wait a moment and click 'Try Again' to continue our conversation."
-        : "I encountered an unexpected error. Don't worry, you can try sending your message again.";
-
-      const newErrorMessage: Message = {
+      toast({
+        variant: 'destructive',
+        title: 'An error occurred',
+        description: result.error,
+      });
+       const newErrorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: friendlyError,
+        content: result.error,
         timestamp: Date.now(),
-        isError: true,
-        technicalError: result.error
       };
       addMessage(newErrorMessage);
     }
@@ -596,13 +561,6 @@ export function ChatInterface({
                 isPlaying={activeMessageId === message.id}
                 isBuffering={false}
                 onPauseAudio={handlePauseAudio}
-                onRetry={() => {
-                  const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
-                  if (lastUserMsg) {
-                    setInput(lastUserMsg.content);
-                  }
-                }}
-                onReport={(err) => handleReportError(err)}
                 />
             ))
           )}

@@ -197,17 +197,7 @@ export async function reportErrorAction(errorData: {
           from: 'Ahsan AI Hub <onboarding@resend.dev>',
           to: 'tickets@ahsan-ai-hub.p.tawk.email',
           subject,
-          html: `
-            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-              <h2 style="color: #ef4444;">Technical Error Report</h2>
-              <p><strong>Feature:</strong> ${feature}</p>
-              <p><strong>Timestamp:</strong> ${new Date(timestamp).toLocaleString()}</p>
-              <p><strong>User Agent:</strong> ${userAgent}</p>
-              <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                <code style="color: #334155;">${errorMessage}</code>
-              </div>
-            </div>
-          `,
+          text: body,
         }),
       });
     }
