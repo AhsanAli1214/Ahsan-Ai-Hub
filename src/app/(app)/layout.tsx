@@ -9,7 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <div className="md:flex md:justify-center w-full">
         <AppSidebar />
-        <main className="flex-1 bg-background pb-20 md:pb-0 md:p-4 lg:p-6 md:max-w-7xl flex flex-col min-h-screen">
+        <main className="flex-1 bg-background pb-20 md:pb-0 md:max-w-7xl flex flex-col min-h-screen">
           <div className="flex-1 animate-in fade-in duration-300">
             {children}
           </div>
