@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
+  const SUPPORT_EMAIL = "ahsanaliwadani12@gmail.com";
 
   const contactSchema = {
     "@context": "https://schema.org",

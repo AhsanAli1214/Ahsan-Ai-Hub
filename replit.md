@@ -81,7 +81,7 @@
 - ✅ **Contact form with email notifications (NEW)**
 
 ## Contact & Support
-- **Email**: tickets@ahsan-ai-hub.p.tawk.email
+- **Email**: ahsanaliwadani12@gmail.com
 - **Instagram**: @ahsan.ali.wadani
 - **Twitter/X**: @Ahsan_Ali_12
 - **Facebook**: Ahsan Ali
