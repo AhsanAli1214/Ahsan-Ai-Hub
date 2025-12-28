@@ -35,7 +35,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
   title: {
-    default: 'Ahsan Ai Hub',
+    default: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login',
     template: 'Ahsan Ai Hub'
   },
   description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 free AI chat assistant with no login required. Use our free AI writing assistant, blog post generator, resume builder, code explainer, math solver, translator (50+ languages), text-to-speech, and 9+ more tools. No signup needed. Zero tracking.',
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
     siteName: 'Ahsan AI Hub by Ahsan Ali',
-    title: 'Free AI Chat Assistant, Writing, Resume & Code Tools - No Login | Ahsan AI Hub',
+    title: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login Required',
     description: 'Experience unlimited free AI chat assistant, writing assistant, blog generator, resume builder, code explainer, math solver, translator (50+ languages), and 9+ more tools. No login, no signup, 100% private, completely free with Ahsan AI by Ahsan Ali.',
     images: [
       {
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
     site: '@Ahsan_Ali_12',
     creator: '@Ahsan_Ali_12',
     title: 'Ahsan AI Hub by Ahsan Ali Wadani - Free AI Chat & Tools',
-    description: 'Free AI chat and 10+ professional tools by Ahsan Ali. No login, 100% private. Try Ahsan AI and Ahsan Tech Hub!',
+    description: 'Ahsan Ai Hub - Free AI chat assistant, writing tool, code explainer, resume builder, and 9+ more. No login required, no signup. 100% private. Try Ahsan AI today!',
     images: ['/og-image.png'],
   },
   robots: {
@@ -125,7 +125,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>Ahsan Ai Hub</title>
+        <title>Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login</title>
         <meta name="google-site-verification" content="C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
