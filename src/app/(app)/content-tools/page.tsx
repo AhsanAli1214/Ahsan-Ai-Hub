@@ -848,8 +848,12 @@ export default function ContentToolsPage() {
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                          {['π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log'].map((sym) => (
+                        <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-8 gap-3">
+                          {[
+                            'π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log',
+                            'sin', 'cos', 'tan', 'θ', 'Δ', 'λ', '≈', '≠',
+                            '≤', '≥', '±', '→', '∂', '∇', '∩', '∪'
+                          ].map((sym) => (
                             <button
                               key={sym}
                               onClick={() => {
