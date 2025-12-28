@@ -3,6 +3,10 @@ User-agent: *
 Allow: /
 Allow: /_next/static/
 Allow: /public/
+Allow: /favicon.ico
+Allow: /favicon.png
+Allow: /logo.png
+Allow: /apple-touch-icon.png
 Allow: /*.png
 Allow: /*.jpg
 Allow: /*.jpeg

@@ -130,14 +130,15 @@ export default function RootLayout({
         <meta name="msapplication-TileImage" content="/icon-192.png" />
         <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
-        <link rel="icon" type="image/png" href="/icon-192.png?v=2025-12-27" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-27" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2025-12-27" />
-        <link rel="apple-touch-icon" href="/icon-192.png?v=2025-12-27" />
-        <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png?v=2025-12-27" />
-        <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png?v=2025-12-27" />
-        <link rel="mask-icon" href="/icon-maskable-512.png?v=2025-12-27" color="#3b82f6" />
-        <link rel="shortcut icon" href="/icon-192.png?v=2025-12-27" type="image/png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png?v=2025-12-28" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2025-12-28" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2025-12-28" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2025-12-28" />
+        <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png?v=2025-12-28" />
+        <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png?v=2025-12-28" />
+        <link rel="mask-icon" href="/icon-maskable-512.png?v=2025-12-28" color="#3b82f6" />
+        <link rel="shortcut icon" href="/favicon.ico?v=2025-12-28" type="image/x-icon" />
         <Script
           id="theme-init"
           strategy="beforeInteractive"
@@ -199,8 +200,17 @@ export default function RootLayout({
           '@type': 'Organization',
           'name': 'Ahsan Ai Hub',
           'url': 'https://ahsan-ai-hub.vercel.app',
-          'logo': 'https://ahsan-ai-hub.vercel.app/icon-512.png',
-          'description': 'Advanced AI-powered platform for intelligent chat, content generation, and creative tools',
+          'logo': 'https://ahsan-ai-hub.vercel.app/logo.png',
+          'image': 'https://ahsan-ai-hub.vercel.app/og-image.png',
+          'description': 'Ahsan AI Hub: The #1 privacy-first platform for free AI chat, 9+ generation tools, translation, and text-to-speech. Powered by advanced AI. No login, zero tracking.',
+          'sameAs': [
+            'https://twitter.com/Ahsan_Ali_12'
+          ],
+          'contactPoint': {
+            '@type': 'ContactPoint',
+            'contactType': 'Support',
+            'email': 'support@ahsan-ai-hub.com'
+          }
         })}} />
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
