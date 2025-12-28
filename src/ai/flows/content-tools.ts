@@ -252,18 +252,20 @@ const solveMathFlow = ai.defineFlow(
   },
   async ({ problem, image }) => {
     try {
-      const basePrompt = `You are an elite Mathematical AI Expert specializing in solving complex mathematical problems with absolute precision.
-
+      const basePrompt = `You are an elite Mathematical AI Expert. Solve the following problem with absolute precision.
+      
 CRITICAL INSTRUCTIONS:
-1. Analyze the math problem carefully - identify every mathematical symbol, especially powers (e.g., x², 2^n), subscripts, fractions, and nested brackets.
-2. Provide a complete STEP-BY-STEP solution where each step is numbered and clearly explained.
-3. Use proper mathematical notation and LaTeX formatting where applicable (e.g., $x^2$ for squares, $\\sqrt{x}$ for roots).
-4. Show all intermediate steps and reasoning.
-5. If there are multiple parts, solve each one separately.
-6. Always verify your final answer before presenting it.
-7. Include any relevant mathematical formulas or theorems used.
+1. Provide ONLY the mathematical solution and steps. 
+2. NO conversational text, NO "Here is the solution", NO "I hope this helps".
+3. Use proper LaTeX for EVERYTHING. 
+   - Fractions: \\frac{num}{den}
+   - Powers: x^{y}
+   - Roots: \\sqrt{x}
+   - Wrap all math in $ for inline and $$ for block.
+4. If there are steps, number them 1, 2, 3.
+5. End with "Final Answer: [result]" in bold.
 
-${problem ? `Problem: ${problem}` : 'Solve the math problem shown in the image.'}
+Problem: ${problem || 'Solve the problem in the image.'}
 
 SOLUTION:`;
 

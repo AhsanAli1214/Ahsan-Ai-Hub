@@ -528,15 +528,71 @@ export default function ContentToolsPage() {
               </div>
             </Card>
 
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-6">
+      {selectedTool === 'email' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Email Tone</label>
+            <select 
+              value={options.emailTone} 
+              onChange={(e) => setOptions({...options, emailTone: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="professional">Professional</option>
+              <option value="formal">Formal</option>
+              <option value="casual">Casual</option>
+              <option value="friendly">Friendly</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Specific Details</label>
+            <input 
+              type="text"
+              placeholder="e.g. Include meeting time at 2PM"
+              value={options.emailDetails || ''}
+              onChange={(e) => setOptions({...options, emailDetails: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            />
+          </div>
+        </div>
+      )}
+
+      {selectedTool === 'blog' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Article Length</label>
+            <select 
+              value={options.blogLength} 
+              onChange={(e) => setOptions({...options, blogLength: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            >
+              <option value="short">Short (300 words)</option>
+              <option value="medium">Medium (700 words)</option>
+              <option value="long">Long (1200+ words)</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
+            <input 
+              type="text"
+              placeholder="e.g. Tech enthusiasts, Beginners"
+              value={options.blogAudience || ''}
+              onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
+              className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+            />
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-3 text-primary font-black text-lg">
           <Sparkles className="h-6 w-6" />
-          <span>Your Input</span>
+          <span>Input Details</span>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
-            <RotateCcw className="h-4 w-4" /> Clear
+            <RotateCcw className="h-4 w-4" /> Reset
           </Button>
         </div>
       </div>
@@ -633,7 +689,39 @@ export default function ContentToolsPage() {
                       <Sparkles className="h-20 w-20 text-emerald-500" />
                     </div>
                     <div className="prose dark:prose-invert prose-emerald max-w-none font-medium leading-relaxed">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
+                          p: ({ node, ...props }) => <p className="mb-4 last:mb-0 leading-relaxed text-base" {...props} />,
+                          h1: ({ node, ...props }) => <h1 className="text-2xl font-black mb-4 mt-6 first:mt-0 uppercase tracking-tight" {...props} />,
+                          h2: ({ node, ...props }) => <h2 className="text-xl font-black mb-3 mt-5 first:mt-0 uppercase tracking-tight" {...props} />,
+                          h3: ({ node, ...props }) => <h3 className="text-lg font-bold mb-2 mt-4 first:mt-0" {...props} />,
+                          ul: ({ node, ...props }) => <ul className="list-disc pl-6 mb-4 space-y-2" {...props} />,
+                          ol: ({ node, ...props }) => <ol className="list-decimal pl-6 mb-4 space-y-2" {...props} />,
+                          li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                          code: ({ node, inline, className, children, ...props }: any) => {
+                            const content = String(children).replace(/\n$/, '');
+                            const isBlockMath = content.startsWith('$$') && content.endsWith('$$');
+                            const isInlineMath = content.startsWith('$') && content.endsWith('$');
+
+                            if (isBlockMath) {
+                              return <BlockMath math={content.slice(2, -2)} />;
+                            }
+                            if (isInlineMath) {
+                              return <InlineMath math={content.slice(1, -1)} />;
+                            }
+
+                            return !inline ? (
+                              <div className="my-4 rounded-xl bg-black/80 p-5 overflow-x-auto border border-white/10 shadow-2xl">
+                                <code className="text-xs font-mono text-blue-300" {...props}>{children}</code>
+                              </div>
+                            ) : (
+                              <code className="px-2 py-0.5 bg-primary/10 rounded text-primary font-mono text-sm font-bold" {...props}>{children}</code>
+                            );
+                          }
+                        }}
+                      >
                         {output}
                       </ReactMarkdown>
                     </div>

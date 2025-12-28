@@ -18,6 +18,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
+import 'katex/dist/katex.min.css';
+import { InlineMath, BlockMath } from 'react-katex';
 
 function MessageBubble({ 
     message, 
@@ -145,14 +147,25 @@ function MessageBubble({
                   ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-3 space-y-1" {...props} />,
                   ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-3 space-y-1" {...props} />,
                   li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                  code: ({node, inline, className, children, ...props}: any) => 
-                    !inline ? (
-                      <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
-                        <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
-                      </div>
-                    ) : (
-                      <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>
-                    ),
+                  code: ({ node, inline, className, children, ...props }: any) => {
+                    const content = String(children).replace(/\n$/, '');
+                    if (!inline) {
+                      const isBlockMath = content.startsWith('$$') && content.endsWith('$$');
+                      if (isBlockMath) {
+                        return <BlockMath math={content.slice(2, -2)} />;
+                      }
+                      return (
+                        <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
+                          <code className="text-xs font-mono text-white/90" {...props}>{children}</code>
+                        </div>
+                      );
+                    }
+                    const isInlineMath = content.startsWith('$') && content.endsWith('$');
+                    if (isInlineMath) {
+                      return <InlineMath math={content.slice(1, -1)} />;
+                    }
+                    return <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>;
+                  },
                 }}
               >
                 {textContent}
@@ -243,6 +256,21 @@ function MessageBubble({
                 </ScrollArea>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 opacity-80 hover:opacity-100"
+                onClick={handleAudioClick}
+                disabled={isBuffering}
+              >
+                {isBuffering ? (
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                ) : isPlaying ? (
+                  <Pause className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <Volume2 className="h-4 w-4 text-muted-foreground" />
+                )}
+              </Button>
           </>
         )}
       </div>
