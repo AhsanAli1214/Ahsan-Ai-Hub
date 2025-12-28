@@ -131,7 +131,7 @@ const toolsList: {
   {
     id: 'math',
     label: 'Math Solver',
-    icon: Grid,
+    icon: Sparkles,
     desc: 'Step-by-step solutions',
     color: 'bg-rose-500',
     placeholder: 'Enter your math problem step-by-step...',
@@ -524,18 +524,26 @@ export default function ContentToolsPage() {
               </div>
             </Card>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 text-primary font-black text-lg">
-                <Sparkles className="h-6 w-6" />
-                <span>Your Input</span>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3 text-primary font-black text-lg">
+                  <Sparkles className="h-6 w-6" />
+                  <span>Your Input</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
+                    <RotateCcw className="h-4 w-4" /> Clear
+                  </Button>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
+
+              <div className="flex flex-wrap gap-2">
                 {selectedTool === 'math' && (
-                  <div className="flex items-center gap-2">
+                  <>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="rounded-xl font-bold gap-2 border-primary/30" 
+                      className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11" 
                       onClick={() => {
                         const input = document.createElement('input');
                         input.type = 'file';
@@ -557,7 +565,7 @@ export default function ContentToolsPage() {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="rounded-xl font-bold gap-2 border-primary/30" 
+                      className="flex-1 rounded-xl font-bold gap-2 border-primary/30 h-11" 
                       onClick={() => {
                         const input = document.createElement('input');
                         input.type = 'file';
@@ -575,14 +583,16 @@ export default function ContentToolsPage() {
                     >
                       <ImageIcon className="h-4 w-4" /> Gallery
                     </Button>
-                  </div>
+                  </>
                 )}
-                <Button variant="outline" size="sm" className="rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all" onClick={() => fileInputRef.current?.click()}>
-                  <Upload className="h-4 w-4" /> Upload File
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1 rounded-xl font-bold gap-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all h-11" 
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Upload className="h-4 w-4" /> {selectedTool === 'math' ? 'File' : 'Upload File'}
                   <input type="file" ref={fileInputRef} className="hidden" accept={selectedTool === 'math' ? ".txt,.md,.js,.ts,.py,.css,.html,image/*" : ".txt,.md,.js,.ts,.py,.css,.html"} onChange={handleFileUpload} />
-                </Button>
-                <Button variant="ghost" size="sm" onClick={() => { setInput(''); setMathImage(null); }} className="rounded-xl font-bold gap-2 text-muted-foreground hover:text-red-500 transition-colors">
-                  <RotateCcw className="h-4 w-4" /> Clear
                 </Button>
               </div>
             </div>
