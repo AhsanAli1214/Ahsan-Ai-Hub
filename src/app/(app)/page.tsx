@@ -331,25 +331,6 @@ export default function HomePage() {
           </Card>
 
 
-          {/* Push Notifications Section */}
-          <Card className="bg-card border-primary/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <div>
-                <CardTitle className="text-foreground">Enable Push Notifications</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  Get notified about new features and important updates
-                </CardDescription>
-              </div>
-              <Smartphone className="h-6 w-6 text-primary" />
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Subscribe to receive push notifications directly on your device. Stay updated with the latest features and announcements.
-              </p>
-              <OneSignalButton />
-            </CardContent>
-          </Card>
-
           {/* Smart Prompts Section */}
           <div className="pb-12">
             <h2 className="mb-4 font-headline text-xl font-semibold">
