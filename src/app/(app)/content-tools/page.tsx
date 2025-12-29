@@ -31,6 +31,7 @@ import {
   Camera,
   Image as ImageIcon,
   X,
+  Zap,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import {
