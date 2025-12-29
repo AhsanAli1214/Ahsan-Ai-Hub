@@ -126,7 +126,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('selectedColorTheme') || 'default';
+                document.documentElement.setAttribute('data-theme', theme);
+                const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <ThemeProvider
           attribute="class"
@@ -145,6 +164,31 @@ export default function RootLayout({
               <ConnectionStatus />
               <Analytics />
               <SpeedInsights />
+              {/* Load OneSignal after hydration */}
+              <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+                if ('serviceWorker' in navigator) {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js');
+                  });
+                }
+              `}} />
+              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
+              <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+                  window.OneSignalDeferred = window.OneSignalDeferred || [];
+                  OneSignalDeferred.push(async function(OneSignal) {
+                    try {
+                      await OneSignal.init({
+                        appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                        safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
+                        notifyButton: {
+                          enable: true,
+                        },
+                      });
+                    } catch (e) {
+                      // Silent error handling for OneSignal
+                    }
+                  });
+              `}} />
             </ChatHistoryProvider>
           </AppProvider>
         </ThemeProvider>
