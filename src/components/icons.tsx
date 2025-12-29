@@ -1,28 +1,23 @@
 import type { SVGProps } from 'react';
-import Image from 'next/image';
 
 export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number; height?: number, fillContainer?: boolean, priority?: boolean}) {
   if (props.fillContainer) {
     return (
-      <Image
+      <img
         src="/logo.png"
         alt="Ahsan Ai Hub Logo"
-        fill
-        sizes="(max-width: 768px) 80px, 100px"
         className={props.className}
-        style={{ objectFit: 'cover' }}
-        priority={props.priority}
+        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
       />
     );
   }
   return (
-    <Image
+    <img
       src="/logo.png"
       alt="Ahsan Ai Hub Logo"
       width={props.width || 60}
       height={props.height || 60}
       className={props.className}
-      priority={props.priority}
     />
   );
 }
