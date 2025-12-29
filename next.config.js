@@ -82,6 +82,10 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
           },
+          {
+            key: 'Content-Encoding',
+            value: 'gzip'
+          },
         ],
       },
       {
@@ -121,6 +125,15 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=3600, must-revalidate'
+          },
+        ],
+      },
+      {
+        source: '/(.*)(.woff2|.woff|.ttf)$',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
           },
         ],
       },
