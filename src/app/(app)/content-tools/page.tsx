@@ -547,12 +547,15 @@ export default function ContentToolsPage() {
                     <h3 className="text-sm font-black uppercase tracking-widest">Pro Tips for Best Input</h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Genre</label>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Feather className="h-3 w-3" /> Genre
+                    </label>
+                    <div className="relative group/select">
                       <select 
                         value={options.storyGenre || 'fantasy'} 
                         onChange={(e) => setOptions({...options, storyGenre: e.target.value})}
-                        className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
                       >
                         <option value="fantasy">High Fantasy</option>
                         <option value="scifi">Sci-Fi / Space</option>
@@ -560,19 +563,30 @@ export default function ContentToolsPage() {
                         <option value="horror">Horror / Dark</option>
                         <option value="romance">Romance / Drama</option>
                       </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
+                        <Grid className="h-4 w-4 opacity-50" />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Length
+                    </label>
+                    <div className="relative group/select">
                       <select 
                         value={options.storyLength || 'short'} 
                         onChange={(e) => setOptions({...options, storyLength: e.target.value})}
-                        className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
                       >
                         <option value="short">Short Story</option>
                         <option value="medium">Detailed Scene</option>
                         <option value="long">Chapter Outline</option>
                       </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
+                        <Grid className="h-4 w-4 opacity-50" />
+                      </div>
                     </div>
+                  </div>
                   </div>
                   <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
                     <p className="text-xs text-muted-foreground font-medium italic">
@@ -583,48 +597,69 @@ export default function ContentToolsPage() {
               )}
               {selectedTool === 'enhance' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Enhancement Mode</label>
-                    <select 
-                      value={options.enhanceMode} 
-                      onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-                    >
-                      <option value="improve">Improve Flow</option>
-                      <option value="grammar">Fix Grammar</option>
-                      <option value="rewrite">Professional Rewrite</option>
-                    </select>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Enhancement Mode
+                    </label>
+                    <div className="relative group/select">
+                      <select 
+                        value={options.enhanceMode} 
+                        onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
+                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
+                      >
+                        <option value="improve">Improve Flow</option>
+                        <option value="grammar">Fix Grammar</option>
+                        <option value="rewrite">Professional Rewrite</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
+                        <Grid className="h-4 w-4 opacity-50" />
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
-                    <select 
-                      value={options.enhanceLength || 'original'} 
-                      onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-                    >
-                      <option value="original">Keep Original</option>
-                      <option value="concise">More Concise</option>
-                      <option value="detailed">More Detailed</option>
-                    </select>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <FileText className="h-3 w-3" /> Length
+                    </label>
+                    <div className="relative group/select">
+                      <select 
+                        value={options.enhanceLength || 'original'} 
+                        onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
+                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
+                      >
+                        <option value="original">Keep Original</option>
+                        <option value="concise">More Concise</option>
+                        <option value="detailed">More Detailed</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
+                        <Grid className="h-4 w-4 opacity-50" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
 
               {selectedTool === 'email' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Email Tone</label>
-                    <select 
-                      value={options.emailTone} 
-                      onChange={(e) => setOptions({...options, emailTone: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
-                    >
-                      <option value="professional">Professional</option>
-                      <option value="formal">Formal</option>
-                      <option value="casual">Casual</option>
-                      <option value="friendly">Friendly</option>
-                      <option value="urgent">Urgent</option>
-                    </select>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Sparkles className="h-3 w-3" /> Email Tone
+                    </label>
+                    <div className="relative group/select">
+                      <select 
+                        value={options.emailTone} 
+                        onChange={(e) => setOptions({...options, emailTone: e.target.value})}
+                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
+                      >
+                        <option value="professional">Professional</option>
+                        <option value="formal">Formal</option>
+                        <option value="casual">Casual</option>
+                        <option value="friendly">Friendly</option>
+                        <option value="urgent">Urgent</option>
+                      </select>
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
+                        <Grid className="h-4 w-4 opacity-50" />
+                      </div>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Specific Details</label>
