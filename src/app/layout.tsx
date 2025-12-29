@@ -142,12 +142,10 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="msapplication-TileImage" content="/icon-192.png" />
-        <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://api.onesignal.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://i.postimg.cc" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
         <link rel="dns-prefetch" href="https://api.onesignal.com" />

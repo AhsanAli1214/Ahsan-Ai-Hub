@@ -49,6 +49,8 @@ const nextConfig = {
       'lucide-react',
       'date-fns',
       'framer-motion',
+      'react-markdown',
+      'recharts',
     ],
   },
   headers: async () => {

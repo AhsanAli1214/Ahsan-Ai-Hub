@@ -351,7 +351,7 @@ export default function HomePage() {
           </Card>
 
           {/* Smart Prompts Section */}
-          <div>
+          <div className="pb-12">
             <h2 className="mb-4 font-headline text-xl font-semibold">
               Smart Prompts
             </h2>
