@@ -15,10 +15,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const navItems = [
-  { href: '/', icon: Home, label: 'Home' },
-  { href: '/recommendations', icon: Sparkles, label: 'AI Chat' },
-  { href: '/content-tools', icon: PenTool, label: 'Tools' },
-  { href: '/chat-history', icon: History, label: 'History' },
+  { href: '/', icon: Home, label: 'HOME' },
+  { href: '/recommendations', icon: Sparkles, label: 'AI CHAT' },
+  { href: '/chat-history', icon: History, label: 'HISTORY' },
 ];
 
 const moreItems = [
@@ -70,6 +69,14 @@ export function BottomNav() {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" side="top" className="w-56 mb-4 p-2 rounded-[2rem] border-primary/20 bg-background/95 backdrop-blur-xl shadow-2xl animate-in slide-in-from-bottom-2 duration-300">
+          <DropdownMenuItem asChild>
+            <Link href="/content-tools" className="flex items-center gap-3 p-3 rounded-2xl cursor-pointer hover:bg-primary/10 transition-colors group">
+              <div className="p-2 rounded-xl bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                <PenTool className="h-4 w-4 text-primary" />
+              </div>
+              <span className="font-bold text-sm tracking-tight">Tools</span>
+            </Link>
+          </DropdownMenuItem>
           {moreItems.map((item) => (
             <DropdownMenuItem key={item.href} asChild>
               <Link href={item.href} className="flex items-center gap-3 p-3 rounded-2xl cursor-pointer hover:bg-primary/10 transition-colors group">
