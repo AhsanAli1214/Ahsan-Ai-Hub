@@ -17,8 +17,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <FooterWrapper />
           </main>
         </div>
-        <BottomNav />
       </div>
+      <BottomNav />
     </SidebarProvider>
   );
 }
