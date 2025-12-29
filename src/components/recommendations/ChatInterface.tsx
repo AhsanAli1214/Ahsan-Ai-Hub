@@ -173,18 +173,13 @@ function MessageBubble({
             )}
           </div>
           {message.originalContent && (
-            <div className="mt-3 pt-3 border-t border-border/30 space-y-2">
-              {message.showOriginal && (
-                <div className="text-xs text-muted-foreground bg-muted/30 rounded p-2">
-                  <div className="font-semibold mb-1 text-foreground/70">Original:</div>
-                  <div className="opacity-80">{message.originalContent}</div>
-                </div>
-              )}
+            <div className="mt-3 pt-3 border-t border-border/30">
               <button 
-                className="text-xs text-primary hover:text-primary/80 hover:underline transition-colors font-medium"
+                className="text-xs text-primary hover:text-primary/80 hover:underline transition-colors font-medium flex items-center gap-1"
                 onClick={() => onToggleOriginal?.(message.id)}
               >
-                {message.showOriginal ? '↓ Hide Original' : '↑ Show Original'}
+                <Languages className="h-3 w-3" />
+                Show Original
               </button>
             </div>
           )}
@@ -560,9 +555,12 @@ export function ChatInterface({
 
   const handleToggleOriginal = (messageId: string) => {
     const message = messages.find(m => m.id === messageId);
-    if (message) {
+    if (message && message.originalContent) {
       updateMessage(messageId, { 
-        showOriginal: !message.showOriginal 
+        content: message.originalContent,
+        originalContent: undefined,
+        translatedTo: undefined,
+        showOriginal: false 
       });
     }
   };
