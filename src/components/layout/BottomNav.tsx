@@ -16,11 +16,11 @@ import {
 const navItems = [
   { href: '/', icon: Home, label: 'HOME' },
   { href: '/recommendations', icon: Sparkles, label: 'AI CHAT' },
+  { href: '/content-tools', icon: PenTool, label: 'TOOLS' },
   { href: '/chat-history', icon: History, label: 'HISTORY' },
 ];
 
 const moreItems = [
-  { href: '/content-tools', icon: PenTool, label: 'TOOLS' },
   { href: '/settings', icon: Settings, label: 'Settings' },
   { href: '/about', icon: Info, label: 'About' },
   { href: '/faq', icon: HelpCircle, label: 'FAQ' },
@@ -65,7 +65,7 @@ export function BottomNav() {
             <div className="flex items-center justify-center p-2">
               <MoreVertical className="h-5 w-5" />
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">MORE</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">MENU</span>
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" side="top" className="w-56 mb-4 p-2 rounded-[2rem] border-primary/20 bg-background/95 backdrop-blur-xl shadow-2xl animate-in slide-in-from-bottom-2 duration-300">
