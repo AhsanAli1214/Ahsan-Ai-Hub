@@ -127,6 +127,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://cdn.onesignal.com" />
+        <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <Script
           id="theme-init"
           strategy="beforeInteractive"
