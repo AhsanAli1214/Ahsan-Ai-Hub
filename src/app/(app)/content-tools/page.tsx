@@ -652,39 +652,37 @@ export default function ContentToolsPage() {
                     <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
                       <Zap className="h-3 w-3" /> Enhancement Mode
                     </label>
-                    <div className="relative group/select">
-                      <select 
-                        value={options.enhanceMode} 
-                        onChange={(e) => setOptions({...options, enhanceMode: e.target.value})}
-                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
-                      >
-                        <option value="improve">Improve Flow</option>
-                        <option value="grammar">Fix Grammar</option>
-                        <option value="rewrite">Professional Rewrite</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
-                        <Grid className="h-4 w-4 opacity-50" />
-                      </div>
-                    </div>
+                    <Select
+                      value={options.enhanceMode || 'improve'}
+                      onValueChange={(value) => setOptions({ ...options, enhanceMode: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Mode" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="improve" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Improve Flow</SelectItem>
+                        <SelectItem value="grammar" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Fix Grammar</SelectItem>
+                        <SelectItem value="rewrite" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Professional Rewrite</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
                       <FileText className="h-3 w-3" /> Length
                     </label>
-                    <div className="relative group/select">
-                      <select 
-                        value={options.enhanceLength || 'original'} 
-                        onChange={(e) => setOptions({...options, enhanceLength: e.target.value})}
-                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
-                      >
-                        <option value="original">Keep Original</option>
-                        <option value="concise">More Concise</option>
-                        <option value="detailed">More Detailed</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
-                        <Grid className="h-4 w-4 opacity-50" />
-                      </div>
-                    </div>
+                    <Select
+                      value={options.enhanceLength || 'original'}
+                      onValueChange={(value) => setOptions({ ...options, enhanceLength: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Length" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="original" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Keep Original</SelectItem>
+                        <SelectItem value="concise" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">More Concise</SelectItem>
+                        <SelectItem value="detailed" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">More Detailed</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               )}
@@ -695,22 +693,21 @@ export default function ContentToolsPage() {
                     <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
                       <Sparkles className="h-3 w-3" /> Email Tone
                     </label>
-                    <div className="relative group/select">
-                      <select 
-                        value={options.emailTone} 
-                        onChange={(e) => setOptions({...options, emailTone: e.target.value})}
-                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
-                      >
-                        <option value="professional">Professional</option>
-                        <option value="formal">Formal</option>
-                        <option value="casual">Casual</option>
-                        <option value="friendly">Friendly</option>
-                        <option value="urgent">Urgent</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
-                        <Grid className="h-4 w-4 opacity-50" />
-                      </div>
-                    </div>
+                    <Select
+                      value={options.emailTone || 'professional'}
+                      onValueChange={(value) => setOptions({ ...options, emailTone: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Tone" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="professional" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Professional</SelectItem>
+                        <SelectItem value="formal" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Formal</SelectItem>
+                        <SelectItem value="casual" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Casual</SelectItem>
+                        <SelectItem value="friendly" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Friendly</SelectItem>
+                        <SelectItem value="urgent" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Urgent</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Specific Details</label>
@@ -719,233 +716,15 @@ export default function ContentToolsPage() {
                       placeholder="e.g. Include meeting time at 2PM"
                       value={options.emailDetails || ''}
                       onChange={(e) => setOptions({...options, emailDetails: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
+                      className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary/60 outline-none transition-all shadow-sm"
                     />
                   </div>
                 </div>
               )}
 
-              {selectedTool === 'blog' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Article Length</label>
-                    <Select
-                      value={options.blogLength || 'medium'}
-                      onValueChange={(value) => setOptions({ ...options, blogLength: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Length" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="short">Short (300 words)</SelectItem>
-                        <SelectItem value="medium">Medium (700 words)</SelectItem>
-                        <SelectItem value="long">Long (1200+ words)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
-                    <input 
-                      type="text"
-                      placeholder="e.g. Tech enthusiasts, Beginners"
-                      value={options.blogAudience || ''}
-                      onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
-                    />
-                  </div>
-                </div>
-              )}
 
-              {selectedTool === 'translate' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
-                    <Select
-                      value={options.targetLanguage || 'Spanish'}
-                      onValueChange={(value) => setOptions({ ...options, targetLanguage: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Language" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {LANGUAGES.map((lang) => (
-                          <SelectItem key={lang.code} value={lang.name}>
-                            {lang.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
-                    <Select
-                      value={options.translateTone || 'neutral'}
-                      onValueChange={(value) => setOptions({ ...options, translateTone: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Tone" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="neutral">Neutral</SelectItem>
-                        <SelectItem value="formal">Formal</SelectItem>
-                        <SelectItem value="casual">Casual</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              )}
 
-              {selectedTool === 'social' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
-                    <Select
-                      value={options.socialPlatform || 'Twitter'}
-                      onValueChange={(value) => setOptions({ ...options, socialPlatform: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Platform" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Twitter">Twitter / X</SelectItem>
-                        <SelectItem value="Instagram">Instagram</SelectItem>
-                        <SelectItem value="LinkedIn">LinkedIn</SelectItem>
-                        <SelectItem value="Facebook">Facebook</SelectItem>
-                        <SelectItem value="TikTok">TikTok (Script)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
-                    <Select
-                      value={options.socialGoal || 'engagement'}
-                      onValueChange={(value) => setOptions({ ...options, socialGoal: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Goal" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="engagement">Engagement</SelectItem>
-                        <SelectItem value="informational">Informational</SelectItem>
-                        <SelectItem value="promotional">Promotional</SelectItem>
-                        <SelectItem value="humorous">Humorous</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              )}
 
-              {selectedTool === 'resume' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
-                    <Select
-                      value={options.resumeSection || 'summary'}
-                      onValueChange={(value) => setOptions({ ...options, resumeSection: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Section" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="summary">Professional Summary</SelectItem>
-                        <SelectItem value="experience">Work Experience</SelectItem>
-                        <SelectItem value="skills">Skills Optimization</SelectItem>
-                        <SelectItem value="education">Education</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
-                    <input 
-                      type="text"
-                      placeholder="e.g. Senior Developer, Manager"
-                      value={options.resumeRole || ''}
-                      onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {selectedTool === 'code' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
-                    <Select
-                      value={options.codeLanguage || 'JavaScript'}
-                      onValueChange={(value) => setOptions({ ...options, codeLanguage: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Language" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="JavaScript">JavaScript</SelectItem>
-                        <SelectItem value="TypeScript">TypeScript</SelectItem>
-                        <SelectItem value="Python">Python</SelectItem>
-                        <SelectItem value="Java">Java</SelectItem>
-                        <SelectItem value="C++">C++</SelectItem>
-                        <SelectItem value="Go">Go</SelectItem>
-                        <SelectItem value="Rust">Rust</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
-                    <Select
-                      value={options.codeMode || 'explain'}
-                      onValueChange={(value) => setOptions({ ...options, codeMode: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Mode" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="explain">Explain Logic</SelectItem>
-                        <SelectItem value="optimize">Optimize Performance</SelectItem>
-                        <SelectItem value="debug">Find Bugs</SelectItem>
-                        <SelectItem value="security">Security Audit</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              )}
-
-              {selectedTool === 'study' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
-                    <Select
-                      value={options.studyType || 'explanation'}
-                      onValueChange={(value) => setOptions({ ...options, studyType: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="explanation">Deep Explanation</SelectItem>
-                        <SelectItem value="notes">Concise Notes</SelectItem>
-                        <SelectItem value="flashcards">Flashcards (Q&A)</SelectItem>
-                        <SelectItem value="quiz">Multiple Choice Quiz</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
-                    <Select
-                      value={options.difficulty || 'intermediate'}
-                      onValueChange={(value) => setOptions({ ...options, difficulty: value })}
-                    >
-                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
-                        <SelectValue placeholder="Select Difficulty" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="beginner">Beginner</SelectItem>
-                        <SelectItem value="intermediate">Intermediate</SelectItem>
-                        <SelectItem value="advanced">Advanced / Expert</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              )}
 
               {selectedTool === 'math' && (
                 <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
