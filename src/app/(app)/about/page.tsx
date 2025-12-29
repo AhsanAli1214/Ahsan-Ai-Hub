@@ -138,6 +138,7 @@ export default function AboutPage() {
                     src="/images/developer.jpg"
                     alt="Developer Ahsan Ali"
                     fill
+                    sizes="(max-width: 768px) 192px, 192px"
                     className="object-cover"
                     priority
                   />

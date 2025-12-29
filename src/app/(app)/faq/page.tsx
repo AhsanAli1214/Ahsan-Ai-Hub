@@ -200,9 +200,9 @@ export default function FaqPage() {
                 <Accordion type="single" collapsible className="w-full">
                   {FAQData.map((item, index) => (
                     <AccordionItem value={`item-${index}`} key={index} className="border-b border-accent/10 last:border-0 px-4">
-                      <AccordionTrigger className="text-left py-6 text-lg font-bold hover:no-underline group">
+                      <AccordionTrigger className="text-left py-6 text-lg font-bold hover:no-underline group" aria-label={`Read answer for: ${item.q}`}>
                         <span className="group-hover:text-primary transition-colors flex items-center gap-4">
-                          <span className="text-xs font-mono text-accent/50">{index + 1}</span>
+                          <span className="text-xs font-mono text-accent/50" aria-hidden="true">{index + 1}</span>
                           {item.q}
                         </span>
                       </AccordionTrigger>
