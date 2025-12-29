@@ -21,12 +21,24 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { AhsanAiHubLogo } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "About Ahsan AI Hub - Creator Ahsan Ali",
-  description: "Meet Ahsan Ali, the developer behind Ahsan AI Hub. Learn about our mission to democratize AI, privacy-first platform design, and the journey of creating free AI tools.",
-  keywords: ['about Ahsan AI', 'Ahsan Ali developer', 'AI hub creator', 'free AI mission'],
+  title: "About Ahsan AI Hub | Privacy-First AI Developed by Ahsan Ali",
+  description: "Learn about Ahsan Ali Wadani, the developer of Ahsan AI Hub. Discover our mission to provide free, private AI chat and content tools with no login required.",
+  keywords: [
+    'About Ahsan AI Hub', 
+    'Ahsan Ali developer', 
+    'Ahsan Ali Wadani AI', 
+    'Ahsan Wadani tech',
+    'privacy-first AI mission',
+    'free AI tools creator',
+    'anonymous AI assistant',
+    'Ahsan Tech Hub about'
+  ],
   openGraph: {
-    title: "About Ahsan AI Hub - Creator Ahsan Ali",
-    description: "Discover the story behind Ahsan AI Hub and Ahsan Ali's mission to bring powerful AI tools to everyone.",
+    title: "About Ahsan AI Hub | Creator Ahsan Ali",
+    description: "Meet the creator of Ahsan AI Hub and learn about the mission to democratize private AI access.",
+    url: 'https://ahsan-ai-hub.vercel.app/about',
+    siteName: 'Ahsan AI Hub',
+    images: [{ url: '/og-image.png' }],
   },
 };
 

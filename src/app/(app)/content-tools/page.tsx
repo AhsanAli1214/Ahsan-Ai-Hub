@@ -540,6 +540,47 @@ export default function ContentToolsPage() {
             </Card>
 
             <div className="flex flex-col gap-6">
+              {selectedTool === 'story' && (
+                <div className="bg-muted/30 p-6 rounded-[2rem] border border-border/40 space-y-4">
+                  <div className="flex items-center gap-3 text-primary mb-2">
+                    <Lightbulb className="h-5 w-5" />
+                    <h3 className="text-sm font-black uppercase tracking-widest">Pro Tips for Best Input</h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Genre</label>
+                      <select 
+                        value={options.storyGenre || 'fantasy'} 
+                        onChange={(e) => setOptions({...options, storyGenre: e.target.value})}
+                        className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="fantasy">High Fantasy</option>
+                        <option value="scifi">Sci-Fi / Space</option>
+                        <option value="mystery">Mystery / Thriller</option>
+                        <option value="horror">Horror / Dark</option>
+                        <option value="romance">Romance / Drama</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Length</label>
+                      <select 
+                        value={options.storyLength || 'short'} 
+                        onChange={(e) => setOptions({...options, storyLength: e.target.value})}
+                        className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="short">Short Story</option>
+                        <option value="medium">Detailed Scene</option>
+                        <option value="long">Chapter Outline</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
+                    <p className="text-xs text-muted-foreground font-medium italic">
+                      Tip: Include character names, a specific setting, and a "conflict" in your description for a more engaging story.
+                    </p>
+                  </div>
+                </div>
+              )}
               {selectedTool === 'enhance' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">

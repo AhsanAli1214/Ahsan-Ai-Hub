@@ -13,20 +13,24 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'FAQ - Help Center | Ahsan AI Hub',
-  description: 'Frequently asked questions about Ahsan AI Hub. Get answers about features, privacy, security, AI chat, text-to-speech, translation, and troubleshooting.',
+  title: 'FAQ & Help Center | Ahsan AI Hub Help',
+  description: 'Find answers to common questions about Ahsan AI Hub. Learn about privacy, AI chat, free content tools, and troubleshooting without login.',
   keywords: [
     'FAQ Ahsan AI Hub',
-    'AI chat help',
-    'privacy questions',
-    'technical support',
-    'how to use AI',
-    'feature guide',
-    'troubleshooting AI',
+    'Ahsan AI help center',
+    'how to use Ahsan AI',
+    'AI chat privacy FAQ',
+    'free AI tools troubleshooting',
+    'Ahsan Ali AI support',
+    'no login AI help',
+    'anonymous AI assistant FAQ'
   ],
   openGraph: {
     title: 'FAQ - Help Center | Ahsan AI Hub',
     description: 'Find answers to all your questions about using Ahsan AI Hub tools and features.',
+    url: 'https://ahsan-ai-hub.vercel.app/faq',
+    siteName: 'Ahsan AI Hub',
+    images: [{ url: '/og-image.png' }],
   },
 };
 
