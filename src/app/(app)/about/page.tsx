@@ -115,6 +115,17 @@ export default function AboutPage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-8">
         <div className="mx-auto max-w-5xl space-y-12 pb-20">
           
+          <div className="sr-only">
+            <h2>About Ahsan Ali - Developer of Ahsan AI Hub</h2>
+            <p>
+              Ahsan Ali Wadani is a passionate CIT student and full-stack developer based in Pakistan. 
+              As the founder of Ahsan AI Hub, he is dedicated to providing high-quality AI tools like 
+              free AI chat, story generators, and code explainers with zero tracking and no login required.
+              His mission is to make advanced technology accessible to everyone, ensuring privacy and ease of use.
+              Ahsan Ali's work focus on React, Next.js, and AI integration using Google Genkit.
+            </p>
+          </div>
+          
           {/* Hero Section */}
           <section className="relative overflow-hidden rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-md shadow-2xl">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />

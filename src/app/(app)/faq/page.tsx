@@ -145,6 +145,17 @@ export default function FaqPage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-10">
         <div className="mx-auto max-w-5xl space-y-12 pb-24">
           
+          <div className="sr-only">
+            <h2>Frequently Asked Questions about Ahsan AI Hub</h2>
+            <p>
+              Find answers to questions like: Is Ahsan AI Hub free? How does privacy work? 
+              How can I use the AI story writer? Does Ahsan AI Hub require a login? 
+              Ahsan AI Hub is the best free AI platform for students and professionals.
+              Learn about our zero-log policy, text-to-speech features, and translation capabilities.
+              Developed by Ahsan Ali Wadani, this platform offers the most secure AI chat experience online.
+            </p>
+          </div>
+
           {/* Enhanced Hero Section */}
           <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/20 via-primary/5 to-accent/20 border border-primary/20 p-10 md:p-16 text-center">
             <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl animate-pulse" />
