@@ -60,10 +60,7 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
-import { LANGUAGES } from '@/lib/languages';
-import { TextToSpeech } from '@/components/TextToSpeech';
-import 'katex/dist/katex.min.css';
-import { InlineMath, BlockMath } from 'react-katex';
+import Image from 'next/image';
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
@@ -214,10 +211,12 @@ function ToolCard({ tool, onSelect }: { tool: (typeof toolsList)[0]; onSelect: (
       <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       {tool.image && (
         <div className="relative w-full h-32 bg-muted overflow-hidden">
-          <img 
+          <Image 
             src={tool.image} 
             alt={tool.label}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="object-cover group-hover:scale-110 transition-transform duration-300"
           />
           <div className={cn('absolute inset-0', tool.color, 'opacity-0 group-hover:opacity-20 transition-opacity')} />
         </div>
@@ -533,7 +532,14 @@ export default function ContentToolsPage() {
                 </div>
                 {tool.image && (
                   <div className="relative h-full min-h-[200px] hidden md:block">
-                    <img src={tool.image} alt={tool.label} className="absolute inset-0 w-full h-full object-cover" />
+                    <Image 
+                      src={tool.image} 
+                      alt={tool.label} 
+                      fill
+                      sizes="50vw"
+                      priority={true}
+                      className="absolute inset-0 w-full h-full object-cover" 
+                    />
                     <div className="absolute inset-0 bg-gradient-to-r from-card/40 via-transparent to-transparent" />
                   </div>
                 )}
