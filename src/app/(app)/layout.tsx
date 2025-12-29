@@ -10,13 +10,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen w-full flex-col overflow-hidden">
         <div className="md:flex md:justify-center w-full flex-1">
           <AppSidebar />
-          <main className="flex-1 bg-background md:max-w-7xl flex flex-col min-h-screen">
+          <main className="flex-1 bg-background pb-20 md:pb-0 md:max-w-7xl flex flex-col min-h-screen">
             <div className="flex-1 animate-in fade-in duration-300">
               {children}
             </div>
             <FooterWrapper />
           </main>
         </div>
+        <BottomNav />
       </div>
     </SidebarProvider>
   );
