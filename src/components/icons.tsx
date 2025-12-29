@@ -5,7 +5,7 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
   if (props.fillContainer) {
     return (
       <Image
-        src="https://i.postimg.cc/Y2dztjVk/icon.png"
+        src="/logo.png"
         alt="Ahsan Ai Hub Logo"
         fill
         sizes="(max-width: 768px) 80px, 100px"
@@ -17,7 +17,7 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
   }
   return (
     <Image
-      src="https://i.postimg.cc/Y2dztjVk/icon.png"
+      src="/logo.png"
       alt="Ahsan Ai Hub Logo"
       width={props.width || 60}
       height={props.height || 60}
