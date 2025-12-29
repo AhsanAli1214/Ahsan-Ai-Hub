@@ -122,7 +122,7 @@ export default function HomePage() {
           <div className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
             <div className="flex items-center gap-4 md:gap-6">
               <div className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-accent/80">
-                <AhsanAiHubLogo fillContainer className="text-accent-foreground" priority={true} sizes="80px" />
+                <AhsanAiHubLogo fillContainer className="text-accent-foreground" priority={true} />
               </div>
               <div className="flex-1">
                 <h1 className="font-headline text-3xl font-bold md:text-4xl">
