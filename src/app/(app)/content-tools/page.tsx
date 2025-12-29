@@ -500,7 +500,7 @@ export default function ContentToolsPage() {
 
   return (
     <div className="h-full flex flex-col bg-background">
-      <div className="p-6 border-b bg-background sticky top-0 z-20 flex items-center justify-between shadow-md backdrop-blur-xl border-primary/10">
+      <div className="p-4 border-b bg-background/80 sticky top-0 z-20 flex items-center justify-between shadow-sm backdrop-blur-xl border-primary/10">
         <Button
           variant="ghost"
           size="sm"
@@ -509,14 +509,51 @@ export default function ContentToolsPage() {
             setInput('');
             setOutput('');
           }}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all rounded-xl font-bold px-4 py-2"
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-all rounded-lg font-semibold px-3 py-1.5"
         >
-          <ArrowLeft className="h-5 w-5" /> Back to Studio
+          <ArrowLeft className="h-4 w-4" /> Studio
         </Button>
-        <div className="flex items-center gap-3 px-4 py-2 bg-muted/50 rounded-2xl border border-border/60 backdrop-blur-sm">
-          <div className={cn('w-3 h-3 rounded-full shadow-md', tool.color)} />
-          <span className="font-black text-sm uppercase tracking-[0.15em] text-foreground">{tool.label}</span>
+
+        <div className="flex-1 flex justify-center max-w-[280px] sm:max-w-md px-2">
+          <Select
+            value={selectedTool}
+            onValueChange={(value) => {
+              setSelectedTool(value as Tool);
+              setInput('');
+              setOutput('');
+            }}
+          >
+            <SelectTrigger className="w-full h-10 bg-muted/30 border-primary/20 rounded-xl px-4 font-bold focus:ring-2 focus:ring-primary/20 outline-none transition-all hover:bg-muted/50 backdrop-blur-md shadow-sm group">
+              <div className="flex items-center gap-2">
+                <div className={cn('w-2 h-2 rounded-full', tool.color)} />
+                <SelectValue placeholder="Switch Tool" />
+              </div>
+            </SelectTrigger>
+            <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2 max-h-[70vh]">
+              <div className="px-2 py-1.5 mb-1">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/70">Available Tools</p>
+              </div>
+              {toolsList.map((t) => (
+                <SelectItem 
+                  key={t.id} 
+                  value={t.id} 
+                  className="rounded-xl focus:bg-primary/10 focus:text-primary cursor-pointer p-3 transition-colors mb-1 last:mb-0"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={cn("p-1.5 rounded-lg text-white shadow-sm", t.color)}>
+                      <t.icon className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-bold tracking-tight">{t.label}</span>
+                      <span className="text-[10px] text-muted-foreground font-medium line-clamp-1 opacity-70">AI Powered</span>
+                    </div>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
+
         <div className="w-24 md:block hidden" />
       </div>
 

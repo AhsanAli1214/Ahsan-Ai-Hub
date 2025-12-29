@@ -221,31 +221,9 @@ export default function HomePage() {
 
           {/* Quick Actions Section */}
           <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-headline text-xl font-semibold">
-                Quick Actions
-              </h2>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-8 gap-1 rounded-lg border bg-background/50">
-                    Tools <ChevronDown className="h-4 w-4 opacity-50" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 rounded-xl border-primary/20 bg-background/95 backdrop-blur-xl shadow-xl">
-                  {QUICK_ACTIONS.map((action) => (
-                    <DropdownMenuItem key={action.id} asChild>
-                      <Link 
-                        href={`/recommendations?initialPrompt=${encodeURIComponent(action.prompt)}`}
-                        className="flex items-center gap-2 p-2 cursor-pointer"
-                      >
-                        <action.icon className="h-4 w-4 text-primary" />
-                        <span className="text-sm">{action.label}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            <h2 className="mb-4 font-headline text-xl font-semibold">
+              Quick Actions
+            </h2>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {QUICK_ACTIONS.map((action) => (
                 <Link
