@@ -60,7 +60,15 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeRaw from 'rehype-raw';
 import rehypeKatex from 'rehype-katex';
+import { LANGUAGES } from '@/lib/languages';
 import Image from 'next/image';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
@@ -558,41 +566,39 @@ export default function ContentToolsPage() {
                     <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
                       <Feather className="h-3 w-3" /> Genre
                     </label>
-                    <div className="relative group/select">
-                      <select 
-                        value={options.storyGenre || 'fantasy'} 
-                        onChange={(e) => setOptions({...options, storyGenre: e.target.value})}
-                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
-                      >
-                        <option value="fantasy">High Fantasy</option>
-                        <option value="scifi">Sci-Fi / Space</option>
-                        <option value="mystery">Mystery / Thriller</option>
-                        <option value="horror">Horror / Dark</option>
-                        <option value="romance">Romance / Drama</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
-                        <Grid className="h-4 w-4 opacity-50" />
-                      </div>
-                    </div>
+                    <Select
+                      value={options.storyGenre || 'fantasy'}
+                      onValueChange={(value) => setOptions({ ...options, storyGenre: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Genre" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="fantasy">High Fantasy</SelectItem>
+                        <SelectItem value="scifi">Sci-Fi / Space</SelectItem>
+                        <SelectItem value="mystery">Mystery / Thriller</SelectItem>
+                        <SelectItem value="horror">Horror / Dark</SelectItem>
+                        <SelectItem value="romance">Romance / Drama</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-3">
                     <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
                       <Zap className="h-3 w-3" /> Length
                     </label>
-                    <div className="relative group/select">
-                      <select 
-                        value={options.storyLength || 'short'} 
-                        onChange={(e) => setOptions({...options, storyLength: e.target.value})}
-                        className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all appearance-none cursor-pointer hover:border-primary/40 shadow-sm pr-12"
-                      >
-                        <option value="short">Short Story</option>
-                        <option value="medium">Detailed Scene</option>
-                        <option value="long">Chapter Outline</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground group-hover/select:text-primary transition-colors">
-                        <Grid className="h-4 w-4 opacity-50" />
-                      </div>
-                    </div>
+                    <Select
+                      value={options.storyLength || 'short'}
+                      onValueChange={(value) => setOptions({ ...options, storyLength: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Length" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="short">Short Story</SelectItem>
+                        <SelectItem value="medium">Detailed Scene</SelectItem>
+                        <SelectItem value="long">Chapter Outline</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   </div>
                   <div className="p-4 rounded-xl bg-primary/5 border border-primary/10">
@@ -685,15 +691,19 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Article Length</label>
-                    <select 
-                      value={options.blogLength} 
-                      onChange={(e) => setOptions({...options, blogLength: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.blogLength || 'medium'}
+                      onValueChange={(value) => setOptions({ ...options, blogLength: value })}
                     >
-                      <option value="short">Short (300 words)</option>
-                      <option value="medium">Medium (700 words)</option>
-                      <option value="long">Long (1200+ words)</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Length" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="short">Short (300 words)</SelectItem>
+                        <SelectItem value="medium">Medium (700 words)</SelectItem>
+                        <SelectItem value="long">Long (1200+ words)</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
@@ -712,27 +722,37 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Language</label>
-                    <select 
-                      value={options.targetLanguage} 
-                      onChange={(e) => setOptions({...options, targetLanguage: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.targetLanguage || 'Spanish'}
+                      onValueChange={(value) => setOptions({ ...options, targetLanguage: value })}
                     >
-                      {LANGUAGES.map(lang => (
-                        <option key={lang.code} value={lang.name}>{lang.name}</option>
-                      ))}
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Language" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {LANGUAGES.map((lang) => (
+                          <SelectItem key={lang.code} value={lang.name}>
+                            {lang.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Tone</label>
-                    <select 
-                      value={options.translateTone || 'neutral'} 
-                      onChange={(e) => setOptions({...options, translateTone: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.translateTone || 'neutral'}
+                      onValueChange={(value) => setOptions({ ...options, translateTone: value })}
                     >
-                      <option value="neutral">Neutral</option>
-                      <option value="formal">Formal</option>
-                      <option value="casual">Casual</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Tone" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="neutral">Neutral</SelectItem>
+                        <SelectItem value="formal">Formal</SelectItem>
+                        <SelectItem value="casual">Casual</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               )}
@@ -741,30 +761,38 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Platform</label>
-                    <select 
-                      value={options.socialPlatform} 
-                      onChange={(e) => setOptions({...options, socialPlatform: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.socialPlatform || 'Twitter'}
+                      onValueChange={(value) => setOptions({ ...options, socialPlatform: value })}
                     >
-                      <option value="Twitter">Twitter / X</option>
-                      <option value="Instagram">Instagram</option>
-                      <option value="LinkedIn">LinkedIn</option>
-                      <option value="Facebook">Facebook</option>
-                      <option value="TikTok">TikTok (Script)</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Platform" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Twitter">Twitter / X</SelectItem>
+                        <SelectItem value="Instagram">Instagram</SelectItem>
+                        <SelectItem value="LinkedIn">LinkedIn</SelectItem>
+                        <SelectItem value="Facebook">Facebook</SelectItem>
+                        <SelectItem value="TikTok">TikTok (Script)</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Post Goal</label>
-                    <select 
-                      value={options.socialGoal || 'engagement'} 
-                      onChange={(e) => setOptions({...options, socialGoal: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.socialGoal || 'engagement'}
+                      onValueChange={(value) => setOptions({ ...options, socialGoal: value })}
                     >
-                      <option value="engagement">Engagement</option>
-                      <option value="informational">Informational</option>
-                      <option value="promotional">Promotional</option>
-                      <option value="humorous">Humorous</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Goal" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="engagement">Engagement</SelectItem>
+                        <SelectItem value="informational">Informational</SelectItem>
+                        <SelectItem value="promotional">Promotional</SelectItem>
+                        <SelectItem value="humorous">Humorous</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               )}
@@ -773,16 +801,20 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Resume Section</label>
-                    <select 
-                      value={options.resumeSection} 
-                      onChange={(e) => setOptions({...options, resumeSection: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.resumeSection || 'summary'}
+                      onValueChange={(value) => setOptions({ ...options, resumeSection: value })}
                     >
-                      <option value="summary">Professional Summary</option>
-                      <option value="experience">Work Experience</option>
-                      <option value="skills">Skills Optimization</option>
-                      <option value="education">Education</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Section" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="summary">Professional Summary</SelectItem>
+                        <SelectItem value="experience">Work Experience</SelectItem>
+                        <SelectItem value="skills">Skills Optimization</SelectItem>
+                        <SelectItem value="education">Education</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
@@ -801,32 +833,40 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Programming Language</label>
-                    <select 
-                      value={options.codeLanguage} 
-                      onChange={(e) => setOptions({...options, codeLanguage: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.codeLanguage || 'JavaScript'}
+                      onValueChange={(value) => setOptions({ ...options, codeLanguage: value })}
                     >
-                      <option value="JavaScript">JavaScript</option>
-                      <option value="TypeScript">TypeScript</option>
-                      <option value="Python">Python</option>
-                      <option value="Java">Java</option>
-                      <option value="C++">C++</option>
-                      <option value="Go">Go</option>
-                      <option value="Rust">Rust</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Language" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="JavaScript">JavaScript</SelectItem>
+                        <SelectItem value="TypeScript">TypeScript</SelectItem>
+                        <SelectItem value="Python">Python</SelectItem>
+                        <SelectItem value="Java">Java</SelectItem>
+                        <SelectItem value="C++">C++</SelectItem>
+                        <SelectItem value="Go">Go</SelectItem>
+                        <SelectItem value="Rust">Rust</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Analysis Mode</label>
-                    <select 
-                      value={options.codeMode || 'explain'} 
-                      onChange={(e) => setOptions({...options, codeMode: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.codeMode || 'explain'}
+                      onValueChange={(value) => setOptions({ ...options, codeMode: value })}
                     >
-                      <option value="explain">Explain Logic</option>
-                      <option value="optimize">Optimize Performance</option>
-                      <option value="debug">Find Bugs</option>
-                      <option value="security">Security Audit</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Mode" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="explain">Explain Logic</SelectItem>
+                        <SelectItem value="optimize">Optimize Performance</SelectItem>
+                        <SelectItem value="debug">Find Bugs</SelectItem>
+                        <SelectItem value="security">Security Audit</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               )}
@@ -835,28 +875,36 @@ export default function ContentToolsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Output Type</label>
-                    <select 
-                      value={options.studyType} 
-                      onChange={(e) => setOptions({...options, studyType: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.studyType || 'explanation'}
+                      onValueChange={(value) => setOptions({ ...options, studyType: value })}
                     >
-                      <option value="explanation">Deep Explanation</option>
-                      <option value="notes">Concise Notes</option>
-                      <option value="flashcards">Flashcards (Q&A)</option>
-                      <option value="quiz">Multiple Choice Quiz</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="explanation">Deep Explanation</SelectItem>
+                        <SelectItem value="notes">Concise Notes</SelectItem>
+                        <SelectItem value="flashcards">Flashcards (Q&A)</SelectItem>
+                        <SelectItem value="quiz">Multiple Choice Quiz</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Difficulty</label>
-                    <select 
-                      value={options.difficulty} 
-                      onChange={(e) => setOptions({...options, difficulty: e.target.value})}
-                      className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all appearance-none cursor-pointer"
+                    <Select
+                      value={options.difficulty || 'intermediate'}
+                      onValueChange={(value) => setOptions({ ...options, difficulty: value })}
                     >
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="advanced">Advanced / Expert</option>
-                    </select>
+                      <SelectTrigger className="w-full h-12 bg-background border-2 border-border/40 rounded-xl px-4 font-bold focus:border-primary/60 outline-none transition-all shadow-sm">
+                        <SelectValue placeholder="Select Difficulty" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="beginner">Beginner</SelectItem>
+                        <SelectItem value="intermediate">Intermediate</SelectItem>
+                        <SelectItem value="advanced">Advanced / Expert</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               )}

@@ -7,6 +7,14 @@ import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 interface TextToSpeechProps {
   text: string;
   disabled?: boolean;
@@ -140,17 +148,21 @@ export function TextToSpeech({ text, disabled = false, compact = false }: TextTo
             <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1 flex items-center gap-1">
               <Globe className="h-3 w-3" /> Voice Selection
             </label>
-            <select
+            <Select
               value={selectedVoice}
-              onChange={(e) => setSelectedVoice(e.target.value)}
-              className="w-full h-11 px-4 rounded-xl border border-border/60 bg-background/50 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer appearance-none"
+              onValueChange={(value) => setSelectedVoice(value)}
             >
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
+              <SelectTrigger className="w-full h-11 px-4 rounded-xl border border-border/60 bg-background/50 text-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none">
+                <SelectValue placeholder="Select Voice" />
+              </SelectTrigger>
+              <SelectContent>
+                {voices.map((v) => (
+                  <SelectItem key={v.name} value={v.name}>
+                    {v.name} ({v.lang})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
