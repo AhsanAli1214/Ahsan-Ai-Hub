@@ -8,10 +8,11 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
         src="https://i.postimg.cc/Y2dztjVk/icon.png"
         alt="Ahsan Ai Hub Logo"
         fill
-        sizes="(max-width: 768px) 80px, 100px"
+        sizes="80px"
         className={props.className}
         style={{ objectFit: 'cover' }}
-        priority={props.priority}
+        priority={true}
+        fetchPriority="high"
       />
     );
   }
@@ -22,7 +23,8 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
       width={props.width || 60}
       height={props.height || 60}
       className={props.className}
-      priority={props.priority}
+      priority={true}
+      fetchPriority="high"
     />
   );
 }
