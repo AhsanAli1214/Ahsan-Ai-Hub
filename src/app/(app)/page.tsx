@@ -149,7 +149,7 @@ export default function HomePage() {
                 Start Chatting
               </Link>
             </Button>
-          </div>
+          </section>
 
           {/* Privacy-First Banner */}
           <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-8 md:p-12 shadow-2xl">
