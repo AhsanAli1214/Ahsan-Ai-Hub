@@ -76,6 +76,65 @@ const rehypeRaw = import('rehype-raw');
 const rehypeKatex = import('rehype-katex');
 const TextToSpeech = dynamic(() => import('@/components/TextToSpeech').then(mod => mod.TextToSpeech), { ssr: false });
 
+// Tool metadata for SEO and internal use
+const toolMeta: Record<Tool, { title: string; description: string; keywords: string[] }> = {
+  enhance: {
+    title: 'Free AI Text Enhancer - Improve Writing & Grammar Online',
+    description: 'Instantly professionalize your writing with our free AI text enhancer. Improve grammar, style, and tone without login.',
+    keywords: ['AI text enhancer', 'improve writing online free', 'AI grammar checker', 'writing assistant no login'],
+  },
+  email: {
+    title: 'Free AI Email Writer - Generate Professional Emails Instantly',
+    description: 'Write professional or casual emails in seconds with our free AI email generator. No signup required.',
+    keywords: ['AI email writer free', 'email generator no login', 'professional email assistant', 'AI writing tools'],
+  },
+  blog: {
+    title: 'Free AI Blog Generator - Create SEO-Optimized Articles',
+    description: 'Generate high-quality, SEO-optimized blog posts instantly with our free AI blog writer. No login needed.',
+    keywords: ['AI blog post generator', 'free AI writer', 'SEO article generator', 'content creation tool'],
+  },
+  study: {
+    title: 'Free AI Study Assistant - Homework Help & Note Generator',
+    description: 'Get step-by-step explanations and generate study notes with our free AI study assistant. Perfect for students.',
+    keywords: ['AI study helper', 'homework assistant online', 'note generator', 'student AI tools'],
+  },
+  code: {
+    title: 'Free AI Code Explainer - Understand Programming Concepts',
+    description: 'Understand complex code snippets instantly with our free AI code explainer. Supports all major languages.',
+    keywords: ['AI code explainer', 'programming assistant free', 'understand code online', 'coding help no login'],
+  },
+  math: {
+    title: 'Free AI Math Solver - Step-by-Step Problem Solutions',
+    description: 'Solve complex math problems with step-by-step guidance using our free AI math solver. Upload images or type problems.',
+    keywords: ['AI math solver free', 'math homework help', 'step-by-step math solutions', 'math problem solver online'],
+  },
+  translate: {
+    title: 'Free AI Translator - Translate 50+ Languages Instantly',
+    description: 'Translate text accurately between 50+ languages with our free AI translator. Handles slang and idioms perfectly.',
+    keywords: ['AI translator free', 'translate 50 languages', 'accurate translation tool', 'language translator no login'],
+  },
+  social: {
+    title: 'Free AI Social Media Post Generator - Create Viral Content',
+    description: 'Generate platform-ready social media posts with emojis and hashtags. Free AI social media content creator.',
+    keywords: ['social media post generator', 'AI caption writer', 'viral content creator', 'Instagram caption generator free'],
+  },
+  resume: {
+    title: 'Free AI Resume Builder - Professional Resume Assistant',
+    description: 'Build and improve your resume sections with our free AI resume assistant. ATS-ready formatting and suggestions.',
+    keywords: ['AI resume builder free', 'resume assistant no login', 'ATS resume checker', 'professional resume tools'],
+  },
+  story: {
+    title: 'Free AI Story Writer - Creative Fiction & Plot Generator',
+    description: 'Unleash your creativity with our free AI story writer. Generate plots, characters, and full stories instantly.',
+    keywords: ['AI story generator', 'creative writing assistant', 'plot generator free', 'fiction writer AI'],
+  },
+  tts: {
+    title: 'Free AI Text to Speech - High Quality Natural Voices',
+    description: 'Convert any text into natural-sounding speech with our free AI text to speech tool. Downloadable HD audio.',
+    keywords: ['AI text to speech free', 'natural voice generator', 'TTS online no login', 'text to audio converter'],
+  }
+};
+
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
 const toolsList: {
@@ -286,6 +345,15 @@ export default function ContentToolsPage() {
   useEffect(() => {
     if (selectedTool) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Update metadata dynamically for client-side navigation
+      const meta = toolMeta[selectedTool];
+      if (meta) {
+        document.title = `${meta.title} | Ahsan AI Hub`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', meta.description);
+      }
+    } else {
+      document.title = 'AI Content Tools - Free Professional Writing & Productivity Hub | Ahsan AI Hub';
     }
   }, [selectedTool]);
 
