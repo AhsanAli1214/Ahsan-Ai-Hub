@@ -227,16 +227,22 @@ export default function RootLayout({
                       style.innerHTML = \`
                         #aisensy-wa-widget-container, 
                         .aisensy-wa-widget-container,
-                        [id*="aisensy"] {
-                          bottom: 80px !important;
+                        [id*="aisensy"],
+                        iframe[src*="aisensy"] {
+                          bottom: 110px !important;
                           right: 20px !important;
+                          z-index: 99999 !important;
+                          pointer-events: auto !important;
                         }
                         @media (max-width: 768px) {
                           #aisensy-wa-widget-container,
                           .aisensy-wa-widget-container,
-                          [id*="aisensy"] {
-                            bottom: 100px !important;
+                          [id*="aisensy"],
+                          iframe[src*="aisensy"] {
+                            bottom: 120px !important;
                             right: 15px !important;
+                            z-index: 99999 !important;
+                            pointer-events: auto !important;
                           }
                         }
                       \`;
@@ -244,13 +250,21 @@ export default function RootLayout({
 
                       script.onload = function() {
                         // Attempt to reposition if the widget creates its own container
-                        setTimeout(() => {
-                          const widgets = document.querySelectorAll('[id*="aisensy"], [class*="aisensy"]');
+                        const reposition = () => {
+                          const widgets = document.querySelectorAll('[id*="aisensy"], [class*="aisensy"], iframe[src*="aisensy"]');
                           widgets.forEach(w => {
-                            w.style.setProperty('bottom', '100px', 'important');
-                            w.style.setProperty('z-index', '9999', 'important');
+                            w.style.setProperty('bottom', '120px', 'important');
+                            w.style.setProperty('z-index', '99999', 'important');
+                            w.style.setProperty('pointer-events', 'auto', 'important');
+                            w.style.setProperty('position', 'fixed', 'important');
                           });
-                        }, 2000);
+                        };
+                        
+                        // Run immediately and then again after delays
+                        reposition();
+                        setTimeout(reposition, 1000);
+                        setTimeout(reposition, 3000);
+                        setTimeout(reposition, 5000);
                       };
 
                       document.body.appendChild(script);
