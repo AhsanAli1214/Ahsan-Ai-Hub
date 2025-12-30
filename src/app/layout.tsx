@@ -13,17 +13,20 @@ import { Inter, Poppins } from 'next/font/google';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Suspense } from 'react';
 
 const inter = Inter({ 
   subsets: ['latin'], 
   variable: '--font-inter',
   display: 'swap',
+  preload: true,
 });
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['500', '600', '700'],
   variable: '--font-poppins',
   display: 'swap',
+  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -133,6 +136,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="preload" href="/icon-512.png" as="image" />
+        <link rel="prefetch" href="/recommendations" as="document" />
+        <link rel="prefetch" href="/content-tools" as="document" />
+        <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
         <Script
           id="theme-init"
@@ -164,15 +171,21 @@ export default function RootLayout({
             <ChatHistoryProvider>
               <ReCaptchaScript />
               <ErrorBoundary>
-                {children}
+                <Suspense fallback={null}>
+                  {children}
+                </Suspense>
               </ErrorBoundary>
               <Toaster />
-              <PWAInstall />
-              <ConnectionStatus />
+              <Suspense fallback={null}>
+                <PWAInstall />
+              </Suspense>
+              <Suspense fallback={null}>
+                <ConnectionStatus />
+              </Suspense>
               <Analytics />
               <SpeedInsights />
               {/* Load OneSignal after everything else */}
-              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="lazyOnload" />
+              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" async />
               <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
                   window.OneSignalDeferred = window.OneSignalDeferred || [];
                   OneSignalDeferred.push(async function(OneSignal) {

@@ -18,10 +18,11 @@ const nextConfig = {
         hostname: 'i.postimg.cc',
       },
     ],
+    unoptimized: false,
   },
   onDemandEntries: {
-    maxInactiveAge: 60 * 1000,
-    pagesBufferLength: 5,
+    maxInactiveAge: 30 * 1000,
+    pagesBufferLength: 8,
   },
   experimental: {
     optimizePackageImports: [

@@ -27,6 +27,7 @@ import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
   ssr: false,
   loading: () => <div className="h-10 w-32 animate-pulse rounded-lg bg-muted" /> 
