@@ -156,7 +156,7 @@ function MessageBubble({
                     if (!inline) {
                       const isBlockMath = content.startsWith('$$') && content.endsWith('$$');
                       if (isBlockMath) {
-                        return <BlockMath>{content.slice(2, -2)}</BlockMath>;
+                        return <BlockMath math={content.slice(2, -2)} />;
                       }
                       return (
                         <div className="my-2 rounded-lg bg-black/20 p-3 overflow-x-auto border border-white/10">
@@ -166,7 +166,7 @@ function MessageBubble({
                     }
                     const isInlineMath = content.startsWith('$') && content.endsWith('$');
                     if (isInlineMath) {
-                      return <InlineMath>{content.slice(1, -1)}</InlineMath>;
+                      return <InlineMath math={content.slice(1, -1)} />;
                     }
                     return <code className="px-2 py-1 bg-black/30 rounded text-white/90 font-mono text-sm" {...props}>{children}</code>;
                   },
