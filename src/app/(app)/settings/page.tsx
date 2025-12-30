@@ -2,6 +2,7 @@
 
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
+import Head from 'next/head';
 import {
   Card,
   CardContent,
@@ -156,6 +157,12 @@ export default function SettingsPage() {
   return (
     <div className="flex h-full flex-col">
       <AppHeader title="Settings" />
+      <Head>
+        <title>App Settings & Customization | Ahsan AI Hub</title>
+        <meta name="description" content="Customize your Ahsan AI Hub experience. Adjust AI personality, theme, and data settings for the best privacy-first AI assistant experience." />
+        <meta name="keywords" content="AI settings, customize AI, theme settings, privacy settings, chat customization, Ahsan AI Hub" />
+        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app/settings" />
+      </Head>
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <div className="mx-auto max-w-3xl space-y-8">
           {/* Theme */}
