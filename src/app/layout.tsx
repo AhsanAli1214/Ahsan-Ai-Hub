@@ -122,14 +122,17 @@ export const metadata: Metadata = {
   },
 };
 
+import { ViewTransitions } from 'next-view-transitions';
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <head>
         <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
@@ -212,5 +215,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  </ViewTransitions>
+);
 }
