@@ -141,6 +141,7 @@ export default function AboutPage() {
                     sizes="(max-width: 768px) 192px, 192px"
                     className="object-cover"
                     priority
+                    fetchPriority="high"
                   />
                 </div>
               </div>

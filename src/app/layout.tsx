@@ -138,6 +138,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+        <link rel="prefetch" href="/images/developer.jpg" as="image" />
         <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
         <link rel="preconnect" href="https://wa.me" />
