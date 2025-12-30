@@ -34,6 +34,8 @@ import {
   Zap,
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   assistResumeAction,
   explainProgrammingAction,
@@ -264,6 +266,7 @@ export default function ContentToolsPage() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mathImage, setMathImage] = useState<string | null>(null);
+  const [isEquationEditorOpen, setIsEquationEditorOpen] = useState(false);
   const { toast } = useToast();
   const [options, setOptions] = useState<Record<string, any>>({
     enhanceMode: 'improve',
@@ -968,10 +971,10 @@ export default function ContentToolsPage() {
               )}
 
               {selectedTool === 'math' && (
-                <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="relative group">
                     <div className="absolute -inset-1 bg-gradient-to-r from-rose-500/20 to-orange-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
+                    <div className="relative bg-muted/30 p-6 sm:p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
                       <div className="space-y-4">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
@@ -984,7 +987,7 @@ export default function ContentToolsPage() {
                             placeholder="Provide background information, explain the steps you've taken, or paste the full word problem here..."
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            className="min-h-[140px] bg-background/50 border-2 border-border/40 rounded-2xl p-6 font-medium text-lg focus:border-rose-500/40 transition-all resize-none shadow-inner group-hover/input:bg-background/80"
+                            className="min-h-[120px] sm:min-h-[140px] bg-background/50 border-2 border-border/40 rounded-2xl p-4 sm:p-6 font-medium text-base sm:text-lg focus:border-rose-500/40 transition-all resize-none shadow-inner group-hover/input:bg-background/80"
                           />
                           <div className="absolute bottom-4 right-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">
                             <BookOpen className="h-3 w-3" />
@@ -995,91 +998,98 @@ export default function ContentToolsPage() {
                     </div>
                   </div>
                   
-                  <div className="relative group">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-rose-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <div className="relative bg-muted/30 p-8 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl">
-                      <div className="space-y-6">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
-                              <Code className="h-4 w-4 text-primary" />
+                  <Collapsible open={isEquationEditorOpen} onOpenChange={setIsEquationEditorOpen}>
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-rose-500/20 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                      <div className="relative bg-muted/30 rounded-[2rem] border border-border/40 backdrop-blur-xl shadow-2xl overflow-hidden">
+                        <CollapsibleTrigger asChild>
+                          <button className="w-full flex items-center justify-between p-5 sm:p-6 hover:bg-primary/5 transition-colors group/header">
+                            <div className="flex items-center gap-3">
+                              <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                                <Code className="h-4 w-4 text-primary" />
+                              </div>
+                              <div className="flex flex-col items-start gap-1">
+                                <label className="text-xs font-black uppercase tracking-[0.2em] text-primary">Advanced Equation Editor</label>
+                                <p className="text-[10px] text-muted-foreground font-medium">Click to expand • Add mathematical symbols & equations</p>
+                              </div>
                             </div>
-                            <label className="text-xs font-black uppercase tracking-[0.2em] text-primary">Advanced Equation Editor</label>
-                          </div>
-                          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-primary/70">Live Expression</span>
-                          </div>
-                        </div>
+                            <ChevronDown className={cn(
+                              "h-5 w-5 text-primary transition-transform duration-300",
+                              isEquationEditorOpen && "rotate-180"
+                            )} />
+                          </button>
+                        </CollapsibleTrigger>
 
-                        <div className="relative group/equation">
-                          <input 
-                            type="text"
-                            placeholder="Type equation (e.g., lim x->0 sin(x)/x or f(x) = x^2 + 2x + 1)"
-                            className="w-full h-20 bg-background/50 border-2 border-border/40 rounded-2xl px-8 font-mono text-2xl focus:border-primary/60 outline-none transition-all shadow-inner group-hover/equation:bg-background/80 placeholder:text-muted-foreground/30 text-primary"
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                const val = (e.target as HTMLInputElement).value;
-                                if (val) {
-                                  setInput(prev => prev ? `${prev}\n\n[Equation Entry]\n${val}\n---` : `[Equation Entry]\n${val}\n---`);
-                                  (e.target as HTMLInputElement).value = '';
-                                  toast({ title: 'Equation Added to Workbench', className: 'rounded-xl font-bold' });
-                                }
-                              }
-                            }}
-                          />
-                          <div className="absolute right-6 top-1/2 -translate-y-1/2 flex items-center gap-3">
-                            <div className="hidden md:flex flex-col items-end mr-2">
-                              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Press Enter</span>
-                              <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">To Commit</span>
-                            </div>
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover/equation:scale-110 transition-transform">
-                              <Sparkles className="h-5 w-5 text-primary" />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-8 gap-3">
-                          {[
-                            'π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log',
-                            'sin', 'cos', 'tan', 'θ', 'Δ', 'λ', '≈', '≠',
-                            '≤', '≥', '±', '→', '∂', '∇', '∩', '∪', 'μ', '^',
-                            '!', 'ln', 'e', 'f(x)', 'α', 'β', 'γ', 'Ω',
-                            '≡', '∝', '∠', '⊥', '||', '∈', '∉', '⊂', '⊃',
-                            '∀', '∃', '∴', '∵', '⊕'
-                          ].map((sym) => (
-                            <button
-                              key={sym}
-                              onClick={() => {
-                                const inputEl = document.querySelector('input[placeholder*="Type equation"]') as HTMLInputElement;
-                                if (inputEl) {
-                                  const start = inputEl.selectionStart || 0;
-                                  const end = inputEl.selectionEnd || 0;
-                                  const text = inputEl.value;
-                                  inputEl.value = text.substring(0, start) + sym + text.substring(end);
-                                  inputEl.focus();
-                                  inputEl.setSelectionRange(start + sym.length, start + sym.length);
+                        <CollapsibleContent className="px-5 sm:px-6 pb-6 sm:pb-8 pt-2 border-t border-border/20 space-y-4">
+                          <div className="relative group/equation">
+                            <input 
+                              type="text"
+                              placeholder="Type equation (e.g., lim x->0 sin(x)/x or f(x) = x^2 + 2x + 1)"
+                              className="w-full h-16 sm:h-20 bg-background/50 border-2 border-border/40 rounded-2xl px-5 sm:px-8 font-mono text-lg sm:text-2xl focus:border-primary/60 outline-none transition-all shadow-inner group-hover/equation:bg-background/80 placeholder:text-muted-foreground/30 text-primary text-sm sm:text-base"
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  const val = (e.target as HTMLInputElement).value;
+                                  if (val) {
+                                    setInput(prev => prev ? `${prev}\n\n[Equation Entry]\n${val}\n---` : `[Equation Entry]\n${val}\n---`);
+                                    (e.target as HTMLInputElement).value = '';
+                                    toast({ title: 'Equation Added to Workbench', className: 'rounded-xl font-bold' });
+                                  }
                                 }
                               }}
-                              className="h-10 rounded-xl bg-background/40 border border-border/40 text-sm font-bold hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all active:scale-95"
-                            >
-                              {sym}
-                            </button>
-                          ))}
-                        </div>
-
-                        <div className="flex items-start gap-4 p-5 bg-yellow-500/5 rounded-2xl border border-yellow-500/10">
-                          <Lightbulb className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
-                          <div className="space-y-1">
-                            <p className="text-xs font-bold text-foreground/80">Pro Tip: Use the Quick Symbols above</p>
-                            <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">
-                              You can combine narrative descriptions with multiple equations. Each committed equation is added to your workbench for final analysis.
-                            </p>
+                            />
+                            <div className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 flex items-center gap-2 sm:gap-3">
+                              <div className="hidden md:flex flex-col items-end mr-1 sm:mr-2">
+                                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Press Enter</span>
+                                <span className="text-[8px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">To Commit</span>
+                              </div>
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 group-hover/equation:scale-110 transition-transform flex-shrink-0">
+                                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                              </div>
+                            </div>
                           </div>
-                        </div>
+
+                          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                            {[
+                              'π', '√', '∫', 'd/dx', 'lim', 'Σ', '∞', 'log',
+                              'sin', 'cos', 'tan', 'θ', 'Δ', 'λ', '≈', '≠',
+                              '≤', '≥', '±', '→', '∂', '∇', '∩', '∪', 'μ', '^',
+                              '!', 'ln', 'e', 'f(x)', 'α', 'β', 'γ', 'Ω',
+                              '≡', '∝', '∠', '⊥', '||', '∈', '∉', '⊂', '⊃',
+                              '∀', '∃', '∴', '∵', '⊕'
+                            ].map((sym) => (
+                              <button
+                                key={sym}
+                                onClick={() => {
+                                  const inputEl = document.querySelector('input[placeholder*="Type equation"]') as HTMLInputElement;
+                                  if (inputEl) {
+                                    const start = inputEl.selectionStart || 0;
+                                    const end = inputEl.selectionEnd || 0;
+                                    const text = inputEl.value;
+                                    inputEl.value = text.substring(0, start) + sym + text.substring(end);
+                                    inputEl.focus();
+                                    inputEl.setSelectionRange(start + sym.length, start + sym.length);
+                                  }
+                                }}
+                                className="h-8 sm:h-10 rounded-lg text-xs sm:text-sm bg-background/40 border border-border/40 font-bold hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all active:scale-95"
+                              >
+                                {sym}
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="flex items-start gap-3 p-4 bg-yellow-500/5 rounded-xl border border-yellow-500/10">
+                            <Lightbulb className="h-4 w-4 text-yellow-500 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="text-xs font-bold text-foreground/80">Pro Tip: Quick Symbols</p>
+                              <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">
+                                Combine descriptions with equations. Each equation is added to your workbench.
+                              </p>
+                            </div>
+                          </div>
+                        </CollapsibleContent>
                       </div>
                     </div>
-                  </div>
+                  </Collapsible>
                 </div>
               )}
             </div>
@@ -1119,14 +1129,15 @@ export default function ContentToolsPage() {
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <Button
                   variant="outline"
-                  className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-black text-xs uppercase tracking-widest gap-3 shadow-sm hover:shadow-md"
+                  className="h-12 sm:h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-muted/30 hover:bg-primary/5 transition-all font-bold text-xs uppercase tracking-widest gap-2 sm:gap-3 shadow-sm hover:shadow-md"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <Upload className="h-5 w-5 text-primary" />
-                  <span>Upload File</span>
+                  <Upload className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                  <span className="hidden sm:inline">Upload File</span>
+                  <span className="sm:hidden">Upload</span>
                 </Button>
                 <input
                   type="file"
@@ -1140,19 +1151,21 @@ export default function ContentToolsPage() {
                   onClick={handleProcess}
                   disabled={loading || (!input.trim() && !mathImage)}
                   className={cn(
-                    'h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-3',
+                    'h-12 sm:h-16 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs uppercase tracking-widest shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all gap-2 sm:gap-3',
                     tool.color.replace('bg-', 'shadow-') + '/20'
                   )}
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                      <span>Generating...</span>
+                      <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                      <span className="hidden sm:inline">Generating...</span>
+                      <span className="sm:hidden">Solving...</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="h-5 w-5" />
-                      <span>Generate Content</span>
+                      <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
+                      <span className="hidden sm:inline">Generate Content</span>
+                      <span className="sm:hidden">Solve</span>
                     </>
                   )}
                 </Button>
