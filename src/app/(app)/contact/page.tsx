@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
@@ -16,26 +18,43 @@ import {
   ExternalLink,
   ShieldCheck,
   Zap,
-  Star
+  Star,
+  MessageCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Contact Support - Reach Out to Ahsan AI Hub',
-  description: 'Contact Ahsan AI Hub support for technical issues, feedback, or collaboration. Connect with us on Instagram, Twitter, or email for the fastest response.',
-  keywords: [
-    'contact Ahsan AI Hub',
-    'AI support email',
-    'AI developer contact',
-    'technical support',
-    'AI tool feedback',
-  ],
-};
-
 export default function ContactPage() {
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
+
+  const handleWhatsAppOpen = () => {
+    const selectors = [
+      '#aisensy-wa-widget',
+      '.aisensy-wa-widget-container',
+      'div[class*="aisensy"]',
+      'iframe[src*="aisensy"]'
+    ];
+    
+    let found = false;
+    for (const selector of selectors) {
+      const element = document.querySelector(selector) as HTMLElement;
+      if (element) {
+        const innerButton = element.querySelector('button, a, .button') as HTMLElement;
+        if (innerButton) {
+          innerButton.click();
+        } else {
+          element.click();
+        }
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      window.open('https://wa.me/923232152331', '_blank');
+    }
+  };
 
   const contactSchema = {
     "@context": "https://schema.org",
@@ -131,6 +150,17 @@ export default function ContactPage() {
             <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">
               Skip the forms. Connect with us directly through our official channels for the fastest support and collaboration.
             </p>
+
+            <div className="pt-8 flex justify-center">
+              <Button 
+                onClick={handleWhatsAppOpen}
+                size="lg" 
+                className="h-16 px-10 rounded-[2rem] font-black text-lg uppercase tracking-widest gap-4 shadow-2xl shadow-green-500/20 bg-green-600 hover:bg-green-700 text-white transition-all hover:scale-105 active:scale-95"
+              >
+                <MessageCircle className="h-6 w-6 fill-current" />
+                Chat on WhatsApp
+              </Button>
+            </div>
             
             {/* Quick Stats/Features */}
             <div className="flex flex-wrap justify-center gap-4 sm:gap-8 pt-6">
