@@ -244,12 +244,9 @@ export default function RootLayout({
                           [id*="aisensy"],
                           iframe[src*="aisensy"],
                           [id*="wa-widget"] {
-                            bottom: 140px !important;
-                            right: 15px !important;
-                            z-index: 999999 !important;
-                            pointer-events: auto !important;
-                            display: block !important;
-                            visibility: visible !important;
+                            display: none !important;
+                            visibility: hidden !important;
+                            pointer-events: none !important;
                           }
                         }
                         /* Target the specific floating button element if possible */
