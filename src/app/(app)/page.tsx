@@ -92,34 +92,12 @@ export default function HomePage() {
     PERSONALITY_MODES_CONFIG.creative;
 
   const handleWhatsAppOpen = () => {
-    // Attempt to find and click the Aisensy widget button
-    const selectors = [
-      '#aisensy-wa-widget',
-      '.aisensy-wa-widget-container',
-      'div[class*="aisensy"]',
-      'iframe[src*="aisensy"]'
-    ];
-    
-    let found = false;
-    for (const selector of selectors) {
-      const element = document.querySelector(selector) as HTMLElement;
-      if (element) {
-        // Some widgets are in iframes, some are divs. Try to find the inner button or click the element itself
-        const innerButton = element.querySelector('button, a, .button') as HTMLElement;
-        if (innerButton) {
-          innerButton.click();
-        } else {
-          element.click();
-        }
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      // Fallback: Open WhatsApp directly if widget isn't found
-      window.open('https://wa.me/923232152331', '_blank');
-    }
+    const pageTitle = document.title;
+    const pageUrl = window.location.href;
+    const phoneNumber = "15557818398";
+    const message = `Hello Ahsan AI Hub Support 👋, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
+    const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waLink, '_blank');
   };
 
   return (

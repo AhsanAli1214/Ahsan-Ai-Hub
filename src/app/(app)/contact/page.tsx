@@ -29,31 +29,12 @@ export default function ContactPage() {
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
 
   const handleWhatsAppOpen = () => {
-    const selectors = [
-      '#aisensy-wa-widget',
-      '.aisensy-wa-widget-container',
-      'div[class*="aisensy"]',
-      'iframe[src*="aisensy"]'
-    ];
-    
-    let found = false;
-    for (const selector of selectors) {
-      const element = document.querySelector(selector) as HTMLElement;
-      if (element) {
-        const innerButton = element.querySelector('button, a, .button') as HTMLElement;
-        if (innerButton) {
-          innerButton.click();
-        } else {
-          element.click();
-        }
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      window.open('https://wa.me/923232152331', '_blank');
-    }
+    const pageTitle = document.title;
+    const pageUrl = window.location.href;
+    const phoneNumber = "15557818398";
+    const message = `Hello Ahsan AI Hub Support 👋, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
+    const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waLink, '_blank');
   };
 
   const contactSchema = {
