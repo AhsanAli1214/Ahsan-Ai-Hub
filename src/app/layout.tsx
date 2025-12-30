@@ -217,6 +217,38 @@ export default function RootLayout({
                       script.id = 'aisensy-wa-widget';
                       script.setAttribute('widget-id', 'aaathq');
                       script.async = true;
+                      
+                      // Custom styles for Aisensy Widget
+                      const style = document.createElement('style');
+                      style.innerHTML = \`
+                        #aisensy-wa-widget-container, 
+                        .aisensy-wa-widget-container,
+                        [id*="aisensy"] {
+                          bottom: 80px !important;
+                          right: 20px !important;
+                        }
+                        @media (max-width: 768px) {
+                          #aisensy-wa-widget-container,
+                          .aisensy-wa-widget-container,
+                          [id*="aisensy"] {
+                            bottom: 100px !important;
+                            right: 15px !important;
+                          }
+                        }
+                      \`;
+                      document.head.appendChild(style);
+
+                      script.onload = function() {
+                        // Attempt to reposition if the widget creates its own container
+                        setTimeout(() => {
+                          const widgets = document.querySelectorAll('[id*="aisensy"], [class*="aisensy"]');
+                          widgets.forEach(w => {
+                            w.style.setProperty('bottom', '100px', 'important');
+                            w.style.setProperty('z-index', '9999', 'important');
+                          });
+                        }, 2000);
+                      };
+
                       document.body.appendChild(script);
                     })();
                   `
