@@ -25,6 +25,14 @@ import { cn } from '@/lib/utils';
 
 import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+  title: "Contact & Support | Ahsan AI Hub",
+  description: "Get in touch with Ahsan AI Hub support for help with our free AI tools. Direct WhatsApp and email support channels available.",
+  alternates: {
+    canonical: '/contact',
+  },
+};
+
 export default function ContactPage() {
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
 

@@ -23,6 +23,9 @@ import { AhsanAiHubLogo } from "@/components/icons";
 export const metadata: Metadata = {
   title: "About Ahsan AI Hub | Privacy-First AI Developed by Ahsan Ali",
   description: "Learn about Ahsan Ali Wadani, the developer of Ahsan AI Hub. Discover our mission to provide free, private AI chat and content tools with no login required.",
+  alternates: {
+    canonical: '/about',
+  },
   keywords: [
     'About Ahsan AI Hub', 
     'Ahsan Ali developer', 

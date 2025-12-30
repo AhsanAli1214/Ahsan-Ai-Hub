@@ -39,6 +39,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ahsan-ai-hub.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
   title: {
     default: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login',
     template: 'Ahsan Ai Hub'
@@ -139,10 +142,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="prefetch" href="/images/developer.jpg" as="image" />
-        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
-        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-        <link rel="preconnect" href="https://wa.me" />
-        <link rel="dns-prefetch" href="https://wa.me" />
         <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
