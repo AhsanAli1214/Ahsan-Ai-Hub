@@ -95,7 +95,7 @@ export default function HomePage() {
     const pageTitle = document.title;
     const pageUrl = window.location.href;
     const phoneNumber = "15557818398";
-    const message = `Hello Ahsan AI Hub Support 👋, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
+    const message = `Hello Ahsan AI Hub Support, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
     const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(waLink, '_blank');
   };
