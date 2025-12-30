@@ -139,6 +139,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://d3mkw6s8thqya7.cloudfront.net" />
         <link rel="prefetch" href="/recommendations" as="document" />
         <link rel="prefetch" href="/content-tools" as="document" />
+        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
         <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
