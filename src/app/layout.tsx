@@ -191,11 +191,22 @@ export default function RootLayout({
               `}} />
 
               {/* Aisensy WhatsApp Widget - Lazy Load */}
-              <Script 
-                id="aisensy-wa-widget"
-                src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+              <Script
+                id="aisensy-wa-widget-loader"
                 strategy="lazyOnload"
-                data-widget-id="aaathl"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    (function() {
+                      const script = document.createElement('script');
+                      script.type = 'text/javascript';
+                      script.src = 'https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js';
+                      script.id = 'aisensy-wa-widget';
+                      script.setAttribute('widget-id', 'aaathl');
+                      script.async = true;
+                      document.body.appendChild(script);
+                    })();
+                  `
+                }}
               />
             </ChatHistoryProvider>
           </AppProvider>
