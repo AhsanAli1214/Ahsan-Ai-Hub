@@ -291,7 +291,7 @@ export default function RootLayout({
 
                       document.body.appendChild(script);
                     })();
-                  `
+                  `.replace(/\s\s+/g, ' '),
                 }}
               />
             </ChatHistoryProvider>
