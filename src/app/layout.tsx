@@ -135,6 +135,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+        <link rel="preconnect" href="https://d3mkw6s8thqya7.cloudfront.net" />
+        <link rel="dns-prefetch" href="https://d3mkw6s8thqya7.cloudfront.net" />
         <link rel="preload" href="/icon-512.png" as="image" />
         <link rel="prefetch" href="/recommendations" as="document" />
         <link rel="prefetch" href="/content-tools" as="document" />

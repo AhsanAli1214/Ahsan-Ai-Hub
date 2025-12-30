@@ -83,6 +83,10 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
           },
+          {
+            key: 'Link',
+            value: '<https://d3mkw6s8thqya7.cloudfront.net>; rel=preconnect'
+          },
         ],
       },
       {
@@ -135,6 +139,24 @@ const nextConfig = {
           {
             key: 'Service-Worker-Allowed',
             value: '/'
+          },
+        ],
+      },
+      {
+        source: '/icon-512.png',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          },
+        ],
+      },
+      {
+        source: '/logo.png',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
           },
         ],
       },
