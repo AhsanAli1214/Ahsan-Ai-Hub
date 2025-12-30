@@ -168,7 +168,6 @@ export function Footer() {
             <div className="flex justify-center gap-4 text-xs">
               <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-600 font-medium">100% Free</span>
               <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-600 font-medium">100% Private</span>
-              <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 font-medium">Open Source</span>
             </div>
           </div>
         </div>
