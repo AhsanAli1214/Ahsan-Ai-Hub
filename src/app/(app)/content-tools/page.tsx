@@ -55,11 +55,7 @@ import type {
   GenerateSocialMediaPostInput,
   AssistResumeInput,
 } from '@/ai/flows/content-tools';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
-import rehypeRaw from 'rehype-raw';
-import rehypeKatex from 'rehype-katex';
+import dynamic from 'next/dynamic';
 import { LANGUAGES } from '@/lib/languages';
 import Image from 'next/image';
 import {
@@ -69,7 +65,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TextToSpeech } from '@/components/TextToSpeech';
+
+// Dynamic imports for heavy components
+const ReactMarkdown = dynamic(() => import('react-markdown'), { ssr: false });
+const remarkGfm = import('remark-gfm');
+const remarkMath = import('remark-math');
+const rehypeRaw = import('rehype-raw');
+const rehypeKatex = import('rehype-katex');
+const TextToSpeech = dynamic(() => import('@/components/TextToSpeech').then(mod => mod.TextToSpeech), { ssr: false });
 
 type Tool = 'enhance' | 'email' | 'blog' | 'study' | 'code' | 'math' | 'translate' | 'social' | 'resume' | 'story' | 'tts';
 
@@ -1212,8 +1215,8 @@ export default function ContentToolsPage() {
                       {selectedTool === 'tts' && <TextToSpeech text={output} />}
                       <div className="prose prose-blue dark:prose-invert max-w-none text-foreground font-medium leading-relaxed prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary prose-strong:text-primary prose-code:text-rose-500 prose-pre:bg-black/50 prose-pre:rounded-3xl prose-pre:p-8 prose-pre:border prose-pre:border-primary/20">
                         <ReactMarkdown 
-                          remarkPlugins={[remarkGfm, remarkMath]} 
-                          rehypePlugins={[rehypeRaw, rehypeKatex]}
+                          remarkPlugins={[(async () => (await remarkGfm).default) as any, (async () => (await remarkMath).default) as any]} 
+                          rehypePlugins={[(async () => (await rehypeRaw).default) as any, (async () => (await rehypeKatex).default) as any]}
                         >
                           {output}
                         </ReactMarkdown>

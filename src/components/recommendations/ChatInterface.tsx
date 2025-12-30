@@ -14,12 +14,16 @@ import { useAppContext } from '@/context/AppContext';
 import { useChatHistory, type Message } from '@/context/ChatHistoryContext';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LANGUAGES, type Language } from '@/lib/languages';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import dynamic from 'next/dynamic';
 import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
 import 'katex/dist/katex.min.css';
-import { InlineMath, BlockMath } from 'react-katex';
+
+// Dynamic imports for heavy libraries
+const ReactMarkdown = dynamic(() => import('react-markdown'), { ssr: false });
+const remarkGfm = import('remark-gfm');
+const rehypeRaw = import('rehype-raw');
+const InlineMath = dynamic(() => import('react-katex').then(mod => mod.InlineMath), { ssr: false });
+const BlockMath = dynamic(() => import('react-katex').then(mod => mod.BlockMath), { ssr: false });
 
 function MessageBubble({ 
     message, 
@@ -136,8 +140,8 @@ function MessageBubble({
               </div>
             ) : (
               <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw]}
+                remarkPlugins={[(async () => (await remarkGfm).default) as any]}
+                rehypePlugins={[(async () => (await rehypeRaw).default) as any]}
                 components={{
                   p: ({ node, ...props }) => <p className="mb-3 last:mb-0 leading-relaxed" {...props} />,
                   a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className={cn(isUser ? "text-white underline font-medium" : "text-primary hover:text-primary/80 underline font-medium")} />,

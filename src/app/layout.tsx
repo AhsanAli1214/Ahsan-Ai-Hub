@@ -171,16 +171,9 @@ export default function RootLayout({
               <ConnectionStatus />
               <Analytics />
               <SpeedInsights />
-              {/* Load OneSignal after hydration */}
-              <Script id="pwa-register" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
-                if ('serviceWorker' in navigator) {
-                  window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js');
-                  });
-                }
-              `}} />
-              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
-              <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+              {/* Load OneSignal after everything else */}
+              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="lazyOnload" />
+              <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
                   window.OneSignalDeferred = window.OneSignalDeferred || [];
                   OneSignalDeferred.push(async function(OneSignal) {
                     try {
@@ -197,11 +190,11 @@ export default function RootLayout({
                   });
               `}} />
 
-              {/* Aisensy WhatsApp Widget */}
+              {/* Aisensy WhatsApp Widget - Lazy Load */}
               <Script 
                 id="aisensy-wa-widget"
                 src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
-                strategy="afterInteractive"
+                strategy="lazyOnload"
                 data-widget-id="aaathl"
               />
             </ChatHistoryProvider>
