@@ -351,9 +351,22 @@ export default function ContentToolsPage() {
         document.title = `${meta.title} | Ahsan AI Hub`;
         const metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) metaDesc.setAttribute('content', meta.description);
+        
+        // Update canonical link
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+          canonical = document.createElement('link');
+          canonical.setAttribute('rel', 'canonical');
+          document.head.appendChild(canonical);
+        }
+        canonical.setAttribute('href', `https://ahsan-ai-hub.vercel.app/content-tools?tool=${selectedTool}`);
       }
     } else {
       document.title = 'AI Content Tools - Free Professional Writing & Productivity Hub | Ahsan AI Hub';
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.setAttribute('href', 'https://ahsan-ai-hub.vercel.app/content-tools');
+      }
     }
   }, [selectedTool]);
 

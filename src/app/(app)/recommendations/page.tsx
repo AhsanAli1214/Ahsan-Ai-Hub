@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { ChatInterface } from '@/components/recommendations/ChatInterface';
+import Head from 'next/head';
 
 export default function RecommendationsPage() {
   const searchParams = useSearchParams();
@@ -11,6 +12,9 @@ export default function RecommendationsPage() {
   return (
     <div className="flex h-full flex-col bg-background md:pb-0">
       <AppHeader title="AI Chat" />
+      <Head>
+        <link rel="canonical" href="https://ahsan-ai-hub.vercel.app/recommendations" />
+      </Head>
       <div className="flex-1 overflow-hidden">
         <ChatInterface
           initialPrompt={initialPrompt}
