@@ -229,43 +229,67 @@ export default function RootLayout({
                         #aisensy-wa-widget-container, 
                         .aisensy-wa-widget-container,
                         [id*="aisensy"],
-                        iframe[src*="aisensy"] {
-                          bottom: 110px !important;
+                        iframe[src*="aisensy"],
+                        [id*="wa-widget"] {
+                          bottom: 120px !important;
                           right: 20px !important;
-                          z-index: 99999 !important;
+                          z-index: 999999 !important;
                           pointer-events: auto !important;
+                          display: block !important;
+                          visibility: visible !important;
                         }
                         @media (max-width: 768px) {
                           #aisensy-wa-widget-container,
                           .aisensy-wa-widget-container,
                           [id*="aisensy"],
-                          iframe[src*="aisensy"] {
-                            bottom: 120px !important;
+                          iframe[src*="aisensy"],
+                          [id*="wa-widget"] {
+                            bottom: 140px !important;
                             right: 15px !important;
-                            z-index: 99999 !important;
+                            z-index: 999999 !important;
                             pointer-events: auto !important;
+                            display: block !important;
+                            visibility: visible !important;
                           }
+                        }
+                        /* Target the specific floating button element if possible */
+                        div[class*="aisensy-wa-widget-button"],
+                        a[href*="wa.me"] {
+                          bottom: inherit !important;
                         }
                       \`;
                       document.head.appendChild(style);
 
                       script.onload = function() {
-                        // Attempt to reposition if the widget creates its own container
                         const reposition = () => {
-                          const widgets = document.querySelectorAll('[id*="aisensy"], [class*="aisensy"], iframe[src*="aisensy"]');
-                          widgets.forEach(w => {
-                            w.style.setProperty('bottom', '120px', 'important');
-                            w.style.setProperty('z-index', '99999', 'important');
-                            w.style.setProperty('pointer-events', 'auto', 'important');
-                            w.style.setProperty('position', 'fixed', 'important');
+                          const selectors = [
+                            '[id*="aisensy"]', 
+                            '[class*="aisensy"]', 
+                            'iframe[src*="aisensy"]',
+                            '[id*="wa-widget"]',
+                            'div[style*="position: fixed"][style*="bottom: 0"]',
+                            'div[style*="position:fixed"][style*="bottom:0"]'
+                          ];
+                          
+                          selectors.forEach(selector => {
+                            const elements = document.querySelectorAll(selector);
+                            elements.forEach(el => {
+                              // If it's at the very bottom, move it up
+                              const style = window.getComputedStyle(el);
+                              if (style.position === 'fixed' || style.position === 'absolute') {
+                                el.style.setProperty('bottom', window.innerWidth < 768 ? '140px' : '120px', 'important');
+                                el.style.setProperty('z-index', '999999', 'important');
+                                el.style.setProperty('pointer-events', 'auto', 'important');
+                              }
+                            });
                           });
                         };
                         
-                        // Run immediately and then again after delays
                         reposition();
-                        setTimeout(reposition, 1000);
-                        setTimeout(reposition, 3000);
-                        setTimeout(reposition, 5000);
+                        const observer = new MutationObserver(reposition);
+                        observer.observe(document.body, { childList: true, subtree: true });
+                        
+                        setInterval(reposition, 2000);
                       };
 
                       document.body.appendChild(script);
