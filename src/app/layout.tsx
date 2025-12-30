@@ -130,12 +130,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://cdn.onesignal.com" />
+        <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-        <link rel="preconnect" href="https://d3mkw6s8thqya7.cloudfront.net" />
+        <link rel="preconnect" href="https://d3mkw6s8thqya7.cloudfront.net" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://d3mkw6s8thqya7.cloudfront.net" />
         <link rel="prefetch" href="/recommendations" as="document" />
         <link rel="prefetch" href="/content-tools" as="document" />
@@ -186,7 +186,11 @@ export default function RootLayout({
               <Analytics />
               <SpeedInsights />
               {/* Load OneSignal after everything else */}
-              <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" async />
+              <Script 
+                src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 
+                strategy="lazyOnload" 
+                async 
+              />
               <Script id="onesignal-init" strategy="lazyOnload" dangerouslySetInnerHTML={{__html: `
                   window.OneSignalDeferred = window.OneSignalDeferred || [];
                   OneSignalDeferred.push(async function(OneSignal) {
