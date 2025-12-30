@@ -349,8 +349,24 @@ export default function ContentToolsPage() {
       const meta = toolMeta[selectedTool];
       if (meta) {
         document.title = `${meta.title} | Ahsan AI Hub`;
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', meta.description);
+        
+        // Update Meta Description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement('meta');
+          metaDesc.setAttribute('name', 'description');
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.setAttribute('content', meta.description);
+
+        // Update Keywords
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (!metaKeywords) {
+          metaKeywords = document.createElement('meta');
+          metaKeywords.setAttribute('name', 'keywords');
+          document.head.appendChild(metaKeywords);
+        }
+        metaKeywords.setAttribute('content', meta.keywords.join(', '));
         
         // Update canonical link
         let canonical = document.querySelector('link[rel="canonical"]');
