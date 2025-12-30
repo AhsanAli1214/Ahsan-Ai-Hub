@@ -180,6 +180,31 @@ export default function RootLayout({
                 }
               `}} />
               <Script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" strategy="afterInteractive" />
+              <Script id="onesignal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html: `
+                  window.OneSignalDeferred = window.OneSignalDeferred || [];
+                  OneSignalDeferred.push(async function(OneSignal) {
+                    try {
+                      await OneSignal.init({
+                        appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                        safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
+                        notifyButton: {
+                          enable: true,
+                        },
+                      });
+                    } catch (e) {
+                      // Silent error handling for OneSignal
+                    }
+                  });
+              `}} />
+
+              {/* Aisensy WhatsApp Widget */}
+              <Script 
+                id="aisensy-wa-widget"
+                src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+                strategy="afterInteractive"
+                data-widget-id="aaathl"
+              />
+            </ChatHistoryProvider>
           </AppProvider>
         </ThemeProvider>
       </body>

@@ -611,12 +611,12 @@ export default function ContentToolsPage() {
                       <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
                         <SelectValue placeholder="Select Genre" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="fantasy">High Fantasy</SelectItem>
-                        <SelectItem value="scifi">Sci-Fi / Space</SelectItem>
-                        <SelectItem value="mystery">Mystery / Thriller</SelectItem>
-                        <SelectItem value="horror">Horror / Dark</SelectItem>
-                        <SelectItem value="romance">Romance / Drama</SelectItem>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="fantasy" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">High Fantasy</SelectItem>
+                        <SelectItem value="scifi" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Sci-Fi / Space</SelectItem>
+                        <SelectItem value="mystery" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Mystery / Thriller</SelectItem>
+                        <SelectItem value="horror" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Horror / Dark</SelectItem>
+                        <SelectItem value="romance" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Romance / Drama</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -631,10 +631,10 @@ export default function ContentToolsPage() {
                       <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
                         <SelectValue placeholder="Select Length" />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="short">Short Story</SelectItem>
-                        <SelectItem value="medium">Detailed Scene</SelectItem>
-                        <SelectItem value="long">Chapter Outline</SelectItem>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="short" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Short Story</SelectItem>
+                        <SelectItem value="medium" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Detailed Scene</SelectItem>
+                        <SelectItem value="long" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Chapter Outline</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -722,9 +722,247 @@ export default function ContentToolsPage() {
                 </div>
               )}
 
+              {selectedTool === 'blog' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Article Length
+                    </label>
+                    <Select
+                      value={options.blogLength || 'medium'}
+                      onValueChange={(value) => setOptions({ ...options, blogLength: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Length" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="short" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Short (300 words)</SelectItem>
+                        <SelectItem value="medium" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Medium (700 words)</SelectItem>
+                        <SelectItem value="long" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Long (1200+ words)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Audience</label>
+                    <input 
+                      type="text"
+                      placeholder="e.g. Tech enthusiasts, Beginners"
+                      value={options.blogAudience || ''}
+                      onChange={(e) => setOptions({...options, blogAudience: e.target.value})}
+                      className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary/60 outline-none transition-all shadow-sm"
+                    />
+                  </div>
+                </div>
+              )}
 
+              {selectedTool === 'translate' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Languages className="h-3 w-3" /> Target Language
+                    </label>
+                    <Select
+                      value={options.targetLanguage || 'Spanish'}
+                      onValueChange={(value) => setOptions({ ...options, targetLanguage: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Language" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2 max-h-[40vh]">
+                        {LANGUAGES.map((lang) => (
+                          <SelectItem key={lang.code} value={lang.name} className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">
+                            {lang.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Sparkles className="h-3 w-3" /> Tone
+                    </label>
+                    <Select
+                      value={options.translateTone || 'neutral'}
+                      onValueChange={(value) => setOptions({ ...options, translateTone: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Tone" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="neutral" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Neutral</SelectItem>
+                        <SelectItem value="formal" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Formal</SelectItem>
+                        <SelectItem value="casual" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Casual</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
 
+              {selectedTool === 'social' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Share2 className="h-3 w-3" /> Platform
+                    </label>
+                    <Select
+                      value={options.socialPlatform || 'Twitter'}
+                      onValueChange={(value) => setOptions({ ...options, socialPlatform: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Platform" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="Twitter" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Twitter / X</SelectItem>
+                        <SelectItem value="Instagram" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Instagram</SelectItem>
+                        <SelectItem value="LinkedIn" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">LinkedIn</SelectItem>
+                        <SelectItem value="Facebook" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Facebook</SelectItem>
+                        <SelectItem value="TikTok" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">TikTok (Script)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Post Goal
+                    </label>
+                    <Select
+                      value={options.socialGoal || 'engagement'}
+                      onValueChange={(value) => setOptions({ ...options, socialGoal: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Goal" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="engagement" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Engagement</SelectItem>
+                        <SelectItem value="informational" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Informational</SelectItem>
+                        <SelectItem value="promotional" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Promotional</SelectItem>
+                        <SelectItem value="humorous" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Humorous</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
 
+              {selectedTool === 'resume' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <FileText className="h-3 w-3" /> Resume Section
+                    </label>
+                    <Select
+                      value={options.resumeSection || 'summary'}
+                      onValueChange={(value) => setOptions({ ...options, resumeSection: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Section" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="summary" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Professional Summary</SelectItem>
+                        <SelectItem value="experience" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Work Experience</SelectItem>
+                        <SelectItem value="skills" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Skills Optimization</SelectItem>
+                        <SelectItem value="education" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Education</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black uppercase tracking-widest text-primary px-1">Target Role</label>
+                    <input 
+                      type="text"
+                      placeholder="e.g. Senior Developer, Manager"
+                      value={options.resumeRole || ''}
+                      onChange={(e) => setOptions({...options, resumeRole: e.target.value})}
+                      className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary/60 outline-none transition-all shadow-sm"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'code' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Code className="h-3 w-3" /> Programming Language
+                    </label>
+                    <Select
+                      value={options.codeLanguage || 'JavaScript'}
+                      onValueChange={(value) => setOptions({ ...options, codeLanguage: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Language" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="JavaScript" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">JavaScript</SelectItem>
+                        <SelectItem value="TypeScript" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">TypeScript</SelectItem>
+                        <SelectItem value="Python" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Python</SelectItem>
+                        <SelectItem value="Java" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Java</SelectItem>
+                        <SelectItem value="C++" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">C++</SelectItem>
+                        <SelectItem value="Go" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Go</SelectItem>
+                        <SelectItem value="Rust" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Rust</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Analysis Mode
+                    </label>
+                    <Select
+                      value={options.codeMode || 'explain'}
+                      onValueChange={(value) => setOptions({ ...options, codeMode: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Mode" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="explain" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Explain Logic</SelectItem>
+                        <SelectItem value="optimize" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Optimize Performance</SelectItem>
+                        <SelectItem value="debug" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Find Bugs</SelectItem>
+                        <SelectItem value="security" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Security Audit</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
+
+              {selectedTool === 'study' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-muted/30 p-6 rounded-[2rem] border border-border/40">
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <BookOpen className="h-3 w-3" /> Output Type
+                    </label>
+                    <Select
+                      value={options.studyType || 'explanation'}
+                      onValueChange={(value) => setOptions({ ...options, studyType: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Type" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="explanation" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Deep Explanation</SelectItem>
+                        <SelectItem value="notes" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Concise Notes</SelectItem>
+                        <SelectItem value="flashcards" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Flashcards (Q&A)</SelectItem>
+                        <SelectItem value="quiz" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Multiple Choice Quiz</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-xs font-black uppercase tracking-[0.2em] text-primary px-1 flex items-center gap-2">
+                      <Zap className="h-3 w-3" /> Difficulty
+                    </label>
+                    <Select
+                      value={options.difficulty || 'intermediate'}
+                      onValueChange={(value) => setOptions({ ...options, difficulty: value })}
+                    >
+                      <SelectTrigger className="w-full h-14 bg-background border-2 border-border/40 rounded-2xl px-5 font-bold focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all hover:border-primary/40 shadow-sm">
+                        <SelectValue placeholder="Select Difficulty" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-primary/10 bg-background/95 backdrop-blur-2xl shadow-2xl p-2">
+                        <SelectItem value="beginner" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Beginner</SelectItem>
+                        <SelectItem value="intermediate" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Intermediate</SelectItem>
+                        <SelectItem value="advanced" className="rounded-xl focus:bg-primary/10 focus:text-primary p-3 transition-colors mb-1">Advanced / Expert</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              )}
 
               {selectedTool === 'math' && (
                 <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -964,37 +1202,24 @@ export default function ContentToolsPage() {
                         onClick={() => handleDownload('txt')}
                         className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
                       >
-                        <Download className="h-3.5 w-3.5" />
-                        Save
+                        <Download className="h-3.5 w-3.5" /> Export
                       </Button>
                     </div>
                   </div>
 
-                  <Card className="rounded-[2.5rem] border-2 border-primary/10 bg-card/60 backdrop-blur-xl shadow-2xl overflow-hidden min-h-[300px] flex flex-col">
-                    <CardContent className="p-10 flex-1 flex flex-col">
-                      <div className="prose prose-invert prose-emerald max-w-none prose-headings:font-black prose-p:text-lg prose-p:leading-relaxed prose-p:font-medium prose-pre:bg-muted/50 prose-pre:rounded-2xl prose-pre:border-2 prose-pre:border-border/40 prose-pre:p-6 prose-code:text-primary prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none flex-1">
-                        <ReactMarkdown
-                          remarkPlugins={[remarkGfm, remarkMath]}
+                  <Card className="border-2 border-primary/10 rounded-[2.5rem] bg-card/40 backdrop-blur-3xl overflow-hidden shadow-2xl group">
+                    <CardContent className="p-10">
+                      {selectedTool === 'tts' && <TextToSpeech text={output} />}
+                      <div className="prose prose-blue dark:prose-invert max-w-none text-foreground font-medium leading-relaxed prose-headings:font-black prose-headings:tracking-tight prose-a:text-primary prose-strong:text-primary prose-code:text-rose-500 prose-pre:bg-black/50 prose-pre:rounded-3xl prose-pre:p-8 prose-pre:border prose-pre:border-primary/20">
+                        <ReactMarkdown 
+                          remarkPlugins={[remarkGfm, remarkMath]} 
                           rehypePlugins={[rehypeRaw, rehypeKatex]}
                         >
                           {output}
                         </ReactMarkdown>
                       </div>
-                      {selectedTool === 'tts' && (
-                        <div className="mt-10 pt-10 border-t border-border/40 flex flex-col items-center">
-                          <TextToSpeech text={output} />
-                        </div>
-                      )}
                     </CardContent>
                   </Card>
-                  
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center py-10 opacity-60 hover:opacity-100 transition-opacity">
-                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Rate this result:</p>
-                    <div className="flex gap-4">
-                      <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-green-500/10 hover:text-green-500"><CheckCircle2 className="h-5 w-5" /></Button>
-                      <Button variant="ghost" size="sm" className="rounded-full w-10 h-10 p-0 hover:bg-red-500/10 hover:text-red-500"><X className="h-5 w-5" /></Button>
-                    </div>
-                  </div>
                 </div>
               )}
             </div>
