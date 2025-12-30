@@ -135,11 +135,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-        <link rel="preconnect" href="https://d3mkw6s8thqya7.cloudfront.net" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://d3mkw6s8thqya7.cloudfront.net" />
-        <link rel="prefetch" href="/recommendations" as="document" />
-        <link rel="prefetch" href="/content-tools" as="document" />
         <link rel="canonical" href="https://ahsan-ai-hub.vercel.app" />
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        <link rel="preconnect" href="https://wa.me" />
+        <link rel="dns-prefetch" href="https://wa.me" />
         <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
