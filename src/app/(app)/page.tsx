@@ -91,6 +91,37 @@ export default function HomePage() {
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
+  const handleWhatsAppOpen = () => {
+    // Attempt to find and click the Aisensy widget button
+    const selectors = [
+      '#aisensy-wa-widget',
+      '.aisensy-wa-widget-container',
+      'div[class*="aisensy"]',
+      'iframe[src*="aisensy"]'
+    ];
+    
+    let found = false;
+    for (const selector of selectors) {
+      const element = document.querySelector(selector) as HTMLElement;
+      if (element) {
+        // Some widgets are in iframes, some are divs. Try to find the inner button or click the element itself
+        const innerButton = element.querySelector('button, a, .button') as HTMLElement;
+        if (innerButton) {
+          innerButton.click();
+        } else {
+          element.click();
+        }
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      // Fallback: Open WhatsApp directly if widget isn't found
+      window.open('https://wa.me/923232152331', '_blank');
+    }
+  };
+
   return (
     <div className="flex h-full flex-col">
       <AppHeader title="Home" />
@@ -204,6 +235,14 @@ export default function HomePage() {
                 </div>
                 
                 <div className="flex flex-col gap-4 w-full lg:w-auto">
+                  <Button 
+                    onClick={handleWhatsAppOpen}
+                    size="lg" 
+                    className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <MessageCircle className="h-4 w-4 fill-current" />
+                    Contact Support
+                  </Button>
                   <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20">
                     <Link href="/recommendations">
                       Start Exploring
