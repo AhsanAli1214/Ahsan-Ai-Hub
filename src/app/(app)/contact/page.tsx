@@ -23,17 +23,23 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: "Contact & Support | Ahsan AI Hub",
-  description: "Get in touch with Ahsan AI Hub support for help with our free AI tools. Direct WhatsApp and email support channels available.",
-  alternates: {
-    canonical: '/contact',
-  },
-};
+import { useEffect } from 'react';
 
 export default function ContactPage() {
+  useEffect(() => {
+    document.title = "Contact & Support | Ahsan AI Hub";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', "Get in touch with Ahsan AI Hub support for help with our free AI tools. Direct WhatsApp and email support channels available.");
+    
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', "https://ahsan-ai-hub.vercel.app/contact");
+  }, []);
+
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
 
   const handleWhatsAppOpen = () => {
