@@ -420,39 +420,39 @@ body {
 
   /* AI Sensey Widget Optimization */
   #aisensy-wa-widget {
-    transform: scale(0.85) !important;
+    transform: scale(0.7) !important;
     transform-origin: bottom right !important;
   }
 
   #df-btn-cont {
-    bottom: 20px !important;
-    right: 20px !important;
+    bottom: 16px !important;
+    right: 16px !important;
   }
 
   .df-btn {
-    width: 50px !important;
-    height: 50px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    width: 40px !important;
+    height: 40px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   }
 
   .df-btn-text {
-    font-size: 12px !important;
+    font-size: 10px !important;
   }
 
   /* Mobile optimization for widget */
   @media (max-width: 640px) {
     #aisensy-wa-widget {
-      transform: scale(0.75) !important;
+      transform: scale(0.65) !important;
     }
 
     #df-btn-cont {
-      bottom: 16px !important;
-      right: 16px !important;
+      bottom: 12px !important;
+      right: 12px !important;
     }
 
     .df-btn {
-      width: 45px !important;
-      height: 45px !important;
+      width: 36px !important;
+      height: 36px !important;
     }
   }
 }
