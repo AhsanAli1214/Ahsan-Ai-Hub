@@ -16,7 +16,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { LANGUAGES, type Language } from '@/lib/languages';
 import dynamic from 'next/dynamic';
 import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
-import { VoiceInput } from '@/components/VoiceInput';
 import 'katex/dist/katex.min.css';
 
 // Dynamic imports for heavy libraries
@@ -299,6 +298,8 @@ const SMART_PROMPTS = [
     { label: 'Write a short story about a friendly robot', prompt: 'Write a short story about a friendly robot who discovers a hidden talent.' },
     { label: 'Help me plan a weekend trip', prompt: 'Help me plan a weekend trip to a nearby city. I like history and good food.' },
 ];
+
+import { VoiceInput } from '@/components/VoiceInput';
 
 export function ChatInterface({
   initialPrompt,
@@ -681,16 +682,17 @@ export function ChatInterface({
                     rows={1}
                     disabled={isLoading}
                 />
-                <VoiceInput 
-                    onTranscript={(text) => setInput(prev => prev + (prev ? ' ' : '') + text)} 
-                    className="absolute right-2 top-1/2 -translate-y-1/2"
-                />
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                  <VoiceInput 
+                      onTranscript={(text) => setInput(prev => prev + (prev ? ' ' : '') + text)} 
+                  />
+                </div>
             </div>
             <Button 
                 onClick={handleSend} 
                 disabled={isLoading || !input.trim()} 
                 size="icon" 
-                className="h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95"
+                className="h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary text-primary-foreground"
             >
                 {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
                 <span className="sr-only">Send</span>
