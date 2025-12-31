@@ -36,10 +36,28 @@ export function InAppAnnouncement() {
         
         // Use a small timeout to ensure the state reset is processed before showing the new one
         setTimeout(() => {
-          setAnnouncement({
-            id: notification.notificationId + Date.now(), // Ensure unique ID for React reconciliation
+          const newNotif = {
+            id: notification.notificationId || (Date.now().toString()),
             title: notification.title || 'New Update',
             message: notification.body || '',
+            timestamp: Date.now(),
+            read: false,
+          };
+
+          // Update History in LocalStorage
+          const history = JSON.parse(localStorage.getItem('ahsan-notification-history') || '[]');
+          // Prevent duplicates
+          if (!history.find((h: any) => h.id === newNotif.id)) {
+            const updatedHistory = [newNotif, ...history].slice(0, 50); // Keep last 50
+            localStorage.setItem('ahsan-notification-history', JSON.stringify(updatedHistory));
+            // Trigger event for history component
+            window.dispatchEvent(new CustomEvent('notification-history-updated'));
+          }
+
+          setAnnouncement({
+            id: newNotif.id,
+            title: newNotif.title,
+            message: newNotif.message,
             type: 'news',
             active: true,
           });
