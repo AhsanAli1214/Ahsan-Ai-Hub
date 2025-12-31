@@ -242,7 +242,7 @@ export default function RootLayout({
                           enable: true,
                         },
                         allowLocalhostAsSecureOrigin: true,
-                        display": "dialog",
+                        display: "dialog",
                       });
                     } catch (e) {
                       // Silent error handling for OneSignal
