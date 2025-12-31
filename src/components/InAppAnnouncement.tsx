@@ -26,14 +26,21 @@ export function InAppAnnouncement() {
         console.log('OneSignal Notification Received:', event);
         
         const notification = event.notification;
-        setAnnouncement({
-          id: notification.notificationId,
-          title: notification.title || 'New Update',
-          message: notification.body || '',
-          type: 'news',
-          active: true,
-        });
-        setIsVisible(true);
+        
+        // Force reset visibility to handle consecutive notifications
+        setIsVisible(false);
+        
+        // Use a small timeout to ensure the state reset is processed before showing the new one
+        setTimeout(() => {
+          setAnnouncement({
+            id: notification.notificationId + Date.now(), // Ensure unique ID for React reconciliation
+            title: notification.title || 'New Update',
+            message: notification.body || '',
+            type: 'news',
+            active: true,
+          });
+          setIsVisible(true);
+        }, 100);
       };
 
       // Add with try-catch for robustness in PWA environment

@@ -243,6 +243,15 @@ export default function RootLayout({
                         },
                         allowLocalhostAsSecureOrigin: true,
                         display: "dialog",
+                        notificationDisplayOrder: "desc",
+                        promptOptions: {
+                          slidedown: {
+                            enabled: true,
+                            autoPrompt: true,
+                            timeDelay: 5,
+                            pageViews: 1,
+                          }
+                        }
                       });
                     } catch (e) {
                       // Silent error handling for OneSignal
