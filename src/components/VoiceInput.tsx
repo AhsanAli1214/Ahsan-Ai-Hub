@@ -21,7 +21,7 @@ interface VoiceInputProps {
 
 export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
   const { toast } = useToast();
-  const [selectedLang, setSelectedLang] = useState<Language>(LANGUAGES[0]);
+  const [selectedLang, setSelectedLang] = useState<any>(LANGUAGES[0]);
 
   const {
     isListening,
@@ -76,7 +76,7 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
               )}
             </div>
           ) : (
-            LANGUAGES.map((lang) => (
+            (LANGUAGES as any[]).map((lang) => (
               <DropdownMenuItem
                 key={lang.code}
                 onSelect={() => setSelectedLang(lang)}

@@ -15,6 +15,7 @@ import { useChatHistory, type Message } from '@/context/ChatHistoryContext';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LANGUAGES, type Language } from '@/lib/languages';
 import dynamic from 'next/dynamic';
+import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
 import { VoiceInput } from '@/components/VoiceInput';
 import 'katex/dist/katex.min.css';
 
