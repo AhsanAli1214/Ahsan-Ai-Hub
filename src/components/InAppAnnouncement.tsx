@@ -18,8 +18,21 @@ export function InAppAnnouncement() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // In a real scenario, this would be fetched from your backend or a config file
-    // For now, you can update this object to send news to your users
+    if (typeof window !== 'undefined' && window.OneSignal) {
+      window.OneSignal.Notifications.addEventListener('foregroundWillDisplay', (event: any) => {
+        const notification = event.notification;
+        setAnnouncement({
+          id: notification.notificationId,
+          title: notification.title || 'New Update',
+          message: notification.body || '',
+          type: 'news',
+          active: true,
+        });
+        setIsVisible(true);
+      });
+    }
+
+    // Fallback/Initial announcement
     const currentAnnouncement = {
       id: 'welcome-v1',
       title: 'Welcome to Ahsan AI Hub! 🚀',
