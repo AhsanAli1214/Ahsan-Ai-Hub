@@ -31,8 +31,8 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     idleTimerRef.current = setTimeout(() => {
       stopListening();
-    }, 2000);
-  }, []);
+    }, 8000); // Increased from 2s to 8s for better reliability
+  }, [stopListening]);
 
   const startListening = useCallback((langCode: string = 'en-US') => {
     if (!recognitionRef.current) return;

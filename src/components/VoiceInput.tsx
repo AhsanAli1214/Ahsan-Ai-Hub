@@ -64,7 +64,11 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
             <Mic className={cn("h-5 w-5", isListening && "fill-current")} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl">
+        <DropdownMenuContent 
+          align="end" 
+          className="w-64 p-2 rounded-2xl max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-primary/20"
+          onCloseAutoFocus={(e) => e.preventDefault()}
+        >
           {isListening ? (
             <div className="p-3 text-sm text-muted-foreground animate-in fade-in slide-in-from-top-1">
               <div className="flex items-center gap-2 mb-2">
@@ -76,19 +80,21 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
               )}
             </div>
           ) : (
-            (LANGUAGES as any[]).map((lang) => (
-              <DropdownMenuItem
-                key={lang.code}
-                onSelect={() => setSelectedLang(lang)}
-                className={cn(
-                  "flex items-center justify-between p-3 rounded-xl cursor-pointer",
-                  selectedLang.code === lang.code && "bg-primary/10 text-primary"
-                )}
-              >
-                <span className="font-medium">{lang.name}</span>
-                <span className="text-[10px] opacity-50 uppercase">{lang.code}</span>
-              </DropdownMenuItem>
-            ))
+            <div className="flex flex-col">
+              {LANGUAGES.map((lang) => (
+                <DropdownMenuItem
+                  key={lang.code}
+                  onSelect={() => setSelectedLang(lang)}
+                  className={cn(
+                    "flex items-center justify-between p-3 rounded-xl cursor-pointer hover:bg-accent focus:bg-accent",
+                    selectedLang.code === lang.code && "bg-primary/10 text-primary"
+                  )}
+                >
+                  <span className="font-medium">{lang.name}</span>
+                  <span className="text-[10px] opacity-50 uppercase">{lang.code}</span>
+                </DropdownMenuItem>
+              ))}
+            </div>
           )}
         </DropdownMenuContent>
       </DropdownMenu>
