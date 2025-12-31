@@ -7,7 +7,7 @@
   "id": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
-  "orientation": "portrait",
+  "orientation": "any",
   "dir": "ltr",
   "lang": "en-US",
   "prefer_related_applications": true,
