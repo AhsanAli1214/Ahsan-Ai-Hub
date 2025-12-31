@@ -20,6 +20,7 @@ const inter = Inter({
   variable: '--font-inter',
   display: 'swap',
   preload: true,
+  adjustFontFallback: true,
 });
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ const poppins = Poppins({
   variable: '--font-poppins',
   display: 'swap',
   preload: true,
+  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {

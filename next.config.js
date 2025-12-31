@@ -52,6 +52,8 @@ const nextConfig = {
       'framer-motion',
       'react-markdown',
       'recharts',
+      'katex',
+      'react-katex',
     ],
   },
   headers: async () => {
