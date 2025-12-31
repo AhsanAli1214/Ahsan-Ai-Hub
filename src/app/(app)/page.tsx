@@ -30,6 +30,8 @@ import { CardHeader, CardTitle, CardDescription, CardContent } from '@/component
 import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { WhatsAppSupportButton } from '@/components/WhatsAppSupportButton';
+
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
   ssr: false,
   loading: () => <div className="h-10 w-32 animate-pulse rounded-lg bg-muted" /> 
@@ -88,22 +90,53 @@ const PERSONALITY_MODES_CONFIG: Record<
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
+  const [showFullContent, setShowFullContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowFullContent(true);
+    }, 2000); // 2 seconds delay to show full content
+    return () => clearTimeout(timer);
+  }, []);
 
   const currentMode =
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
-  const handleWhatsAppOpen = () => {
-    const pageTitle = document.title;
-    const pageUrl = window.location.href;
-    const phoneNumber = "15557818398";
-    const message = `Hello Ahsan AI Hub Support, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
-    const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(waLink, '_blank');
-  };
+  if (!showFullContent) {
+    return (
+      <div className="flex h-full flex-col">
+        <AppHeader title="Welcome" />
+        <div className="flex flex-1 flex-col items-center justify-center p-6 space-y-6">
+          <div className="text-center space-y-4">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6">
+              <AhsanAiHubLogo width={64} height={64} fillContainer />
+            </div>
+            <h1 className="text-3xl font-black tracking-tight">Welcome to Ahsan AI Hub</h1>
+            <p className="text-muted-foreground max-w-sm mx-auto">
+              Please enable notifications to stay updated with our latest AI tools and features.
+            </p>
+          </div>
+          
+          <div className="w-full max-w-sm p-6 rounded-3xl bg-card border border-primary/20 shadow-xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <Smartphone className="h-6 w-6" />
+              </div>
+              <div>
+                <h2 className="font-bold">Stay Notified</h2>
+                <p className="text-xs text-muted-foreground">Never miss an update</p>
+              </div>
+            </div>
+            <OneSignalButton />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col animate-in fade-in duration-700">
       <AppHeader title="Home" />
       {/* Crawlable Content for SEO */}
       <div className="sr-only">
@@ -215,14 +248,7 @@ export default function HomePage() {
                 </div>
                 
                 <div className="flex flex-col gap-4 w-full lg:w-auto">
-                  <Button 
-                    onClick={handleWhatsAppOpen}
-                    size="lg" 
-                    className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20 bg-green-600 hover:bg-green-700 text-white"
-                  >
-                    <MessageCircle className="h-4 w-4 fill-current" />
-                    Contact Support
-                  </Button>
+                  <WhatsAppSupportButton className="w-full lg:w-56" />
                   <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20">
                     <Link href="/recommendations">
                       Start Exploring
