@@ -90,53 +90,13 @@ const PERSONALITY_MODES_CONFIG: Record<
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
-  const [showFullContent, setShowFullContent] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowFullContent(true);
-    }, 2000); // 2 seconds delay to show full content
-    return () => clearTimeout(timer);
-  }, []);
 
   const currentMode =
     PERSONALITY_MODES_CONFIG[personalityMode] ||
     PERSONALITY_MODES_CONFIG.creative;
 
-  if (!showFullContent) {
-    return (
-      <div className="flex h-full flex-col">
-        <AppHeader title="Welcome" />
-        <div className="flex flex-1 flex-col items-center justify-center p-6 space-y-6">
-          <div className="text-center space-y-4">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6">
-              <AhsanAiHubLogo width={64} height={64} fillContainer />
-            </div>
-            <h1 className="text-3xl font-black tracking-tight">Welcome to Ahsan AI Hub</h1>
-            <p className="text-muted-foreground max-w-sm mx-auto">
-              Please enable notifications to stay updated with our latest AI tools and features.
-            </p>
-          </div>
-          
-          <div className="w-full max-w-sm p-6 rounded-3xl bg-card border border-primary/20 shadow-xl">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <Smartphone className="h-6 w-6" />
-              </div>
-              <div>
-                <h2 className="font-bold">Stay Notified</h2>
-                <p className="text-xs text-muted-foreground">Never miss an update</p>
-              </div>
-            </div>
-            <OneSignalButton />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex h-full flex-col animate-in fade-in duration-700">
+    <div className="flex h-full flex-col">
       <AppHeader title="Home" />
       {/* Crawlable Content for SEO */}
       <div className="sr-only">
