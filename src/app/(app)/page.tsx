@@ -69,15 +69,13 @@ const QUICK_ACTIONS = [
   },
 ];
 
-export default function HomePage() {
-
 const SMART_PROMPTS = [
-    { label: 'Explain this to me like I\'m five', prompt: 'Explain this to me like I\'m five: ' },
-    { label: 'Summarize the following text', prompt: 'Summarize the following text: ' },
-    { label: 'Write a poem about...', prompt: 'Write a poem about a rainy day.' },
-    { label: 'Translate to French', prompt: 'Translate this to French: ' },
-    { label: 'What are the pros and cons of...', prompt: 'What are the pros and cons of learning to code?' },
-    { label: 'Create a recipe for...', prompt: 'Create a recipe for a vegan chocolate cake.' },
+  { label: 'Explain this to me like I\'m five', prompt: 'Explain this to me like I\'m five: ' },
+  { label: 'Summarize the following text', prompt: 'Summarize the following text: ' },
+  { label: 'Write a poem about...', prompt: 'Write a poem about a rainy day.' },
+  { label: 'Translate to French', prompt: 'Translate this to French: ' },
+  { label: 'What are the pros and cons of...', prompt: 'What are the pros and cons of learning to code?' },
+  { label: 'Create a recipe for...', prompt: 'Create a recipe for a vegan chocolate cake.' },
 ];
 
 const PERSONALITY_MODES_CONFIG: Record<
@@ -89,7 +87,6 @@ const PERSONALITY_MODES_CONFIG: Record<
   creative: { label: 'Creative', icon: Zap },
   teacher: { label: 'Teacher', icon: BookOpen },
 };
-
 
 export default function HomePage() {
   const { personalityMode } = useAppContext();
