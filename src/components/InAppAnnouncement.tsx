@@ -18,8 +18,13 @@ export function InAppAnnouncement() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.OneSignal) {
-      window.OneSignal.Notifications.addEventListener('foregroundWillDisplay', (event: any) => {
+    if (typeof window !== 'undefined' && (window as any).OneSignal) {
+      const OneSignal = (window as any).OneSignal;
+      
+      const handleNotification = (event: any) => {
+        // Log for debugging PWA/Mobile
+        console.log('OneSignal Notification Received:', event);
+        
         const notification = event.notification;
         setAnnouncement({
           id: notification.notificationId,
@@ -29,7 +34,15 @@ export function InAppAnnouncement() {
           active: true,
         });
         setIsVisible(true);
-      });
+      };
+
+      // Add with try-catch for robustness in PWA environment
+      try {
+        OneSignal.Notifications.addEventListener('foregroundWillDisplay', handleNotification);
+        OneSignal.Notifications.addEventListener('click', handleNotification);
+      } catch (err) {
+        console.error('Error adding OneSignal listeners:', err);
+      }
     }
   }, []);
 
