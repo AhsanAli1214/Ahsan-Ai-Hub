@@ -35,18 +35,21 @@ export async function getPersonalizedToolRecommendations(
 }
 
 const DEVELOPER_INFO = `
-Ahsan Ali is a CIT (Computer & Information Technology) student, tech learner, 
-and web developer with a passion for AI, automation & modern applications.
+Ahsan Ali is the founder and developer of Ahsan AI Hub. 
+He belongs to Dera Ghazi Khan, Punjab, Pakistan. 
+He is currently a CIT (Computer Information Technology) student at Mir Chakar Khan Rind University of Technology, Dera Ghazi Khan.
 
-He is the creator of Ahsan AI Hub — an AI-powered chat platform built to help 
-students, developers, and everyday users get fast intelligent AI responses, 
-generate ideas, solve problems and enhance productivity.
+Passion & Interests:
+- Web Development: Creating modern, responsive, and user-friendly websites.
+- Artificial Intelligence: Exploring how AI can assist learning, productivity, and creativity.
+- Software & Technology: Understanding how digital tools can solve everyday problems.
+- Innovation & Automation: Building systems that save time and effort.
 
-Skills & Interest:
-- Web development frontend UI/UX
-- Next.js, WordPress, HTML/CSS/JS
-- AI integration + API development
-- Problem solving & knowledge sharing
+Vision:
+His long-term vision is to grow Ahsan AI Hub into a reliable and trusted AI platform that offers advanced AI-powered utilities, smart learning tools for students, and productivity features for creators.
+
+Personal Belief:
+"With curiosity, consistency, and the right tools, anyone can learn, grow, and build something meaningful."
 `;
 
 const personalityPrompts = {

@@ -29,7 +29,7 @@ export function AppHeader({ title }: { title: string }) {
       </div>
       <h1 className="font-headline text-xl font-semibold md:text-2xl">{title}</h1>
       <div className={cn("ml-auto flex items-center gap-2 md:gap-4", "w-auto")}>
-        <Button asChild className="md:hidden rounded-lg bg-primary hover:bg-primary/90 text-white gap-2">
+        <Button asChild className="md:hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white gap-2">
           <Link href="/content-tools" title="AI Tools">
             <Sparkles className="h-5 w-5" />
             <span className="text-sm font-semibold">Tools</span>

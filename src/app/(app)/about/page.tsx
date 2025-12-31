@@ -152,13 +152,15 @@ export default function AboutPage() {
               <div className="space-y-4 text-center md:col-span-8 md:text-left lg:col-span-9">
                 <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent border border-accent/20">
                   <Award className="h-3 w-3" />
-                  Lead Developer
+                  Founder & Developer
                 </div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
                   Ahsan Ali
                 </h1>
-                <p className="max-w-xl text-lg text-muted-foreground">
-                  A CIT Student & Full-Stack Developer dedicated to building high-performance, privacy-focused AI solutions that empower users globally.
+                <p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
+                  I am a CIT (Computer Information Technology) student at Mir Chakar Khan Rind University of Technology, Dera Ghazi Khan. 
+                  Originally from Dera Ghazi Khan, Punjab, Pakistan, I am a passionate self-learner and developer focused on 
+                  building modern, responsive, and privacy-first AI solutions.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 md:justify-start pt-2">
                    <Button size="lg" className="rounded-xl shadow-lg shadow-primary/20" asChild>
@@ -172,46 +174,84 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Vision Section */}
+          {/* Detailed About Section */}
+          <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            <Card className="lg:col-span-2 border-accent/20 bg-card/50 p-8 space-y-6">
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <Rocket className="h-6 w-6 text-accent" />
+                My Passion & Technical Interests
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <h3 className="font-bold text-foreground">Web Development</h3>
+                  <p className="text-sm text-muted-foreground">Creating modern, responsive, and user-friendly websites using latest technologies.</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold text-foreground">Artificial Intelligence</h3>
+                  <p className="text-sm text-muted-foreground">Exploring how AI can assist learning, productivity, and creativity for everyone.</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold text-foreground">Software & Tech</h3>
+                  <p className="text-sm text-muted-foreground">Understanding how digital tools can solve everyday problems and simplify lives.</p>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-bold text-foreground">Innovation</h3>
+                  <p className="text-sm text-muted-foreground">Building automated systems that save time and effort through smart technology.</p>
+                </div>
+              </div>
+            </Card>
+
+            <Card className="border-primary/20 bg-primary/5 p-8 flex flex-col justify-center text-center space-y-4">
+              <p className="text-xl font-medium text-foreground italic">
+                "With curiosity, consistency, and the right tools, anyone can learn, grow, and build something meaningful."
+              </p>
+              <p className="text-sm font-bold text-primary">— Personal Belief</p>
+            </Card>
+          </section>
+
+          {/* Mission & Vision */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Card className="group relative overflow-hidden border-accent/20 bg-card/50 transition-all hover:border-accent/40">
               <div className="absolute top-0 left-0 h-1 w-full bg-accent" />
               <CardHeader className="flex flex-row items-center gap-4">
-                <div className="rounded-2xl bg-accent/10 p-3 text-accent group-hover:scale-110 transition-transform">
+                <div className="rounded-2xl bg-accent/10 p-3 text-accent">
                   <Rocket className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">The Mission</h3>
-                  <p className="text-sm text-muted-foreground">Why Ahsan AI Hub exists</p>
+                  <h3 className="text-xl font-bold">Why Ahsan AI Hub?</h3>
+                  <p className="text-sm text-muted-foreground">Mission & Goals</p>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4 text-muted-foreground">
                 <p className="leading-relaxed">
-                  I believe that advanced AI should be a human right, not a luxury. My mission is to remove the barriers of entry—logins, data tracking, and high costs—so that students and professionals everywhere can innovate freely.
+                  Ahsan AI Hub was created to offer free, powerful, and easy-to-use AI tools without the need for paid subscriptions or complicated setups.
                 </p>
-                <p className="leading-relaxed">
-                  Ahsan AI Hub is engineered to be your "Privacy-First Companion," ensuring that your creative thoughts and technical challenges stay between you and the machine.
-                </p>
+                <div className="space-y-2 text-sm">
+                  <p className="flex items-center gap-2">✓ Works without unnecessary logins</p>
+                  <p className="flex items-center gap-2">✓ Fast, clean, and responsive on all devices</p>
+                  <p className="flex items-center gap-2">✓ Designed for students, developers, and creators</p>
+                  <p className="flex items-center gap-2">✓ Combines chat, writing, and coding in one platform</p>
+                </div>
               </CardContent>
             </Card>
 
             <Card className="group relative overflow-hidden border-primary/20 bg-card/50 transition-all hover:border-primary/40">
               <div className="absolute top-0 left-0 h-1 w-full bg-primary" />
               <CardHeader className="flex flex-row items-center gap-4">
-                <div className="rounded-2xl bg-primary/10 p-3 text-primary group-hover:scale-110 transition-transform">
+                <div className="rounded-2xl bg-primary/10 p-3 text-primary">
                   <Shield className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Privacy Commitment</h3>
-                  <p className="text-sm text-muted-foreground">Zero logs, total freedom</p>
+                  <h3 className="text-xl font-bold">Role & Vision</h3>
+                  <p className="text-sm text-muted-foreground">SOLE DEVELOPER RESPONSIBILITIES</p>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4 text-muted-foreground">
                 <p className="leading-relaxed">
-                  Every line of code in this project is written with security in mind. I've eliminated server-side storage for chats and replaced it with local browser storage, putting you in total control of your data.
+                  As the sole developer, I handle everything from designing the frontend to optimizing AI performance and managing deployments.
                 </p>
                 <p className="leading-relaxed">
-                  By using cutting-edge language models via Genkit, we ensure high-speed responses while maintaining a lightweight footprint that works perfectly on any device.
+                  My long-term vision is to grow this platform into a reliable hub for advanced AI utilities, smart learning tools, and productivity resources for creators worldwide.
                 </p>
               </CardContent>
             </Card>
