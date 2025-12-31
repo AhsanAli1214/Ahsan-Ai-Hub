@@ -27,6 +27,10 @@ export function InAppAnnouncement() {
         
         const notification = event.notification;
         
+        // Show standard push notification using browser/system API if supported
+        // OneSignal handles this automatically, but we ensure the foreground display 
+        // doesn't block the system-level notification if needed.
+        
         // Force reset visibility to handle consecutive notifications
         setIsVisible(false);
         

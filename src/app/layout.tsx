@@ -244,6 +244,7 @@ export default function RootLayout({
                         allowLocalhostAsSecureOrigin: true,
                         display: "dialog",
                         notificationDisplayOrder: "desc",
+                        notificationDisplayType: "default",
                         promptOptions: {
                           slidedown: {
                             enabled: true,
