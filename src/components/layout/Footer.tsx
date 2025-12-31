@@ -41,7 +41,7 @@ export function Footer() {
   return (
     <footer className="relative bg-background/95 backdrop-blur-xl border-t border-border/40">
       {/* Top decorative gradient */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-primary/20" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}

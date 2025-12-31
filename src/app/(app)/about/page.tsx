@@ -175,7 +175,7 @@ export default function AboutPage() {
           {/* Vision Section */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Card className="group relative overflow-hidden border-accent/20 bg-card/50 transition-all hover:border-accent/40">
-              <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-accent to-primary" />
+              <div className="absolute top-0 left-0 h-1 w-full bg-accent" />
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="rounded-2xl bg-accent/10 p-3 text-accent group-hover:scale-110 transition-transform">
                   <Rocket className="h-6 w-6" />
@@ -196,7 +196,7 @@ export default function AboutPage() {
             </Card>
 
             <Card className="group relative overflow-hidden border-primary/20 bg-card/50 transition-all hover:border-primary/40">
-              <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary to-accent" />
+              <div className="absolute top-0 left-0 h-1 w-full bg-primary" />
               <CardHeader className="flex flex-row items-center gap-4">
                 <div className="rounded-2xl bg-primary/10 p-3 text-primary group-hover:scale-110 transition-transform">
                   <Shield className="h-6 w-6" />

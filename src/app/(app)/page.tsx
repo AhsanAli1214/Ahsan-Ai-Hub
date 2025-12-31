@@ -162,7 +162,7 @@ export default function HomePage() {
           </section>
 
           {/* Privacy-First Banner */}
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 p-8 md:p-12 shadow-2xl">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary/5 border border-primary/20 p-8 md:p-12 shadow-2xl">
             <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-primary/10 blur-[100px]" />
             <div className="absolute -left-20 -bottom-10 h-40 w-40 rounded-full bg-primary/10 blur-[80px]" />
             
@@ -268,7 +268,7 @@ export default function HomePage() {
             <h2 className="mb-4 font-headline text-xl font-semibold">
               Get the Native Experience
             </h2>
-            <Card className="relative overflow-hidden p-8 md:p-12 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-background rounded-[2.5rem] shadow-xl">
+            <Card className="relative overflow-hidden p-8 md:p-12 border-primary/20 bg-muted/30 rounded-[2.5rem] shadow-xl">
               <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-primary/10 blur-3xl opacity-50" />
               
               <div className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:text-left lg:gap-12">
