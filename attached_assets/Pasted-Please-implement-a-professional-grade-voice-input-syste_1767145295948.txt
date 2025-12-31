@@ -1,0 +1,29 @@
+Please implement a professional-grade voice input system using the Web Speech API. I need a robust architecture consisting of a custom hook, a UI component, and a language utility.
+
+1. Create a Custom Hook (useVoiceInput.ts):
+
+Use window.SpeechRecognition or window.webkitSpeechRecognition.
+State Management: Track isListening, isSupported, transcript (complete), interimTranscript (real-time), and detectedLanguage.
+Logic:
+Set continuous: false but implement a 2-second idleTimer to automatically stop recording after silence for a natural user experience.
+Implement comprehensive error handling for: no-speech, audio-capture, not-allowed, and network errors.
+Support passing a specific language code (e.g., 'en-US') to startListening.
+2. Create the Voice Input Component (VoiceInput.tsx):
+
+UI Requirements: Use a button with a Microphone icon (Lucide-React).
+Interactions:
+When active, the icon should turn red and have an animate-pulse effect.
+Use a Dropdown menu (Radix UI/Shadcn) to allow users to select their recording language before starting.
+While recording, show a "Listening..." state with the interimTranscript displayed in italic text inside the dropdown.
+Feedback: Use a Toast notification system to confirm when transcription is complete and identify the detected language.
+3. Language Utility (languages.ts):
+
+Provide a constant LANGUAGES array with objects containing name and code (e.g., { name: 'English', code: 'en-US' }).
+4. Integration Requirements:
+
+The component should accept an onTranscript: (text: string) => void prop.
+Ensure the code is strictly 'use client' for Next.js compatibility and handles typeof window checks for SSR safety."
+Technical Tips for Success:
+Browser Support: This uses the Web Speech API, which works perfectly in Chrome, Edge, and Safari.
+Privacy: Browsers automatically handle the microphone permission popup for you.
+PWA Benefit: On mobile devices, this feels like a native app feature because it uses the device's built-in speech recognition engine.

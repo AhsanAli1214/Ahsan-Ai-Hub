@@ -1,0 +1,101 @@
+'use client';
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface VoiceInputOptions {
+  onTranscript: (text: string) => void;
+  onError?: (error: string) => void;
+}
+
+export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
+  const [isListening, setIsListening] = useState(false);
+  const [isSupported, setIsSupported] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [interimTranscript, setInterimTranscript] = useState('');
+  const [detectedLanguage, setDetectedLanguage] = useState('');
+  
+  const recognitionRef = useRef<any>(null);
+  const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      setIsSupported(true);
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = true;
+      recognitionRef.current.interimResults = true;
+    }
+  }, []);
+
+  const resetIdleTimer = useCallback(() => {
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      stopListening();
+    }, 2000);
+  }, []);
+
+  const startListening = useCallback((langCode: string = 'en-US') => {
+    if (!recognitionRef.current) return;
+
+    setTranscript('');
+    setInterimTranscript('');
+    setDetectedLanguage(langCode);
+    recognitionRef.current.lang = langCode;
+
+    recognitionRef.current.onresult = (event: any) => {
+      resetIdleTimer();
+      let interim = '';
+      let final = '';
+
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          final += result[0].transcript;
+        } else {
+          interim += result[0].transcript;
+        }
+      }
+
+      if (final) {
+        setTranscript(prev => prev + final);
+        onTranscript(final);
+      }
+      setInterimTranscript(interim);
+    };
+
+    recognitionRef.current.onerror = (event: any) => {
+      setIsListening(false);
+      if (onError) onError(event.error);
+    };
+
+    recognitionRef.current.onend = () => {
+      setIsListening(false);
+    };
+
+    try {
+      recognitionRef.current.start();
+      setIsListening(true);
+      resetIdleTimer();
+    } catch (e) {
+      console.error('Speech recognition start error:', e);
+    }
+  }, [onTranscript, onError, resetIdleTimer]);
+
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+    setIsListening(false);
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+  }, []);
+
+  return {
+    isListening,
+    isSupported,
+    transcript,
+    interimTranscript,
+    detectedLanguage,
+    startListening,
+    stopListening
+  };
+}

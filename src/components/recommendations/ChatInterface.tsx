@@ -15,7 +15,7 @@ import { useChatHistory, type Message } from '@/context/ChatHistoryContext';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LANGUAGES, type Language } from '@/lib/languages';
 import dynamic from 'next/dynamic';
-import { speakText, stopSpeech, isSpeechSynthesisSupported } from '@/lib/text-to-speech-utils';
+import { VoiceInput } from '@/components/VoiceInput';
 import 'katex/dist/katex.min.css';
 
 // Dynamic imports for heavy libraries
@@ -665,20 +665,26 @@ export function ChatInterface({
       <div className="fixed bottom-0 left-0 right-0 z-30 px-3 sm:px-4 py-3 sm:py-4 w-full pb-[calc(1rem+env(safe-area-inset-bottom))] mb-20 md:mb-0 pointer-events-none">
         <div className="mx-auto w-full max-w-4xl flex justify-center pointer-events-auto">
            <div className="flex items-end gap-2 sm:gap-3 w-full bg-background/80 backdrop-blur-lg p-2 rounded-3xl border border-border/40 shadow-2xl">
-            <Textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSend();
-                }
-                }}
-                placeholder="Ask me anything..."
-                className="flex-1 resize-none rounded-2xl border border-border bg-background shadow-none focus-visible:ring-1 focus-visible:ring-primary text-sm sm:text-base min-h-[44px] py-3 px-4"
-                rows={1}
-                disabled={isLoading}
-            />
+            <div className="flex-1 flex items-center relative">
+                <Textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSend();
+                    }
+                    }}
+                    placeholder="Ask me anything..."
+                    className="flex-1 resize-none rounded-2xl border border-border bg-background shadow-none focus-visible:ring-1 focus-visible:ring-primary text-sm sm:text-base min-h-[44px] py-3 pl-4 pr-12"
+                    rows={1}
+                    disabled={isLoading}
+                />
+                <VoiceInput 
+                    onTranscript={(text) => setInput(prev => prev + (prev ? ' ' : '') + text)} 
+                    className="absolute right-2 top-1/2 -translate-y-1/2"
+                />
+            </div>
             <Button 
                 onClick={handleSend} 
                 disabled={isLoading || !input.trim()} 
