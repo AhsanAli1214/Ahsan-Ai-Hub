@@ -37,10 +37,6 @@ const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').t
   ssr: false,
   loading: () => <div className="h-14 w-full animate-pulse rounded-2xl bg-muted" />
 });
-const NotificationHistory = dynamic(() => import('@/components/notifications/NotificationHistory').then(mod => mod.NotificationHistory), {
-  ssr: false,
-  loading: () => <div className="h-40 w-full animate-pulse rounded-2xl bg-muted" />
-});
 const WhatsAppSupportButton = dynamic(() => import('@/components/WhatsAppSupportButton').then(mod => mod.WhatsAppSupportButton), { ssr: false });
 
 const QUICK_ACTIONS = [
@@ -186,7 +182,6 @@ export default function HomePage() {
                 <OneSignalButton />
               </CardContent>
             </Card>
-            <NotificationHistory />
           </section>
 
           <section className="pb-12">
