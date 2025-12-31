@@ -27,6 +27,14 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     }
   }, []);
 
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+    setIsListening(false);
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+  }, []);
+
   const resetIdleTimer = useCallback(() => {
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     idleTimerRef.current = setTimeout(() => {
@@ -90,14 +98,6 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       }
     }
   }, [onTranscript, onError, resetIdleTimer]);
-
-  const stopListening = useCallback(() => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-    setIsListening(false);
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-  }, []);
 
   return {
     isListening,
