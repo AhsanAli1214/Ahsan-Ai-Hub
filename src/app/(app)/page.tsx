@@ -27,11 +27,11 @@ const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mo
 });
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { ConnectionStatus } from '@/components/network/ConnectionStatus';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { WhatsAppSupportButton } from '@/components/WhatsAppSupportButton';
 
+const ConnectionStatus = dynamic(() => import('@/components/network/ConnectionStatus').then(mod => mod.ConnectionStatus), { ssr: false });
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
   ssr: false,
   loading: () => <div className="h-10 w-32 animate-pulse rounded-lg bg-muted" /> 
@@ -67,6 +67,8 @@ const QUICK_ACTIONS = [
     prompt: 'Help me solve this problem: ',
   },
 ];
+
+export default function HomePage() {
 
 const SMART_PROMPTS = [
     { label: 'Explain this to me like I\'m five', prompt: 'Explain this to me like I\'m five: ' },

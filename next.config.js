@@ -4,6 +4,7 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  swcMinify: true,
   allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '127.0.0.1', 'localhost'],
   transpilePackages: ['next-themes'],
   images: {
@@ -55,6 +56,7 @@ const nextConfig = {
       'katex',
       'react-katex',
     ],
+    scrollRestoration: true,
   },
   headers: async () => {
     return [
