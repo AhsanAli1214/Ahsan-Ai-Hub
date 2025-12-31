@@ -72,12 +72,22 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       setIsListening(false);
     };
 
-    try {
-      recognitionRef.current.start();
+    recognitionRef.current.onstart = () => {
       setIsListening(true);
       resetIdleTimer();
+    };
+
+    try {
+      recognitionRef.current.start();
     } catch (e) {
       console.error('Speech recognition start error:', e);
+      // If already started, just ensure state is correct
+      if (e instanceof Error && e.name === 'InvalidStateError') {
+        setIsListening(true);
+        resetIdleTimer();
+      } else {
+        setIsListening(false);
+      }
     }
   }, [onTranscript, onError, resetIdleTimer]);
 
