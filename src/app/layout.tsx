@@ -241,6 +241,8 @@ export default function RootLayout({
                         notifyButton: {
                           enable: true,
                         },
+                        allowLocalhostAsSecureOrigin: true,
+                        display": "dialog",
                       });
                     } catch (e) {
                       // Silent error handling for OneSignal

@@ -31,23 +31,6 @@ export function InAppAnnouncement() {
         setIsVisible(true);
       });
     }
-
-    // Fallback/Initial announcement
-    const currentAnnouncement = {
-      id: 'welcome-v1',
-      title: 'Welcome to Ahsan AI Hub! 🚀',
-      message: 'Explore our new Math Solver and professional writing tools. 100% free and private.',
-      type: 'info' as const,
-      active: true,
-    };
-
-    const dismissedId = localStorage.getItem('dismissed-announcement');
-    
-    if (currentAnnouncement.active && dismissedId !== currentAnnouncement.id) {
-      setAnnouncement(currentAnnouncement);
-      const timer = setTimeout(() => setIsVisible(true), 1500); // Show after 1.5s
-      return () => clearTimeout(timer);
-    }
   }, []);
 
   const handleDismiss = () => {
