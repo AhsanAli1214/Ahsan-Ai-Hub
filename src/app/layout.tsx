@@ -93,14 +93,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
     siteName: 'Ahsan AI Hub by Ahsan Ali',
-    title: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login Required',
-    description: 'Experience unlimited free AI chat assistant, writing assistant, blog generator, resume builder, code explainer, math solver, translator (50+ languages), and 9+ more tools. No login, no signup, 100% private, completely free with Ahsan AI by Ahsan Ali.',
+    title: 'Ahsan AI Hub - Best Free AI Assistant 2025 | No Login Required',
+    description: 'Use Ahsan AI Hub for free: AI chat assistant, text rewriter, code explainer, math solver, and 50+ language translator. 100% private, no login, developed by Ahsan Ali.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ahsan AI Hub by Ahsan Ali - Your Privacy-First AI Companion',
+        alt: 'Ahsan AI Hub - The Privacy-First Free AI Companion',
       },
     ],
   },
@@ -108,8 +108,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@Ahsan_Ali_12',
     creator: '@Ahsan_Ali_12',
-    title: 'Ahsan AI Hub by Ahsan Ali Wadani - Free AI Chat & Tools',
-    description: 'Ahsan Ai Hub - Free AI chat assistant, writing tool, code explainer, resume builder, and 9+ more. No login required, no signup. 100% private. Try Ahsan AI today!',
+    title: 'Ahsan AI Hub - Free AI Chat & Tools (No Signup)',
+    description: "Experience the world's most private free AI hub. Developed by Ahsan Ali. No login required.",
     images: ['/og-image.png'],
   },
   robots: {
@@ -173,6 +173,33 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Ahsan AI Hub",
+              "alternateName": "Ahsan AI",
+              "url": "https://ahsan-ai-hub.vercel.app",
+              "description": "The world's #1 privacy-first free AI companion. Developed by Ahsan Ali. Features AI chat, text rewriting, math solving, and translation.",
+              "applicationCategory": "ProductivityApplication",
+              "operatingSystem": "All",
+              "author": {
+                "@type": "Person",
+                "name": "Ahsan Ali",
+                "url": "https://github.com/AhsanAli1214"
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              }
+            })
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

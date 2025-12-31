@@ -98,7 +98,7 @@ export default function HomePage() {
     PERSONALITY_MODES_CONFIG.creative;
 
   return (
-    <div className="flex h-full flex-col">
+    <main className="flex h-full flex-col">
       <AppHeader title="Home" />
       {/* Crawlable Content for SEO */}
       <div className="sr-only">
@@ -124,7 +124,7 @@ export default function HomePage() {
       
       <ConnectionStatus />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-        <div className="mx-auto max-w-4xl space-y-8">
+        <article className="mx-auto max-w-4xl space-y-8">
           {/* Hero Section */}
           <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
             <div className="flex items-center gap-4 md:gap-6">
@@ -359,7 +359,7 @@ export default function HomePage() {
           </Card>
 
           {/* Smart Prompts Section */}
-          <div className="pb-12">
+          <section className="pb-12">
             <h2 className="mb-4 font-headline text-xl font-semibold">
               Smart Prompts
             </h2>
@@ -376,9 +376,9 @@ export default function HomePage() {
                 </Button>
               ))}
             </div>
-          </div>
-        </div>
+          </section>
+        </article>
       </div>
-    </div>
+    </main>
   );
 }
