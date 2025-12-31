@@ -25,6 +25,7 @@ import Link from 'next/link';
 const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), {
   ssr: true,
 });
+import { NotificationHistory } from '@/components/notifications/NotificationHistory';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 import { CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import dynamic from 'next/dynamic';
@@ -339,24 +340,27 @@ export default function HomePage() {
           </Card>
 
 
-          {/* Push Notifications Section */}
-          <Card className="bg-card border-primary/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <div>
-                <CardTitle className="text-foreground">Enable Push Notifications</CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  Get notified about new features and important updates
-                </CardDescription>
-              </div>
-              <Smartphone className="h-6 w-6 text-primary" />
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Subscribe to receive push notifications directly on your device. Stay updated with the latest features and announcements.
-              </p>
-              <OneSignalButton />
-            </CardContent>
-          </Card>
+          <section className="space-y-6">
+            <Card className="bg-card border-primary/20">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                <div>
+                  <CardTitle className="text-foreground">Enable Push Notifications</CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    Get notified about new features and important updates
+                  </CardDescription>
+                </div>
+                <Smartphone className="h-6 w-6 text-primary" />
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Subscribe to receive push notifications directly on your device. Stay updated with the latest features and announcements.
+                </p>
+                <OneSignalButton />
+              </CardContent>
+            </Card>
+
+            <NotificationHistory />
+          </section>
 
           {/* Smart Prompts Section */}
           <section className="pb-12">
