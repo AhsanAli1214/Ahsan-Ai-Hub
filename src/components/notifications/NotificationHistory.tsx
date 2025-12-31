@@ -14,6 +14,7 @@ interface NotificationItem {
   message: string;
   timestamp: number;
   read: boolean;
+  image?: string;
 }
 
 export function NotificationHistory() {
@@ -97,6 +98,11 @@ export function NotificationHistory() {
                   <h4 className="font-bold text-sm leading-tight pr-4">{notif.title}</h4>
                   {!notif.read && <Badge variant="default" className="text-[10px] h-4 px-1">New</Badge>}
                 </div>
+                {notif.image && (
+                  <div className="mb-3 overflow-hidden rounded-xl border border-border/50">
+                    <img src={notif.image} alt="" className="w-full h-auto object-cover max-h-40" />
+                  </div>
+                )}
                 <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{notif.message}</p>
                 <div className="flex items-center gap-2 text-[10px] text-muted-foreground opacity-60">
                   <Clock className="h-3 w-3" />

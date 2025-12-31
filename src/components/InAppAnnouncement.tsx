@@ -13,6 +13,7 @@ export function InAppAnnouncement() {
     message: string;
     type: 'info' | 'update' | 'news';
     active: boolean;
+    image?: string;
   } | null>(null);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -46,18 +47,24 @@ export function InAppAnnouncement() {
 
           // Update History in LocalStorage
           const history = JSON.parse(localStorage.getItem('ahsan-notification-history') || '[]');
+          const newNotifWithImage = {
+            ...newNotif,
+            image: notification.image || notification.bigPicture || notification.largeIcon || null
+          };
+
           // Prevent duplicates
-          if (!history.find((h: any) => h.id === newNotif.id)) {
-            const updatedHistory = [newNotif, ...history].slice(0, 50); // Keep last 50
+          if (!history.find((h: any) => h.id === newNotifWithImage.id)) {
+            const updatedHistory = [newNotifWithImage, ...history].slice(0, 5); // Only save 5 notifications
             localStorage.setItem('ahsan-notification-history', JSON.stringify(updatedHistory));
             // Trigger event for history component
             window.dispatchEvent(new CustomEvent('notification-history-updated'));
           }
 
           setAnnouncement({
-            id: newNotif.id,
-            title: newNotif.title,
-            message: newNotif.message,
+            id: newNotifWithImage.id,
+            title: newNotifWithImage.title,
+            message: newNotifWithImage.message,
+            image: newNotifWithImage.image,
             type: 'news',
             active: true,
           });
@@ -115,6 +122,11 @@ export function InAppAnnouncement() {
             
             <div className="flex-1 space-y-1 pr-6">
               <h3 className="font-bold text-sm leading-none">{announcement.title}</h3>
+              {announcement.image && (
+                <div className="my-3 overflow-hidden rounded-xl border border-primary/10">
+                  <img src={announcement.image} alt="" className="w-full h-auto object-cover max-h-32" />
+                </div>
+              )}
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {announcement.message}
               </p>
