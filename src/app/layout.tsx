@@ -14,6 +14,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
+import { InAppAnnouncement } from '@/components/InAppAnnouncement';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -223,6 +224,7 @@ export default function RootLayout({
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
+              <InAppAnnouncement />
               {/* Load OneSignal after everything else */}
               <Script 
                 src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 
