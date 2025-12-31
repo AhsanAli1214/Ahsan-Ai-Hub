@@ -224,7 +224,6 @@ export default function RootLayout({
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
-              <InAppAnnouncement />
               {/* Load OneSignal after everything else */}
               <Script 
                 src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 

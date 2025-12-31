@@ -35,7 +35,12 @@ export function NotificationHistory() {
     const handleNewNotification = () => {
       const updated = localStorage.getItem('ahsan-notification-history');
       if (updated) {
-        setNotifications(JSON.parse(updated));
+        try {
+          const parsed = JSON.parse(updated);
+          setNotifications(parsed);
+        } catch (e) {
+          console.error('Failed to update notifications');
+        }
       }
     };
 
@@ -87,7 +92,7 @@ export function NotificationHistory() {
       <CardContent className="px-0">
         <ScrollArea className="h-[400px] pr-4">
           <div className="space-y-4">
-            {notifications.sort((a, b) => b.timestamp - a.timestamp).map((notif) => (
+            {notifications.slice().sort((a, b) => b.timestamp - a.timestamp).map((notif) => (
               <div 
                 key={notif.id} 
                 className={`p-4 rounded-2xl border transition-all duration-300 ${
