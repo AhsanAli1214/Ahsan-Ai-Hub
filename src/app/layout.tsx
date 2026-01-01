@@ -177,7 +177,27 @@ export default function RootLayout({
             `,
           }}
         />
-      </head>
+        <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Ahsan AI Hub",
+          "alternateName": "Ahsan Ai Hub",
+          "url": "https://ahsan-ai-hub.vercel.app",
+          "description": "Privacy-first free AI hub by Ahsan Ali. High-performance AI chat, writing, and translation tools. No login required.",
+          "applicationCategory": "AI Assistant",
+          "operatingSystem": "All",
+          "author": {
+            "@type": "Person",
+            "name": "Ahsan Ali",
+            "url": "https://github.com/AhsanAli1214"
+          }
+        })
+      }}
+    />
+  </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <Script
           id="json-ld"

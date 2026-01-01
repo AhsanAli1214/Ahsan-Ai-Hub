@@ -1,0 +1,26 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Ahsan AI Hub",
+  "url": "https://ahsan-ai-hub.vercel.app",
+  "description": "Privacy-first free AI hub offering advanced chat, professional writing tools, and 50+ language translations without login.",
+  "applicationCategory": "Utility",
+  "operatingSystem": "All",
+  "author": {
+    "@type": "Person",
+    "name": "Ahsan Ali"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Free AI Chat Assistant",
+    "Professional Writing Studio",
+    "50+ Language Translator",
+    "Real-time Math Solver",
+    "AI Code Explainer",
+    "Privacy-First (No Login)"
+  ]
+}
