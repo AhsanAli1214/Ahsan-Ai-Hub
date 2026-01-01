@@ -53,7 +53,14 @@ export function OneSignalButton() {
   }, []);
 
   const handleToggleNotifications = async () => {
-    if (!window.OneSignal) return;
+    if (!window.OneSignal) {
+      toast({
+        variant: "destructive",
+        title: "OneSignal not loaded",
+        description: "Please refresh the page and try again.",
+      });
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -64,21 +71,35 @@ export function OneSignalButton() {
           description: "You will no longer receive push notifications.",
         });
       } else {
+        // OneSignal 16+ logic: PushSubscription.optIn() handles permission request if needed
+        // but we can be explicit for better UX
         const permission = await window.OneSignal.Notifications.requestPermission();
-        if (permission === 'granted') {
+        
+        if (permission === 'granted' || permission === 'default') {
           await window.OneSignal.User.PushSubscription.optIn();
+          // Verify if actually subscribed
+          const isNowOptedIn = await window.OneSignal.User.PushSubscription.optedIn;
+          if (isNowOptedIn) {
+            toast({
+              title: "Notifications Enabled",
+              description: "You'll now receive updates and announcements.",
+            });
+          }
+        } else if (permission === 'denied') {
           toast({
-            title: "Notifications Enabled",
-            description: "You'll now receive updates and announcements.",
+            variant: "destructive",
+            title: "Permission Denied",
+            description: "Please enable notifications in your browser settings to stay updated.",
           });
         }
       }
       await updateStatus();
     } catch (err) {
+      console.error("OneSignal Error:", err);
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to update notification settings.",
+        description: "Failed to update notification settings. Please try again.",
       });
     } finally {
       setIsLoading(false);
@@ -101,8 +122,8 @@ export function OneSignalButton() {
       className={cn(
         'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
         isSubscribed
-          ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
-          : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg'
+      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+      : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg shadow-primary/20'
       )}
       size="lg"
     >
