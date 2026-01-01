@@ -1,8 +1,7 @@
 'use client';
 
-import { ArrowLeft, CheckCircle2, Heart, MessageSquare, Send, Star } from 'lucide-react';
-import Link from 'next/link';
 import React, { useState } from 'react';
+import { MessageSquare, Send, Star, Heart, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -10,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppHeader } from '@/components/layout/AppHeader';
+import Link from 'next/link';
 
 export default function FeedbackPage() {
   const { toast } = useToast();
