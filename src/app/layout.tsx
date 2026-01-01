@@ -221,9 +221,6 @@ export default function RootLayout({
               </ErrorBoundary>
               <Toaster />
               <Suspense fallback={null}>
-                <PWAInstall />
-              </Suspense>
-              <Suspense fallback={null}>
                 <ConnectionStatus />
               </Suspense>
               <Analytics mode={'production'} />
