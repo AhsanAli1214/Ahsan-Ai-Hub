@@ -28,10 +28,7 @@ export function FeedbackDialog() {
   useEffect(() => {
     // Show feedback dialog after 2 minutes for new users
     const hasSeenFeedback = localStorage.getItem('ahsan-feedback-seen');
-    const lastFeedbackDate = localStorage.getItem('ahsan-feedback-date');
-    const today = new Date().toDateString();
-
-    if (!hasSeenFeedback && lastFeedbackDate !== today) {
+    if (!hasSeenFeedback) {
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, 120000); // 2 minutes
@@ -61,7 +58,6 @@ export function FeedbackDialog() {
       if (response.ok) {
         setSubmitted(true);
         localStorage.setItem('ahsan-feedback-seen', 'true');
-        localStorage.setItem('ahsan-feedback-date', new Date().toDateString());
         setTimeout(() => {
           setIsOpen(false);
           // Reset after closing
@@ -73,23 +69,18 @@ export function FeedbackDialog() {
           }, 500);
         }, 3000);
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to submit feedback');
+        throw new Error('Failed to submit feedback');
       }
-    } catch (error: any) {
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Submission failed",
-        description: error.message || "There was an error sending your feedback. Please try again.",
+        description: "There was an error sending your feedback. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  // Hide on home page if requested
-  const isHomePage = typeof window !== 'undefined' && window.location.pathname === '/';
-  if (isHomePage) return null;
 
   return (
     <>

@@ -8,10 +8,9 @@ export async function POST(req: Request) {
     const { rating, feedback, email } = await req.json();
 
     const { data, error } = await resend.emails.send({
-      from: 'Ahsan AI Hub Feedback <onboarding@resend.dev>',
+      from: 'Ahsan AI Hub <feedback@ahsan-ai-hub.vercel.app>',
       to: ['a67515346@gmail.com'],
       subject: `New Feedback: ${rating} Stars - Ahsan AI Hub`,
-      replyTo: email || undefined,
       html: `
         <div style="font-family: 'Inter', sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; background-color: #f9fafb; border-radius: 24px;">
           <div style="background-color: #ffffff; padding: 40px; border-radius: 32px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
