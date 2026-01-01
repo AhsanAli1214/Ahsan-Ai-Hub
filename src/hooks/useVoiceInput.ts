@@ -76,14 +76,19 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       resetSilenceTimer();
       let interim = '';
       
+      // Keep track of the results we've already processed to avoid duplicates
+      // Browsers sometimes re-emit results or trigger the event multiple times
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
+        
+        // Only process results that are finalized and haven't been processed yet
         if (result.isFinal) {
-          // Use the result index to prevent duplicate processing of the same result
           if (i > lastProcessedIndexRef.current) {
-            const final = result[0].transcript;
-            setTranscript(prev => prev + final);
-            onTranscript(final);
+            const final = result[0].transcript.trim();
+            if (final) {
+              setTranscript(prev => prev + (prev ? ' ' : '') + final);
+              onTranscript(final);
+            }
             lastProcessedIndexRef.current = i;
           }
         } else {
