@@ -91,7 +91,12 @@ export default function HomePage() {
               <div className="flex-1">
                 <h1 className="font-headline text-3xl font-bold md:text-4xl">Ahsan Ai Hub</h1>
                 <p className="mt-1 text-lg text-accent-foreground/80">Your Intelligent AI Companion</p>
-                <p className="mt-2 text-sm font-medium text-accent-foreground/70">Developed by Ahsan Ali</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-px w-8 bg-accent-foreground/20" />
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-accent-foreground/60">
+                    Developed by <span className="text-accent-foreground">Ahsan Ali</span>
+                  </p>
+                </div>
               </div>
               <Button asChild size="lg" variant="secondary" className="hidden md:flex">
                 <Link href="/recommendations">
