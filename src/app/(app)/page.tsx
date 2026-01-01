@@ -112,7 +112,7 @@ export default function HomePage() {
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-6">
                 <h2 className="text-3xl md:text-5xl font-black text-foreground leading-[1.1] tracking-tight">Premium AI Experience <br /><span className="text-primary">100% Privacy-First</span></h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
                     <Lock className="h-5 w-5 text-primary" />
                     <div><p className="font-bold">Zero Login</p><p className="text-xs text-muted-foreground mt-1">Instant access without accounts.</p></div>
@@ -121,11 +121,16 @@ export default function HomePage() {
                     <Smartphone className="h-5 w-5 text-primary" />
                     <div><p className="font-bold">PWA Powered</p><p className="text-xs text-muted-foreground mt-1">Native app experience.</p></div>
                   </div>
+                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
+                    <Shield className="h-5 w-5 text-primary" />
+                    <div><p className="font-bold">Secure AI</p><p className="text-xs text-muted-foreground mt-1">Advanced data protection.</p></div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col gap-4 w-full lg:w-auto">
                 <Suspense fallback={null}><WhatsAppSupportButton className="w-full lg:w-56" /></Suspense>
                 <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl"><Link href="/recommendations">Start Exploring <Zap className="h-4 w-4 fill-current" /></Link></Button>
+                <Button asChild variant="outline" size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest border-2"><Link href="/download-apk">Get Mobile App</Link></Button>
               </div>
             </div>
           </div>
