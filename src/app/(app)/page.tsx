@@ -108,24 +108,65 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary/5 border border-primary/20 p-8 md:p-12 shadow-2xl">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-black p-8 md:p-12 shadow-2xl border border-white/5">
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-              <div className="flex-1 space-y-6">
-                <h2 className="text-3xl md:text-5xl font-black text-foreground leading-[1.1] tracking-tight">Premium AI Experience <br /><span className="text-primary">100% Privacy-First</span></h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
-                    <Lock className="h-5 w-5 text-primary" />
-                    <div><p className="font-bold">Zero Login</p><p className="text-xs text-muted-foreground mt-1">Instant access without accounts.</p></div>
+              <div className="flex-1 space-y-8">
+                <h2 className="text-4xl md:text-6xl font-black text-white leading-[1] tracking-tight">
+                  Premium AI <br />Experience <br />
+                  <span className="text-blue-500">100% Privacy-First</span>
+                </h2>
+                <div className="flex flex-col gap-3 max-w-md">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
+                    <div className="bg-white/5 p-2 rounded-lg">
+                      <Lock className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-sm">Zero Login</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
+                    </div>
                   </div>
-                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
-                    <Smartphone className="h-5 w-5 text-primary" />
-                    <div><p className="font-bold">PWA Powered</p><p className="text-xs text-muted-foreground mt-1">Native app experience.</p></div>
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
+                    <div className="bg-white/5 p-2 rounded-lg">
+                      <Eye className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-sm">Local Storage</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
+                    <div className="bg-white/5 p-2 rounded-lg">
+                      <Smartphone className="h-5 w-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-sm">PWA Powered</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 w-full lg:w-auto">
-                <Suspense fallback={null}><WhatsAppSupportButton className="w-full lg:w-56" /></Suspense>
-                <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl"><Link href="/recommendations">Start Exploring <Zap className="h-4 w-4 fill-current" /></Link></Button>
+              <div className="flex flex-col gap-3 w-full lg:w-64">
+                <Suspense fallback={null}>
+                  <WhatsAppSupportButton 
+                    className="w-full h-14 rounded-2xl bg-[#22245b] hover:bg-[#22245b]/90 text-white border-none font-bold text-xs uppercase tracking-wider gap-2 shadow-lg" 
+                  />
+                </Suspense>
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="w-full h-14 rounded-2xl bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white font-black text-xs uppercase tracking-widest gap-2 shadow-xl shadow-blue-500/20"
+                >
+                  <Link href="/recommendations">
+                    START EXPLORING <Zap className="h-4 w-4 fill-current" />
+                  </Link>
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  asChild 
+                  className="w-full h-12 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white/5"
+                >
+                  <Link href="/privacy">PRIVACY POLICY</Link>
+                </Button>
               </div>
             </div>
           </div>
