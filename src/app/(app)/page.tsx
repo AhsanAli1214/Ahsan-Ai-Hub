@@ -113,43 +113,43 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-white/20">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-900/40 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-zinc-200/50 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
             {/* Background Decorative Elements */}
             <div className="absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
             <div className="absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
             
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-8">
-                <h2 className="text-4xl md:text-6xl font-black text-white leading-[1] tracking-tight">
+                <h2 className="text-4xl md:text-6xl font-black text-zinc-900 dark:text-white leading-[1] tracking-tight">
                   Premium AI <br />Experience <br />
                   <span className="text-primary">100% Privacy-First</span>
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Lock className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">Zero Login</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
+                      <p className="font-bold text-zinc-900 dark:text-white text-sm">Zero Login</p>
+                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">Local Storage</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
+                      <p className="font-bold text-zinc-900 dark:text-white text-sm">Local Storage</p>
+                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
+                      <p className="font-bold text-zinc-900 dark:text-white text-sm">PWA Powered</p>
+                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
                     </div>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export default function HomePage() {
                 <Button 
                   variant="ghost" 
                   asChild 
-                  className="w-full h-12 text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white/5"
+                  className="w-full h-12 text-zinc-600 dark:text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-100 dark:hover:bg-white/5"
                 >
                   <Link href="/privacy">PRIVACY POLICY</Link>
                 </Button>
@@ -195,15 +195,15 @@ export default function HomePage() {
           </div>
 
           <div id="install-section">
-            <h2 className="mb-4 font-headline text-xl font-semibold text-white">Official App</h2>
-            <Card className="relative overflow-hidden p-6 md:p-10 border-white/10 bg-zinc-950/50 backdrop-blur-md rounded-[2rem] shadow-2xl">
+            <h2 className="mb-4 font-headline text-xl font-semibold text-foreground dark:text-white">Official App</h2>
+            <Card className="relative overflow-hidden p-6 md:p-10 border-zinc-200/50 dark:border-white/10 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md rounded-[2rem] shadow-2xl">
               <div className="relative z-10 flex flex-col items-center gap-8 lg:flex-row lg:text-left">
                 <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[2.5rem] bg-primary/20 text-primary border border-primary/20 shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]">
                   <Smartphone className="h-10 w-10" />
                 </div>
                 <div className="flex-1 space-y-3 text-center lg:text-left">
-                  <h3 className="text-3xl font-black text-white tracking-tight">Ahsan AI Hub for Mobile</h3>
-                  <p className="text-zinc-400 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
+                  <h3 className="text-3xl font-black text-zinc-900 dark:text-white tracking-tight">Ahsan AI Hub for Mobile</h3>
+                  <p className="text-zinc-600 dark:text-zinc-400 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
                   <div className="flex flex-col gap-4 sm:flex-row pt-6">
                     <div className="w-full sm:w-auto sm:min-w-[240px]">
                       <PWAInstallButton />
@@ -212,7 +212,7 @@ export default function HomePage() {
                       asChild 
                       variant="outline" 
                       size="lg" 
-                      className="h-16 px-10 rounded-2xl font-black text-sm uppercase tracking-[0.2em] border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all"
+                      className="h-16 px-10 rounded-2xl font-black text-sm uppercase tracking-[0.2em] border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-900 dark:text-white hover:bg-zinc-50 dark:hover:bg-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-none"
                     >
                       <Link href="/download-apk">
                         <Download className="h-5 w-5 mr-3" />

@@ -134,10 +134,10 @@ export function PWAInstallButton({ className }: { className?: string }) {
       </Button>
       
       {!deferredPrompt && (
-        <Card className="p-4 bg-zinc-900/50 border border-white/5 backdrop-blur-sm">
+        <Card className="p-4 bg-zinc-100/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-white/5 backdrop-blur-sm">
           <div className="flex gap-3 text-sm">
             <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-blue-600 dark:text-blue-400" />
-            <div className="text-blue-700 dark:text-blue-300">
+            <div className="text-blue-800 dark:text-blue-300">
               <p className="font-semibold mb-1">How to Install as Native App:</p>
               <ul className="space-y-1 text-xs opacity-90">
                 <li>• <strong>Android Chrome:</strong> Look for "Install app" in address bar or menu (⋮)</li>
