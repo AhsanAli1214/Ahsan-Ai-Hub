@@ -172,9 +172,6 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Pixel Code - https://pushify.com/ */}
-        <Script defer src="https://pushify.com/pixel/PJluXzTa38CtwOi3" strategy="afterInteractive" />
-        {/* END Pixel Code */}
       </head>
       <body className={cn('font-body antialiased', inter.variable, poppins.variable)}>
         <Script
