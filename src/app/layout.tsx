@@ -301,6 +301,19 @@ export default function RootLayout({
                           }
                         }
                       });
+                      
+                      // App Badging Support
+                      OneSignal.Notifications.addEventListener('notificationDisplay', function() {
+                        if ('setAppBadge' in navigator) {
+                          navigator.setAppBadge(1).catch(() => {});
+                        }
+                      });
+                      
+                      OneSignal.Notifications.addEventListener('dismiss', function() {
+                        if ('clearAppBadge' in navigator) {
+                          navigator.clearAppBadge().catch(() => {});
+                        }
+                      });
                     } catch (e) {
                       // Silent error handling for OneSignal
                     }

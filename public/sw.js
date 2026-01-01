@@ -59,12 +59,27 @@ self.addEventListener('sync', (event) => {
   }
 });
 
+// App Badging API Logic
+const updateBadge = async (count) => {
+  if ('setAppBadge' in navigator) {
+    if (count > 0) {
+      await navigator.setAppBadge(count);
+    } else {
+      await navigator.clearAppBadge();
+    }
+  }
+};
+
 // Periodic Background Sync for fresh content
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'content-sync') {
     event.waitUntil(
-      // Logic to sync content in background
-      Promise.resolve()
+      (async () => {
+        // Increment badge count as a demo of background activity
+        const count = parseInt(await self.registration.index.get('badge-count') || '0') + 1;
+        await updateBadge(count);
+        return Promise.resolve();
+      })()
     );
   }
 });
@@ -80,13 +95,22 @@ self.addEventListener('push', (event) => {
       url: data.url || '/'
     }
   };
-  event.waitUntil(self.registration.showNotification(title, options));
+  
+  event.waitUntil(
+    Promise.all([
+      self.registration.showNotification(title, options),
+      updateBadge(1) // Show badge on notification
+    ])
+  );
 });
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.notification.data.url)
+    Promise.all([
+      clients.openWindow(event.notification.data.url),
+      updateBadge(0) // Clear badge on click
+    ])
   );
 });
 
