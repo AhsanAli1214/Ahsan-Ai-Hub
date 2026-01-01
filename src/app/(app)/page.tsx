@@ -84,31 +84,31 @@ export default function HomePage() {
       <ConnectionStatus />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <article className="mx-auto max-w-4xl space-y-8">
-          <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8">
+          <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex items-center gap-4 md:gap-6">
               <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
                 <AhsanAiHubLogo width={144} height={144} fillContainer className="text-accent-foreground" priority fetchPriority="high" />
               </div>
               <div className="flex-1">
-                <h1 className="font-headline text-3xl font-bold md:text-4xl">Ahsan Ai Hub</h1>
-                <p className="mt-1 text-lg text-accent-foreground/80">Your Intelligent AI Companion</p>
+                <h1 id="hero-heading" className="font-headline text-3xl font-bold md:text-4xl">Ahsan Ai Hub</h1>
+                <p className="mt-1 text-lg text-accent-foreground/90">Your Intelligent AI Companion</p>
                 <div className="mt-3 flex items-center gap-2">
-                  <div className="h-px w-8 bg-accent-foreground/20" />
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-accent-foreground/60">
+                  <div className="h-px w-8 bg-accent-foreground/30" aria-hidden="true" />
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-accent-foreground/70">
                     Developed by <span className="text-accent-foreground">Ahsan Ali</span>
                   </p>
                 </div>
               </div>
-              <Button asChild size="lg" variant="secondary" className="hidden md:flex">
+              <Button asChild size="lg" variant="secondary" className="hidden md:flex" aria-label="Start chatting with AI">
                 <Link href="/recommendations">
-                  <MessageCircle className="mr-2 h-5 w-5" />
+                  <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Chatting
                 </Link>
               </Button>
             </div>
-            <Button asChild size="lg" variant="secondary" className="mt-6 w-full md:hidden">
+            <Button asChild size="lg" variant="secondary" className="mt-6 w-full md:hidden" aria-label="Start chatting with AI">
               <Link href="/recommendations" className="justify-center">
-                <MessageCircle className="mr-2 h-5 w-5" />
+                <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                 Start Chatting
               </Link>
             </Button>
@@ -127,30 +127,30 @@ export default function HomePage() {
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
-                    <div className="bg-primary/10 p-2 rounded-lg">
+                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
                       <Lock className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">Zero Login</p>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-400 mt-0.5">Instant access without accounts or personal data.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
-                    <div className="bg-primary/10 p-2 rounded-lg">
+                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
                       <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">Local Storage</p>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-400 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
-                    <div className="bg-primary/10 p-2 rounded-lg">
+                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
                       <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-400 mt-0.5">Native app experience on any device, anywhere.</p>
                     </div>
                   </div>
                 </div>
@@ -195,16 +195,16 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div id="install-section">
-            <h2 className="mb-4 font-headline text-xl font-semibold text-foreground dark:text-white">Official App</h2>
+          <div id="install-section" aria-labelledby="install-heading">
+            <h2 id="install-heading" className="mb-4 font-headline text-xl font-semibold text-foreground dark:text-white">Official App</h2>
             <Card className="relative overflow-hidden p-6 md:p-10 border-zinc-200/50 dark:border-white/10 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md rounded-[2rem] shadow-2xl">
               <div className="relative z-10 flex flex-col items-center gap-8 lg:flex-row lg:text-left">
-                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[2.5rem] bg-primary/20 text-primary border border-primary/20 shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]">
+                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[2.5rem] bg-primary/20 text-primary border border-primary/20 shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]" aria-hidden="true">
                   <Smartphone className="h-10 w-10" />
                 </div>
                 <div className="flex-1 space-y-3 text-center lg:text-left">
                   <h3 className="text-3xl font-black text-zinc-900 dark:text-white tracking-tight">Ahsan AI Hub for Mobile</h3>
-                  <p className="text-zinc-600 dark:text-zinc-400 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
+                  <p className="text-zinc-700 dark:text-zinc-400 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
                   <div className="flex flex-col gap-4 sm:flex-row pt-6">
                     <div className="w-full sm:w-auto sm:min-w-[240px]">
                       <PWAInstallButton />
@@ -214,6 +214,7 @@ export default function HomePage() {
                       variant="outline" 
                       size="lg" 
                       className="h-16 px-10 rounded-2xl font-black text-sm uppercase tracking-[0.2em] border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-900 dark:text-white hover:bg-zinc-50 dark:hover:bg-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-none"
+                      aria-label="Download Ahsan AI Hub APK"
                     >
                       <Link href="/download-apk">
                         <Download className="h-5 w-5 mr-3" />

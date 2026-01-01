@@ -27,11 +27,11 @@ export function AppHeader({ title }: { title: string }) {
           <Menu className="h-5 w-5" />
         </Button>
       </div>
-      <h1 className="font-headline text-xl font-semibold md:text-2xl">{title}</h1>
+      <h1 className="font-headline text-xl font-semibold md:text-2xl flex-1">{title}</h1>
       <div className={cn("ml-auto flex items-center gap-2 md:gap-4", "w-auto")}>
-        <Button asChild className="md:hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white gap-2">
+        <Button asChild className="md:hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white gap-2" aria-label="View AI Content Tools">
           <Link href="/content-tools" title="AI Tools">
-            <Sparkles className="h-5 w-5" />
+            <Sparkles className="h-5 w-5" aria-hidden="true" />
             <span className="text-sm font-semibold">Tools</span>
           </Link>
         </Button>
