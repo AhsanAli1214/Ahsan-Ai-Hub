@@ -28,34 +28,36 @@ export function PWAInstallButton({ className }: { className?: string }) {
       return;
     }
 
-    // Add a small delay to ensure the event is properly captured
-    const timer = setTimeout(() => {
-      const handleBeforeInstallPrompt = (e: Event) => {
-        e.preventDefault();
-        setDeferredPrompt(e as BeforeInstallPromptEvent);
-      };
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
+    };
 
-      const handleAppInstalled = () => {
-        setIsInstalled(true);
-        setDeferredPrompt(null);
-        toast({
-          title: '✓ App Installed Successfully!',
-          description: 'Ahsan AI Hub is now installed. You can launch it from your home screen or app drawer.',
-        });
-      };
+    const handleAppInstalled = () => {
+      setIsInstalled(true);
+      setDeferredPrompt(null);
+      toast({
+        title: '✓ App Installed Successfully!',
+        description: 'Ahsan AI Hub is now installed. You can launch it from your home screen or app drawer.',
+      });
+    };
 
-      if (typeof window !== 'undefined') {
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-        window.addEventListener('appinstalled', handleAppInstalled);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.addEventListener('appinstalled', handleAppInstalled);
 
-        return () => {
-          window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-          window.removeEventListener('appinstalled', handleAppInstalled);
-        };
+      // Check if the event was already fired before listener was attached
+      // Some browsers (like Mobile Chrome) might fire it early
+      if ('BeforeInstallPromptEvent' in window) {
+        // Unfortunately there's no way to retroactively grab the event,
+        // but removing the delay helps capture it if it fires during hydration
       }
-    }, 500);
 
-    return () => clearTimeout(timer);
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.removeEventListener('appinstalled', handleAppInstalled);
+      };
+    }
   }, [toast]);
 
   const handleInstallClick = async () => {
