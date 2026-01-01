@@ -72,21 +72,18 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     recognitionRef.current.onresult = (event: any) => {
       resetSilenceTimer();
       let interim = '';
-      let final = '';
-
+      
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
         if (result.isFinal) {
-          final += result[0].transcript;
+          const final = result[0].transcript;
+          setTranscript(prev => prev + final);
+          onTranscript(final);
         } else {
           interim += result[0].transcript;
         }
       }
 
-      if (final) {
-        setTranscript(prev => prev + final);
-        onTranscript(final);
-      }
       setInterimTranscript(interim);
     };
 

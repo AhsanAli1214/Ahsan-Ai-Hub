@@ -91,22 +91,22 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
         setIsOpen(open);
         if (open) setStep('language');
       }}>
-        <DialogContent className="sm:max-w-md overflow-hidden rounded-[2.5rem] border-primary/20 bg-card/95 backdrop-blur-2xl p-0">
-          <div className="p-6">
-            <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl font-black text-center flex items-center justify-center gap-3">
+        <DialogContent className="sm:max-w-[400px] w-[95vw] overflow-hidden rounded-[2rem] border-primary/20 bg-card/98 backdrop-blur-3xl p-0 shadow-2xl">
+          <div className="p-5">
+            <DialogHeader className="mb-4">
+              <DialogTitle className="text-xl font-bold text-center flex items-center justify-center gap-2">
                 <div className={cn(
-                  "p-2 rounded-2xl transition-colors duration-500",
+                  "p-1.5 rounded-xl transition-colors duration-500",
                   step === 'recording' ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
                 )}>
-                  <Mic className={cn("h-6 w-6", step === 'recording' && "animate-pulse")} />
+                  <Mic className={cn("h-5 w-5", step === 'recording' && "animate-pulse")} />
                 </div>
-                {step === 'recording' ? "Listening..." : "Voice Assistant"}
+                {step === 'recording' ? "Listening..." : "Voice Input"}
               </DialogTitle>
-              <DialogDescription className="text-center font-medium text-muted-foreground">
+              <DialogDescription className="text-center text-xs font-medium text-muted-foreground">
                 {step === 'recording' 
                   ? "Speak clearly into your microphone" 
-                  : "Choose your language to begin"}
+                  : "Select a language to start"}
               </DialogDescription>
             </DialogHeader>
 
@@ -114,49 +114,39 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
               {step === 'language' ? (
                 <motion.div
                   key="language-step"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  className="space-y-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="space-y-4"
                 >
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                      <Languages className="h-4 w-4 text-primary/50 group-focus-within:text-primary transition-colors" />
-                    </div>
-                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-2">
-                      <Globe className="h-3 w-3 text-primary" />
-                      <span className="text-[10px] font-black uppercase tracking-widest text-primary">System Languages</span>
-                    </div>
-                  </div>
-
-                  <ScrollArea className="h-[300px] rounded-3xl border border-primary/10 bg-black/5 dark:bg-white/5 p-3">
-                    <div className="grid grid-cols-1 gap-2">
+                  <ScrollArea className="h-[240px] rounded-2xl border border-primary/5 bg-muted/20 p-2">
+                    <div className="grid grid-cols-1 gap-1.5">
                       {LANGUAGES.map((lang) => (
                         <button
                           key={lang.code}
                           onClick={() => setSelectedLang(lang)}
                           className={cn(
-                            "group flex items-center justify-between p-4 rounded-2xl transition-all duration-300 text-left relative overflow-hidden",
+                            "group flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 text-left relative overflow-hidden",
                             selectedLang.code === lang.code 
-                              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
-                              : "hover:bg-primary/5"
+                              ? "bg-primary text-primary-foreground shadow-md" 
+                              : "hover:bg-primary/10"
                           )}
                         >
                           <div className="relative z-10 flex flex-col">
-                            <span className="font-bold text-sm tracking-tight">{lang.name}</span>
+                            <span className="font-semibold text-sm">{lang.name}</span>
                             <span className={cn(
-                              "text-[10px] uppercase font-black tracking-tighter opacity-50",
+                              "text-[9px] uppercase font-bold tracking-wider opacity-60",
                               selectedLang.code === lang.code ? "text-primary-foreground" : "text-muted-foreground"
                             )}>
-                              ISO-{lang.code.toUpperCase()}
+                              {lang.code.toUpperCase()}
                             </span>
                           </div>
                           {selectedLang.code === lang.code && (
                             <motion.div
                               layoutId="active-check"
-                              initial={{ scale: 0.5, opacity: 0 }}
+                              initial={{ scale: 0.8, opacity: 0 }}
                               animate={{ scale: 1, opacity: 1 }}
-                              className="relative z-10 bg-white/20 p-1.5 rounded-full"
+                              className="relative z-10 bg-white/20 p-1 rounded-full"
                             >
                               <Check className="h-3 w-3" />
                             </motion.div>
@@ -168,41 +158,40 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
 
                   <Button 
                     onClick={handleStart} 
-                    className="w-full h-16 rounded-[1.5rem] font-black uppercase tracking-widest text-sm gap-3 shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                    className="w-full h-12 rounded-xl font-bold uppercase tracking-widest text-xs gap-2 shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-[0.99] transition-all"
                   >
-                    Initialize Recording
-                    <Mic className="h-5 w-5" />
+                    Start Recording
+                    <Mic className="h-4 w-4" />
                   </Button>
                 </motion.div>
               ) : (
                 <motion.div
                   key="recording-step"
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.05 }}
-                  className="flex flex-col items-center justify-center space-y-8 py-4"
+                  exit={{ opacity: 0, scale: 1.02 }}
+                  className="flex flex-col items-center justify-center space-y-6 py-2"
                 >
                   <div className="relative">
                     <motion.div 
                       animate={{ 
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.1, 0.3]
+                        scale: [1, 1.15, 1],
+                        opacity: [0.2, 0.05, 0.2]
                       }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute inset-0 rounded-full bg-destructive/40" 
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="absolute inset-0 rounded-full bg-destructive/30" 
                     />
-                    <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-destructive text-white shadow-[0_0_50px_rgba(239,68,68,0.4)]">
-                      <Mic className="h-12 w-12 fill-current animate-pulse" />
+                    <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-destructive text-white shadow-xl shadow-destructive/30">
+                      <Mic className="h-10 w-10 fill-current animate-pulse" />
                     </div>
                     
-                    {/* Visualizer bars */}
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1">
-                      {[1,2,3,4,5].map((i) => (
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1">
+                      {[1,2,3,4].map((i) => (
                         <motion.div
                           key={i}
-                          animate={{ height: [4, 12, 4] }}
-                          transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
-                          className="w-1 bg-destructive rounded-full"
+                          animate={{ height: [3, 10, 3] }}
+                          transition={{ duration: 0.4, repeat: Infinity, delay: i * 0.1 }}
+                          className="w-0.5 bg-destructive rounded-full"
                         />
                       ))}
                     </div>
@@ -210,31 +199,31 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
                   
                   <div className="w-full space-y-4">
                     <div className="relative">
-                      <div className="min-h-[120px] max-h-[200px] overflow-y-auto p-6 rounded-[2rem] bg-muted/30 border border-primary/10 italic text-base text-center leading-relaxed backdrop-blur-sm">
+                      <div className="min-h-[100px] max-h-[160px] overflow-y-auto p-4 rounded-2xl bg-muted/40 border border-primary/5 italic text-sm text-center leading-relaxed backdrop-blur-sm scrollbar-none">
                         {interimTranscript ? (
-                          <span className="text-foreground">{interimTranscript}</span>
+                          <span className="text-foreground font-medium">{interimTranscript}</span>
                         ) : (
-                          <span className="text-muted-foreground opacity-50 flex flex-col items-center gap-2">
-                            <Volume2 className="h-5 w-5 animate-bounce" />
-                            Awaiting audio input...
+                          <span className="text-muted-foreground/60 flex flex-col items-center gap-1.5 py-4">
+                            <Volume2 className="h-4 w-4 animate-bounce" />
+                            <span className="text-[10px] uppercase font-bold tracking-tighter">Listening for audio...</span>
                           </span>
                         )}
                       </div>
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       <Button 
-                        variant="outline" 
+                        variant="ghost" 
                         onClick={handleStop}
-                        className="flex-1 h-14 rounded-2xl border-2 font-black uppercase tracking-wider text-xs gap-2 hover:bg-destructive/5 hover:border-destructive/20 transition-colors"
+                        className="flex-1 h-11 rounded-xl font-bold uppercase tracking-wider text-[10px] gap-2 hover:bg-destructive/10 hover:text-destructive transition-all"
                       >
-                        <X className="h-4 w-4" /> Reset
+                        <X className="h-3.5 w-3.5" /> Cancel
                       </Button>
                       <Button 
                         onClick={handleFinish}
-                        className="flex-1 h-14 rounded-2xl bg-destructive hover:bg-destructive/90 text-white font-black uppercase tracking-wider text-xs gap-2 shadow-xl shadow-destructive/25"
+                        className="flex-[1.5] h-11 rounded-xl bg-destructive hover:bg-destructive/90 text-white font-bold uppercase tracking-wider text-[10px] gap-2 shadow-lg shadow-destructive/20"
                       >
-                        <Check className="h-4 w-4" /> Send Message
+                        <Check className="h-3.5 w-3.5" /> Finish
                       </Button>
                     </div>
                   </div>
