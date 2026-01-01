@@ -108,61 +108,78 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-card/50 border border-border/50 p-8 md:p-10 shadow-2xl backdrop-blur-xl">
-            <div className="relative z-10 flex flex-col space-y-8">
-              <div className="space-y-2">
-                <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight tracking-tight">Premium AI <br />Experience</h2>
-                <p className="text-2xl md:text-3xl font-bold text-primary">100% Privacy-First</p>
+          <div className="relative overflow-hidden rounded-[2rem] bg-card/50 border border-border/50 p-6 md:p-8 shadow-2xl backdrop-blur-xl">
+            <div className="relative z-10 flex flex-col space-y-6">
+              <div className="space-y-1">
+                <h2 className="text-3xl md:text-4xl font-black text-foreground leading-tight tracking-tight">Premium AI <br />Experience</h2>
+                <p className="text-xl md:text-2xl font-bold text-primary">100% Privacy-First</p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
-                    <Lock className="h-6 w-6" />
+              <div className="space-y-3">
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner">
+                    <Lock className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold">Zero Login</p>
-                    <p className="text-sm text-muted-foreground">Instant access without accounts or personal data.</p>
+                    <p className="text-base font-bold">Zero Login</p>
+                    <p className="text-xs text-muted-foreground">Instant access without accounts.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
-                    <Eye className="h-6 w-6" />
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner">
+                    <Eye className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold">Local Storage</p>
-                    <p className="text-sm text-muted-foreground">All history stays in your browser. We see nothing.</p>
+                    <p className="text-base font-bold">Local Storage</p>
+                    <p className="text-xs text-muted-foreground">History stays in your browser.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
-                    <Smartphone className="h-6 w-6" />
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner">
+                    <Smartphone className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-lg font-bold">PWA Powered</p>
-                    <p className="text-sm text-muted-foreground">Native app experience on any device, anywhere.</p>
+                    <p className="text-base font-bold">PWA Powered</p>
+                    <p className="text-xs text-muted-foreground">Native app on any device.</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <Button asChild size="lg" className="h-16 rounded-2xl bg-[#2e3192] hover:bg-[#2e3192]/90 text-white font-bold text-lg shadow-xl">
-                  <Link href="https://wa.me/a67515346" className="justify-center gap-3">
-                    <MessageCircle className="h-6 w-6" />
+              <div className="flex flex-col gap-3">
+                <Button asChild size="lg" className="h-14 rounded-xl bg-gradient-to-br from-[#0f172a] to-[#312e81] hover:scale-[1.03] text-white font-bold text-base shadow-xl transition-all duration-300">
+                  <Link 
+                    href={`https://wa.me/15557818398?text=${encodeURIComponent(`Hello Ahsan AI Hub Support Team 👋,
+
+I’m contacting you regarding assistance with Ahsan AI Hub.
+
+📌 Reason:
+• Support / Inquiry / Error Report
+
+🔹 Page: ${typeof document !== 'undefined' ? document.title : 'Ahsan AI Hub'}
+🔹 URL: ${typeof window !== 'undefined' ? window.location.href : 'https://ahsan-ai-hub.vercel.app'}
+🔹 Device: ${typeof navigator !== 'undefined' && /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop"}
+🔹 Time: ${new Date().toLocaleString()}
+
+Please assist me at your earliest convenience.
+Thank you for your support! 🙏`)}`} 
+                    className="justify-center gap-2"
+                    target="_blank"
+                  >
+                    <MessageCircle className="h-5 w-5" />
                     Contact Ahsan AI Hub Support
                   </Link>
                 </Button>
                 
-                <Button asChild size="lg" className="h-16 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(59,130,246,0.4)] transition-all hover:scale-[1.02]">
-                  <Link href="/recommendations" className="justify-center gap-3">
+                <Button asChild size="lg" className="h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-black text-lg uppercase tracking-widest shadow-[0_8px_25px_rgba(59,130,246,0.4)] transition-all hover:scale-[1.02]">
+                  <Link href="/recommendations" className="justify-center gap-2">
                     START EXPLORING
-                    <Zap className="h-5 w-5 fill-current" />
+                    <Zap className="h-4 w-4 fill-current" />
                   </Link>
                 </Button>
 
-                <Button asChild variant="outline" size="lg" className="h-16 rounded-2xl border-2 font-black text-lg uppercase tracking-widest">
+                <Button asChild variant="outline" size="lg" className="h-14 rounded-xl border-2 font-black text-base uppercase tracking-widest">
                   <Link href="/privacy" className="justify-center">
                     PRIVACY POLICY
                   </Link>
