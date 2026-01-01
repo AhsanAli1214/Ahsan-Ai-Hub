@@ -108,29 +108,65 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary/5 border border-primary/20 p-8 md:p-12 shadow-2xl">
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-              <div className="flex-1 space-y-6">
-                <h2 className="text-3xl md:text-5xl font-black text-foreground leading-[1.1] tracking-tight">Premium AI Experience <br /><span className="text-primary">100% Privacy-First</span></h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
-                    <Lock className="h-5 w-5 text-primary" />
-                    <div><p className="font-bold">Zero Login</p><p className="text-xs text-muted-foreground mt-1">Instant access without accounts.</p></div>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-card/50 border border-border/50 p-8 md:p-10 shadow-2xl backdrop-blur-xl">
+            <div className="relative z-10 flex flex-col space-y-8">
+              <div className="space-y-2">
+                <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight tracking-tight">Premium AI <br />Experience</h2>
+                <p className="text-2xl md:text-3xl font-bold text-primary">100% Privacy-First</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
+                    <Lock className="h-6 w-6" />
                   </div>
-                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
-                    <Smartphone className="h-5 w-5 text-primary" />
-                    <div><p className="font-bold">PWA Powered</p><p className="text-xs text-muted-foreground mt-1">Native app experience.</p></div>
+                  <div>
+                    <p className="text-lg font-bold">Zero Login</p>
+                    <p className="text-sm text-muted-foreground">Instant access without accounts or personal data.</p>
                   </div>
-                  <div className="group flex items-start gap-4 p-4 rounded-2xl bg-background/40 border border-border/40">
-                    <Shield className="h-5 w-5 text-primary" />
-                    <div><p className="font-bold">Secure AI</p><p className="text-xs text-muted-foreground mt-1">Advanced data protection.</p></div>
+                </div>
+
+                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
+                    <Eye className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold">Local Storage</p>
+                    <p className="text-sm text-muted-foreground">All history stays in your browser. We see nothing.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-6 p-6 rounded-3xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-background/50 text-primary shadow-inner">
+                    <Smartphone className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold">PWA Powered</p>
+                    <p className="text-sm text-muted-foreground">Native app experience on any device, anywhere.</p>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 w-full lg:w-auto">
-                <Suspense fallback={null}><WhatsAppSupportButton className="w-full lg:w-56" /></Suspense>
-                <Button asChild size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest gap-3 shadow-xl"><Link href="/recommendations">Start Exploring <Zap className="h-4 w-4 fill-current" /></Link></Button>
-                <Button asChild variant="outline" size="lg" className="w-full lg:w-56 h-14 rounded-2xl font-black text-sm uppercase tracking-widest border-2"><Link href="/download-apk">Get Mobile App</Link></Button>
+
+              <div className="flex flex-col gap-4">
+                <Button asChild size="lg" className="h-16 rounded-2xl bg-[#2e3192] hover:bg-[#2e3192]/90 text-white font-bold text-lg shadow-xl">
+                  <Link href="https://wa.me/a67515346" className="justify-center gap-3">
+                    <MessageCircle className="h-6 w-6" />
+                    Contact Ahsan AI Hub Support
+                  </Link>
+                </Button>
+                
+                <Button asChild size="lg" className="h-16 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black text-xl uppercase tracking-widest shadow-[0_8px_25px_rgba(59,130,246,0.4)] transition-all hover:scale-[1.02]">
+                  <Link href="/recommendations" className="justify-center gap-3">
+                    START EXPLORING
+                    <Zap className="h-5 w-5 fill-current" />
+                  </Link>
+                </Button>
+
+                <Button asChild variant="ghost" size="lg" className="h-16 rounded-2xl bg-black hover:bg-black/90 text-white font-black text-lg uppercase tracking-widest">
+                  <Link href="/privacy" className="justify-center">
+                    PRIVACY POLICY
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
