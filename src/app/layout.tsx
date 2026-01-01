@@ -49,27 +49,15 @@ export const metadata: Metadata = {
     default: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login',
     template: 'Ahsan Ai Hub'
   },
-  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 free AI chat assistant with no login required. Use our free AI writing assistant, blog post generator, resume builder, code explainer, math solver, translator (50+ languages), text-to-speech, and 9+ more tools. No signup needed. Zero tracking.',
+  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 free AI chat assistant with no login required. Experience the best free AI chat, writing assistant, blog post generator, resume builder, code explainer, math solver, and 50+ language translator. 100% private, zero signup, and no tracking. Powered by advanced AI to help you work smarter and faster.',
   keywords: [
-    'Ahsan AI', 'Ahsan Ai Hub', 'Ahsan Ali Ai', 'Ahsan Ai by Ahsan Ali',
-    'Ahsan Ai Hub by Ahsan Ali', 'Ahsan Ali Wadani', 'Ahsan Wadani', 'Ahsan Tech Hub',
-    'free AI chat assistant no login required', 'AI chatbot online free no signup',
-    'free AI writing assistant online no login', 'AI blog post generator free no signup',
-    'AI article writer free online', 'AI content generator for blogs free',
-    'AI resume builder free no signup', 'AI cover letter generator free online no signup',
-    'AI email writing assistant free online no login', 'AI math problem solver free online no login',
-    'free AI math homework helper no signup', 'AI code explanation tool free no login',
-    'free AI programming assistant online no login', 'AI coding help free no signup',
-    'AI study guide generator free no login', 'AI flashcard generator free online no signup',
-    'AI quiz maker free online no signup', 'free AI translator supporting 50+ languages no login',
-    'AI text to speech converter free online no signup', 'AI social media content creator free no signup',
-    'AI caption generator free no signup', 'AI creative writing assistant free online no login',
-    'free AI tools for students no login', 'AI writing tools for content creators free no signup',
-    'AI productivity assistant free online no login', 'free AI chat', 'best free AI tools 2025',
-    'AI text rewriter', 'AI code explainer', 'privacy-first AI', 'no login AI',
-    'advanced AI free', 'AI story generator', 'free translation tools', 'unlimited text to speech',
-    'anonymous AI', 'AI productivity hub', 'Ahsan Ali AI', 'AI generator tools',
-    'best AI platform 2025', 'free AI tools', 'AI assistant', 'creative AI tools'
+    'Ahsan AI', 'Ahsan Ai Hub', 'Ahsan Ali AI', 'Ahsan Ali Wadani', 'Ahsan Wadani', 
+    'free AI chat no login', 'best free AI chatbot 2026', 'AI writer free no signup',
+    'AI math solver online free', 'AI code explainer no login', 'AI resume builder free',
+    'anonymous AI chat', 'privacy-first AI', 'no login AI assistant', 'free AI writing tools',
+    'AI blog generator free', 'AI study assistant free', 'free AI translation online',
+    'advanced AI companion', 'free AI productivity hub', 'unlimited free AI tools',
+    'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026'
   ],
   manifest: '/manifest.json',
   appleWebApp: {
@@ -183,26 +171,39 @@ export default function RootLayout({
           type="application/ld+json"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Ahsan AI Hub",
-              "alternateName": "Ahsan AI",
-              "url": "https://ahsan-ai-hub.vercel.app",
-              "description": "The world's #1 privacy-first free AI companion. Developed by Ahsan Ali. Features AI chat, text rewriting, math solving, and translation.",
-              "applicationCategory": "ProductivityApplication",
-              "operatingSystem": "All",
-              "author": {
-                "@type": "Person",
-                "name": "Ahsan Ali",
-                "url": "https://github.com/AhsanAli1214"
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Ahsan AI Hub",
+                "alternateName": "Ahsan AI",
+                "url": "https://ahsan-ai-hub.vercel.app",
+                "description": "The world's #1 privacy-first free AI companion. Developed by Ahsan Ali. Features free AI chat, text rewriting, math solving, and 50+ language translation.",
+                "applicationCategory": "ProductivityApplication",
+                "operatingSystem": "All",
+                "author": {
+                  "@type": "Person",
+                  "name": "Ahsan Ali",
+                  "url": "https://github.com/AhsanAli1214"
+                },
+                "offers": {
+                  "@type": "Offer",
+                  "price": "0",
+                  "priceCurrency": "USD"
+                }
               },
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Ahsan AI Hub",
+                "url": "https://ahsan-ai-hub.vercel.app",
+                "logo": "https://ahsan-ai-hub.vercel.app/icon-512.png",
+                "sameAs": [
+                  "https://twitter.com/Ahsan_Ali_12",
+                  "https://github.com/AhsanAli1214"
+                ]
               }
-            })
+            ])
           }}
         />
         <ThemeProvider
