@@ -1,40 +1,13 @@
-# Allow all bots to crawl the entire site
+# *
 User-agent: *
 Allow: /
-Allow: /_next/static/
-Allow: /public/
-Allow: /favicon.ico
-Allow: /favicon.png
-Allow: /logo.png
-Allow: /apple-touch-icon.png
-Allow: /*.png
-Allow: /*.jpg
-Allow: /*.jpeg
-Allow: /*.gif
-Allow: /*.webp
-Allow: /*.svg
-Allow: /*.ico
-Allow: /manifest.json
-Allow: /sitemap.xml
-Allow: /_next/data/
 
-# Specific allow for reCAPTCHA assets (even if they are external, helps crawlers)
-Allow: /recaptcha/
-
-# Block API and sensitive routes
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Allow: /_next/static/
-Allow: /_next/image/
-
-# Search engine crawl behavior
+# Googlebot
 User-agent: Googlebot
 Allow: /
-Allow: /_next/static/
-Allow: /_next/image/
-Allow: /_next/data/
-Disallow: /api/
+
+# Host
+Host: https://ahsan-ai-hub.vercel.app
 
 # Sitemaps
 Sitemap: https://ahsan-ai-hub.vercel.app/sitemap.xml
