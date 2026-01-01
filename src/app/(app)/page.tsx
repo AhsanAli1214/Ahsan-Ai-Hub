@@ -167,10 +167,6 @@ export default function HomePage() {
                     PRIVACY POLICY
                   </Link>
                 </Button>
-                
-                <div className="mt-4">
-                  <PWAInstallButton />
-                </div>
               </div>
             </div>
           </div>
