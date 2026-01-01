@@ -108,7 +108,11 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-black p-8 md:p-12 shadow-2xl border border-white/5">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-white/10">
+            {/* Background Decorative Elements */}
+            <div className="absolute -top-24 -right-24 h-64 w-64 bg-blue-600/20 blur-[100px] rounded-full" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 bg-indigo-600/10 blur-[100px] rounded-full" />
+            
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-8">
                 <h2 className="text-4xl md:text-6xl font-black text-white leading-[1] tracking-tight">
