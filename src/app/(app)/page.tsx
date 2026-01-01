@@ -138,14 +138,18 @@ export default function HomePage() {
                       <p className="text-[10px] text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
-                    <div className="bg-white/5 p-2 rounded-lg">
-                      <Smartphone className="h-5 w-5 text-blue-500" />
+                  {/* Integrated OneSignal Notification Toggle */}
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)] group transition-all hover:border-blue-500/40">
+                    <div className="bg-blue-500/10 p-2 rounded-lg group-hover:scale-110 transition-transform">
+                      <Zap className="h-5 w-5 text-blue-500" />
                     </div>
-                    <div>
-                      <p className="font-bold text-white text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
+                    <div className="flex-1">
+                      <p className="font-bold text-white text-sm">Smart Notifications</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">Stay updated with the latest AI tools and features.</p>
                     </div>
+                    <Suspense fallback={<div className="h-8 w-20 animate-pulse bg-white/5 rounded-lg" />}>
+                      <OneSignalButton />
+                    </Suspense>
                   </div>
                 </div>
               </div>
