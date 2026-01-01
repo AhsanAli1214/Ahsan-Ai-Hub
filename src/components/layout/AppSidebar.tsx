@@ -11,7 +11,7 @@ import {
 import { AhsanAiHubLogo } from '@/components/icons';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings, Clock, Plus } from 'lucide-react';
+import { Sparkles, Home, Info, Mail, PenTool, HelpCircle, Settings, Clock, Plus, Heart } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
@@ -25,6 +25,7 @@ const mainNav = [
   { name: 'Content Tools', href: '/content-tools', icon: PenTool },
   { name: 'History', href: '/chat-history', icon: Clock },
   { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Feedback', href: '/feedback', icon: Heart },
   { name: 'About', href: '/about', icon: Info },
   { name: 'Contact', href: '/contact', icon: Mail },
   { name: 'FAQ', href: '/faq', icon: HelpCircle },

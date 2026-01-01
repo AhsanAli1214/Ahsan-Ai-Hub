@@ -225,7 +225,6 @@ export default function RootLayout({
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
-              <FeedbackDialog />
               <CookieConsent />
               {/* Load OneSignal after everything else */}
               <Script 

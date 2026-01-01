@@ -12,6 +12,7 @@ import {
   Info,
   Mail,
   HelpCircle,
+  Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -32,6 +33,7 @@ const navItems = [
 
 const moreItems = [
   { href: "/settings", icon: Settings, label: "Settings" },
+  { href: "/feedback", icon: Heart, label: "Feedback" },
   { href: "/about", icon: Info, label: "About" },
   { href: "/faq", icon: HelpCircle, label: "FAQ" },
   { href: "/contact", icon: Mail, label: "Contact" },
