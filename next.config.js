@@ -36,7 +36,7 @@ const nextConfig = {
     ],
     scrollRestoration: true,
   },
-  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '127.0.0.1', 'localhost'],
+  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '*.sisko.replit.dev', '127.0.0.1', 'localhost'],
   transpilePackages: ['next-themes'],
   images: {
     formats: ['image/avif', 'image/webp'],
