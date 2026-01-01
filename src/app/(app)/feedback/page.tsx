@@ -166,14 +166,14 @@ export default function FeedbackPage() {
                         {star <= (hoveredRating || formData.rating) && (
                           <motion.div
                             layoutId="star-glow"
-                            className="absolute inset-0 bg-yellow-500/20 blur-lg rounded-full"
+                            className="absolute inset-0 bg-yellow-500/20 dark:bg-yellow-400/10 blur-xl rounded-full"
                           />
                         )}
                         <Star 
                           className={`h-10 w-10 transition-all duration-300 relative ${
                             star <= (hoveredRating || formData.rating) 
-                              ? 'fill-yellow-400 text-yellow-400 scale-110 drop-shadow-[0_0_12px_rgba(250,204,21,0.5)]' 
-                              : 'text-muted-foreground/20 hover:text-muted-foreground/40'
+                              ? 'fill-yellow-400 text-yellow-400 scale-110 drop-shadow-[0_0_15px_rgba(234,179,8,0.6)] dark:drop-shadow-[0_0_20px_rgba(234,179,8,0.4)]' 
+                              : 'text-muted-foreground/20 hover:text-muted-foreground/40 dark:text-zinc-800'
                           }`} 
                         />
                       </button>
