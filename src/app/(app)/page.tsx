@@ -87,7 +87,7 @@ export default function HomePage() {
           <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex items-center gap-4 md:gap-6">
               <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
-                <AhsanAiHubLogo width={144} height={144} fillContainer className="text-accent-foreground" priority loading="eager" />
+                <AhsanAiHubLogo width={144} height={144} fillContainer className="text-accent-foreground" priority />
               </div>
               <div className="flex-1">
                 <h2 id="hero-heading" className="font-headline text-3xl font-bold md:text-4xl">Ahsan Ai Hub</h2>
