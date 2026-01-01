@@ -32,6 +32,7 @@ const navItems = [
 
 const moreItems = [
   { href: "/settings", icon: Settings, label: "Settings" },
+  { href: "/feedback", icon: MessageSquare, label: "Feedback" },
   { href: "/about", icon: Info, label: "About" },
   { href: "/faq", icon: HelpCircle, label: "FAQ" },
   { href: "/contact", icon: Mail, label: "Contact" },

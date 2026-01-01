@@ -25,6 +25,7 @@ const mainNav = [
   { name: 'Content Tools', href: '/content-tools', icon: PenTool },
   { name: 'History', href: '/chat-history', icon: Clock },
   { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Feedback', href: '/feedback', icon: Mail },
   { name: 'About', href: '/about', icon: Info },
   { name: 'Contact', href: '/contact', icon: Mail },
   { name: 'FAQ', href: '/faq', icon: HelpCircle },
