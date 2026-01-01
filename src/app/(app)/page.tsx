@@ -113,7 +113,7 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-900/40 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-zinc-200/50 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-100 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-zinc-200 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
             {/* Background Decorative Elements */}
             <div className="absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
             <div className="absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
@@ -125,31 +125,31 @@ export default function HomePage() {
                   <span className="text-primary">100% Privacy-First</span>
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Lock className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">Zero Login</p>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">Local Storage</p>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-zinc-100/50 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5 hover:bg-zinc-200/50 dark:hover:bg-white/10 transition-colors">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
                     <div className="bg-primary/10 p-2 rounded-lg">
                       <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-white text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
+                      <p className="text-[10px] text-zinc-600 dark:text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
                     </div>
                   </div>
                 </div>

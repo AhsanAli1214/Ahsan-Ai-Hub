@@ -36,6 +36,7 @@ export function PWAInstallButton({ className }: { className?: string }) {
     const handleAppInstalled = () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
+      localStorage.setItem('pwa-installed', 'true');
       toast({
         title: '✓ App Installed Successfully!',
         description: 'Ahsan AI Hub is now installed. You can launch it from your home screen or app drawer.',
@@ -43,6 +44,11 @@ export function PWAInstallButton({ className }: { className?: string }) {
     };
 
     if (typeof window !== 'undefined') {
+      // Check local storage flag first
+      if (localStorage.getItem('pwa-installed') === 'true') {
+        setIsInstalled(true);
+      }
+
       window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.addEventListener('appinstalled', handleAppInstalled);
 
