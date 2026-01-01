@@ -86,7 +86,7 @@ export function FeedbackDialog() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-2xl shadow-primary/40 bg-primary hover:scale-110 active:scale-95 transition-all z-40 p-0"
+        className="fixed bottom-24 md:bottom-6 right-6 h-14 w-14 rounded-full shadow-2xl shadow-primary/40 bg-primary hover:scale-110 active:scale-95 transition-all z-40 p-0"
         title="Give Feedback"
       >
         <MessageSquare className="h-6 w-6 text-primary-foreground" />
