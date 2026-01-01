@@ -132,7 +132,7 @@ export function OneSignalButton() {
         size="lg"
       >
       {isLoading ? (
-        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+        <Loader2 className="h-5 w-5 animate-spin" />
       ) : isSubscribed ? (
         <>
           <CheckCircle2 className="h-5 w-5" />

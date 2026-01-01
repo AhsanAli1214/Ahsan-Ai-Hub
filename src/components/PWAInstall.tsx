@@ -109,19 +109,6 @@ export function PWAInstall() {
     }
   };
 
-  return (
-    <div className="flex items-center gap-2">
-      {!notificationsEnabled && (
-        <Button
-          onClick={handleNotificationClick}
-          variant="outline"
-          size="sm"
-          className="flex items-center gap-2 border-primary/30 hover:bg-primary/10 transition-all rounded-lg"
-        >
-          <Bell className="h-4 w-4 text-primary" />
-          Enable Notifications
-        </Button>
-      )}
-    </div>
-  );
+  return null;
+}
 }
