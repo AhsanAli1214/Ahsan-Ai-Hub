@@ -270,6 +270,6 @@ export default function FaqPage() {
           </footer>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

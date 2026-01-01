@@ -337,9 +337,8 @@ export default function AboutPage() {
               </a>
             </Card>
           </div>
-
-          </div>
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
