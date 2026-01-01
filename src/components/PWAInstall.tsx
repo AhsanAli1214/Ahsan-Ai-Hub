@@ -111,4 +111,3 @@ export function PWAInstall() {
 
   return null;
 }
-}
