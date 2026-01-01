@@ -57,6 +57,10 @@ const nextConfig = {
       'recharts',
       'katex',
       'react-katex',
+      'firebase',
+      'zod',
+      'clsx',
+      'tailwind-merge'
     ],
     scrollRestoration: true,
   },
