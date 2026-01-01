@@ -162,7 +162,7 @@ export default function HomePage() {
                   </Link>
                 </Button>
 
-                <Button asChild variant="ghost" size="lg" className="h-16 rounded-2xl bg-black hover:bg-black/90 text-white font-black text-lg uppercase tracking-widest">
+                <Button asChild variant="outline" size="lg" className="h-16 rounded-2xl border-2 font-black text-lg uppercase tracking-widest">
                   <Link href="/privacy" className="justify-center">
                     PRIVACY POLICY
                   </Link>
