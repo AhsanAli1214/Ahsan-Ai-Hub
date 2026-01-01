@@ -41,6 +41,8 @@ export function PWAInstall() {
       console.log('beforeinstallprompt event fired - PWA is installable');
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setShowInstallPrompt(true);
+      // Ensure the button is visible even if the state was dismissed before
+      localStorage.setItem('pwa-install-available', 'true');
     };
 
     const handleAppInstalled = () => {
@@ -48,6 +50,7 @@ export function PWAInstall() {
       setIsInstalled(true);
       setShowInstallPrompt(false);
       setDeferredPrompt(null);
+      localStorage.removeItem('pwa-install-available');
       
       setTimeout(() => {
         toast({

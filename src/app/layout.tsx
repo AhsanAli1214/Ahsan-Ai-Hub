@@ -262,6 +262,9 @@ export default function RootLayout({
               <CookieBanner />
               <FeedbackDialog />
               <Suspense fallback={null}>
+                <PWAInstall />
+              </Suspense>
+              <Suspense fallback={null}>
                 <ConnectionStatus />
               </Suspense>
               <Analytics mode={'production'} />
