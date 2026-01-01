@@ -118,6 +118,8 @@ export const metadata: Metadata = {
 
 import { ViewTransitions } from 'next-view-transitions';
 
+import { CookieBanner } from '@/components/CookieBanner';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -221,6 +223,7 @@ export default function RootLayout({
                 </Suspense>
               </ErrorBoundary>
               <Toaster />
+              <CookieBanner />
               <Suspense fallback={null}>
                 <PWAInstall />
               </Suspense>
