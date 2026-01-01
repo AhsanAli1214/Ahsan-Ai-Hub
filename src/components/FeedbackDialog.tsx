@@ -49,8 +49,8 @@ export function FeedbackDialog() {
 
           <div className="relative z-10 flex flex-col gap-4 pt-4">
             <Button asChild size="lg" className="h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase tracking-widest text-xs gap-2">
-              <Link href="/feedback" onClick={() => setIsOpen(false)}>
-                GIVE FEEDBACK <ArrowRight className="h-4 w-4" />
+              <Link href="/feedback" onClick={() => setIsOpen(false)} aria-label="Go to feedback page">
+                GIVE FEEDBACK <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
             <Button 

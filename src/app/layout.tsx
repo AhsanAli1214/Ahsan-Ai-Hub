@@ -138,13 +138,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
         <link rel="preconnect" href="https://va.vercel-scripts.com" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-        <link rel="prefetch" href="/images/developer.jpg" as="image" />
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="preconnect" href="https://www.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://i.postimg.cc" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://i.postimg.cc" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preload" href="/images/developer.jpg" as="image" fetchPriority="high" />
         <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e1b4b" media="(prefers-color-scheme: dark)" />
         <meta name="mobile-web-app-capable" content="yes" />

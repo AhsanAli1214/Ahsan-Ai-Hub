@@ -158,6 +158,7 @@ export default function FeedbackPage() {
                       <button
                         key={star}
                         type="button"
+                        aria-label={`Rate ${star} stars`}
                         onClick={() => setFormData({...formData, rating: star})}
                         onMouseEnter={() => setHoveredRating(star)}
                         onMouseLeave={() => setHoveredRating(0)}

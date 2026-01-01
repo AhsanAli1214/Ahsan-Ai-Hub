@@ -73,6 +73,7 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
       <Button
         variant="ghost"
         size="icon"
+        aria-label="Voice Input"
         className={cn(
           "h-10 w-10 rounded-full transition-all duration-300 hover:bg-primary/10",
           isListening && "text-destructive bg-destructive/10 hover:bg-destructive/20 shadow-[0_0_15px_rgba(239,68,68,0.3)]",
