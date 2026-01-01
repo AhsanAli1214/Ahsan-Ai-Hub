@@ -108,84 +108,61 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-card/80 to-card/40 border border-primary/20 p-6 md:p-8 shadow-2xl backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card/80 to-card/40 border border-primary/20 p-5 md:p-6 shadow-xl backdrop-blur-xl max-w-2xl mx-auto">
             <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
-            <div className="relative z-10 flex flex-col space-y-6">
+            <div className="relative z-10 flex flex-col space-y-5">
               <div className="space-y-1">
-                <h2 className="text-3xl md:text-4xl font-black text-foreground leading-tight tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Premium AI <br />Experience</h2>
+                <h2 className="text-2xl md:text-3xl font-black text-foreground leading-tight tracking-tight">Premium AI Experience</h2>
                 <div className="flex items-center gap-2">
-                  <span className="h-1 w-8 rounded-full bg-primary" />
-                  <p className="text-xl md:text-2xl font-bold text-primary">100% Privacy-First</p>
+                  <span className="h-0.5 w-6 rounded-full bg-primary" />
+                  <p className="text-lg md:text-xl font-bold text-primary">100% Privacy-First</p>
                 </div>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3 md:grid-cols-1">
-                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40 hover:border-primary/30 group">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner group-hover:scale-110 transition-transform">
-                    <Lock className="h-5 w-5" />
+              <div className="grid gap-2 sm:grid-cols-3">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/10 transition-all hover:bg-muted/40 hover:border-primary/20 group">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-background/50 text-primary shadow-inner">
+                    <Lock className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="text-base font-bold">Zero Login</p>
-                    <p className="text-xs text-muted-foreground">Instant access without accounts.</p>
+                    <p className="text-sm font-bold leading-none">Zero Login</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">No accounts needed.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40 hover:border-primary/30 group">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner group-hover:scale-110 transition-transform">
-                    <Eye className="h-5 w-5" />
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/10 transition-all hover:bg-muted/40 hover:border-primary/20 group">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-background/50 text-primary shadow-inner">
+                    <Eye className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="text-base font-bold">Local Storage</p>
-                    <p className="text-xs text-muted-foreground">History stays in your browser.</p>
+                    <p className="text-sm font-bold leading-none">Private</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">Local browser storage.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-border/20 transition-all hover:bg-muted/40 hover:border-primary/30 group">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background/50 text-primary shadow-inner group-hover:scale-110 transition-transform">
-                    <Smartphone className="h-5 w-5" />
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/10 transition-all hover:bg-muted/40 hover:border-primary/20 group">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-background/50 text-primary shadow-inner">
+                    <Smartphone className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="text-base font-bold">PWA Powered</p>
-                    <p className="text-xs text-muted-foreground">Native app on any device.</p>
+                    <p className="text-sm font-bold leading-none">PWA</p>
+                    <p className="text-[10px] text-muted-foreground mt-1">Native experience.</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3">
-                <Button asChild size="lg" className="h-14 rounded-xl bg-gradient-to-br from-[#0f172a] to-[#312e81] hover:shadow-[0_0_20px_rgba(49,46,129,0.4)] text-white font-bold text-base shadow-xl transition-all duration-300">
-                  <Link 
-                    href={`https://wa.me/15557818398?text=${encodeURIComponent(`Hello Ahsan AI Hub Support Team 👋,
-
-I’m contacting you regarding assistance with Ahsan AI Hub.
-
-📌 Reason:
-• Support / Inquiry / Error Report
-
-🔹 Page: Ahsan AI Hub
-🔹 URL: https://ahsan-ai-hub.replit.app
-🔹 Device: Mobile/Desktop
-🔹 Time: ${new Date().toLocaleString()}
-
-Please assist me at your earliest convenience.
-Thank you for your support! 🙏`)}`} 
-                    className="justify-center gap-2"
-                    target="_blank"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Contact Ahsan AI Hub Support
+              <div className="grid gap-2 sm:grid-cols-2">
+                <Button asChild size="sm" className="h-10 rounded-lg bg-gradient-to-br from-[#0f172a] to-[#312e81] text-white font-bold text-xs shadow-md">
+                  <Link href={`https://wa.me/15557818398?text=${encodeURIComponent(`Hello Support 👋\n\nPage: Ahsan AI Hub\nTime: ${new Date().toLocaleString()}`)}`} target="_blank">
+                    <MessageCircle className="h-3.5 w-3.5 mr-2" />
+                    Contact Support
                   </Link>
                 </Button>
                 
-                <Button asChild size="lg" className="h-14 rounded-xl bg-primary hover:bg-primary/90 text-white font-black text-lg uppercase tracking-widest shadow-[0_8px_25px_rgba(59,130,246,0.4)] transition-all hover:scale-[1.01]">
-                  <Link href="/recommendations" className="justify-center gap-2">
-                    START EXPLORING
-                    <Zap className="h-4 w-4 fill-current" />
-                  </Link>
-                </Button>
-
-                <Button asChild variant="outline" size="lg" className="h-14 rounded-xl border-2 font-black text-base uppercase tracking-widest hover:bg-primary/5 transition-colors">
-                  <Link href="/privacy" className="justify-center">
-                    PRIVACY POLICY
+                <Button asChild size="sm" className="h-10 rounded-lg bg-primary text-white font-black text-xs uppercase tracking-wider">
+                  <Link href="/recommendations">
+                    EXPLORE NOW
+                    <Zap className="h-3 w-3 ml-2 fill-current" />
                   </Link>
                 </Button>
               </div>
