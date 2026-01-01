@@ -155,7 +155,8 @@ export default function AboutPage() {
                 <p className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
                   I am a CIT (Computer Information Technology) student at Mir Chakar Khan Rind University of Technology, Dera Ghazi Khan. 
                   Originally from Dera Ghazi Khan, Punjab, Pakistan, I am a passionate self-learner and developer focused on 
-                  building modern, responsive, and privacy-first AI solutions.
+                  building modern, responsive, and privacy-first AI solutions. As the founder of Ahsan AI Hub, I am dedicated to providing high-quality AI tools like 
+                  free AI chat, story generators, and code explainers with zero tracking and no login required.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 md:justify-start pt-2">
                    <Button size="lg" className="rounded-xl shadow-lg shadow-primary/20" asChild>
