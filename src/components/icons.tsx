@@ -12,7 +12,6 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
         className={props.className}
         style={{ objectFit: 'contain' }}
         priority={true}
-        fetchPriority="high"
       />
     );
   }
@@ -24,7 +23,6 @@ export function AhsanAiHubLogo(props: SVGProps<SVGSVGElement> & {width?: number;
       height={props.height || 60}
       className={props.className}
       priority={true}
-      fetchPriority="high"
     />
   );
 }
