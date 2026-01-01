@@ -21,7 +21,6 @@ import {
   Eye,
 } from 'lucide-react';
 
-import { AppHeader } from '@/components/layout/AppHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
