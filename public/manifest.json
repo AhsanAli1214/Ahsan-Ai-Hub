@@ -1,41 +1,37 @@
 {
   "name": "Ahsan Ai Hub",
   "short_name": "Ahsan Ai Hub",
-  "description": "The world's #1 privacy-first free AI companion. Developed by Ahsan Ali. Features free AI chat, writing tools, and math solver. No login required.",
+  "description": "Privacy-first AI platform with free AI chat, content generation, writing tools, translation, and text-to-speech. No login required, 100% private.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
   "display": "standalone",
-  "display_override": [
-    "window-controls-overlay",
-    "minimal-ui",
-    "standalone"
-  ],
-  "background_color": "#1e1b4b",
-  "theme_color": "#1e1b4b",
+  "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
+  "background_color": "#09090b",
+  "theme_color": "#3b82f6",
   "background_sync": true,
   "periodic_background_sync": true,
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/icon-192.png?v=2025-12-27",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512.png?v=2025-12-27",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-maskable-192.png",
+      "src": "/icon-maskable-192.png?v=2025-12-27",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/icon-maskable-512.png",
+      "src": "/icon-maskable-512.png?v=2025-12-27",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -43,13 +39,13 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshot-540.png",
+      "src": "/screenshot-540.png?v=2025-12-27",
       "sizes": "540x720",
       "type": "image/png",
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshot-desktop.png",
+      "src": "/screenshot-desktop.png?v=2025-12-27",
       "sizes": "1024x576",
       "type": "image/png",
       "form_factor": "wide"
@@ -63,7 +59,7 @@
       "url": "/recommendations",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "/icon-192.png?v=2025-12-27",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -76,15 +72,12 @@
       "url": "/content-tools",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "/icon-192.png?v=2025-12-27",
           "sizes": "192x192",
           "type": "image/png"
         }
       ]
     }
   ],
-  "categories": [
-    "productivity",
-    "utilities"
-  ]
+  "categories": ["productivity", "utilities"]
 }
