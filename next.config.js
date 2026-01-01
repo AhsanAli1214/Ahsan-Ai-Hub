@@ -24,6 +24,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'ahsan-ai-hub.vercel.app',
+      },
     ],
     unoptimized: false,
   },
