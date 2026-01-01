@@ -67,11 +67,13 @@ export function PWAInstallButton({ className }: { className?: string }) {
   }, [toast]);
 
   const handleInstallClick = async () => {
+    // If we don't have the prompt yet, provide instructions
     if (!deferredPrompt) {
       toast({
-        title: 'Installation Not Available',
-        description: 'Your browser may not support PWA installation yet.',
-        variant: 'destructive',
+        title: 'Installation Instructions',
+        description: isInstalled 
+          ? 'App is already installed on your device!' 
+          : 'To install: Use your browser menu (⋮) and select "Install app" or "Add to Home screen".',
       });
       return;
     }
@@ -126,20 +128,18 @@ export function PWAInstallButton({ className }: { className?: string }) {
     <div className={cn("w-full space-y-3", className)}>
       <Button
         onClick={handleInstallClick}
-        disabled={isLoading || !deferredPrompt}
+        disabled={isLoading}
         size="lg"
         className={cn(
           "w-full font-black text-sm uppercase tracking-[0.2em] h-16 transition-all duration-300 rounded-2xl flex items-center justify-center gap-3 shadow-xl",
-          !deferredPrompt
-            ? 'bg-zinc-900 text-zinc-600 cursor-not-allowed border border-white/5'
-            : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 hover:scale-105 active:scale-95'
+          "bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 hover:scale-105 active:scale-95"
         )}
       >
         <Download className={cn("h-5 w-5", deferredPrompt && "animate-bounce")} />
         {isLoading ? 'Installing...' : 'Install App'}
       </Button>
       
-      {!deferredPrompt && (
+      {!deferredPrompt && !isInstalled && (
         <Card className="p-4 bg-zinc-100/50 dark:bg-zinc-900/50 border border-zinc-200/50 dark:border-white/5 backdrop-blur-sm">
           <div className="flex gap-3 text-sm">
             <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-blue-600 dark:text-blue-400" />
