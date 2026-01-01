@@ -14,6 +14,8 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
   const [interimTranscript, setInterimTranscript] = useState('');
   const [detectedLanguage, setDetectedLanguage] = useState('');
   
+  const lastProcessedIndexRef = useRef<number>(-1);
+  
   const recognitionRef = useRef<any>(null);
   const silenceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -63,6 +65,7 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     setTranscript('');
     setInterimTranscript('');
     setDetectedLanguage(langCode);
+    lastProcessedIndexRef.current = -1;
     
     // Map short codes to full BCP-47 if needed, but the library usually handles it
     recognitionRef.current.lang = langCode === 'en' ? 'en-US' : 
@@ -76,9 +79,13 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
         if (result.isFinal) {
-          const final = result[0].transcript;
-          setTranscript(prev => prev + final);
-          onTranscript(final);
+          // Use the result index to prevent duplicate processing of the same result
+          if (i > lastProcessedIndexRef.current) {
+            const final = result[0].transcript;
+            setTranscript(prev => prev + final);
+            onTranscript(final);
+            lastProcessedIndexRef.current = i;
+          }
         } else {
           interim += result[0].transcript;
         }
