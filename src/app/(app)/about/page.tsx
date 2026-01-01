@@ -135,14 +135,11 @@ export default function AboutPage() {
             <div className="relative grid grid-cols-1 items-center gap-8 p-8 md:grid-cols-12">
               <div className="flex justify-center md:col-span-4 lg:col-span-3">
                 <div className="relative h-48 w-48 overflow-hidden rounded-2xl border-4 border-accent shadow-2xl transition-transform hover:scale-105 duration-300">
-                  <Image
+                  <img
                     src="/images/developer.jpg"
                     alt="Developer Ahsan Ali"
-                    fill
-                    sizes="(max-width: 768px) 192px, 192px"
-                    className="object-cover"
-                    priority
-                    fetchPriority="high"
+                    className="h-full w-full object-cover"
+                    loading="eager"
                   />
                 </div>
               </div>
