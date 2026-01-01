@@ -249,42 +249,7 @@ export default function RootLayout({
                         appId: "8a693786-f992-42d3-adfb-56a230adcea5",
                         safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
                           notifyButton: {
-                            enable: true,
-                            size: 'medium',
-                            theme: 'default',
-                            position: 'bottom-left',
-                            displayPredicate: () => true,
-                            text: {
-                              'tip.state.unsubscribed': 'Subscribe to notifications',
-                              'tip.state.subscribed': "You're subscribed to notifications",
-                              'tip.state.blocked': "You've blocked notifications",
-                              'message.prenotify': 'Click to subscribe to notifications',
-                              'message.action.subscribed': "Thanks for subscribing!",
-                              'message.action.resubscribed': "You're subscribed to notifications",
-                              'message.action.unsubscribed': "You won't receive notifications anymore",
-                              'dialog.main.title': 'Manage Site Notifications',
-                              'dialog.main.button.subscribe': 'SUBSCRIBE',
-                              'dialog.main.button.unsubscribe': 'UNSUBSCRIBE',
-                              'dialog.blocked.title': 'Unblock Notifications',
-                              'dialog.blocked.message': "Follow these instructions to allow notifications:"
-                            },
-                            colors: {
-                              'circle.background': '#3b82f6',
-                              'circle.foreground': 'white',
-                              'badge.background': '#3b82f6',
-                              'badge.foreground': 'white',
-                              'badge.bordercolor': 'white',
-                              'pulse.color': 'white',
-                              'dialog.button.background.hovering': '#2563eb',
-                              'dialog.button.background.active': '#2563eb',
-                              'dialog.button.background': '#3b82f6',
-                              'dialog.button.foreground': 'white'
-                            },
-                            offset: {
-                              bottom: '100px',
-                              left: '20px',
-                              right: '0px'
-                            }
+                            enable: false,
                           },
                         allowLocalhostAsSecureOrigin: true,
                         display: "dialog",
