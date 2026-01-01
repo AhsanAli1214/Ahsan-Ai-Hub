@@ -122,22 +122,6 @@ export function PWAInstall() {
           Enable Notifications
         </Button>
       )}
-
-      {isInstalled ? (
-        <Button disabled variant="outline" size="sm" className="rounded-lg opacity-60">
-          ✓ App Installed
-        </Button>
-      ) : showInstallPrompt ? (
-        <Button
-          onClick={handleInstallClick}
-          size="sm"
-          className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md animate-pulse rounded-lg transition-all hover:scale-105 active:scale-95"
-          title="Install Ahsan Ai Hub as a native app"
-        >
-          <Download className="h-4 w-4" />
-          Install App
-        </Button>
-      ) : null}
     </div>
   );
 }
