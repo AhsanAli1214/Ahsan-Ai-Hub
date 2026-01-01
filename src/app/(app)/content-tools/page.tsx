@@ -368,6 +368,24 @@ export default function ContentToolsPage() {
         }
         metaKeywords.setAttribute('content', meta.keywords.join(', '));
         
+        // Update OG Description
+        let ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) {
+          ogDesc.setAttribute('content', meta.description);
+        }
+        
+        // Update OG Title
+        let ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) {
+          ogTitle.setAttribute('content', meta.title);
+        }
+        
+        // Update Twitter Description
+        let twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDesc) {
+          twitterDesc.setAttribute('content', meta.description);
+        }
+        
         // Update canonical link
         let canonical = document.querySelector('link[rel="canonical"]');
         if (!canonical) {
@@ -378,7 +396,7 @@ export default function ContentToolsPage() {
         canonical.setAttribute('href', `https://ahsan-ai-hub.vercel.app/content-tools?tool=${selectedTool}`);
       }
     } else {
-      document.title = 'AI Content Tools - Free Professional Writing & Productivity Hub | Ahsan AI Hub';
+      document.title = 'Free AI Content Tools - Best Writing, Coding & Study Hub | Ahsan AI Hub';
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
         canonical.setAttribute('href', 'https://ahsan-ai-hub.vercel.app/content-tools');

@@ -83,14 +83,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://ahsan-ai-hub.vercel.app',
     siteName: 'Ahsan AI Hub by Ahsan Ali',
-    title: 'Ahsan AI Hub - Best Free AI Assistant 2025 | No Login Required',
+    title: 'Ahsan AI Hub - #1 Best Free AI Assistant 2026 | No Login Required',
     description: 'Use Ahsan AI Hub for free: AI chat assistant, text rewriter, code explainer, math solver, and 50+ language translator. 100% private, no login, developed by Ahsan Ali.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Ahsan AI Hub - The Privacy-First Free AI Companion',
+        alt: 'Ahsan AI Hub - The World\'s Most Powerful Privacy-First Free AI Companion',
       },
     ],
   },
@@ -98,8 +98,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@Ahsan_Ali_12',
     creator: '@Ahsan_Ali_12',
-    title: 'Ahsan AI Hub - Free AI Chat & Tools (No Signup)',
-    description: "Experience the world's most private free AI hub. Developed by Ahsan Ali. No login required.",
+    title: 'Ahsan AI Hub - Free AI Chat & Professional Tools (No Signup)',
+    description: "Experience the world's most private free AI hub. Developed by Ahsan Ali. Features advanced chat, writing, and coding tools without login.",
     images: ['/og-image.png'],
   },
   robots: {
