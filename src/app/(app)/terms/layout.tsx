@@ -15,4 +15,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { default } from './terms-client';
+export { default } from './page';

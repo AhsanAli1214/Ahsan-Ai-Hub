@@ -22,4 +22,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { default } from './feedback-client';
+export { default } from './page';

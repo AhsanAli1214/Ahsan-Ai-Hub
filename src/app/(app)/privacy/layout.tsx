@@ -15,4 +15,4 @@ export const metadata: Metadata = {
   },
 };
 
-export { default } from './privacy-client';
+export { default } from './page';
