@@ -145,13 +145,6 @@ export default function FaqPage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-10">
         <div className="mx-auto max-w-5xl space-y-12 pb-24">
           <h1 id="faq-heading" className="sr-only">Frequently Asked Questions about Ahsan AI Hub</h1>
-            <p>
-              Find answers to questions like: Is Ahsan AI Hub free? How does privacy work? 
-              How can I use the AI story writer? Does Ahsan AI Hub require a login? 
-              Ahsan AI Hub is the best free AI platform for students and professionals.
-              Learn about our zero-log policy, text-to-speech features, and translation capabilities.
-              Developed by Ahsan Ali Wadani, this platform offers the most secure AI chat experience online.
-            </p>
           
 
           {/* Enhanced Hero Section */}
@@ -167,7 +160,7 @@ export default function FaqPage() {
                 How can we help?
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Explore our comprehensive guides and frequently asked questions to get the most out of Ahsan AI Hub.
+                Explore our comprehensive guides and frequently asked questions about Ahsan AI Hub. Developed by Ahsan Ali Wadani, our privacy-first platform offers free AI chat, story writing, and 50+ language translations with zero tracking.
               </p>
             </div>
           </div>
