@@ -190,19 +190,36 @@ export default function HomePage() {
           </div>
 
           <div id="install-section">
-            <h2 className="mb-4 font-headline text-xl font-semibold">Get the Native Experience</h2>
-            <Card className="relative overflow-hidden p-8 md:p-12 border-primary/20 bg-muted/30 rounded-[2.5rem]">
-              <div className="relative z-10 flex flex-col items-center text-center lg:flex-row lg:text-left lg:gap-12">
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-[2rem] bg-primary text-primary-foreground shadow-2xl mb-8 lg:mb-0"><Smartphone className="h-10 w-10" /></div>
-                <div className="flex-1 space-y-4">
-                  <h3 className="text-2xl md:text-3xl font-black">Ahsan AI Hub Mobile</h3>
-                  <p className="text-base text-muted-foreground font-medium">Transform your browser into a high-performance native app.</p>
-                  <div className="flex flex-col gap-4 lg:flex-row pt-4">
-                    <div className="flex-1 lg:flex-none lg:w-80"><PWAInstallButton /></div>
-                    <Button asChild variant="outline" size="lg" className="h-14 px-8 rounded-2xl font-black text-sm uppercase tracking-widest border-2"><Link href="/download-apk"><Download className="h-4 w-4 mr-2" />Download APK</Link></Button>
+            <h2 className="mb-4 font-headline text-xl font-semibold text-white">Official App</h2>
+            <Card className="relative overflow-hidden p-6 md:p-10 border-white/10 bg-zinc-950/50 backdrop-blur-md rounded-[2rem] shadow-2xl">
+              <div className="relative z-10 flex flex-col items-center gap-8 lg:flex-row lg:text-left">
+                <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[2.5rem] bg-primary/20 text-primary border border-primary/20 shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]">
+                  <Smartphone className="h-10 w-10" />
+                </div>
+                <div className="flex-1 space-y-3 text-center lg:text-left">
+                  <h3 className="text-3xl font-black text-white tracking-tight">Ahsan AI Hub for Mobile</h3>
+                  <p className="text-zinc-400 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
+                  <div className="flex flex-col gap-4 sm:flex-row pt-6">
+                    <div className="w-full sm:w-auto sm:min-w-[240px]">
+                      <PWAInstallButton />
+                    </div>
+                    <Button 
+                      asChild 
+                      variant="outline" 
+                      size="lg" 
+                      className="h-16 px-10 rounded-2xl font-black text-sm uppercase tracking-[0.2em] border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-white/20 transition-all"
+                    >
+                      <Link href="/download-apk">
+                        <Download className="h-5 w-5 mr-3" />
+                        Download APK
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
+              
+              {/* Decorative Glow */}
+              <div className="absolute -bottom-24 -right-24 h-64 w-64 bg-primary/10 blur-[100px] rounded-full" />
             </Card>
           </div>
 

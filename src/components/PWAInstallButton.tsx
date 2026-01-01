@@ -121,18 +121,18 @@ export function PWAInstallButton({ className }: { className?: string }) {
         disabled={isLoading || !deferredPrompt}
         size="lg"
         className={cn(
-          "w-full font-semibold text-base py-6 transition-all duration-300 rounded-2xl flex items-center justify-center gap-2",
+          "w-full font-black text-sm uppercase tracking-[0.2em] h-16 transition-all duration-300 rounded-2xl flex items-center justify-center gap-3 shadow-xl",
           !deferredPrompt
-            ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
-            : 'bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl text-primary-foreground hover:scale-105 active:scale-95'
+            ? 'bg-zinc-900 text-zinc-600 cursor-not-allowed border border-white/5'
+            : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 hover:scale-105 active:scale-95'
         )}
       >
-        <Download className="h-5 w-5" />
-        {isLoading ? 'Installing...' : 'Install App to Home Screen'}
+        <Download className={cn("h-5 w-5", deferredPrompt && "animate-bounce")} />
+        {isLoading ? 'Installing...' : 'Install App'}
       </Button>
       
       {!deferredPrompt && (
-        <Card className="p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/50">
+        <Card className="p-4 bg-zinc-900/50 border border-white/5 backdrop-blur-sm">
           <div className="flex gap-3 text-sm">
             <AlertCircle className="h-5 w-5 shrink-0 mt-0.5 text-blue-600 dark:text-blue-400" />
             <div className="text-blue-700 dark:text-blue-300">
