@@ -78,12 +78,12 @@ export function AnnouncementBanner({
                   <X className="h-5 w-5" />
                 </button>
 
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/20">
-                    <AhsanAiHubLogo width={24} height={24} className="text-primary" />
+                <div className="mb-4 flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/20 shadow-lg shadow-primary/10">
+                    <AhsanAiHubLogo width={32} height={32} className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-zinc-400">Ahsan AI Hub</h3>
+                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
                     <p className="text-[10px] font-medium text-zinc-500">Official Announcement</p>
                   </div>
                 </div>
