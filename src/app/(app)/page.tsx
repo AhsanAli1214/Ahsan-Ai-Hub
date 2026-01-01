@@ -69,15 +69,15 @@ export default function HomePage() {
 
   return (
     <main className="flex h-full flex-col" aria-labelledby="home-heading">
-      <AppHeader title="Home" />
+      <AppHeader title="Ahsan AI Hub" />
       <h1 id="home-heading" className="sr-only">Ahsan AI Hub - The World's #1 Privacy-First Free AI Companion</h1>
       <div className="sr-only">
         <p>Ahsan AI Hub (also known as Ahsan AI) is a powerful, anonymous AI platform developed by Ahsan Ali. We offer the best free AI chat experience, AI text rewriter, and code explainer with 100% privacy and no login required.</p>
         <nav aria-label="Quick links">
-          <a href="/recommendations">Free AI Chat Online</a>
-          <a href="/content-tools">AI Content Tools & Generators</a>
-          <a href="/privacy">Privacy-First Policy</a>
-          <a href="/download-apk">Download Ahsan AI Mobile App</a>
+          <Link href="/recommendations">Free AI Chat Online</Link>
+          <Link href="/content-tools">AI Content Tools & Generators</Link>
+          <Link href="/privacy">Privacy-First Policy</Link>
+          <Link href="/download-apk">Download Ahsan AI Mobile App</Link>
         </nav>
       </div>
       
