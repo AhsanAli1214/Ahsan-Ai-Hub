@@ -7,28 +7,6 @@ interface VoiceInputOptions {
   onError?: (error: string) => void;
 }
 
-// BCP-47 mapping for common languages to ensure high accuracy
-const BCP47_MAP: Record<string, string> = {
-  'en': 'en-US',
-  'ur': 'ur-PK',
-  'hi': 'hi-IN',
-  'es': 'es-ES',
-  'fr': 'fr-FR',
-  'de': 'de-DE',
-  'ja': 'ja-JP',
-  'zh': 'zh-CN',
-  'ar': 'ar-SA',
-  'pt': 'pt-BR',
-  'ko': 'ko-KR',
-  'it': 'it-IT',
-  'tr': 'tr-TR',
-  'ru': 'ru-RU',
-  'bn': 'bn-BD',
-  'pa': 'pa-IN',
-  'ta': 'ta-IN',
-  'te': 'te-IN'
-};
-
 export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
@@ -72,23 +50,24 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
 
   const resetSilenceTimer = useCallback(() => {
     if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-    // Auto-stop after 15 seconds of total silence for better UX in longer thoughts
+    // Auto-stop after 10 seconds of silence
     silenceTimerRef.current = setTimeout(() => {
       stopListening();
-    }, 15000);
+    }, 10000);
   }, [stopListening]);
 
-  const startListening = useCallback((langCode: string = 'en') => {
+  const startListening = useCallback((langCode: string = 'en-US') => {
     if (!recognitionRef.current) return;
 
     // Reset state
     setTranscript('');
     setInterimTranscript('');
+    setDetectedLanguage(langCode);
     
-    // Use mapped BCP-47 code or fallback to provided code
-    const fullLangCode = BCP47_MAP[langCode] || langCode;
-    setDetectedLanguage(fullLangCode);
-    recognitionRef.current.lang = fullLangCode;
+    // Map short codes to full BCP-47 if needed, but the library usually handles it
+    recognitionRef.current.lang = langCode === 'en' ? 'en-US' : 
+                                 langCode === 'ur' ? 'ur-PK' : 
+                                 langCode === 'hi' ? 'hi-IN' : langCode;
 
     recognitionRef.current.onresult = (event: any) => {
       resetSilenceTimer();
@@ -115,13 +94,7 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       console.error('Speech recognition error:', event.error);
       setIsListening(false);
       if (onError && event.error !== 'no-speech') {
-        const errorMessages: Record<string, string> = {
-          'not-allowed': 'Microphone access denied. Please check your browser settings.',
-          'network': 'Network error occurred. Please check your connection.',
-          'aborted': 'Voice input was cancelled.',
-          'language-not-supported': `The selected language (${langCode}) is not supported by your browser.`
-        };
-        onError(errorMessages[event.error] || `Error: ${event.error}`);
+        onError(event.error === 'not-allowed' ? 'Microphone access denied' : event.error);
       }
     };
 
@@ -137,12 +110,13 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     try {
       recognitionRef.current.start();
     } catch (e) {
+      // If already started, we just reset the state
       if (e instanceof Error && (e as any).name === 'InvalidStateError') {
         setIsListening(true);
         resetSilenceTimer();
       } else {
         setIsListening(false);
-        if (onError) onError('Could not start microphone. Is it already in use?');
+        if (onError) onError('Could not start microphone');
       }
     }
   }, [onTranscript, onError, resetSilenceTimer]);

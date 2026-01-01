@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mic, Globe, Check, X, Languages, Volume2, Sparkles } from 'lucide-react';
+import { Mic, Globe, Check, X, Languages, Volume2 } from 'lucide-react';
 import { useVoiceInput } from '@/hooks/useVoiceInput';
 import { LANGUAGES } from '@/lib/languages';
 import { Button } from '@/components/ui/button';
@@ -44,7 +44,7 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
       setStep('language');
       toast({
         variant: "destructive",
-        title: "Voice Recognition Error",
+        title: "Voice Input Error",
         description: error,
       });
     },
@@ -74,8 +74,8 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
         variant="ghost"
         size="icon"
         className={cn(
-          "h-10 w-10 rounded-full transition-all duration-500 hover:bg-primary/15 active:scale-90",
-          isListening && "text-destructive bg-destructive/10 hover:bg-destructive/20 shadow-[0_0_20px_rgba(239,68,68,0.4)] ring-2 ring-destructive/20",
+          "h-10 w-10 rounded-full transition-all duration-300 hover:bg-primary/10",
+          isListening && "text-destructive bg-destructive/10 hover:bg-destructive/20 shadow-[0_0_15px_rgba(239,68,68,0.3)]",
           className
         )}
         onClick={() => setIsOpen(true)}
@@ -91,183 +91,156 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
         setIsOpen(open);
         if (open) setStep('language');
       }}>
-        <DialogContent className="sm:max-w-md overflow-hidden rounded-[2.5rem] border-primary/20 bg-card/95 backdrop-blur-3xl p-0 shadow-2xl">
-          <div className="relative">
-            {/* Ambient Background Glow */}
-            <div className={cn(
-              "absolute -top-24 -left-24 w-48 h-48 blur-[80px] rounded-full transition-colors duration-700",
-              step === 'recording' ? "bg-destructive/20" : "bg-primary/20"
-            )} />
-            
-            <div className="relative p-6">
-              <DialogHeader className="mb-6">
-                <DialogTitle className="text-2xl font-black text-center flex items-center justify-center gap-3">
-                  <motion.div 
-                    layoutId="mic-container"
-                    className={cn(
-                      "p-3 rounded-2xl transition-all duration-500",
-                      step === 'recording' ? "bg-destructive text-white shadow-lg shadow-destructive/30" : "bg-primary/10 text-primary"
-                    )}
-                  >
-                    <Mic className={cn("h-6 w-6", step === 'recording' && "animate-pulse")} />
-                  </motion.div>
-                  <span className="tracking-tight">
-                    {step === 'recording' ? "Listening Now" : "Voice Assistant"}
-                  </span>
-                </DialogTitle>
-                <DialogDescription className="text-center font-semibold text-muted-foreground/80">
-                  {step === 'recording' 
-                    ? `Detecting ${selectedLang.name}...` 
-                    : "Select your language for best accuracy"}
-                </DialogDescription>
-              </DialogHeader>
+        <DialogContent className="sm:max-w-md overflow-hidden rounded-[2.5rem] border-primary/20 bg-card/95 backdrop-blur-2xl p-0">
+          <div className="p-6">
+            <DialogHeader className="mb-6">
+              <DialogTitle className="text-2xl font-black text-center flex items-center justify-center gap-3">
+                <div className={cn(
+                  "p-2 rounded-2xl transition-colors duration-500",
+                  step === 'recording' ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary"
+                )}>
+                  <Mic className={cn("h-6 w-6", step === 'recording' && "animate-pulse")} />
+                </div>
+                {step === 'recording' ? "Listening..." : "Voice Assistant"}
+              </DialogTitle>
+              <DialogDescription className="text-center font-medium text-muted-foreground">
+                {step === 'recording' 
+                  ? "Speak clearly into your microphone" 
+                  : "Choose your language to begin"}
+              </DialogDescription>
+            </DialogHeader>
 
-              <AnimatePresence mode="wait">
-                {step === 'language' ? (
-                  <motion.div
-                    key="language-step"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="space-y-6"
-                  >
-                    <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-primary/5 border border-primary/10 mb-2">
-                      <Sparkles className="h-4 w-4 text-primary animate-sparkle" />
-                      <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">Ultra-Accurate Engine</span>
+            <AnimatePresence mode="wait">
+              {step === 'language' ? (
+                <motion.div
+                  key="language-step"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="space-y-6"
+                >
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                      <Languages className="h-4 w-4 text-primary/50 group-focus-within:text-primary transition-colors" />
                     </div>
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-2">
+                      <Globe className="h-3 w-3 text-primary" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-primary">System Languages</span>
+                    </div>
+                  </div>
 
-                    <ScrollArea className="h-[320px] rounded-[2rem] border border-primary/10 bg-black/5 dark:bg-white/5 p-3 shadow-inner">
-                      <div className="grid grid-cols-1 gap-2.5">
-                        {LANGUAGES.map((lang) => (
-                          <button
-                            key={lang.code}
-                            onClick={() => setSelectedLang(lang)}
-                            className={cn(
-                              "group flex items-center justify-between p-4 rounded-[1.5rem] transition-all duration-300 text-left relative overflow-hidden",
-                              selectedLang.code === lang.code 
-                                ? "bg-primary text-primary-foreground shadow-xl shadow-primary/25 scale-[1.02]" 
-                                : "hover:bg-primary/10 active:scale-98"
-                            )}
-                          >
-                            <div className="relative z-10 flex flex-col">
-                              <span className="font-bold text-sm tracking-tight leading-none mb-1">{lang.name}</span>
-                              <span className={cn(
-                                "text-[10px] uppercase font-black tracking-widest opacity-60",
-                                selectedLang.code === lang.code ? "text-primary-foreground/80" : "text-muted-foreground/60"
-                              )}>
-                                {lang.code.toUpperCase()}
-                              </span>
-                            </div>
-                            {selectedLang.code === lang.code && (
-                              <motion.div
-                                layoutId="active-indicator"
-                                className="relative z-10 bg-white/30 p-1.5 rounded-full backdrop-blur-md"
-                              >
-                                <Check className="h-3.5 w-3.5 stroke-[3px]" />
-                              </motion.div>
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    </ScrollArea>
-
-                    <Button 
-                      onClick={handleStart} 
-                      className="w-full h-16 rounded-[1.5rem] font-black uppercase tracking-[0.15em] text-sm gap-3 shadow-2xl shadow-primary/30 hover:scale-[1.03] active:scale-[0.97] transition-all bg-primary hover:bg-primary/90"
-                    >
-                      Start Recording
-                      <div className="bg-white/20 p-1 rounded-lg">
-                        <Mic className="h-4 w-4" />
-                      </div>
-                    </Button>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="recording-step"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.1 }}
-                    className="flex flex-col items-center justify-center space-y-8 py-6"
-                  >
-                    <div className="relative">
-                      {/* Pulse Waves */}
-                      {[1, 2, 3].map((i) => (
-                        <motion.div 
-                          key={i}
-                          animate={{ 
-                            scale: [1, 1.8],
-                            opacity: [0.4, 0]
-                          }}
-                          transition={{ 
-                            duration: 2, 
-                            repeat: Infinity, 
-                            delay: i * 0.4,
-                            ease: "easeOut"
-                          }}
-                          className="absolute inset-0 rounded-full bg-destructive/30" 
-                        />
+                  <ScrollArea className="h-[300px] rounded-3xl border border-primary/10 bg-black/5 dark:bg-white/5 p-3">
+                    <div className="grid grid-cols-1 gap-2">
+                      {LANGUAGES.map((lang) => (
+                        <button
+                          key={lang.code}
+                          onClick={() => setSelectedLang(lang)}
+                          className={cn(
+                            "group flex items-center justify-between p-4 rounded-2xl transition-all duration-300 text-left relative overflow-hidden",
+                            selectedLang.code === lang.code 
+                              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" 
+                              : "hover:bg-primary/5"
+                          )}
+                        >
+                          <div className="relative z-10 flex flex-col">
+                            <span className="font-bold text-sm tracking-tight">{lang.name}</span>
+                            <span className={cn(
+                              "text-[10px] uppercase font-black tracking-tighter opacity-50",
+                              selectedLang.code === lang.code ? "text-primary-foreground" : "text-muted-foreground"
+                            )}>
+                              ISO-{lang.code.toUpperCase()}
+                            </span>
+                          </div>
+                          {selectedLang.code === lang.code && (
+                            <motion.div
+                              layoutId="active-check"
+                              initial={{ scale: 0.5, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              className="relative z-10 bg-white/20 p-1.5 rounded-full"
+                            >
+                              <Check className="h-3 w-3" />
+                            </motion.div>
+                          )}
+                        </button>
                       ))}
-                      
-                      <motion.div 
-                        whileHover={{ scale: 1.05 }}
-                        className="relative flex h-32 w-32 items-center justify-center rounded-full bg-destructive text-white shadow-[0_0_60px_rgba(239,68,68,0.5)] z-10"
-                      >
-                        <Mic className="h-14 w-14 fill-current animate-pulse" />
-                      </motion.div>
+                    </div>
+                  </ScrollArea>
+
+                  <Button 
+                    onClick={handleStart} 
+                    className="w-full h-16 rounded-[1.5rem] font-black uppercase tracking-widest text-sm gap-3 shadow-2xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  >
+                    Initialize Recording
+                    <Mic className="h-5 w-5" />
+                  </Button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="recording-step"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  className="flex flex-col items-center justify-center space-y-8 py-4"
+                >
+                  <div className="relative">
+                    <motion.div 
+                      animate={{ 
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.1, 0.3]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute inset-0 rounded-full bg-destructive/40" 
+                    />
+                    <div className="relative flex h-32 w-32 items-center justify-center rounded-full bg-destructive text-white shadow-[0_0_50px_rgba(239,68,68,0.4)]">
+                      <Mic className="h-12 w-12 fill-current animate-pulse" />
                     </div>
                     
-                    <div className="w-full space-y-5">
-                      <div className="relative group">
-                        <div className="absolute inset-0 bg-primary/5 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative min-h-[140px] max-h-[220px] overflow-y-auto p-7 rounded-[2.5rem] bg-muted/40 border border-primary/10 shadow-inner backdrop-blur-sm">
-                          {interimTranscript ? (
-                            <motion.p 
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              className="text-lg font-medium text-foreground leading-relaxed text-center"
-                            >
-                              {interimTranscript}
-                            </motion.p>
-                          ) : (
-                            <div className="flex flex-col items-center gap-3 py-4">
-                              <div className="flex gap-1.5">
-                                {[1,2,3].map(i => (
-                                  <motion.div
-                                    key={i}
-                                    animate={{ height: [8, 24, 8] }}
-                                    transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15 }}
-                                    className="w-1.5 bg-destructive/40 rounded-full"
-                                  />
-                                ))}
-                              </div>
-                              <span className="text-muted-foreground font-bold text-sm uppercase tracking-widest opacity-40">
-                                Listening for speech...
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4">
-                        <Button 
-                          variant="outline" 
-                          onClick={handleStop}
-                          className="flex-1 h-15 rounded-[1.5rem] border-2 border-primary/10 font-black uppercase tracking-widest text-[10px] gap-2 hover:bg-destructive/5 hover:border-destructive/20 hover:text-destructive transition-all"
-                        >
-                          <X className="h-4 w-4" /> Cancel
-                        </Button>
-                        <Button 
-                          onClick={handleFinish}
-                          className="flex-1 h-15 rounded-[1.5rem] bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest text-[10px] gap-2 shadow-2xl shadow-primary/25 active:scale-95 transition-all"
-                        >
-                          <Check className="h-4 w-4" /> Finish
-                        </Button>
+                    {/* Visualizer bars */}
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1">
+                      {[1,2,3,4,5].map((i) => (
+                        <motion.div
+                          key={i}
+                          animate={{ height: [4, 12, 4] }}
+                          transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.1 }}
+                          className="w-1 bg-destructive rounded-full"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="w-full space-y-4">
+                    <div className="relative">
+                      <div className="min-h-[120px] max-h-[200px] overflow-y-auto p-6 rounded-[2rem] bg-muted/30 border border-primary/10 italic text-base text-center leading-relaxed backdrop-blur-sm">
+                        {interimTranscript ? (
+                          <span className="text-foreground">{interimTranscript}</span>
+                        ) : (
+                          <span className="text-muted-foreground opacity-50 flex flex-col items-center gap-2">
+                            <Volume2 className="h-5 w-5 animate-bounce" />
+                            Awaiting audio input...
+                          </span>
+                        )}
                       </div>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+
+                    <div className="flex gap-4">
+                      <Button 
+                        variant="outline" 
+                        onClick={handleStop}
+                        className="flex-1 h-14 rounded-2xl border-2 font-black uppercase tracking-wider text-xs gap-2 hover:bg-destructive/5 hover:border-destructive/20 transition-colors"
+                      >
+                        <X className="h-4 w-4" /> Reset
+                      </Button>
+                      <Button 
+                        onClick={handleFinish}
+                        className="flex-1 h-14 rounded-2xl bg-destructive hover:bg-destructive/90 text-white font-black uppercase tracking-wider text-xs gap-2 shadow-xl shadow-destructive/25"
+                      >
+                        <Check className="h-4 w-4" /> Send Message
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </DialogContent>
       </Dialog>

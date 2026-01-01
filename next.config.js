@@ -4,6 +4,30 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   experimental: {
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion', 'date-fns'],
+    scrollRestoration: true,
+  },
+  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '127.0.0.1', 'localhost'],
+  transpilePackages: ['next-themes'],
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 31536000,
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.postimg.cc',
+      },
+    ],
+    unoptimized: false,
+  },
+  onDemandEntries: {
+    maxInactiveAge: 30 * 1000,
+    pagesBufferLength: 8,
+  },
+  experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-alert-dialog',
@@ -36,26 +60,6 @@ const nextConfig = {
     ],
     scrollRestoration: true,
   },
-  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '*.sisko.replit.dev', '127.0.0.1', 'localhost'],
-  transpilePackages: ['next-themes'],
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000,
-    dangerouslyAllowSVG: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.postimg.cc',
-      },
-    ],
-    unoptimized: false,
-  },
-  onDemandEntries: {
-    maxInactiveAge: 30 * 1000,
-    pagesBufferLength: 8,
-  },
   headers: async () => {
     return [
       {
@@ -84,6 +88,10 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
+          },
+          {
+            key: 'Link',
+            value: '<https://d3mkw6s8thqya7.cloudfront.net>; rel=preconnect'
           },
         ],
       },

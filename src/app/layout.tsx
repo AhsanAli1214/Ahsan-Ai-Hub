@@ -15,8 +15,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
 import { InAppAnnouncement } from '@/components/InAppAnnouncement';
-import { FeedbackDialog } from '@/components/feedback/FeedbackDialog';
-import { CookieConsent } from '@/components/legal/CookieConsent';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -221,12 +219,13 @@ export default function RootLayout({
               </ErrorBoundary>
               <Toaster />
               <Suspense fallback={null}>
+                <PWAInstall />
+              </Suspense>
+              <Suspense fallback={null}>
                 <ConnectionStatus />
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
-              <FeedbackDialog />
-              <CookieConsent />
               {/* Load OneSignal after everything else */}
               <Script 
                 src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 
@@ -241,7 +240,7 @@ export default function RootLayout({
                         appId: "8a693786-f992-42d3-adfb-56a230adcea5",
                         safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
                         notifyButton: {
-                          enable: false,
+                          enable: true,
                         },
                         allowLocalhostAsSecureOrigin: true,
                         display: "dialog",
