@@ -248,10 +248,13 @@ export default function RootLayout({
                       await OneSignal.init({
                         appId: "8a693786-f992-42d3-adfb-56a230adcea5",
                         safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
-                          notifyButton: {
-                            enable: false,
-                          },
+                        serviceWorkerParam: { scope: "/" },
+                        serviceWorkerPath: "OneSignalSDKWorker.js",
                         allowLocalhostAsSecureOrigin: true,
+                        autoResubscribe: true,
+                        notifyButton: {
+                          enable: false,
+                        },
                         display: "dialog",
                         notificationDisplayOrder: "desc",
                         notificationDisplayType: "default",

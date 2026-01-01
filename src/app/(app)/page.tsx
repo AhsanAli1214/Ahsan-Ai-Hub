@@ -108,10 +108,10 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-white/10">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-white/20">
             {/* Background Decorative Elements */}
-            <div className="absolute -top-24 -right-24 h-64 w-64 bg-primary/20 blur-[100px] rounded-full" />
-            <div className="absolute -bottom-24 -left-24 h-64 w-64 bg-primary/10 blur-[100px] rounded-full" />
+            <div className="absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
+            <div className="absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
             
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-8">
@@ -120,8 +120,8 @@ export default function HomePage() {
                   <span className="text-primary">100% Privacy-First</span>
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
-                    <div className="bg-white/5 p-2 rounded-lg">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                    <div className="bg-primary/10 p-2 rounded-lg">
                       <Lock className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -129,8 +129,8 @@ export default function HomePage() {
                       <p className="text-[10px] text-zinc-500 mt-0.5">Instant access without accounts or personal data.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
-                    <div className="bg-white/5 p-2 rounded-lg">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                    <div className="bg-primary/10 p-2 rounded-lg">
                       <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
@@ -138,8 +138,8 @@ export default function HomePage() {
                       <p className="text-[10px] text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
-                    <div className="bg-white/5 p-2 rounded-lg">
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                    <div className="bg-primary/10 p-2 rounded-lg">
                       <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
