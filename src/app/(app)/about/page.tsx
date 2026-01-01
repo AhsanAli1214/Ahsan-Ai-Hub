@@ -125,7 +125,7 @@ export default function AboutPage() {
               His mission is to make advanced technology accessible to everyone, ensuring privacy and ease of use.
               Ahsan Ali's work focus on React, Next.js, and AI integration using Google Genkit.
             </p>
-          </div>
+          
           
           {/* Hero Section */}
           <section className="relative overflow-hidden rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-md shadow-2xl">

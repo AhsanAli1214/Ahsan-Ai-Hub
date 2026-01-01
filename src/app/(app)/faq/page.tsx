@@ -152,7 +152,7 @@ export default function FaqPage() {
               Learn about our zero-log policy, text-to-speech features, and translation capabilities.
               Developed by Ahsan Ali Wadani, this platform offers the most secure AI chat experience online.
             </p>
-          </div>
+          
 
           {/* Enhanced Hero Section */}
           <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/20 via-primary/5 to-accent/20 border border-primary/20 p-10 md:p-16 text-center">

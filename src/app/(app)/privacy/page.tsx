@@ -136,7 +136,7 @@ Each third party follows its own privacy practices.`
             ))}
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
