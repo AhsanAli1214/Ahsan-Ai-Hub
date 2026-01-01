@@ -148,9 +148,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="preload" href="/logo.png" as="image" type="image/png" fetchPriority="high" />
-        <link rel="preload" href="/images/developer.jpg" as="image" type="image/jpeg" fetchPriority="high" />
-        <link rel="preload" href="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop" as="image" type="image/webp" fetchPriority="high" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <meta name="theme-color" content="#3b82f6" media="(prefers-color-scheme: light)" />
