@@ -169,20 +169,6 @@ export default function HomePage() {
             <Button variant="ghost" size="sm" asChild><Link href="/settings">Change</Link></Button>
           </Card>
 
-          <section className="space-y-6">
-            <Card className="bg-card border-primary/20">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0">
-                <div>
-                  <CardTitle>Enable Push Notifications</CardTitle>
-                  <CardDescription>Stay updated with latest features</CardDescription>
-                </div>
-                <Smartphone className="h-6 w-6 text-primary" />
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <OneSignalButton />
-              </CardContent>
-            </Card>
-          </section>
 
           <section className="pb-12">
             <h2 className="mb-4 font-headline text-xl font-semibold">Smart Prompts</h2>
