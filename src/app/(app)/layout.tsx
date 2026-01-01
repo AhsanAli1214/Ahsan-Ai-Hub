@@ -1,8 +1,16 @@
 import React from "react";
-import { AppSidebar } from "@/components/layout/AppSidebar";
+import dynamic from 'next/dynamic';
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { BottomNav } from "@/components/layout/BottomNav";
-import { FooterWrapper } from "@/components/layout/FooterWrapper";
+
+const AppSidebar = dynamic(() => import("@/components/layout/AppSidebar").then(mod => mod.AppSidebar), { 
+  ssr: false,
+  loading: () => <div className="w-64 h-screen bg-sidebar animate-pulse hidden md:block" />
+});
+const BottomNav = dynamic(() => import("@/components/layout/BottomNav").then(mod => mod.BottomNav), { 
+  ssr: false,
+  loading: () => <div className="h-16 w-full bg-background animate-pulse md:hidden" />
+});
+const FooterWrapper = dynamic(() => import("@/components/layout/FooterWrapper").then(mod => mod.FooterWrapper), { ssr: false });
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

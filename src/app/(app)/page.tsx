@@ -38,6 +38,7 @@ const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').t
   loading: () => <div className="h-14 w-full animate-pulse rounded-2xl bg-muted" />
 });
 const WhatsAppSupportButton = dynamic(() => import('@/components/WhatsAppSupportButton').then(mod => mod.WhatsAppSupportButton), { ssr: false });
+const AppHeader = dynamic(() => import('@/components/layout/AppHeader').then(mod => mod.AppHeader), { ssr: true });
 
 const QUICK_ACTIONS = [
   { id: '1', label: 'Rewrite Text', icon: BookText, prompt: 'Please rewrite this text to be clearer: ' },
