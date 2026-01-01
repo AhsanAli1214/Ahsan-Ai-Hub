@@ -22,8 +22,11 @@ export function OneSignalButton() {
     if (typeof window !== 'undefined' && window.OneSignal) {
       try {
         const isOptedIn = await window.OneSignal.User.PushSubscription.optedIn;
-        setIsSubscribed(isOptedIn);
+        const isOptedOut = await window.OneSignal.User.PushSubscription.optedOut;
+        // Correct logic: Subscribed means optedIn is true AND optedOut is false
+        setIsSubscribed(isOptedIn && !isOptedOut);
       } catch (err) {
+        console.error("Status Update Error:", err);
       } finally {
         setIsLoading(false);
       }
@@ -132,7 +135,7 @@ export function OneSignalButton() {
       ) : isSubscribed ? (
         <>
           <CheckCircle2 className="h-5 w-5" />
-          Notifications Enabled ✓
+          Notifications Active
         </>
       ) : (
         <>
