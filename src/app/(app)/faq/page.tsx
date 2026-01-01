@@ -136,7 +136,7 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-background">
+    <main className="flex h-full flex-col bg-background" aria-labelledby="faq-heading">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -144,9 +144,7 @@ export default function FaqPage() {
       <AppHeader title="Help Center" />
       <div className="flex-1 overflow-y-auto p-4 lg:p-10">
         <div className="mx-auto max-w-5xl space-y-12 pb-24">
-          
-          <div className="sr-only">
-            <h2>Frequently Asked Questions about Ahsan AI Hub</h2>
+          <h1 id="faq-heading" className="sr-only">Frequently Asked Questions about Ahsan AI Hub</h1>
             <p>
               Find answers to questions like: Is Ahsan AI Hub free? How does privacy work? 
               How can I use the AI story writer? Does Ahsan AI Hub require a login? 

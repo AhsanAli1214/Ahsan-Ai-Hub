@@ -119,22 +119,22 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col bg-background selection:bg-primary/20">
+    <main className="flex h-full w-full flex-col bg-background selection:bg-primary/20" aria-labelledby="contact-heading">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
       />
       <AppHeader title="Contact & Support" />
       
-      <main className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8">
+      <div className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
           {/* Hero Section */}
           <div className="mb-20 text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] sm:text-xs font-black text-primary uppercase tracking-[0.2em] animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] sm:text-xs font-black text-primary uppercase tracking-[0.2em] animate-fade-in" aria-hidden="true">
               <Sparkles className="h-3.5 w-3.5" />
               Direct Connection
             </div>
-            <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]">
+            <h1 id="contact-heading" className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]">
               Get in <span className="text-primary">Touch</span>
             </h1>
             <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">

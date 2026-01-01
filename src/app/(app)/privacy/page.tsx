@@ -76,14 +76,14 @@ Each third party follows its own privacy practices.`
   ];
 
   return (
-    <div className="flex h-full w-full flex-col bg-background selection:bg-primary/20">
+    <main className="flex h-full w-full flex-col bg-background selection:bg-primary/20" aria-labelledby="privacy-heading">
       <AppHeader title="Privacy Policy" />
       
-      <main className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8 flex flex-col">
+      <div className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8 flex flex-col">
         <div className="mb-8">
-          <Link href="/contact">
+          <Link href="/contact" aria-label="Return to contact page">
             <Button variant="outline" className="gap-2 rounded-xl">
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
               Back to Contact
             </Button>
           </Link>
@@ -93,8 +93,8 @@ Each third party follows its own privacy practices.`
           <div className="mb-12 space-y-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Lock className="h-8 w-8 text-primary" />
-                <h1 className="text-5xl font-black tracking-tight text-foreground">Privacy Policy</h1>
+                <Lock className="h-8 w-8 text-primary" aria-hidden="true" />
+                <h1 id="privacy-heading" className="text-5xl font-black tracking-tight text-foreground">Privacy Policy</h1>
               </div>
               <p className="text-lg text-muted-foreground">
                 Clear, Honest & Trust-Focused

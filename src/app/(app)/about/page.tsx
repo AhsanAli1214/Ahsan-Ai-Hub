@@ -109,7 +109,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="flex h-full flex-col bg-background">
+    <main className="flex h-full flex-col bg-background" aria-labelledby="about-heading">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
@@ -117,9 +117,7 @@ export default function AboutPage() {
       <AppHeader title="About the Developer" />
       <div className="flex-1 overflow-y-auto p-4 lg:p-8">
         <div className="mx-auto max-w-5xl space-y-12 pb-20">
-          
-          <div className="sr-only">
-            <h2>About Ahsan Ali - Developer of Ahsan AI Hub</h2>
+          <h1 id="about-heading" className="sr-only">About Ahsan Ali - Developer of Ahsan AI Hub</h1>
             <p>
               Ahsan Ali Wadani is a passionate CIT student and full-stack developer based in Pakistan. 
               As the founder of Ahsan AI Hub, he is dedicated to providing high-quality AI tools like 
@@ -302,22 +300,24 @@ export default function AboutPage() {
               <p className="text-muted-foreground">
                 I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
               </p>
-              <div className="flex gap-4">
+              <nav className="flex gap-4" aria-label="Social media links">
                  {SOCIAL_LINKS.map(link => (
                    <a 
                     key={link.id} 
                     href={link.url} 
                     target="_blank" 
+                    rel="noopener noreferrer"
+                    aria-label={`Visit my ${link.label} profile`}
                     className={cn(
                       "flex h-12 w-12 items-center justify-center rounded-2xl border border-accent/20 transition-all hover:scale-110 hover:-translate-y-1 hover:shadow-xl",
                       link.bgColor,
                       link.color
                     )}
                    >
-                     <link.icon className="h-6 w-6" />
+                     <link.icon className="h-6 w-6" aria-hidden="true" />
                    </a>
                  ))}
-              </div>
+              </nav>
             </div>
             
             <Card className="border-accent/30 bg-accent/5 backdrop-blur-sm">
