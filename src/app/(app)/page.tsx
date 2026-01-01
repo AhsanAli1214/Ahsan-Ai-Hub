@@ -173,9 +173,11 @@ export default function HomePage() {
                 <Button 
                   variant="ghost" 
                   asChild 
-                  className="w-full h-12 text-zinc-600 dark:text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-zinc-100 dark:hover:bg-white/5"
+                  className="w-full h-12 rounded-2xl text-zinc-600 dark:text-zinc-400 font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-primary/5 hover:text-primary transition-all border border-transparent hover:border-primary/10"
                 >
-                  <Link href="/privacy">PRIVACY POLICY</Link>
+                  <Link href="/privacy" className="flex items-center justify-center gap-2">
+                    <Shield className="h-3 w-3" /> PRIVACY POLICY
+                  </Link>
                 </Button>
               </div>
             </div>
