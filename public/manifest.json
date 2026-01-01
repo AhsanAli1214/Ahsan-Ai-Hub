@@ -7,19 +7,10 @@
   "id": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
-  "orientation": "any",
-  "dir": "ltr",
-  "lang": "en-US",
-  "prefer_related_applications": true,
-  "related_applications": [
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.ahsan_ai_hub.twa",
-      "id": "com.ahsan_ai_hub.twa"
-    }
-  ],
   "background_color": "#09090b",
   "theme_color": "#3b82f6",
+  "background_sync": true,
+  "periodic_background_sync": true,
   "icons": [
     {
       "src": "/icon-192.png?v=2025-12-27",

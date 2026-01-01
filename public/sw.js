@@ -49,6 +49,26 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Add Background Sync support
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-feedback') {
+    event.waitUntil(
+      // Logic for background sync
+      Promise.resolve()
+    );
+  }
+});
+
+// Periodic Background Sync for fresh content
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'content-sync') {
+    event.waitUntil(
+      // Logic to sync content in background
+      Promise.resolve()
+    );
+  }
+});
+
 self.addEventListener('push', (event) => {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'Ahsan AI Hub';
