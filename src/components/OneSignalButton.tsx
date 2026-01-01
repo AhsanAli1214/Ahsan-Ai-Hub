@@ -119,17 +119,18 @@ export function OneSignalButton() {
   }
 
   return (
-    <Button
-      onClick={handleToggleNotifications}
-      disabled={isLoading}
-      className={cn(
-        'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
-        isSubscribed
-      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
-      : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg shadow-primary/20'
-      )}
-      size="lg"
-    >
+    <div className="flex flex-col gap-2 min-h-[56px]">
+      <Button
+        onClick={handleToggleNotifications}
+        disabled={isLoading}
+        className={cn(
+          'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
+          isSubscribed
+        ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+        : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg shadow-primary/20'
+        )}
+        size="lg"
+      >
       {isLoading ? (
         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
       ) : isSubscribed ? (
@@ -144,5 +145,6 @@ export function OneSignalButton() {
         </>
       )}
     </Button>
+  </div>
   );
 }

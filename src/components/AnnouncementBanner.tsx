@@ -6,6 +6,7 @@ import { X, Bell, ExternalLink, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AhsanAiHubLogo } from '@/components/icons';
+import Image from 'next/image';
 
 interface AnnouncementProps {
   id: string;
@@ -59,10 +60,13 @@ export function AnnouncementBanner({
               {/* Image Section */}
               {imageUrl && (
                 <div className="relative h-48 w-full shrink-0 md:h-auto md:w-48">
-                  <img 
+                  <Image 
                     src={imageUrl} 
                     alt={title} 
+                    width={192}
+                    height={192}
                     className="h-full w-full object-cover"
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 md:bg-gradient-to-r" />
                 </div>
