@@ -38,11 +38,11 @@ export function CookieBanner() {
         >
           <div className="relative overflow-hidden rounded-[2.5rem] bg-black/95 border border-white/10 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
             {/* Background Accent */}
-            <div className="absolute -top-24 -right-24 h-48 w-48 bg-blue-500/10 blur-[80px] rounded-full" />
+            <div className="absolute -top-24 -right-24 h-48 w-48 bg-primary/10 blur-[80px] rounded-full" />
             
             <div className="relative z-10 flex flex-col gap-5">
               <div className="flex items-start justify-between gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/20 text-blue-500 border border-blue-500/20">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/20 text-primary border border-primary/20">
                   <Cookie className="h-6 w-6" />
                 </div>
                 <button 
@@ -56,11 +56,11 @@ export function CookieBanner() {
               <div className="space-y-2">
                 <h3 className="text-xl font-black text-white tracking-tight flex items-center gap-2">
                   Cookie Preference
-                  <ShieldCheck className="h-4 w-4 text-blue-500" />
+                  <ShieldCheck className="h-4 w-4 text-primary" />
                 </h3>
                 <p className="text-sm text-zinc-400 leading-relaxed font-medium">
                   We use cookies to enhance your experience, analyze site traffic, and support our 
-                  <span className="text-blue-500 font-bold mx-1">Privacy-First</span> 
+                  <span className="text-primary font-bold mx-1">Privacy-First</span> 
                   mission. By clicking "Accept All", you agree to our use of cookies.
                 </p>
               </div>
@@ -69,7 +69,7 @@ export function CookieBanner() {
                 <div className="flex gap-3">
                   <Button 
                     onClick={handleAccept}
-                    className="flex-1 h-12 rounded-2xl bg-blue-500 hover:bg-blue-600 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-blue-500/20"
+                    className="flex-1 h-12 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20"
                   >
                     Accept All
                   </Button>
@@ -85,7 +85,7 @@ export function CookieBanner() {
                 <div className="flex items-center justify-between px-1">
                   <Link 
                     href="/privacy" 
-                    className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-blue-500 transition-colors flex items-center gap-1.5"
+                    className="text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-primary transition-colors flex items-center gap-1.5"
                   >
                     Privacy Policy <ArrowRight className="h-3 w-3" />
                   </Link>

@@ -110,19 +110,19 @@ export default function HomePage() {
 
           <div className="relative overflow-hidden rounded-[2.5rem] bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-white/10">
             {/* Background Decorative Elements */}
-            <div className="absolute -top-24 -right-24 h-64 w-64 bg-blue-600/20 blur-[100px] rounded-full" />
-            <div className="absolute -bottom-24 -left-24 h-64 w-64 bg-indigo-600/10 blur-[100px] rounded-full" />
+            <div className="absolute -top-24 -right-24 h-64 w-64 bg-primary/20 blur-[100px] rounded-full" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 bg-primary/10 blur-[100px] rounded-full" />
             
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-8">
                 <h2 className="text-4xl md:text-6xl font-black text-white leading-[1] tracking-tight">
                   Premium AI <br />Experience <br />
-                  <span className="text-blue-500">100% Privacy-First</span>
+                  <span className="text-primary">100% Privacy-First</span>
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
                     <div className="bg-white/5 p-2 rounded-lg">
-                      <Lock className="h-5 w-5 text-blue-500" />
+                      <Lock className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-white text-sm">Zero Login</p>
@@ -131,7 +131,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
                     <div className="bg-white/5 p-2 rounded-lg">
-                      <Eye className="h-5 w-5 text-blue-500" />
+                      <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-white text-sm">Local Storage</p>
@@ -140,7 +140,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
                     <div className="bg-white/5 p-2 rounded-lg">
-                      <Smartphone className="h-5 w-5 text-blue-500" />
+                      <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-white text-sm">PWA Powered</p>
@@ -158,7 +158,7 @@ export default function HomePage() {
                 <Button 
                   asChild 
                   size="lg" 
-                  className="w-full h-14 rounded-2xl bg-[#3b82f6] hover:bg-[#3b82f6]/90 text-white font-black text-xs uppercase tracking-widest gap-2 shadow-xl shadow-blue-500/20"
+                  className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-widest gap-2 shadow-xl shadow-primary/20"
                 >
                   <Link href="/recommendations">
                     START EXPLORING <Zap className="h-4 w-4 fill-current" />
