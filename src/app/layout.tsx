@@ -46,10 +46,10 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   title: {
-    default: 'Ahsan Ai Hub - Free AI Chat, Writing & Code Tools No Login',
-    template: 'Ahsan Ai Hub'
+    default: 'Ahsan Ai Hub - #1 Free AI Chat, Writing & Code Tools No Login',
+    template: '%s | Ahsan Ai Hub'
   },
-  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The #1 free AI chat assistant with no login required. Experience the best free AI chat, writing assistant, blog post generator, resume builder, code explainer, math solver, and 50+ language translator. 100% private, zero signup, and no tracking. Powered by advanced AI to help you work smarter and faster.',
+  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The world\'s best free AI chat assistant with no login required. Access premium AI writing, blog generation, resume building, code explaining, and math solving tools for free. 100% private, zero signup, and developed by Ahsan Ali.',
   keywords: [
     'Ahsan AI', 'Ahsan Ai Hub', 'Ahsan Ali AI', 'Ahsan Ali Wadani', 'Ahsan Wadani', 
     'free AI chat no login', 'best free AI chatbot 2026', 'AI writer free no signup',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     'AI blog generator free', 'AI study assistant free', 'free AI translation online',
     'advanced AI companion', 'free AI productivity hub', 'unlimited free AI tools',
     'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026', 'Ahsan AI feedback', 'AI tool suggestions',
-    'privacy-first AI feedback'
+    'privacy-first AI feedback', 'google genkit ai tools', 'nextjs 15 ai hub'
   ],
   manifest: '/manifest.json',
   appleWebApp: {
@@ -197,7 +197,15 @@ export default function RootLayout({
                   "@type": "Offer",
                   "price": "0",
                   "priceCurrency": "USD"
-                }
+                },
+                "featureList": [
+                  "Free AI Chat Assistant",
+                  "AI Blog Post Generator",
+                  "AI Code Explainer & Debugger",
+                  "Free AI Resume Builder",
+                  "AI Math Solver",
+                  "50+ Language AI Translator"
+                ]
               },
               {
                 "@context": "https://schema.org",
@@ -205,9 +213,15 @@ export default function RootLayout({
                 "name": "Ahsan AI Hub",
                 "url": "https://ahsan-ai-hub.vercel.app",
                 "logo": "https://ahsan-ai-hub.vercel.app/icon-512.png",
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "email": "tickets@ahsan-ai-hub.p.tawk.email",
+                  "contactType": "technical support"
+                },
                 "sameAs": [
                   "https://twitter.com/Ahsan_Ali_12",
-                  "https://github.com/AhsanAli1214"
+                  "https://github.com/AhsanAli1214",
+                  "https://www.instagram.com/ahsan.ali.wadani"
                 ]
               }
             ])
