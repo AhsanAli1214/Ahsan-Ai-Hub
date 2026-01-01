@@ -24,13 +24,14 @@ export default function RecommendationsPage() {
   const initialPrompt = searchParams.get('initialPrompt') || '';
 
   return (
-    <div className="flex h-full flex-col bg-background md:pb-0">
+    <main className="flex h-full flex-col bg-background md:pb-0" aria-labelledby="chat-heading">
       <AppHeader title="AI Chat" />
+      <h1 id="chat-heading" className="sr-only">Free AI Chat Online - Ahsan AI Hub</h1>
       <div className="flex-1 overflow-hidden">
         <ChatInterface
           initialPrompt={initialPrompt}
         />
       </div>
-    </div>
+    </main>
   );
 }
