@@ -138,18 +138,14 @@ export default function HomePage() {
                       <p className="text-[10px] text-zinc-500 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
-                  {/* Integrated OneSignal Notification Toggle */}
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)] group transition-all hover:border-blue-500/40">
-                    <div className="bg-blue-500/10 p-2 rounded-lg group-hover:scale-110 transition-transform">
-                      <Zap className="h-5 w-5 text-blue-500" />
+                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#111] border border-white/5">
+                    <div className="bg-white/5 p-2 rounded-lg">
+                      <Smartphone className="h-5 w-5 text-blue-500" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-bold text-white text-sm">Smart Notifications</p>
-                      <p className="text-[10px] text-zinc-500 mt-0.5">Stay updated with the latest AI tools and features.</p>
+                    <div>
+                      <p className="font-bold text-white text-sm">PWA Powered</p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">Native app experience on any device, anywhere.</p>
                     </div>
-                    <Suspense fallback={<div className="h-8 w-20 animate-pulse bg-white/5 rounded-lg" />}>
-                      <OneSignalButton />
-                    </Suspense>
                   </div>
                 </div>
               </div>
@@ -217,6 +213,21 @@ export default function HomePage() {
             </div>
             <Button variant="ghost" size="sm" asChild><Link href="/settings">Change</Link></Button>
           </Card>
+
+          <section className="space-y-6">
+            <Card className="bg-card border-primary/20">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0">
+                <div>
+                  <CardTitle>Enable Push Notifications</CardTitle>
+                  <CardDescription>Stay updated with latest features</CardDescription>
+                </div>
+                <Smartphone className="h-6 w-6 text-primary" />
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <OneSignalButton />
+              </CardContent>
+            </Card>
+          </section>
 
           <section className="pb-12">
             <h2 className="mb-4 font-headline text-xl font-semibold">Smart Prompts</h2>
