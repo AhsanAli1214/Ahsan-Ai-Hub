@@ -15,7 +15,7 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
   const [detectedLanguage, setDetectedLanguage] = useState('');
   
   const recognitionRef = useRef<any>(null);
-  const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const silenceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -24,34 +24,53 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
+      recognitionRef.current.maxAlternatives = 1;
     }
+    
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+    };
   }, []);
 
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
-      recognitionRef.current.stop();
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.error('Stop error:', e);
+      }
     }
     setIsListening(false);
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    setInterimTranscript('');
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
   }, []);
 
-  const resetIdleTimer = useCallback(() => {
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    idleTimerRef.current = setTimeout(() => {
+  const resetSilenceTimer = useCallback(() => {
+    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+    // Auto-stop after 10 seconds of silence
+    silenceTimerRef.current = setTimeout(() => {
       stopListening();
-    }, 8000); // Increased from 2s to 8s for better reliability
+    }, 10000);
   }, [stopListening]);
 
   const startListening = useCallback((langCode: string = 'en-US') => {
     if (!recognitionRef.current) return;
 
+    // Reset state
     setTranscript('');
     setInterimTranscript('');
     setDetectedLanguage(langCode);
-    recognitionRef.current.lang = langCode;
+    
+    // Map short codes to full BCP-47 if needed, but the library usually handles it
+    recognitionRef.current.lang = langCode === 'en' ? 'en-US' : 
+                                 langCode === 'ur' ? 'ur-PK' : 
+                                 langCode === 'hi' ? 'hi-IN' : langCode;
 
     recognitionRef.current.onresult = (event: any) => {
-      resetIdleTimer();
+      resetSilenceTimer();
       let interim = '';
       let final = '';
 
@@ -72,8 +91,11 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
     };
 
     recognitionRef.current.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
       setIsListening(false);
-      if (onError) onError(event.error);
+      if (onError && event.error !== 'no-speech') {
+        onError(event.error === 'not-allowed' ? 'Microphone access denied' : event.error);
+      }
     };
 
     recognitionRef.current.onend = () => {
@@ -82,22 +104,22 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
 
     recognitionRef.current.onstart = () => {
       setIsListening(true);
-      resetIdleTimer();
+      resetSilenceTimer();
     };
 
     try {
       recognitionRef.current.start();
     } catch (e) {
-      console.error('Speech recognition start error:', e);
-      // If already started, just ensure state is correct
-      if (e instanceof Error && e.name === 'InvalidStateError') {
+      // If already started, we just reset the state
+      if (e instanceof Error && (e as any).name === 'InvalidStateError') {
         setIsListening(true);
-        resetIdleTimer();
+        resetSilenceTimer();
       } else {
         setIsListening(false);
+        if (onError) onError('Could not start microphone');
       }
     }
-  }, [onTranscript, onError, resetIdleTimer]);
+  }, [onTranscript, onError, resetSilenceTimer]);
 
   return {
     isListening,
