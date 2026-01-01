@@ -57,7 +57,8 @@ export const metadata: Metadata = {
     'anonymous AI chat', 'privacy-first AI', 'no login AI assistant', 'free AI writing tools',
     'AI blog generator free', 'AI study assistant free', 'free AI translation online',
     'advanced AI companion', 'free AI productivity hub', 'unlimited free AI tools',
-    'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026'
+    'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026', 'Ahsan AI feedback', 'AI tool suggestions',
+    'privacy-first AI feedback'
   ],
   manifest: '/manifest.json',
   appleWebApp: {

@@ -10,6 +10,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { AppHeader } from '@/components/layout/AppHeader';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Feedback - Help Us Improve Ahsan AI Hub',
+  description: 'Share your thoughts, suggestions, or report issues with Ahsan AI Hub. Your feedback directly helps us build a better, more private AI experience for everyone.',
+  keywords: ['Ahsan AI feedback', 'AI tool suggestions', 'privacy-first AI feedback', 'report AI issues', 'AI hub improvements'],
+  openGraph: {
+    title: 'Feedback - Help Us Improve Ahsan AI Hub',
+    description: 'Share your thoughts, suggestions, or report issues with Ahsan AI Hub.',
+    type: 'website',
+    url: 'https://ahsan-ai-hub.vercel.app/feedback',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Feedback - Help Us Improve Ahsan AI Hub',
+    description: 'Share your thoughts, suggestions, or report issues with Ahsan AI Hub.',
+  }
+};
 
 export default function FeedbackPage() {
   const [formData, setFormData] = useState({
