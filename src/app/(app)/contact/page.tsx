@@ -168,28 +168,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Advanced Feedback Section */}
-          <div className="my-20 py-12 border-t border-b border-border/40">
-            <div className="text-center mb-12 space-y-4">
-              <h2 className="text-4xl font-black tracking-tight">Help Us <span className="text-primary">Evolve</span></h2>
-              <p className="text-muted-foreground font-medium max-w-xl mx-auto">
-                Your feedback directly shapes the future of Ahsan AI Hub. 
-                Whether it's a bug, a feature idea, or just a shout-out, we're listening.
-              </p>
-            </div>
-            <div className="max-w-2xl mx-auto">
-              <FeedbackForm />
-            </div>
-          </div>
-
           {/* Advanced Contact Form Section */}
-          <div className="my-20 py-12">
-            <div className="text-center mb-12 space-y-4">
-              <h2 className="text-4xl font-black tracking-tight">Direct <span className="text-primary">Message</span></h2>
-              <p className="text-muted-foreground font-medium max-w-xl mx-auto">
-                Need specific help or have a business inquiry? Send us a message directly.
-              </p>
-            </div>
+          <div className="my-20 py-12 border-t border-b border-border/40">
             <ContactForm />
           </div>
 

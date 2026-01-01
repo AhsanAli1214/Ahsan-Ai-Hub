@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { sendContactForm } from '@/app/actions/contact';
 import { 
   Send, 
   CheckCircle2, 
@@ -20,7 +21,6 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 
 type FormCategory = 'bug_report' | 'feature_request' | 'general_inquiry' | 'collaboration' | 'feedback';
 
@@ -67,6 +67,7 @@ export function ContactForm() {
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Final check for the persistent name error
     const trimmedName = formData.name.trim();
     if (!trimmedName) {
       setError('Your name is required to send a message.');
@@ -77,38 +78,38 @@ export function ContactForm() {
     setError(null);
 
     try {
-      const response = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: trimmedName,
-          email: formData.email.trim(),
-          feedback: `[${formData.category.toUpperCase()}] ${formData.subject}\n\n${formData.message}`,
-          type: 'Contact Inquiry',
-          rating: 5
-        }),
-      });
+      const payload = {
+        ...formData,
+        name: trimmedName,
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim()
+      };
 
-      if (!response.ok) throw new Error('Failed to transmit message');
+      const result = await sendContactForm(payload);
 
-      setSubmitted(true);
-      toast({
-        title: 'Message Sent Successfully!',
-        description: "Your inquiry has been delivered via Resend.",
-      });
-
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          category: 'general_inquiry',
-          message: '',
+      if (result.success) {
+        setSubmitted(true);
+        toast({
+          title: 'Message Sent Successfully!',
+          description: result.message,
         });
-        setSubmitted(false);
-      }, 5000);
+
+        setTimeout(() => {
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            category: 'general_inquiry',
+            message: '',
+          });
+          setSubmitted(false);
+        }, 3000);
+      } else {
+        setError(result.error || 'Failed to send message. Please check your details.');
+      }
     } catch (err) {
-      setError('Failed to send message via secure link. Please try again.');
+      setError('A system error occurred. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -116,35 +117,45 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-card/40 backdrop-blur-xl border-2 border-green-500/20 rounded-[2.5rem] p-12 text-center shadow-2xl"
-      >
+      <Card className="border-primary/20 bg-primary/5 backdrop-blur-xl overflow-hidden p-12 text-center animate-in fade-in zoom-in duration-500 rounded-[2.5rem] shadow-2xl">
         <div className="flex flex-col items-center gap-8">
           <div className="relative">
-            <div className="absolute inset-0 bg-green-500/20 rounded-full blur-2xl animate-pulse" />
-            <div className="relative rounded-full bg-green-500/10 p-8 border border-green-500/30">
-              <CheckCircle2 className="h-16 w-16 text-green-500" />
+            <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse" />
+            <div className="relative rounded-full bg-primary/20 p-8 shadow-inner border border-primary/30">
+              <CheckCircle2 className="h-20 w-20 text-primary" />
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-3xl font-black text-foreground uppercase tracking-tight">Transmission Verified!</h3>
-            <p className="text-muted-foreground text-lg max-w-lg mx-auto font-medium leading-relaxed">
-              Your message has been delivered to our secure endpoint. 
-              We'll respond to your email address shortly.
+            <h3 className="text-4xl font-black text-foreground uppercase tracking-tight leading-none">Transmission Successful! 🚀</h3>
+            <p className="text-muted-foreground text-xl max-w-lg mx-auto font-medium leading-relaxed">
+              Your inquiry is being reviewed by our experts. You will receive a response at your provided email address within the next business day.
             </p>
           </div>
-          <Button variant="outline" onClick={() => setSubmitted(false)} className="rounded-2xl font-black uppercase tracking-widest px-10 h-14 border-2">
-            Send New Message
-          </Button>
+          <div className="flex gap-4">
+            <Button variant="default" onClick={() => setSubmitted(false)} className="rounded-2xl font-black uppercase tracking-widest px-10 h-14 shadow-lg shadow-primary/25 bg-primary hover:scale-105 transition-transform">
+              Send Another
+            </Button>
+          </div>
         </div>
-      </motion.div>
+      </Card>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto space-y-12">
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
+          <Mail className="h-3 w-3" />
+          Get In Touch
+        </div>
+        <h2 className="text-4xl md:text-5xl font-black tracking-tight text-foreground leading-tight">
+          How can we <span className="text-primary">help you</span> today?
+        </h2>
+        <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
+          Have questions, feedback, or a partnership idea? Our team is ready to listen and assist you.
+        </p>
+      </div>
+
       <Card className="border-border/40 bg-card/60 backdrop-blur-2xl overflow-hidden rounded-[2.5rem] shadow-2xl border-2">
         <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-10">
           {error && (
@@ -191,6 +202,8 @@ export function ContactForm() {
                   key={cat.value}
                   type="button"
                   onClick={() => handleCategoryChange(cat.value)}
+                  aria-label={`Select category: ${cat.label}`}
+                  aria-pressed={formData.category === cat.value}
                   className={cn(
                     "group relative p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col items-center gap-3",
                     formData.category === cat.value
@@ -248,18 +261,52 @@ export function ContactForm() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  Transmitting...
+                  Sending...
                 </>
               ) : (
                 <>
-                  Initialize Transmission
+                  Send Message
                   <ArrowRight className="h-5 w-5" />
                 </>
               )}
             </Button>
+            
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 text-center sm:text-left">
+              Secure Submission • 100% Privacy-First • Fast Response
+            </p>
           </div>
         </form>
       </Card>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
+        <div className="p-6 rounded-[2rem] bg-accent/30 border border-border/40 flex flex-col items-center text-center gap-4">
+          <div className="p-3 rounded-2xl bg-primary/10 text-primary">
+            <Zap className="h-6 w-6" />
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs mb-1">Fast Response</h4>
+            <p className="text-sm text-muted-foreground">We typically reply within 24 hours.</p>
+          </div>
+        </div>
+        <div className="p-6 rounded-[2rem] bg-accent/30 border border-border/40 flex flex-col items-center text-center gap-4">
+          <div className="p-3 rounded-2xl bg-primary/10 text-primary">
+            <MessageSquare className="h-6 w-6" />
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs mb-1">Expert Help</h4>
+            <p className="text-sm text-muted-foreground">Direct access to our lead developer.</p>
+          </div>
+        </div>
+        <div className="p-6 rounded-[2rem] bg-accent/30 border border-border/40 flex flex-col items-center text-center gap-4">
+          <div className="p-3 rounded-2xl bg-primary/10 text-primary">
+            <Mail className="h-6 w-6" />
+          </div>
+          <div>
+            <h4 className="font-black uppercase tracking-widest text-xs mb-1">Private Chat</h4>
+            <p className="text-sm text-muted-foreground">Your data is never shared with third parties.</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
