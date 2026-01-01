@@ -48,7 +48,7 @@ export function AnnouncementBanner({
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-4 right-4 z-50 mx-auto max-w-2xl md:bottom-8"
+          className="fixed inset-x-4 bottom-6 z-[100] mx-auto max-w-2xl md:bottom-8 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2"
         >
           <Card className="relative overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
             {/* Background Glow */}
