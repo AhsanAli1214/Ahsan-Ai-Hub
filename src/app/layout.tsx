@@ -15,6 +15,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Suspense } from 'react';
 import { InAppAnnouncement } from '@/components/InAppAnnouncement';
+import { FeedbackDialog } from '@/components/feedback/FeedbackDialog';
+import { CookieConsent } from '@/components/legal/CookieConsent';
 
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -226,6 +228,8 @@ export default function RootLayout({
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
+              <FeedbackDialog />
+              <CookieConsent />
               {/* Load OneSignal after everything else */}
               <Script 
                 src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 
