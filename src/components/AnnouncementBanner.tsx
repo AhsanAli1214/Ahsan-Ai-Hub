@@ -45,10 +45,10 @@ export function AnnouncementBanner({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          className="fixed inset-x-4 bottom-6 z-[100] mx-auto max-w-2xl md:bottom-8 lg:inset-x-auto lg:left-1/2 lg:-translate-x-1/2"
+          initial={{ scale: 0.9, opacity: 0, y: "-50%", x: "-50%" }}
+          animate={{ scale: 1, opacity: 1, y: "-50%", x: "-50%" }}
+          exit={{ scale: 0.9, opacity: 0, y: "-50%", x: "-50%" }}
+          className="fixed left-1/2 top-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl"
         >
           <Card className="relative overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
             {/* Background Glow */}
@@ -79,12 +79,12 @@ export function AnnouncementBanner({
                 </button>
 
                 <div className="mb-4 flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20 text-primary border border-primary/20 shadow-lg shadow-primary/10">
-                    <AhsanAiHubLogo width={32} height={32} className="text-primary" />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20 text-primary border border-primary/20 shadow-xl shadow-primary/20">
+                    <AhsanAiHubLogo width={48} height={48} className="text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
-                    <p className="text-[10px] font-medium text-zinc-500">Official Announcement</p>
+                    <h3 className="text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
+                    <p className="text-xs font-medium text-zinc-500">Official Announcement</p>
                   </div>
                 </div>
 
