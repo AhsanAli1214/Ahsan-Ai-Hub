@@ -36,6 +36,21 @@ export function PWAInstall() {
       setIsInstalled(true);
     }
 
+    const handleAppInstalled = () => {
+      console.log('appinstalled event fired');
+      setIsInstalled(true);
+      setShowInstallPrompt(false);
+      setDeferredPrompt(null);
+      localStorage.removeItem('pwa-install-available');
+      
+      setTimeout(() => {
+        toast({
+          title: '✓ App Installed!',
+          description: 'Ahsan Ai Hub is now on your device. Open it from your app drawer.',
+        });
+      }, 300);
+    };
+
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       console.log('beforeinstallprompt event fired - PWA is installable');
