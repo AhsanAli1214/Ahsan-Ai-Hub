@@ -288,6 +288,11 @@ export default function RootLayout({
               </Suspense>
               <Analytics mode={'production'} />
               <SpeedInsights />
+              {/* BotSailor WebChat */}
+              <Script 
+                src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
+                strategy="lazyOnload"
+              />
               {/* Load OneSignal after everything else */}
               <Script 
                 src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" 
