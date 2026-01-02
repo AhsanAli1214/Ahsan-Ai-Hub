@@ -82,5 +82,30 @@
       ]
     }
   ],
-  "categories": ["productivity", "utilities"]
+  "categories": ["productivity", "utilities", "ai"],
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "file_handlers": [
+    {
+      "action": "/recommendations",
+      "accept": {
+        "text/plain": [".txt"],
+        "application/pdf": [".pdf"],
+        "image/*": [".png", ".jpg", ".jpeg", ".webp"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/recommendations",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
 }

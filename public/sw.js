@@ -53,11 +53,36 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-feedback') {
     event.waitUntil(
-      // Logic for background sync
-      Promise.resolve()
+      (async () => {
+        const feedbacks = await getPendingFeedbacks();
+        for (const feedback of feedbacks) {
+          try {
+            await sendFeedback(feedback);
+            await deletePendingFeedback(feedback.id);
+          } catch (e) {
+            console.error('Sync failed for feedback', feedback.id);
+          }
+        }
+      })()
     );
   }
 });
+
+// Content Indexing API
+if ('index' in self.registration) {
+  self.registration.index.add({
+    id: 'free-ai-chat',
+    launchUrl: '/recommendations',
+    title: 'Free AI Chat',
+    description: 'Privacy-first free AI chat assistant',
+    icons: [{
+      src: '/icon-192.png',
+      sizes: '192x192',
+      type: 'image/png',
+    }],
+    category: 'productivity'
+  });
+}
 
 // App Badging API Logic
 const updateBadge = async (count) => {
