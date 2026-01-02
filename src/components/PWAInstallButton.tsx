@@ -30,7 +30,10 @@ export function PWAInstallButton({ className }: { className?: string }) {
 
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
+      console.log('beforeinstallprompt event captured');
       setDeferredPrompt(e as BeforeInstallPromptEvent);
+      // Immediately notify other components that installation is available
+      window.dispatchEvent(new CustomEvent('pwa-installable', { detail: e }));
     };
 
     const handleAppInstalled = () => {

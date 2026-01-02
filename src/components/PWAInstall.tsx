@@ -45,27 +45,26 @@ export function PWAInstall() {
       localStorage.setItem('pwa-install-available', 'true');
     };
 
-    const handleAppInstalled = () => {
-      console.log('appinstalled event fired');
-      setIsInstalled(true);
-      setShowInstallPrompt(false);
-      setDeferredPrompt(null);
-      localStorage.removeItem('pwa-install-available');
-      
-      setTimeout(() => {
-        toast({
-          title: '✓ App Installed!',
-          description: 'Ahsan Ai Hub is now on your device. Open it from your app drawer.',
-        });
-      }, 300);
+    const handleInstallableEvent = (e: any) => {
+      console.log('pwa-installable custom event captured');
+      setDeferredPrompt(e.detail as BeforeInstallPromptEvent);
+      setShowInstallPrompt(true);
+      localStorage.setItem('pwa-install-available', 'true');
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
+    window.addEventListener('pwa-installable', handleInstallableEvent);
+
+    // Check if we should show the prompt immediately (e.g. from local storage)
+    if (localStorage.getItem('pwa-install-available') === 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
+      setShowInstallPrompt(true);
+    }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
+      window.removeEventListener('pwa-installable', handleInstallableEvent);
     };
   }, [toast]);
 
