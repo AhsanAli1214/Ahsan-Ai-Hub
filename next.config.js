@@ -4,11 +4,13 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion', 'date-fns'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion', 'date-fns', 'recharts', 'firebase', 'zod'],
     scrollRestoration: true,
   },
-  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev', '127.0.0.1', 'localhost'],
-  transpilePackages: ['next-themes'],
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  swcMinify: true,
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
