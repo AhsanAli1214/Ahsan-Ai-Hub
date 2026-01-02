@@ -7,7 +7,7 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion', 'date-fns'],
     scrollRestoration: true,
   },
-  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '127.0.0.1', 'localhost'],
+  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.spock.replit.dev', '*.riker.replit.dev', '*.janeway.replit.dev', '127.0.0.1', 'localhost'],
   transpilePackages: ['next-themes'],
   images: {
     formats: ['image/avif', 'image/webp'],
