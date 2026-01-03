@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, parseLinks } from '@/lib/utils';
-import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Volume2, Pause, Play, ChevronDown, Link as LinkIcon, User } from 'lucide-react';
+import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Volume2, Pause, Play, ChevronDown, Link as LinkIcon, User, Save, FileCode } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
@@ -63,6 +63,39 @@ function MessageBubble({
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({ title: 'Copied to clipboard' });
+  };
+
+  const handleSaveToFile = async (content: string) => {
+    try {
+      if ('showSaveFilePicker' in window) {
+        // Use File System Access API if available
+        const handle = await (window as any).showSaveFilePicker({
+          suggestedName: `ahsan-ai-report-${Date.now()}.md`,
+          types: [{
+            description: 'Markdown File',
+            accept: { 'text/markdown': ['.md'] },
+          }],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(content);
+        await writable.close();
+        toast({ title: 'File saved successfully' });
+      } else {
+        // Fallback for browsers without File System Access API
+        const blob = new Blob([content], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ahsan-ai-report-${Date.now()}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast({ title: 'Report downloaded' });
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        toast({ variant: 'destructive', title: 'Save failed', description: 'Could not save file.' });
+      }
+    }
   };
   
   const handleTranslate = async (lang: Language) => {
@@ -231,11 +264,21 @@ function MessageBubble({
           size="icon"
           className="h-7 w-7 opacity-80 hover:opacity-100"
           onClick={() => handleCopy(message.content)}
+          title="Copy"
         >
           <Copy className="h-4 w-4 text-muted-foreground" />
         </Button>
         {!isUser && (
           <>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 opacity-80 hover:opacity-100"
+              onClick={() => handleSaveToFile(message.content)}
+              title="Save to device"
+            >
+              <Save className="h-4 w-4 text-muted-foreground" />
+            </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -324,6 +367,17 @@ export function ChatInterface({
       setInput(initialPrompt);
     }
   }, [initialPrompt]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get('q');
+      if (query && query !== 'undefined') {
+        const cleanQuery = query.replace(/^web\+ahsan:\/\//i, '').replace(/^web\+ahsan:/i, '');
+        setInput(decodeURIComponent(cleanQuery));
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (!currentSession && messages.length === 0) {

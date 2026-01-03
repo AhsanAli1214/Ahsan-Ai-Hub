@@ -123,5 +123,11 @@
     }
   },
   "dir": "ltr",
-  "lang": "en-US"
+  "lang": "en-US",
+  "protocol_handlers": [
+    {
+      "protocol": "web+ahsan",
+      "url": "/recommendations?q=%s"
+    }
+  ]
 }
