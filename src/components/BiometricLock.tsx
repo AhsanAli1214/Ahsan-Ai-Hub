@@ -76,6 +76,14 @@ export function BiometricLock({ children }: { children: React.ReactNode }) {
               <p className="text-sm text-muted-foreground max-w-xs">
                 Ahsan AI Hub is secured with Biometric Protection. Unlock to continue your session.
               </p>
+              <div className="pt-4 p-3 bg-primary/5 rounded-xl border border-primary/10">
+                <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">
+                  Need help?
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  If you're having trouble with biometrics, please use the <span className="text-primary font-bold italic">BotSailor Support Widget</span> at the bottom right to reach our team.
+                </p>
+              </div>
             </div>
 
             <Button 
