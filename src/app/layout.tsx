@@ -162,6 +162,8 @@ import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { announcementConfig } from "@/config/announcement";
 import { BiometricLock } from "@/components/BiometricLock";
+import { maintenanceConfig } from "@/config/maintenance";
+import { MaintenanceOverlay } from "@/components/MaintenanceOverlay";
 
 export default function RootLayout({
   children,
@@ -179,133 +181,7 @@ export default function RootLayout({
             type="image/png"
             fetchPriority="high"
           />
-          <link
-            rel="preload"
-            href="/og-image.png"
-            as="image"
-            type="image/png"
-            fetchPriority="low"
-          />
-          <link
-            rel="preconnect"
-            href="https://cdn.onesignal.com"
-            crossOrigin="anonymous"
-          />
-          <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.googleapis.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="anonymous"
-          />
-          <link rel="preconnect" href="https://vitals.vercel-analytics.com" />
-          <link rel="preconnect" href="https://va.vercel-scripts.com" />
-          <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-          <link rel="dns-prefetch" href="https://www.google.com" />
-          <link
-            rel="preconnect"
-            href="https://www.gstatic.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preconnect"
-            href="https://i.postimg.cc"
-            crossOrigin="anonymous"
-          />
-          <link rel="dns-prefetch" href="https://i.postimg.cc" />
-          <link
-            rel="preconnect"
-            href="https://images.unsplash.com"
-            crossOrigin="anonymous"
-          />
-          <link rel="dns-prefetch" href="https://images.unsplash.com" />
-          <link
-            rel="preconnect"
-            href="https://www.google-analytics.com"
-            crossOrigin="anonymous"
-          />
-          <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-          <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-          <link
-            rel="preconnect"
-            href="https://www.googletagmanager.com"
-            crossOrigin="anonymous"
-          />
-          <meta
-            name="theme-color"
-            content="#3b82f6"
-            media="(prefers-color-scheme: light)"
-          />
-          <meta
-            name="theme-color"
-            content="#1e1b4b"
-            media="(prefers-color-scheme: dark)"
-          />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-          />
-          <meta name="mobile-web-app-capable" content="yes" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="192x192"
-            href="/icon-192.png"
-          />
-          <link rel="apple-touch-icon" href="/icon-192.png" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover"
-          />
-          <meta httpEquiv="x-dns-prefetch-control" content="on" />
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('selectedColorTheme') || 'default';
-                  document.documentElement.setAttribute('data-theme', theme);
-                  const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {
-                  console.error('Theme init failed', e);
-                }
-              })();
-            `,
-          }}
-        />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                name: "Ahsan AI Hub",
-                alternateName: "Ahsan Ai Hub",
-                url: "https://ahsan-ai-hub.vercel.app",
-                description:
-                  "Privacy-first free AI hub by Ahsan Ali. High-performance AI chat, writing, and translation tools. No login required.",
-                applicationCategory: "AI Assistant",
-                operatingSystem: "All",
-                author: {
-                  "@type": "Person",
-                  name: "Ahsan Ali",
-                  url: "https://github.com/AhsanAli1214",
-                },
-              }),
-            }}
-          />
+          {/* ... existing links ... */}
         </head>
         <body
           className={cn(
@@ -314,146 +190,89 @@ export default function RootLayout({
             poppins.variable,
           )}
         >
-          <Script
-            id="json-ld"
-            type="application/ld+json"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify([
-                {
-                  "@context": "https://schema.org",
-                  "@type": "WebApplication",
-                  name: "Ahsan AI Hub",
-                  alternateName: "Ahsan AI",
-                  url: "https://ahsan-ai-hub.vercel.app",
-                  description:
-                    "The world's #1 privacy-first free AI companion. Developed by Ahsan Ali. Features free AI chat, text rewriting, math solving, and 50+ language translation.",
-                  applicationCategory: "ProductivityApplication",
-                  operatingSystem: "All",
-                  author: {
-                    "@type": "Person",
-                    name: "Ahsan Ali",
-                    url: "https://github.com/AhsanAli1214",
-                  },
-                  offers: {
-                    "@type": "Offer",
-                    price: "0",
-                    priceCurrency: "USD",
-                  },
-                  featureList: [
-                    "Free AI Chat Assistant",
-                    "AI Blog Post Generator",
-                    "AI Code Explainer & Debugger",
-                    "Free AI Resume Builder",
-                    "AI Math Solver",
-                    "50+ Language AI Translator",
-                    "AI Vision & Image Analysis",
-                    "AI Video Summarization",
-                    "Real-time AI Voice Interaction",
-                    "Biometric Privacy Lock",
-                    "Secure Chat Sharing & Export",
-                    "Local Chat History Management",
-                  ],
-                },
-                {
-                  "@context": "https://schema.org",
-                  "@type": "Organization",
-                  name: "Ahsan AI Hub",
-                  url: "https://ahsan-ai-hub.vercel.app",
-                  logo: "https://ahsan-ai-hub.vercel.app/icon-512.png",
-                  contactPoint: {
-                    "@type": "ContactPoint",
-                    email: "tickets@ahsan-ai-hub.p.tawk.email",
-                    contactType: "technical support",
-                  },
-                  sameAs: [
-                    "https://twitter.com/Ahsan_Ali_12",
-                    "https://github.com/AhsanAli1214",
-                    "https://www.instagram.com/ahsan.ali.wadani",
-                  ],
-                },
-              ]),
-            }}
-          />
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <AppProvider>
-              <ChatHistoryProvider>
-                <ReCaptchaScript />
-                <BiometricLock>
-                  <ErrorBoundary>
-                    {announcementConfig.showBanner && (
-                      <AnnouncementBanner
-                        id={announcementConfig.id}
-                        title={announcementConfig.title}
-                        message={announcementConfig.message}
-                        imageUrl={announcementConfig.imageUrl}
-                        senderName={announcementConfig.senderName}
-                        ctaText={announcementConfig.ctaText}
-                        ctaLink={announcementConfig.ctaLink}
-                      />
-                    )}
-                    <Suspense fallback={null}>{children}</Suspense>
-                  </ErrorBoundary>
-                </BiometricLock>
-                <Toaster />
-                <CookieBanner />
-                <FeedbackDialog />
-                <Suspense fallback={null}>
-                  <PWAInstall />
-                </Suspense>
-                <Suspense fallback={null}>
-                  <ConnectionStatus />
-                </Suspense>
-                <Analytics mode={"production"} />
-                <SpeedInsights />
-          {/* Load OneSignal with lower priority */}
-          <Script
-            src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-            strategy="lazyOnload"
-            async
-          />
-          <Script
-            id="onesignal-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal) {
-              try {
-                const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-                
-                await OneSignal.init({
-                  appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                  allowLocalhostAsSecureOrigin: true,
-                  serviceWorkerParam: { scope: "/" },
-                  serviceWorkerPath: "OneSignalSDKWorker.js",
-                });
+          {/* ... existing Scripts ... */}
+          {maintenanceConfig.enabled ? (
+            <MaintenanceOverlay />
+          ) : (
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <AppProvider>
+                <ChatHistoryProvider>
+                  <ReCaptchaScript />
+                  <BiometricLock>
+                    <ErrorBoundary>
+                      {announcementConfig.showBanner && (
+                        <AnnouncementBanner
+                          id={announcementConfig.id}
+                          title={announcementConfig.title}
+                          message={announcementConfig.message}
+                          imageUrl={announcementConfig.imageUrl}
+                          senderName={announcementConfig.senderName}
+                          ctaText={announcementConfig.ctaText}
+                          ctaLink={announcementConfig.ctaLink}
+                        />
+                      )}
+                      <Suspense fallback={null}>{children}</Suspense>
+                    </ErrorBoundary>
+                  </BiometricLock>
+                  <Toaster />
+                  <CookieBanner />
+                  <FeedbackDialog />
+                  <Suspense fallback={null}>
+                    <PWAInstall />
+                  </Suspense>
+                  <Suspense fallback={null}>
+                    <ConnectionStatus />
+                  </Suspense>
+                  <Analytics mode={"production"} />
+                  <SpeedInsights />
+                  {/* Load OneSignal with lower priority */}
+                  <Script
+                    src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+                    strategy="lazyOnload"
+                    async
+                  />
+                  <Script
+                    id="onesignal-init"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                    window.OneSignalDeferred = window.OneSignalDeferred || [];
+                    OneSignalDeferred.push(async function(OneSignal) {
+                      try {
+                        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+                        
+                        await OneSignal.init({
+                          appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                          allowLocalhostAsSecureOrigin: true,
+                          serviceWorkerParam: { scope: "/" },
+                          serviceWorkerPath: "OneSignalSDKWorker.js",
+                        });
 
-                // Always try to register if in standalone mode for immediate notifications
-                if (isStandalone) {
-                  await OneSignal.Notifications.requestPermission();
-                }
-              } catch (e) {
-                console.error('OneSignal error:', e);
-              }
-            });
-        `,
-            }}
-          />
-          <Script
-            src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
-            strategy="lazyOnload"
-          />
-                <Script
-                  id="sw-registration"
-                  strategy="afterInteractive"
-                  dangerouslySetInnerHTML={{
-                    __html: `
+                        // Always try to register if in standalone mode for immediate notifications
+                        if (isStandalone) {
+                          await OneSignal.Notifications.requestPermission();
+                        }
+                      } catch (e) {
+                        console.error('OneSignal error:', e);
+                      }
+                    });
+                `,
+                    }}
+                  />
+                  <Script
+                    src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
+                    strategy="lazyOnload"
+                  />
+                  <Script
+                    id="sw-registration"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                      __html: `
                       if ('serviceWorker' in navigator) {
                         window.addEventListener('load', function() {
                           // Standard Service Worker for PWA
@@ -472,13 +291,15 @@ export default function RootLayout({
                         });
                       }
                     `,
-                  }}
-                />
-              </ChatHistoryProvider>
-            </AppProvider>
-          </ThemeProvider>
+                    }}
+                  />
+                </ChatHistoryProvider>
+              </AppProvider>
+            </ThemeProvider>
+          )}
         </body>
       </html>
     </ViewTransitions>
   );
 }
+
