@@ -3,39 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', 'framer-motion', 'date-fns', 'recharts', 'firebase', 'zod'],
-    scrollRestoration: true,
-  },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000,
-    dangerouslyAllowSVG: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'i.postimg.cc',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'ahsan-ai-hub.vercel.app',
-      },
-    ],
-    unoptimized: false,
-  },
-  onDemandEntries: {
-    maxInactiveAge: 30 * 1000,
-    pagesBufferLength: 8,
-  },
+  swcMinify: true,
   experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',
@@ -76,6 +44,28 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [320, 420, 768, 1024, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    minimumCacheTTL: 31536000,
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.postimg.cc',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ahsan-ai-hub.vercel.app',
+      },
+    ],
+    unoptimized: false,
+  },
   headers: async () => {
     return [
       {
@@ -104,11 +94,7 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800'
-          },
-          {
-            key: 'Link',
-            value: '<https://d3mkw6s8thqya7.cloudfront.net>; rel=preconnect'
-          },
+          }
         ],
       },
       {
@@ -137,59 +123,6 @@ const nextConfig = {
             value: 'public, max-age=31536000, immutable'
           },
         ],
-      },
-      {
-        source: '/manifest.json',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/manifest+json'
-          },
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, must-revalidate'
-          },
-        ],
-      },
-      {
-        source: '/sw.js',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, must-revalidate'
-          },
-          {
-            key: 'Service-Worker-Allowed',
-            value: '/'
-          },
-        ],
-      },
-      {
-        source: '/icon-512.png',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          },
-        ],
-      },
-      {
-        source: '/logo.png',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          },
-        ],
-      },
-    ];
-  },
-  redirects: async () => {
-    return [
-      {
-        source: '/index.html',
-        destination: '/',
-        permanent: true,
       },
     ];
   },
