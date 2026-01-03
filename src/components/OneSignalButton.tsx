@@ -23,8 +23,10 @@ export function OneSignalButton() {
       try {
         const isOptedIn = await window.OneSignal.User.PushSubscription.optedIn;
         const isOptedOut = await window.OneSignal.User.PushSubscription.optedOut;
-        // Correct logic: Subscribed means optedIn is true AND optedOut is false
-        setIsSubscribed(isOptedIn && !isOptedOut);
+        const permission = await window.OneSignal.Notifications.permission;
+        
+        // Correct logic: Subscribed means optedIn is true AND optedOut is false AND permission is granted
+        setIsSubscribed(isOptedIn && !isOptedOut && (permission === true || permission === 'granted'));
       } catch (err) {
         console.error("Status Update Error:", err);
       } finally {
@@ -43,16 +45,34 @@ export function OneSignalButton() {
         return;
       }
 
-      const checkOneSignal = setInterval(async () => {
+      const initOneSignal = async () => {
+        if (window.OneSignal) {
+          await updateStatus();
+          
+          // Use correct event listeners for OneSignal v16+
+          window.OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
+          
+          // Ensure we also listen for subscription changes
+          if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
+             window.OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
+          }
+        }
+      };
+
+      const checkOneSignal = setInterval(() => {
         if (window.OneSignal) {
           clearInterval(checkOneSignal);
-          await updateStatus();
-          window.OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
-          window.OneSignal.Notifications.addEventListener('subscriptionChange', updateStatus);
+          initOneSignal();
         }
       }, 500);
 
       setTimeout(() => clearInterval(checkOneSignal), 5000);
+      
+      return () => {
+        if (window.OneSignal) {
+          window.OneSignal.Notifications.removeEventListener('permissionChange', updateStatus);
+        }
+      };
     }
   }, []);
 
