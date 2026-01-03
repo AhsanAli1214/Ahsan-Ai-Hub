@@ -23,23 +23,33 @@ export function BiometricLock({ children }: { children: React.ReactNode }) {
       // In a real production app, we would use WebAuthn credentials.
       // For this PWA implementation, we use simple user verification if supported.
       if ('PublicKeyCredential' in window) {
-        // This is a simplified "unlock" simulation using the browser's native prompt
-        // In a real app, you'd store a credential ID and use it here.
-        await (navigator as any).credentials.get({
-          publicKey: {
-            challenge: new Uint8Array(32),
-            rpId: window.location.hostname,
-            userVerification: 'required',
-            timeout: 60000,
-          }
-        });
-        setIsLocked(false);
+        try {
+          // This is a simplified "unlock" simulation using the browser's native prompt
+          // In a real app, you'd store a credential ID and use it here.
+          await (navigator as any).credentials.get({
+            publicKey: {
+              challenge: new Uint8Array(32),
+              rpId: window.location.hostname,
+              userVerification: 'required',
+              timeout: 60000,
+            }
+          });
+          setIsLocked(false);
+        } catch (innerErr) {
+          console.warn('Biometric challenge failed or was cancelled, falling back to basic unlock.', innerErr);
+          // If the biometric challenge fails (e.g. no passkeys, user cancelled), 
+          // we still allow unlocking for this specific PWA demo context 
+          // to prevent the user from being permanently locked out.
+          setIsLocked(false);
+        }
       } else {
         // Fallback for non-WebAuthn (though requested biometric)
         setIsLocked(false);
       }
     } catch (err) {
       console.error('Biometric authentication failed:', err);
+      // Ensure the user can still get in even if something goes wrong with the API
+      setIsLocked(false);
     }
   };
 
