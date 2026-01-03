@@ -16,11 +16,11 @@ import Image from "next/image";
 import { OneSignalButton } from "@/components/OneSignalButton";
 
 const CountdownItem = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col items-center justify-center p-3 sm:p-5 bg-white/5 border border-white/10 rounded-2xl sm:rounded-3xl backdrop-blur-md min-w-[70px] sm:min-w-[110px] shadow-lg">
-    <span className="text-2xl sm:text-4xl font-black text-white tabular-nums tracking-tighter">
+  <div className="flex flex-col items-center justify-center p-4 sm:p-8 bg-white/5 border border-white/10 rounded-2xl sm:rounded-[2rem] backdrop-blur-xl min-w-[75px] sm:min-w-[140px] shadow-2xl transition-all hover:bg-white/10 hover:border-white/20 group">
+    <span className="text-3xl sm:text-6xl font-black text-white tabular-nums tracking-tighter group-hover:scale-110 transition-transform duration-500">
       {value.toString().padStart(2, "0")}
     </span>
-    <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-blue-400 mt-1 sm:mt-2">
+    <span className="text-[10px] sm:text-xs uppercase font-bold tracking-[0.3em] text-blue-400 mt-2 sm:mt-4 opacity-70 group-hover:opacity-100 transition-opacity">
       {label}
     </span>
   </div>
@@ -93,23 +93,23 @@ export const ComingSoonOverlay = () => {
             <span>Developer: Ahsan Ali Wadani</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-black text-white mb-4 sm:mb-6 tracking-tighter leading-tight sm:leading-[1.1]">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white mb-6 sm:mb-8 tracking-tighter leading-[0.9] sm:leading-[1]">
             {siteStatusConfig.comingSoon.siteName} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-600">
               {siteStatusConfig.comingSoon.tagline}
             </span>
           </h1>
 
-          <p className="max-w-xl mx-auto text-sm sm:text-lg text-white/50 mb-8 leading-relaxed px-4">
+          <p className="max-w-2xl mx-auto text-base sm:text-xl text-white/60 mb-10 leading-relaxed px-4">
             {siteStatusConfig.comingSoon.description}
           </p>
 
-          <div className="w-full max-w-xs mb-12 sm:mb-16">
+          <div className="w-full max-w-md mb-12 sm:mb-20">
             <OneSignalButton />
           </div>
 
-          {/* Countdown - Better mobile spacing */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-12 sm:mb-20 px-2 w-full max-w-lg mx-auto">
+          {/* Countdown - Better desktop scaling */}
+          <div className="grid grid-cols-4 gap-3 sm:gap-6 mb-16 sm:mb-28 px-2 w-full max-w-2xl mx-auto">
             <CountdownItem value={timeLeft.days} label="Days" />
             <CountdownItem value={timeLeft.hours} label="Hours" />
             <CountdownItem value={timeLeft.minutes} label="Min" />
