@@ -59,9 +59,9 @@ export const ComingSoonOverlay = () => {
           <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="mb-6 sm:mb-8"
+            className="mb-6 sm:mb-8 flex justify-center w-full"
           >
-            <div className="relative w-20 h-20 sm:w-28 sm:h-28">
+            <div className="relative w-24 h-24 sm:w-36 sm:h-36">
               <Image 
                 src={siteStatusConfig.comingSoon.logo} 
                 alt="Logo" 
