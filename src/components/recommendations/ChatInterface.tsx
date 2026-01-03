@@ -366,279 +366,125 @@ export function ChatInterface({
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, responseLength, enableAnimations, enableTypingIndicator } = useAppContext();
-  const { currentSession, addMessage, updateCurrentSessionTitle, createSession, updateMessage } = useChatHistory();
+  const { currentSession, addMessage, updateCurrentSessionTitle, createSession, updateMessage, offlineQueue, addToOfflineQueue, syncOfflineMessages } = useChatHistory();
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const stopSpeechRef = useRef<(() => void) | null>(null);
+  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
 
   const messages = currentSession?.messages || [];
 
   useEffect(() => {
-    if (initialPrompt) {
-      setInput(initialPrompt);
-    }
-  }, [initialPrompt]);
+    if (typeof window === 'undefined') return;
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const query = urlParams.get('q');
-      if (query && query !== 'undefined') {
-        const cleanQuery = query.replace(/^web\+ahsan:\/\//i, '').replace(/^web\+ahsan:/i, '');
-        setInput(decodeURIComponent(cleanQuery));
+    const handleOnline = () => {
+      setIsOnline(true);
+      if (offlineQueue.length > 0) {
+        handleSyncOffline();
       }
-    }
-  }, []);
+    };
+    const handleOffline = () => setIsOnline(false);
 
-  useEffect(() => {
-    if (!currentSession && messages.length === 0) {
-      createSession();
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [offlineQueue]);
+
+  const handleSyncOffline = async () => {
+    if (offlineQueue.length === 0) return;
+    
+    toast({
+      title: "Back Online!",
+      description: `Syncing ${offlineQueue.length} queued messages...`,
+    });
+
+    const queueToProcess = [...offlineQueue];
+    await syncOfflineMessages(); // Clear queue in context
+
+    for (const msg of queueToProcess) {
+      await processMessage(msg.content);
     }
-  }, []);
-  
-  const scrollToBottom = (behavior: 'smooth' | 'auto' = 'auto') => {
-    const scrollElement = scrollViewportRef.current;
-    if (scrollElement) {
-      scrollElement.scrollTo({
-        top: scrollElement.scrollHeight,
-        behavior: behavior
+
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification("Ahsan AI Hub", {
+        body: "Your offline messages have been processed and answers are ready!",
+        icon: "/icon-192.png"
       });
     }
-  }
-  
-  useEffect(() => {
-    // Scroll to bottom immediately on mount and when messages change
-    // Using requestAnimationFrame to ensure DOM is updated and layout is calculated
-    const scroll = () => {
-      const viewport = scrollViewportRef.current;
-      if (viewport) {
-        viewport.scrollTop = viewport.scrollHeight;
-        // Also force a check for the scroll button
-        const distanceToBottom = 0;
-        setShowScrollButton(false);
-      }
-    };
-    
-    // Multiple attempts to ensure it works across different rendering cycles
-    requestAnimationFrame(scroll);
-    const timer = setTimeout(scroll, 100);
-    const timer2 = setTimeout(scroll, 300);
-    
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(timer2);
-    };
-  }, [messages.length]);
+  };
 
-  useEffect(() => {
-    if (isLoading) {
-      scrollToBottom('auto');
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
-    return () => {
-      // Clean up speech synthesis on unmount
-      stopSpeech();
-      if (stopSpeechRef.current) {
-        stopSpeechRef.current();
-      }
-    };
-  }, []);
-  
-  const handleShare = async (text: string) => {
+  const processMessage = async (content: string) => {
+    setIsLoading(true);
     try {
-      if ('contacts' in navigator && 'ContactsManager' in window) {
-        const props = ['name', 'email', 'tel'];
-        const opts = { multiple: true };
-        const contacts = await (navigator as any).contacts.select(props, opts);
+      const result = await getRecommendationsAction({
+        interests: content,
+        previousActivity: 'No previous activity provided.',
+        personality: personalityMode,
+        responseLength: responseLength,
+      });
+
+      if (result.success && result.data) {
+        addMessage({
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: result.data.recommendations,
+          timestamp: Date.now(),
+        });
         
-        if (contacts.length > 0) {
-          const shareData = {
-            title: 'Shared AI Content from Ahsan AI Hub',
-            text: text,
-            url: window.location.href,
-          };
-          
-          if (navigator.share) {
-            await navigator.share(shareData);
-            toast({ title: 'Shared successfully!' });
-          } else {
-            toast({ title: 'Share not supported', description: 'Your browser supports contact picking but not direct sharing.' });
-          }
+        if (currentSession && currentSession.messages.length === 1) {
+          updateCurrentSessionTitle(content.substring(0, 50) + (content.length > 50 ? '...' : ''));
         }
-      } else if (navigator.share) {
-        await navigator.share({
-          title: 'Shared AI Content from Ahsan AI Hub',
-          text: text,
-          url: window.location.href,
-        });
-        toast({ title: 'Shared successfully!' });
       } else {
-        toast({ title: 'Share not supported', description: 'Your browser does not support the Contact Picker or Web Share API.' });
+        throw new Error(result.error || 'Failed to get AI response');
       }
-    } catch (err: any) {
-      if (err.name !== 'AbortError') {
-        toast({ variant: 'destructive', title: 'Share failed', description: 'Could not share content.' });
-      }
-    }
-  };
-
-  const handleReportError = async (errorMsg: string) => {
-    try {
-      const result = await reportErrorAction({
-        errorMessage: errorMsg,
-        feature: 'Text-to-Speech',
-        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown',
+    } catch (error) {
+      addMessage({
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: error instanceof Error ? error.message : 'An error occurred',
         timestamp: Date.now(),
+        isError: true,
       });
-      
-      if (result.success) {
-        if (result.mailtoLink) {
-          toast({
-            title: 'Error Report Ready',
-            description: 'Click the link below to open your email client and send the error report.',
-            action: <Button size="sm" variant="outline" onClick={() => window.location.href = result.mailtoLink!}>Send Email</Button>,
-          });
-        } else {
-          toast({
-            title: 'Error Reported',
-            description: 'Thanks for reporting! Our team will investigate this issue.',
-            variant: 'default',
-          });
-        }
-      }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Report Failed',
-        description: 'Could not send error report. Please email tickets@ahsan-ai-hub.p.tawk.email directly.',
-      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  
-  const handlePlayAudio = (messageId: string, text: string) => {
-    try {
-      if (!isSpeechSynthesisSupported()) {
-        toast({
-          variant: 'destructive',
-          title: 'Not Supported',
-          description: 'Text-to-speech is not supported in your browser.',
-        });
-        return;
-      }
-
-      if (!text || text.trim().length === 0) {
-        throw new Error('No text to convert to speech');
-      }
-
-      // If already playing this message, stop it
-      if (activeMessageId === messageId) {
-        if (stopSpeechRef.current) {
-          stopSpeechRef.current();
-          stopSpeechRef.current = null;
-        }
-        setActiveMessageId(null);
-        return;
-      }
-
-      // Stop any previously playing speech
-      if (stopSpeechRef.current) {
-        stopSpeechRef.current();
-      }
-
-      // Start new speech
-      setActiveMessageId(messageId);
-      stopSpeechRef.current = speakText(text, () => {
-        setActiveMessageId(null);
-        stopSpeechRef.current = null;
-      });
-
-      toast({
-        title: 'Playing Audio',
-        description: 'Audio is now playing. Click the speaker icon again to stop.',
-      });
-    } catch (error) {
-      console.error('TTS Error:', error);
-      const errorMsg = error instanceof Error ? error.message : 'Could not play audio. Please try again.';
-      toast({
-        variant: 'destructive',
-        title: 'Audio Failed',
-        description: errorMsg,
-      });
-      setActiveMessageId(null);
-    }
-  };
-
-  const handlePauseAudio = () => {
-    stopSpeech();
-    setActiveMessageId(null);
-  };
-  
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    // Check online status before sending
-    if (!navigator.onLine) {
+    if (!isOnline) {
+      const offlineMsg: Message = {
+        id: Date.now().toString(),
+        role: 'user',
+        content: input,
+        timestamp: Date.now(),
+      };
+      addMessage(offlineMsg);
+      addToOfflineQueue(offlineMsg);
+      setInput('');
+      
       toast({
-        title: "You are offline",
-        description: "AI features require an active internet connection. Please check your network and try again.",
-        variant: "destructive"
+        title: "Working Offline",
+        description: "Message queued. It will be sent automatically when you're back online.",
       });
       return;
     }
 
+    const userInput = input;
+    setInput('');
+
     const newUserMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input,
+      content: userInput,
       timestamp: Date.now(),
     };
     addMessage(newUserMessage);
-    setIsLoading(true);
-    const userInput = input;
-    setInput('');
-    
-    const previousActivity = 'No previous activity provided.';
-
-    const result = await getRecommendationsAction({
-      interests: userInput,
-      previousActivity,
-      personality: personalityMode,
-      responseLength: responseLength,
-    });
-
-    if (result.success && result.data) {
-      const newAiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: result.data.recommendations,
-        timestamp: Date.now(),
-      };
-      addMessage(newAiMessage);
-      
-      if (currentSession && currentSession.messages.length === 1) {
-        updateCurrentSessionTitle(userInput.substring(0, 50) + (userInput.length > 50 ? '...' : ''));
-      }
-    } else if (!result.success) {
-      toast({
-        variant: 'destructive',
-        title: 'An error occurred',
-        description: result.error,
-      });
-       const newErrorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: result.error,
-        originalContent: userInput, // Store original error trigger for reporting
-        timestamp: Date.now(),
-        isError: true,
-      };
-      addMessage(newErrorMessage);
-    }
-
-    setIsLoading(false);
+    await processMessage(userInput);
   };
   
   const handlePromptClick = (prompt: string) => {

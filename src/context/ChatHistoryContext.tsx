@@ -34,22 +34,46 @@ interface ChatHistoryContextType {
   updateCurrentSessionTitle: (title: string) => void;
   clearCurrentSession: () => void;
   loadSessions: () => void;
+  offlineQueue: Message[];
+  addToOfflineQueue: (message: Message) => void;
+  syncOfflineMessages: () => Promise<void>;
 }
 
 const ChatHistoryContext = createContext<ChatHistoryContextType | undefined>(undefined);
 
 const SESSIONS_STORAGE_KEY = 'chatSessions';
 const CURRENT_SESSION_KEY = 'currentSessionId';
+const OFFLINE_QUEUE_KEY = 'offlineQueue';
 
 export function ChatHistoryProvider({ children }: { children: ReactNode }) {
   const [sessions, setSessionsState] = useState<ChatSession[]>([]);
   const [currentSessionId, setCurrentSessionIdState] = useState<string | null>(null);
+  const [offlineQueue, setOfflineQueue] = useState<Message[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
     loadSessionsFromStorage();
+    const storedQueue = localStorage.getItem(OFFLINE_QUEUE_KEY);
+    if (storedQueue) {
+      try {
+        setOfflineQueue(JSON.parse(storedQueue));
+      } catch (e) {}
+    }
   }, []);
+
+  const addToOfflineQueue = (message: Message) => {
+    const updatedQueue = [...offlineQueue, message];
+    setOfflineQueue(updatedQueue);
+    localStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(updatedQueue));
+  };
+
+  const syncOfflineMessages = async () => {
+    // This is a placeholder for the actual sync logic which will be handled in ChatInterface
+    // but we clear the queue here
+    setOfflineQueue([]);
+    localStorage.removeItem(OFFLINE_QUEUE_KEY);
+  };
 
   const loadSessionsFromStorage = () => {
     try {
@@ -211,6 +235,9 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
         updateCurrentSessionTitle,
         clearCurrentSession,
         loadSessions,
+        offlineQueue,
+        addToOfflineQueue,
+        syncOfflineMessages,
       }}
     >
       {children}
