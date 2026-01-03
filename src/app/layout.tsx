@@ -184,10 +184,6 @@ export default function RootLayout({
             poppins.variable,
           )}
         >
-          <Script
-            src="https://my.hellobar.com/4fe5efe57e6d5c0a5537089958704c74668aef8f.js"
-            strategy="afterInteractive"
-          />
           {siteStatusConfig.mode === 'maintenance' && <MaintenanceOverlay />}
           {siteStatusConfig.mode === 'coming-soon' && <ComingSoonOverlay />}
           
