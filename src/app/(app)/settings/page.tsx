@@ -118,6 +118,8 @@ export default function SettingsPage() {
     setEnableAnimations,
     enableTypingIndicator,
     setEnableTypingIndicator,
+    biometricEnabled,
+    setBiometricEnabled,
   } = useAppContext();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -359,6 +361,22 @@ export default function SettingsPage() {
                   id="typing-switch"
                   checked={enableTypingIndicator}
                   onCheckedChange={setEnableTypingIndicator}
+                />
+              </div>
+              <div className="flex items-center justify-between rounded-lg border p-4 bg-primary/5 border-primary/20">
+                <div>
+                  <Label htmlFor="biometric-switch" className="font-semibold flex items-center gap-2">
+                    <Fingerprint className="h-4 w-4" />
+                    Biometric Security
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    Use Fingerprint or Face ID to lock the app.
+                  </p>
+                </div>
+                <Switch
+                  id="biometric-switch"
+                  checked={biometricEnabled}
+                  onCheckedChange={setBiometricEnabled}
                 />
               </div>
             </CardContent>

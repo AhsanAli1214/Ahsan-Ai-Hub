@@ -147,6 +147,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { announcementConfig } from "@/config/announcement";
+import { BiometricLock } from "@/components/BiometricLock";
 
 export default function RootLayout({
   children,
@@ -349,20 +350,22 @@ export default function RootLayout({
             <AppProvider>
               <ChatHistoryProvider>
                 <ReCaptchaScript />
-                <ErrorBoundary>
-                  {announcementConfig.showBanner && (
-                    <AnnouncementBanner
-                      id={announcementConfig.id}
-                      title={announcementConfig.title}
-                      message={announcementConfig.message}
-                      imageUrl={announcementConfig.imageUrl}
-                      senderName={announcementConfig.senderName}
-                      ctaText={announcementConfig.ctaText}
-                      ctaLink={announcementConfig.ctaLink}
-                    />
-                  )}
-                  <Suspense fallback={null}>{children}</Suspense>
-                </ErrorBoundary>
+                <BiometricLock>
+                  <ErrorBoundary>
+                    {announcementConfig.showBanner && (
+                      <AnnouncementBanner
+                        id={announcementConfig.id}
+                        title={announcementConfig.title}
+                        message={announcementConfig.message}
+                        imageUrl={announcementConfig.imageUrl}
+                        senderName={announcementConfig.senderName}
+                        ctaText={announcementConfig.ctaText}
+                        ctaLink={announcementConfig.ctaLink}
+                      />
+                    )}
+                    <Suspense fallback={null}>{children}</Suspense>
+                  </ErrorBoundary>
+                </BiometricLock>
                 <Toaster />
                 <CookieBanner />
                 <FeedbackDialog />

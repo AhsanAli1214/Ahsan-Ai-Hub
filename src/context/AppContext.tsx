@@ -25,6 +25,10 @@ interface AppContextType {
   setEnableAnimations: (enabled: boolean) => void;
   enableTypingIndicator: boolean;
   setEnableTypingIndicator: (enabled: boolean) => void;
+  biometricEnabled: boolean;
+  setBiometricEnabled: (enabled: boolean) => void;
+  isLocked: boolean;
+  setIsLocked: (locked: boolean) => void;
   clearChatHistory: () => void;
 }
 
@@ -37,6 +41,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageValue] = useState<Language>('en');
   const [enableAnimations, setEnableAnimationsValue] = useState(true);
   const [enableTypingIndicator, setEnableTypingIndicatorValue] = useState(true);
+  const [biometricEnabled, setBiometricEnabledValue] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -48,6 +54,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const storedLanguage = localStorage.getItem('language') as Language;
       const storedAnimations = localStorage.getItem('enableAnimations');
       const storedTyping = localStorage.getItem('enableTypingIndicator');
+      const storedBiometric = localStorage.getItem('biometricEnabled');
 
       if (storedApiKey) setGeminiApiKeyValue(storedApiKey);
       if (storedPersonality) setPersonalityModeValue(storedPersonality);
@@ -55,6 +62,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (storedLanguage) setLanguageValue(storedLanguage);
       if (storedAnimations) setEnableAnimationsValue(JSON.parse(storedAnimations));
       if (storedTyping) setEnableTypingIndicatorValue(JSON.parse(storedTyping));
+      if (storedBiometric === 'true') {
+        setBiometricEnabledValue(true);
+        setIsLocked(true);
+      }
     } catch (e) {
     }
   }, []);
@@ -105,6 +116,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const setBiometricEnabled = (enabled: boolean) => {
+    setBiometricEnabledValue(enabled);
+    if (isMounted) {
+      localStorage.setItem('biometricEnabled', JSON.stringify(enabled));
+      if (!enabled) setIsLocked(false);
+    }
+  };
+
   const clearChatHistory = () => {
     if (isMounted) {
         localStorage.removeItem('chatHistory');
@@ -123,6 +142,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         language, setLanguage,
         enableAnimations, setEnableAnimations,
         enableTypingIndicator, setEnableTypingIndicator,
+        biometricEnabled, setBiometricEnabled,
+        isLocked, setIsLocked,
         clearChatHistory,
     }}>
       {children}
