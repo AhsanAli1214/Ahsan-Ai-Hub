@@ -58,7 +58,7 @@ export const MaintenanceOverlay = () => {
 
           <div className="w-full max-w-md mb-12 flex flex-col items-center gap-4">
             <div className="text-white/60 text-sm font-medium">Get notified when we're back:</div>
-            <div className="onesignal-customlink-container w-full min-h-[60px]"></div>
+            <div id="onesignal-customlink-container" className="onesignal-customlink-container w-full min-h-[60px]"></div>
           </div>
 
           <div className="w-full grid gap-8 pt-10 border-t border-white/5">
