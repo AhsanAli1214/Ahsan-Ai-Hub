@@ -26,6 +26,7 @@ import {
   MessageCircle,
   MessageSquare,
   MessageSquareMore,
+  Fingerprint,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
