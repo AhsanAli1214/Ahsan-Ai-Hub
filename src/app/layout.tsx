@@ -406,6 +406,31 @@ export default function RootLayout({
               `,
                   }}
                 />
+                <Script
+                  id="sw-registration"
+                  strategy="afterInteractive"
+                  dangerouslySetInnerHTML={{
+                    __html: `
+                      if ('serviceWorker' in navigator) {
+                        window.addEventListener('load', function() {
+                          // Standard Service Worker for PWA
+                          navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function(registration) {
+                            console.log('PWA ServiceWorker registration successful with scope: ', registration.scope);
+                          }, function(err) {
+                            console.log('PWA ServiceWorker registration failed: ', err);
+                          });
+
+                          // Ensure OneSignal Worker is also registered properly
+                          navigator.serviceWorker.register('/OneSignalSDKWorker.js', { scope: '/' }).then(function(registration) {
+                            console.log('OneSignal Worker registration successful with scope: ', registration.scope);
+                          }).catch(function(err) {
+                            console.log('OneSignal Worker registration failed: ', err);
+                          });
+                        });
+                      }
+                    `,
+                  }}
+                />
               </ChatHistoryProvider>
             </AppProvider>
           </ThemeProvider>
