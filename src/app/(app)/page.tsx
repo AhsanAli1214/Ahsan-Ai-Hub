@@ -94,6 +94,8 @@ export default function HomePage() {
                   height={144} 
                   priority 
                   className="object-contain"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
