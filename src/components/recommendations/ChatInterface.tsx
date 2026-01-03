@@ -553,23 +553,23 @@ export function ChatInterface({
     };
   }, [messages.length, isLoading]);
 
-  const handleShare = async (text: string) => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Ahsan AI Hub Response',
-          text: text,
-          url: window.location.href,
-        });
-      } catch (err) {
-        if ((err as Error).name !== 'AbortError') {
-          handleCopy(text);
+    const handleShare = async (text: string) => {
+      if (typeof window !== 'undefined' && navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Ahsan AI Hub Response',
+            text: text,
+            url: window.location.href,
+          });
+        } catch (err) {
+          if ((err as Error).name !== 'AbortError') {
+            handleCopy(text);
+          }
         }
+      } else {
+        handleCopy(text);
       }
-    } else {
-      handleCopy(text);
-    }
-  };
+    };
 
   const handleReportError = async (error: string) => {
     try {
