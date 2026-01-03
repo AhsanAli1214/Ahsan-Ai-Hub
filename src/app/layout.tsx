@@ -166,6 +166,13 @@ export default function RootLayout({
             fetchPriority="high"
           />
           <link
+            rel="preload"
+            href="/og-image.png"
+            as="image"
+            type="image/png"
+            fetchPriority="low"
+          />
+          <link
             rel="preconnect"
             href="https://cdn.onesignal.com"
             crossOrigin="anonymous"
