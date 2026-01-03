@@ -33,7 +33,8 @@ function MessageBubble({
     isBuffering,
     onPauseAudio,
     onReportError,
-    onToggleOriginal
+    onToggleOriginal,
+    onShare
 }: { 
     message: Message, 
     onTranslate: (messageId: string, text: string, lang: Language) => void,
