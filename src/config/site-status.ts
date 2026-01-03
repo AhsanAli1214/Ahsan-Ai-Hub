@@ -9,7 +9,7 @@
 
 export const siteStatusConfig = {
   // SET MODE TO: 'maintenance', 'coming-soon', or 'live'
-  mode: "live",
+  mode: "coming soon",
 
   // 1. MAINTENANCE SETTINGS (For fixing errors)
   maintenance: {
