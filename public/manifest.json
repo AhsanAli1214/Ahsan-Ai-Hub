@@ -14,6 +14,18 @@
   "handle_links": "auto",
   "orientation": "any",
   "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+ahsanai",
+      "url": "/recommendations?q=%s"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://ahsan-ai-hub.vercel.app/manifest.json"
+    }
+  ],
   "icons": [
     {
       "src": "/icon-192.png?v=2025-12-27",

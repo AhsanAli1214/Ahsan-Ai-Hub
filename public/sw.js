@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ahsan-ai-hub-v2-2025-12-27';
+const CACHE_NAME = 'ahsan-ai-hub-v3-2026-01-03';
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
@@ -21,15 +21,21 @@ const ASSETS_TO_CACHE = [
   '/careers',
   '/docs',
   OFFLINE_URL,
-  '/icon-192.png?v=2025-12-27',
-  '/icon-512.png?v=2025-12-27',
-  '/icon-maskable-192.png?v=2025-12-27',
-  '/icon-maskable-512.png?v=2025-12-27',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/icon-maskable-192.png',
+  '/icon-maskable-512.png',
+  '/logo.png',
+  '/manifest.json'
 ];
+
+// Enhanced caching strategy with stale-while-revalidate for dynamic content
+const DYNAMIC_CACHE = 'ahsan-ai-dynamic-v1';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      console.log('Opened cache');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
