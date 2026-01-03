@@ -27,7 +27,6 @@ export const maintenanceConfig = {
     twitter: "https://twitter.com/Ahsan_Ali_12",
     github: "https://github.com/AhsanAli1214",
     instagram: "https://www.instagram.com/ahsan.ali.wadani",
-    linkedin: "https://linkedin.com/in/ahsanali" // Added LinkedIn
   },
 
   // UI CUSTOMIZATION
