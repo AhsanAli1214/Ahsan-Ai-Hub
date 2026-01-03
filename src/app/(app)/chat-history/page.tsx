@@ -13,15 +13,7 @@ export default function ChatHistoryPage() {
       <AppHeader title="Chat History" />
       <div className="flex-1 overflow-hidden">
         <div className="container max-w-4xl mx-auto h-full p-4 md:p-6">
-          <div className="bg-card border rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
-            <div className="p-4 border-b bg-muted/30">
-              <h2 className="text-lg font-semibold">Past Conversations</h2>
-              <p className="text-sm text-muted-foreground">Reuse, delete, or manage your chat history sessions.</p>
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <ChatHistory />
-            </div>
-          </div>
+          <ChatHistory />
         </div>
       </div>
     </div>

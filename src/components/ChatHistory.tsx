@@ -82,7 +82,11 @@ export function ChatHistory() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-background/50">
+    <div className="flex flex-col h-full bg-card border rounded-xl shadow-sm overflow-hidden">
+      <div className="p-4 border-b bg-muted/30">
+        <h2 className="text-lg font-semibold">Past Conversations</h2>
+        <p className="text-sm text-muted-foreground">Reuse, delete, or manage your chat history sessions.</p>
+      </div>
       <div className="p-4 border-b bg-card/50 backdrop-blur-sm space-y-3">
         <div className="flex gap-2">
           <Button
