@@ -68,6 +68,15 @@ export const metadata: Metadata = {
     "AI Voice Chat",
     "Personalized Learning Paths",
     "AI Presentation Designer",
+    "biometric AI lock",
+    "secure chat sharing",
+    "local chat history",
+    "private AI storage",
+    "anonymous AI backup",
+    "encrypted chat sync",
+    "biometric protected AI",
+    "share AI chat transcript",
+    "save AI conversation",
     "anonymous AI chat",
     "privacy-first AI",
     "no login AI assistant",
@@ -112,7 +121,7 @@ export const metadata: Metadata = {
     siteName: "Ahsan AI Hub by Ahsan Ali",
     title: "Ahsan AI Hub - #1 Best Free AI Assistant 2026 | No Login Required",
     description:
-      "Use Ahsan AI Hub for free: AI chat assistant, text rewriter, code explainer, math solver, and 50+ language translator. 100% private, no login, developed by Ahsan Ali.",
+      "Use Ahsan AI Hub for free: AI chat assistant, text rewriter, and code explainer. Features biometric lock for privacy, secure chat sharing, and local chat history saving. 100% private, no login, developed by Ahsan Ali.",
     images: [
       {
         url: "/og-image.png",
@@ -341,6 +350,9 @@ export default function RootLayout({
                     "AI Vision & Image Analysis",
                     "AI Video Summarization",
                     "Real-time AI Voice Interaction",
+                    "Biometric Privacy Lock",
+                    "Secure Chat Sharing & Export",
+                    "Local Chat History Management",
                   ],
                 },
                 {
