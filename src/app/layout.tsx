@@ -153,6 +153,12 @@ export const metadata: Metadata = {
   verification: {
     google: "C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4",
   },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "screen-orientation": "portrait",
+  },
 };
 
 import { ViewTransitions } from "next-view-transitions";
