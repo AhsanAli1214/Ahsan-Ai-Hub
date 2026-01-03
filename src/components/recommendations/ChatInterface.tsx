@@ -553,6 +553,37 @@ export function ChatInterface({
     };
   }, [messages.length, isLoading]);
 
+  const handleShare = async (text: string) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Ahsan AI Hub Response',
+          text: text,
+          url: window.location.href,
+        });
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          handleCopy(text);
+        }
+      }
+    } else {
+      handleCopy(text);
+    }
+  };
+
+  const handleReportError = async (error: string) => {
+    try {
+      await reportErrorAction({
+        errorMessage: error,
+        feature: 'AI Chat',
+        userAgent: navigator.userAgent,
+      });
+      toast({ title: 'Error reported', description: 'Thank you for helping us improve!' });
+    } catch (err) {
+      toast({ title: 'Report failed', description: 'Could not send report at this time.' });
+    }
+  };
+
   const handlePlayAudio = (id: string, text: string) => {
     setActiveMessageId(id);
     speakText(text, () => setActiveMessageId(null));
