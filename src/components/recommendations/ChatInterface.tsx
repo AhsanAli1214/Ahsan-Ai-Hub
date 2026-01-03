@@ -553,6 +553,16 @@ export function ChatInterface({
     };
   }, [messages.length, isLoading]);
 
+  const handlePlayAudio = (id: string, text: string) => {
+    setActiveMessageId(id);
+    speakText(text, () => setActiveMessageId(null));
+  };
+
+  const handlePauseAudio = () => {
+    stopSpeech();
+    setActiveMessageId(null);
+  };
+
   return (
     <div className="flex h-full w-full flex-col bg-background relative overflow-hidden">
       <div className="flex-1 overflow-hidden">
