@@ -437,7 +437,7 @@ export function ChatInterface({
         if (currentSession && currentSession.messages.length === 1) {
           updateCurrentSessionTitle(content.substring(0, 50) + (content.length > 50 ? '...' : ''));
         }
-      } else {
+      } else if (!result.success) {
         throw new Error(result.error || 'Failed to get AI response');
       }
     } catch (error) {
