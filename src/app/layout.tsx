@@ -58,7 +58,11 @@ export const metadata: Metadata = {
     'AI blog generator free', 'AI study assistant free', 'free AI translation online',
     'advanced AI companion', 'free AI productivity hub', 'unlimited free AI tools',
     'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026', 'Ahsan AI feedback', 'AI tool suggestions',
-    'privacy-first AI feedback', 'google genkit ai tools', 'nextjs 15 ai hub'
+    'privacy-first AI feedback', 'google genkit ai tools', 'nextjs 15 ai hub',
+    'free ChatGPT alternative no login', 'private AI content generator', 'no registration AI tools',
+    'AI email writer free', 'AI story generator free', 'free AI debugger online',
+    'best AI for students no login', 'anonymous AI writing assistant', 'Ahsan Ali Wadani developer',
+    'secure AI chat platform', 'AI productivity suite free'
   ],
   manifest: '/manifest.json',
   appleWebApp: {

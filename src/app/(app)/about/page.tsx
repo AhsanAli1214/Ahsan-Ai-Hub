@@ -34,7 +34,13 @@ export const metadata: Metadata = {
     'privacy-first AI mission',
     'free AI tools creator',
     'anonymous AI assistant',
-    'Ahsan Tech Hub about'
+    'Ahsan Tech Hub about',
+    'who is Ahsan Ali Wadani',
+    'Ahsan AI mission and vision',
+    'developer of Ahsan AI Hub',
+    'free AI project by Ahsan Ali',
+    'AI privacy advocacy',
+    'Pakistan AI developer'
   ],
   openGraph: {
     title: "About Ahsan AI Hub | Creator Ahsan Ali",

@@ -38,8 +38,8 @@ export async function GET() {
   <url>
     <loc>${baseUrl}${page}</loc>
     <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-    <changefreq>${page === '' || page === '/blog' ? 'daily' : 'weekly'}</changefreq>
-    <priority>${page === '' ? '1.0' : page.startsWith('/api') || page.startsWith('/terms') ? '0.3' : '0.8'}</priority>
+    <changefreq>${page === '' || page === '/blog' ? 'always' : 'weekly'}</changefreq>
+    <priority>${page === '' ? '1.0' : page.startsWith('/api') || page.startsWith('/terms') ? '0.3' : '0.9'}</priority>
   </url>`
     )
     .join('')}
