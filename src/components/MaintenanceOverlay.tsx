@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, Twitter, Github, Instagram, Facebook, Hammer, AlertTriangle, Sparkles } from "lucide-react";
 import { siteStatusConfig } from "@/config/site-status";
 import Image from "next/image";
+import { OneSignalButton } from "@/components/OneSignalButton";
 
 export const MaintenanceOverlay = () => {
   return (
@@ -51,9 +52,13 @@ export const MaintenanceOverlay = () => {
             </span>
           </h1>
           
-          <p className="max-w-xl mx-auto text-base sm:text-lg text-white/50 mb-12 leading-relaxed">
+          <p className="max-w-xl mx-auto text-base sm:text-lg text-white/50 mb-10 leading-relaxed">
             {siteStatusConfig.maintenance.description}
           </p>
+
+          <div className="w-full max-w-xs mb-12">
+            <OneSignalButton />
+          </div>
 
           <div className="w-full grid gap-8 pt-10 border-t border-white/5">
             <div className="flex flex-col items-center gap-4">
