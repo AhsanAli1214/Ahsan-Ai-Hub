@@ -84,7 +84,13 @@ export function AnnouncementBanner({
 
                 <div className="mb-4 flex items-center gap-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20 text-primary border border-primary/20 shadow-xl shadow-primary/20">
-                    <AhsanAiHubLogo width={48} height={48} className="text-primary" />
+                    <Image 
+                      src="/logo.png" 
+                      alt="Ahsan AI Hub" 
+                      width={48} 
+                      height={48} 
+                      className="object-contain"
+                    />
                   </div>
                   <div>
                     <h3 className="text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>

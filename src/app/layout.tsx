@@ -233,24 +233,28 @@ export default function RootLayout({
             content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
           />
           <meta httpEquiv="x-dns-prefetch-control" content="on" />
-          <Script
-            id="theme-init"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
               (function() {
-                const theme = localStorage.getItem('selectedColorTheme') || 'default';
-                document.documentElement.setAttribute('data-theme', theme);
-                const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-                if (isDark) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
+                try {
+                  const theme = localStorage.getItem('selectedColorTheme') || 'default';
+                  document.documentElement.setAttribute('data-theme', theme);
+                  const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {
+                  console.error('Theme init failed', e);
                 }
               })();
             `,
-            }}
-          />
+          }}
+        />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{

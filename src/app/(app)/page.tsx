@@ -85,28 +85,35 @@ export default function HomePage() {
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <article className="mx-auto max-w-4xl space-y-8">
           <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
-            <div className="flex items-center gap-4 md:gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
               <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
-                <AhsanAiHubLogo width={144} height={144} fillContainer className="text-accent-foreground" priority />
+                <Image 
+                  src="/logo.png" 
+                  alt="Ahsan AI Hub Logo" 
+                  width={144} 
+                  height={144} 
+                  priority 
+                  className="object-contain"
+                />
               </div>
-              <div className="flex-1">
-                <h2 id="hero-heading" className="font-headline text-3xl font-bold md:text-4xl">Ahsan Ai Hub</h2>
-                <p className="mt-1 text-lg text-accent-foreground/90">Your Intelligent AI Companion</p>
-                <div className="mt-3 flex items-center gap-2">
+              <div className="flex-1 text-center md:text-left">
+                <h2 id="hero-heading" className="font-headline text-3xl font-bold md:text-4xl tracking-tight">Ahsan Ai Hub</h2>
+                <p className="mt-1 text-lg text-accent-foreground/90 leading-tight">Your Intelligent AI Companion</p>
+                <div className="mt-3 flex items-center justify-center md:justify-start gap-2">
                   <div className="h-px w-8 bg-accent-foreground/30" aria-hidden="true" />
                   <p className="text-xs font-black uppercase tracking-[0.2em] text-accent-foreground/70">
-                    Developed by <span className="text-accent-foreground">Ahsan Ali</span>
+                    Developed by <span className="text-accent-foreground font-bold">Ahsan Ali Wadani</span>
                   </p>
                 </div>
               </div>
-              <Button asChild size="lg" variant="secondary" className="hidden md:flex" aria-label="Start chatting with AI">
+              <Button asChild size="lg" variant="secondary" className="hidden md:flex shadow-lg" aria-label="Start chatting with AI">
                 <Link href="/recommendations">
                   <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                   Start Chatting
                 </Link>
               </Button>
             </div>
-            <Button asChild size="lg" variant="secondary" className="mt-6 w-full md:hidden" aria-label="Start chatting with AI">
+            <Button asChild size="lg" variant="secondary" className="mt-6 w-full md:hidden shadow-lg h-14" aria-label="Start chatting with AI">
               <Link href="/recommendations" className="justify-center">
                 <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
                 Start Chatting
