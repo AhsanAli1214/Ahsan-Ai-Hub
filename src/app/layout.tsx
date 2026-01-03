@@ -398,38 +398,6 @@ export default function RootLayout({
                     try {
                       await OneSignal.init({
                         appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                        safari_web_id: "web.onesignal.auto.145674d8-00a8-48b8-80f0-864708765432", 
-                        serviceWorkerParam: { scope: "/" },
-                        serviceWorkerPath: "OneSignalSDKWorker.js",
-                        allowLocalhostAsSecureOrigin: true,
-                        autoResubscribe: true,
-                        notifyButton: {
-                          enable: false,
-                        },
-                        display: "dialog",
-                        notificationDisplayOrder: "desc",
-                        notificationDisplayType: "default",
-                        promptOptions: {
-                          slidedown: {
-                            enabled: true,
-                            autoPrompt: true,
-                            timeDelay: 5,
-                            pageViews: 1,
-                          }
-                        }
-                      });
-
-                      // App Badging Support
-                      OneSignal.Notifications.addEventListener('notificationDisplay', function() {
-                        if ('setAppBadge' in navigator) {
-                          navigator.setAppBadge(1).catch(() => {});
-                        }
-                      });
-
-                      OneSignal.Notifications.addEventListener('dismiss', function() {
-                        if ('clearAppBadge' in navigator) {
-                          navigator.clearAppBadge().catch(() => {});
-                        }
                       });
                     } catch (e) {
                       // Silent error handling for OneSignal
