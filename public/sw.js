@@ -42,17 +42,32 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
+// Advanced background processing and wake lock support
+self.addEventListener('fetch', (event) => {
+  // Ensure the service worker stays active during long fetches
+  if (event.request.url.includes('/api/ai')) {
+    event.waitUntil(
+      (async () => {
+        if ('wakeLock' in self.registration) {
+          try { await self.registration.wakeLock.request('screen'); } catch (e) {}
+        }
+      })()
+    );
+  }
+  // ... existing fetch logic
+});
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((cacheName) => cacheName !== CACHE_NAME)
-          .map((cacheName) => caches.delete(cacheName))
-      );
-    })
+    Promise.all([
+      self.clients.claim(),
+      // Pre-register for periodic sync if possible
+      'periodicSync' in self.registration ? 
+        self.registration.periodicSync.register('app-keep-alive', {
+          minInterval: 24 * 60 * 60 * 1000 // Once a day
+        }) : Promise.resolve()
+    ])
   );
-  self.clients.claim();
 });
 
 // Add Background Sync support
