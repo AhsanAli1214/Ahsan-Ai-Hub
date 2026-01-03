@@ -25,7 +25,7 @@ export function FeedbackDialog() {
       const timer = setTimeout(() => {
         setIsOpen(true);
         localStorage.setItem('feedback-prompt-date', today);
-      }, 30000); // Show after 30 seconds of activity
+      }, 300000); // Show after 5 minutes of activity (300,000 ms)
       
       return () => clearTimeout(timer);
     }
