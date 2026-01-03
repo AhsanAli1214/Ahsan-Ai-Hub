@@ -34,9 +34,9 @@ export function ConnectionStatus() {
         });
       }
 
-      // Hide status indicator after 5 seconds if online
+      // Hide status indicator after 3 seconds if online
       if (online) {
-        const timer = setTimeout(() => setShowStatus(false), 5000);
+        const timer = setTimeout(() => setShowStatus(false), 3000);
         return () => clearTimeout(timer);
       }
     };
