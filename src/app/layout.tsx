@@ -384,37 +384,37 @@ export default function RootLayout({
                 </Suspense>
                 <Analytics mode={"production"} />
                 <SpeedInsights />
-                {/* Load OneSignal with lower priority */}
-                <Script
-                  src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-                  strategy="worker"
-                  async
-                />
-                <Script
-                  id="onesignal-init"
-                  strategy="lazyOnload"
-                  dangerouslySetInnerHTML={{
-                    __html: `
-                  window.OneSignalDeferred = window.OneSignalDeferred || [];
-                  OneSignalDeferred.push(async function(OneSignal) {
-                    try {
-                      await OneSignal.init({
-                        appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                        allowLocalhostAsSecureOrigin: true,
-                        serviceWorkerParam: { scope: "/" },
-                        serviceWorkerPath: "OneSignalSDKWorker.js",
-                      });
-                    } catch (e) {
-                      // Silent error handling for OneSignal
-                    }
-                  });
-              `,
-                  }}
-                />
-                <Script
-                  src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
-                  strategy="lazyOnload"
-                />
+          {/* Load OneSignal with lower priority */}
+          <Script
+            src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+            strategy="lazyOnload"
+            async
+          />
+          <Script
+            id="onesignal-init"
+            strategy="lazyOnload"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.OneSignalDeferred = window.OneSignalDeferred || [];
+            OneSignalDeferred.push(async function(OneSignal) {
+              try {
+                await OneSignal.init({
+                  appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                  allowLocalhostAsSecureOrigin: true,
+                  serviceWorkerParam: { scope: "/" },
+                  serviceWorkerPath: "OneSignalSDKWorker.js",
+                });
+              } catch (e) {
+                // Silent error handling for OneSignal
+              }
+            });
+        `,
+            }}
+          />
+          <Script
+            src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
+            strategy="lazyOnload"
+          />
                 <Script
                   id="sw-registration"
                   strategy="afterInteractive"
