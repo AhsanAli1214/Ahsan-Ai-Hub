@@ -89,6 +89,16 @@ self.addEventListener('sync', (event) => {
   }
 });
 
+// Wake Lock support to keep process alive
+let wakeLock = null;
+const requestWakeLock = async () => {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+    }
+  } catch (err) {}
+};
+
 // Content Indexing API
 if ('index' in self.registration) {
   self.registration.index.add({
@@ -143,30 +153,30 @@ self.addEventListener('push', (event) => {
     body: data.body || 'New update available!',
     icon: '/icon-192.png',
     badge: '/icon-192.png',
-    vibrate: [100, 50, 100],
+    vibrate: [200, 100, 200],
+    tag: 'ahsan-ai-push',
+    renotify: true,
+    requireInteraction: true,
     data: {
       url: data.url || '/',
-      dateOfArrival: Date.now(),
-      primaryKey: '1'
+      arrival: Date.now()
     },
     actions: [
-      { action: 'explore', title: 'Open App', icon: '/icon-192.png' },
-      { action: 'close', title: 'Close', icon: '/icon-192.png' }
-    ],
-    tag: 'ahsan-ai-notification',
-    renotify: true,
-    requireInteraction: true
+      { action: 'open', title: 'Open App' },
+      { action: 'close', title: 'Dismiss' }
+    ]
   };
   
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
-      // Logic to only show notification if not already in focus or if specifically requested
-      const isAppInstalled = self.matchMedia && self.matchMedia('(display-mode: standalone)').matches;
-      
-      return Promise.all([
-        self.registration.showNotification(title, options),
-        updateBadge(1)
-      ]);
+      // Check if any client is already open and in standalone mode
+      const isAppWindowOpen = clients.some(client => 
+        client.visibilityState === 'visible' && 
+        client.url.includes(self.location.origin)
+      );
+
+      // We always show notification for the PWA specifically
+      return self.registration.showNotification(title, options);
     })
   );
 });
