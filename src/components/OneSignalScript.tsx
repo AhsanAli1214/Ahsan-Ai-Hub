@@ -12,7 +12,7 @@ export function OneSignalScript() {
       <Script id="onesignal-init" strategy="afterInteractive">
         {`
           window.OneSignalDeferred = window.OneSignalDeferred || [];
-          OneSignalDeferred.push(async function(OneSignal) {
+          window.OneSignalDeferred.push(async function(OneSignal) {
             await OneSignal.init({
               appId: "8a693786-f992-42d3-adfb-56a230adcea5",
               safari_web_id: "web.onesignal.auto.123456789",
