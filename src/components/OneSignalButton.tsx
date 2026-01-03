@@ -14,26 +14,21 @@ declare global {
 
 export function OneSignalButton() {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start as false to avoid stuck loading
   const [isSupported, setIsSupported] = useState(true);
   const { toast } = useToast();
 
   const updateStatus = async () => {
-    if (typeof window !== 'undefined' && window.OneSignal) {
+    if (typeof window !== 'undefined' && window.OneSignal && typeof window.OneSignal.Notifications !== 'undefined') {
       try {
         const isOptedIn = await window.OneSignal.User.PushSubscription.optedIn;
         const isOptedOut = await window.OneSignal.User.PushSubscription.optedOut;
         const permission = await window.OneSignal.Notifications.permission;
         
-        // Correct logic: Subscribed means optedIn is true AND optedOut is false AND permission is granted
         setIsSubscribed(isOptedIn && !isOptedOut && (permission === true || permission === 'granted'));
-        
-        // Force a small delay to ensure the UI catches up with OneSignal's internal state
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 300);
       } catch (err) {
         console.error("Status Update Error:", err);
+      } finally {
         setIsLoading(false);
       }
     } else {
@@ -45,48 +40,42 @@ export function OneSignalButton() {
     if (typeof window !== 'undefined') {
       if (!('Notification' in window)) {
         setIsSupported(false);
-        setIsLoading(false);
         return;
       }
 
       const initOneSignal = async () => {
-        if (window.OneSignal) {
+        if (window.OneSignal && window.OneSignal.Notifications) {
           await updateStatus();
           
-          // Use correct event listeners for OneSignal v16+
           window.OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
           
-          // Ensure we also listen for subscription changes
           if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
              window.OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
-          }
-          
-          // Add a listener for the native notification permission change if possible
-          if (navigator.permissions && navigator.permissions.query) {
-            navigator.permissions.query({ name: 'notifications' as PermissionName }).then((permissionStatus) => {
-              permissionStatus.onchange = () => {
-                updateStatus();
-              };
-            });
           }
         }
       };
 
+      // Start loading while we check for OneSignal
+      setIsLoading(true);
+
       const checkOneSignal = setInterval(() => {
-        if (window.OneSignal) {
+        if (window.OneSignal && window.OneSignal.initialized) {
           clearInterval(checkOneSignal);
           initOneSignal();
         }
       }, 500);
 
-      setTimeout(() => clearInterval(checkOneSignal), 5000);
+      // Safety timeout to clear loading if SDK fails to load
+      const timeout = setTimeout(() => {
+        clearInterval(checkOneSignal);
+        setIsLoading(false);
+      }, 5000);
       
       return () => {
-        if (window.OneSignal) {
+        clearInterval(checkOneSignal);
+        clearTimeout(timeout);
+        if (window.OneSignal && window.OneSignal.Notifications) {
           window.OneSignal.Notifications.removeEventListener('permissionChange', updateStatus);
-          if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
-             window.OneSignal.User.PushSubscription.removeEventListener('change', updateStatus);
-          }
         }
       };
     }

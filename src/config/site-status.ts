@@ -23,7 +23,7 @@ export const siteStatusConfig = {
   comingSoon: {
     targetDate: "2026-01-05T14:00:00Z",
     siteName: "Ahsan AI Hub",
-    tagline: "The Next Generation of AI",
+    tagline: "Coming Soon",
     description:
       "We're building the most powerful privacy-first AI companion. Something revolutionary is coming soon.",
     logo: "/logo.png",
@@ -34,6 +34,6 @@ export const siteStatusConfig = {
     twitter: "https://twitter.com/Ahsan_Ali_12",
     github: "https://github.com/AhsanAli1214",
     instagram: "https://www.instagram.com/ahsan.ali.wadani",
-    facebook: "https://www.facebook.com/AhsanAliWadani",
+    facebook: "https://www.facebook.com/share/1KRmSR3jXS/",
   },
 };

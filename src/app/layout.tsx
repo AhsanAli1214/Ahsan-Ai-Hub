@@ -166,6 +166,8 @@ import { siteStatusConfig } from "@/config/site-status";
 import { MaintenanceOverlay } from "@/components/MaintenanceOverlay";
 import { ComingSoonOverlay } from "@/components/ComingSoonOverlay";
 
+import { OneSignalScript } from "@/components/OneSignalScript";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -175,7 +177,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <head>
-          {/* ... existing head ... */}
+          <OneSignalScript />
         </head>
         <body
           className={cn(
