@@ -9,19 +9,19 @@
 
 export const siteStatusConfig = {
   // SET MODE TO: 'maintenance', 'coming-soon', or 'live'
-  mode: "maintenance",
+  mode: "coming-soon",
 
   // 1. MAINTENANCE SETTINGS (For fixing errors)
   maintenance: {
     title: "Maintenance Mode",
     description:
-      "We're currently performing some technical updates to improve your experience. We'll be back online in a few minutes.",
+      "We're currently performing some technical updates to improve your experience. We'll be back online.",
     contactEmail: "support@ahsan-ai-hub.com",
   },
 
   // 2. COMING SOON SETTINGS (For official launch)
   comingSoon: {
-    targetDate: "2026-01-20T00:00:00Z",
+    targetDate: "2026-01-05T14:00:00Z",
     siteName: "Ahsan AI Hub",
     tagline: "The Next Generation of AI",
     description:
@@ -34,6 +34,6 @@ export const siteStatusConfig = {
     twitter: "https://twitter.com/Ahsan_Ali_12",
     github: "https://github.com/AhsanAli1214",
     instagram: "https://www.instagram.com/ahsan.ali.wadani",
-    facebook: "https://www.facebook.com/AhsanAliWadani",
+    linkedin: "https://linkedin.com/in/ahsanali",
   },
 };
