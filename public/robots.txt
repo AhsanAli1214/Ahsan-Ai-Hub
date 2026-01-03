@@ -1,13 +1,4 @@
-# *
 User-agent: *
 Allow: /
 
-# Googlebot
-User-agent: Googlebot
-Allow: /
-
-# Host
-Host: https://ahsan-ai-hub.vercel.app
-
-# Sitemaps
-Sitemap: https://ahsan-ai-hub.vercel.app/sitemap.xml
+Sitemap: https://ahsan-ai-hub.vercel.app/api/sitemap
