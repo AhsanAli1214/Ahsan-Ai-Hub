@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Mail, Twitter, Github, Instagram, Linkedin, Rocket } from "lucide-react";
+import { Timer, Mail, Twitter, Github, Instagram, Facebook, Rocket } from "lucide-react";
 import { siteStatusConfig } from "@/config/site-status";
 import Image from "next/image";
 
@@ -103,7 +103,7 @@ export const ComingSoonOverlay = () => {
                 { icon: Twitter, href: siteStatusConfig.socials.twitter },
                 { icon: Github, href: siteStatusConfig.socials.github },
                 { icon: Instagram, href: siteStatusConfig.socials.instagram },
-                { icon: Linkedin, href: siteStatusConfig.socials.linkedin }
+                { icon: Facebook, href: siteStatusConfig.socials.facebook }
               ].map((social, i) => (
                 <a 
                   key={i} 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Mail, Twitter, Github, Instagram, Linkedin, Hammer, AlertTriangle, Sparkles } from "lucide-react";
+import { Mail, Twitter, Github, Instagram, Facebook, Hammer, AlertTriangle, Sparkles } from "lucide-react";
 import { siteStatusConfig } from "@/config/site-status";
 import Image from "next/image";
 
@@ -74,7 +74,7 @@ export const MaintenanceOverlay = () => {
                 { icon: Twitter, href: siteStatusConfig.socials.twitter },
                 { icon: Github, href: siteStatusConfig.socials.github },
                 { icon: Instagram, href: siteStatusConfig.socials.instagram },
-                { icon: Linkedin, href: siteStatusConfig.socials.linkedin }
+                { icon: Facebook, href: siteStatusConfig.socials.facebook }
               ].map((social, i) => (
                 <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-all">
                   <social.icon className="w-6 h-6" />
