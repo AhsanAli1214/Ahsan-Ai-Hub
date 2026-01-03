@@ -458,6 +458,7 @@ export default function SettingsPage() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device.
               </p>
+              <div className='onesignal-customlink-container mb-4'></div>
               <OneSignalButton />
             </CardContent>
           </Card>
