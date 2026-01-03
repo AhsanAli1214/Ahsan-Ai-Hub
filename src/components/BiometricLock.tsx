@@ -14,7 +14,15 @@ export function BiometricLock({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined' && 'PublicKeyCredential' in window) {
       setIsMounted(true);
     }
-  }, []);
+    
+    // Auto-trigger biometric prompt on mount if locked and enabled
+    if (biometricEnabled && isLocked) {
+      const timer = setTimeout(() => {
+        handleUnlock();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [biometricEnabled, isLocked]);
 
   const handleUnlock = async () => {
     if (!biometricEnabled) return;

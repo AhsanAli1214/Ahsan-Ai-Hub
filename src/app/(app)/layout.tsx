@@ -14,19 +14,23 @@ const BottomNav = dynamic(() => import("@/components/layout/BottomNav").then(mod
 });
 const FooterWrapper = dynamic(() => import("@/components/layout/FooterWrapper").then(mod => mod.FooterWrapper), { ssr: false });
 
+import { BiometricLock } from "@/components/BiometricLock";
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen w-full flex-col md:flex-row md:justify-center">
-        <AppSidebar />
-        <main className="flex-1 flex flex-col min-h-screen md:max-w-7xl w-full">
-          <div className="flex-1 pb-24 md:pb-0">
-            {children}
-          </div>
-          <FooterWrapper />
-        </main>
-        <BottomNav />
-      </div>
+      <BiometricLock>
+        <div className="relative flex min-h-screen w-full flex-col md:flex-row md:justify-center">
+          <AppSidebar />
+          <main className="flex-1 flex flex-col min-h-screen md:max-w-7xl w-full">
+            <div className="flex-1 pb-24 md:pb-0">
+              {children}
+            </div>
+            <FooterWrapper />
+          </main>
+          <BottomNav />
+        </div>
+      </BiometricLock>
     </SidebarProvider>
   );
 }
