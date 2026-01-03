@@ -553,7 +553,12 @@ export function ChatInterface({
     };
   }, [messages.length, isLoading]);
 
-    const handleShare = async (text: string) => {
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast({ title: 'Copied to clipboard' });
+  };
+
+  const handleShare = async (text: string) => {
       if (typeof window !== 'undefined' && navigator.share) {
         try {
           await navigator.share({
