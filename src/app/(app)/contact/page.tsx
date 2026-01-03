@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { AppHeader } from '@/components/layout/AppHeader';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ContactForm } from '@/components/ContactForm';
-import { 
-  Mail, 
-  MessageSquare, 
-  Twitter, 
+import Link from "next/link";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ContactForm } from "@/components/ContactForm";
+import {
+  Mail,
+  MessageSquare,
+  Twitter,
   Facebook,
   Globe,
   Clock,
@@ -19,20 +19,20 @@ import {
   ShieldCheck,
   Zap,
   Star,
-  MessageCircle
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
+  MessageCircle,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function ContactPage() {
   useEffect(() => {
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', "https://ahsan-ai-hub.vercel.app/contact");
+    canonical.setAttribute("href", "https://ahsan-ai-hub.vercel.app/contact");
   }, []);
 
   const SUPPORT_EMAIL = "tickets@ahsan-ai-hub.p.tawk.email";
@@ -40,34 +40,52 @@ export default function ContactPage() {
   const handleWhatsAppOpen = () => {
     const pageTitle = document.title;
     const pageUrl = window.location.href;
-    const phoneNumber = "15557818398";
-    const message = `Hello Ahsan AI Hub Support, I need help regarding your AI tools on "${pageTitle}". Page link: ${pageUrl}. Thanks!`;
+    const phoneNumber = "15557646555";
+    const device = /Mobi|Android/i.test(navigator.userAgent)
+      ? "Mobile"
+      : "Desktop";
+    const time = new Date().toLocaleString();
+    const message = `Hello Ahsan AI Hub Support Team 👋,
+
+I’m contacting you regarding assistance with Ahsan AI Hub.
+
+📌 Reason:
+• Support / Inquiry / Error Report
+
+🔹 Page: ${pageTitle}
+🔹 URL: ${pageUrl}
+🔹 Device: ${device}
+🔹 Time: ${time}
+
+Please assist me at your earliest convenience.
+Thank you for your support! 🙏`;
     const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(waLink, '_blank');
+    window.open(waLink, "_blank");
   };
 
   const contactSchema = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    "name": "Contact Ahsan AI Hub",
-    "description": "Direct contact channels for Ahsan AI Hub support and collaboration.",
-    "url": "https://ahsan-ai-hub.vercel.app/contact",
-    "mainEntity": {
+    name: "Contact Ahsan AI Hub",
+    description:
+      "Direct contact channels for Ahsan AI Hub support and collaboration.",
+    url: "https://ahsan-ai-hub.vercel.app/contact",
+    mainEntity: {
       "@type": "Organization",
-      "name": "Ahsan AI Hub",
-      "contactPoint": [
+      name: "Ahsan AI Hub",
+      contactPoint: [
         {
           "@type": "ContactPoint",
-          "email": SUPPORT_EMAIL,
-          "contactType": "customer support"
-        }
+          email: SUPPORT_EMAIL,
+          contactType: "customer support",
+        },
       ],
-      "sameAs": [
+      sameAs: [
         "https://www.instagram.com/ahsan.ali.wadani",
         "https://x.com/Ahsan_Ali_12?s=09",
-        "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu"
-      ]
-    }
+        "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu",
+      ],
+    },
   };
 
   const contactMethods = [
@@ -75,27 +93,30 @@ export default function ContactPage() {
       icon: Mail,
       title: "Email Support",
       value: SUPPORT_EMAIL,
-      description: "For official inquiries and technical support tickets. We respond to all queries within 24 hours.",
+      description:
+        "For official inquiries and technical support tickets. We respond to all queries within 24 hours.",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
       link: `mailto:${SUPPORT_EMAIL}`,
-      badge: "Official"
+      badge: "Official",
     },
     {
       icon: MessageSquare,
       title: "Instagram Support",
       value: "@ahsan.ali.wadani",
-      description: "Get quick assistance and stay updated on the latest AI features through our Instagram community.",
+      description:
+        "Get quick assistance and stay updated on the latest AI features through our Instagram community.",
       color: "text-pink-500",
       bg: "bg-pink-500/10",
       link: "https://www.instagram.com/ahsan.ali.wadani",
-      badge: "Fastest"
+      badge: "Fastest",
     },
     {
       icon: Twitter,
       title: "X (Twitter) Updates",
       value: "@Ahsan_Ali_12",
-      description: "Follow us for real-time updates, AI news, and productivity tips from the Ahsan AI Hub team.",
+      description:
+        "Follow us for real-time updates, AI news, and productivity tips from the Ahsan AI Hub team.",
       color: "text-sky-500",
       bg: "bg-sky-500/10",
       link: "https://x.com/Ahsan_Ali_12?s=09",
@@ -104,58 +125,72 @@ export default function ContactPage() {
       icon: Facebook,
       title: "Facebook Community",
       value: "Ahsan Ali",
-      description: "Join our growing community on Facebook to share ideas and get the most out of our AI tools.",
+      description:
+        "Join our growing community on Facebook to share ideas and get the most out of our AI tools.",
       color: "text-blue-600",
       bg: "bg-blue-600/10",
       link: "https://www.facebook.com/profile.php?id=100091175299202&mibextid=PzaGJu",
-    }
+    },
   ];
 
   const features = [
     { icon: Clock, text: "24/7 Global Support" },
     { icon: Zap, text: "Rapid Response Time" },
     { icon: ShieldCheck, text: "Secure Communication" },
-    { icon: Star, text: "Priority for PWA Users" }
+    { icon: Star, text: "Priority for PWA Users" },
   ];
 
   return (
-    <main className="flex h-full w-full flex-col bg-background selection:bg-primary/20" aria-labelledby="contact-heading">
+    <main
+      className="flex h-full w-full flex-col bg-background selection:bg-primary/20"
+      aria-labelledby="contact-heading"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSchema) }}
       />
       <AppHeader title="Contact & Support" />
-      
+
       <div className="flex-1 overflow-y-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
           {/* Hero Section */}
           <div className="mb-20 text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] sm:text-xs font-black text-primary uppercase tracking-[0.2em] animate-fade-in" aria-hidden="true">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] sm:text-xs font-black text-primary uppercase tracking-[0.2em] animate-fade-in"
+              aria-hidden="true"
+            >
               <Sparkles className="h-3.5 w-3.5" />
               Direct Connection
             </div>
-            <h1 id="contact-heading" className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]">
+            <h1
+              id="contact-heading"
+              className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]"
+            >
               Get in <span className="text-primary">Touch</span>
             </h1>
             <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">
-              Skip the forms. Connect with us directly through our official channels for the fastest support and collaboration.
+              Skip the forms. Connect with us directly through our official
+              channels for the fastest support and collaboration.
             </p>
 
             <div className="pt-8 flex justify-center">
-              <Button 
+              <Button
                 onClick={handleWhatsAppOpen}
-                size="lg" 
+                size="lg"
                 className="h-16 px-10 rounded-[2rem] font-black text-lg uppercase tracking-widest gap-4 shadow-2xl shadow-green-500/20 bg-green-600 hover:bg-green-700 text-white transition-all hover:scale-105 active:scale-95"
               >
                 <MessageCircle className="h-6 w-6 fill-current" />
                 Chat on WhatsApp
               </Button>
             </div>
-            
+
             {/* Quick Stats/Features */}
             <div className="flex flex-wrap justify-center gap-4 sm:gap-8 pt-6">
               {features.map((feature, i) => (
-                <div key={i} className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest">
+                <div
+                  key={i}
+                  className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-widest"
+                >
                   <feature.icon className="h-4 w-4 text-primary/60" />
                   {feature.text}
                 </div>
@@ -171,28 +206,35 @@ export default function ContactPage() {
           {/* Divider Section */}
           <div className="my-12 flex items-center gap-4">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Or Connect Via</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+              Or Connect Via
+            </span>
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
           </div>
 
           {/* Contact Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {contactMethods.map((method, idx) => (
-              <a 
-                key={idx} 
-                href={method.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                key={idx}
+                href={method.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group"
               >
                 <Card className="h-full relative overflow-hidden border-border/50 bg-card/40 backdrop-blur-md transition-all duration-500 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1.5 rounded-[2.5rem]">
                   <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0">
                     <ArrowUpRight className="h-6 w-6 text-primary" />
                   </div>
-                  
+
                   <CardContent className="p-8 sm:p-10 flex flex-col h-full">
                     <div className="flex items-center justify-between mb-8">
-                      <div className={cn("rounded-2xl p-4 transition-all duration-500 group-hover:scale-110", method.bg)}>
+                      <div
+                        className={cn(
+                          "rounded-2xl p-4 transition-all duration-500 group-hover:scale-110",
+                          method.bg,
+                        )}
+                      >
                         <method.icon className={cn("h-8 w-8", method.color)} />
                       </div>
                       {method.badge && (
@@ -201,7 +243,7 @@ export default function ContactPage() {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="space-y-3 flex-1">
                       <h3 className="text-2xl font-black text-foreground group-hover:text-primary transition-colors">
                         {method.title}
@@ -210,7 +252,7 @@ export default function ContactPage() {
                         {method.description}
                       </p>
                     </div>
-                    
+
                     <div className="mt-8 pt-8 border-t border-border/40">
                       <p className="text-sm font-black text-primary break-all tracking-tight flex items-center gap-2">
                         {method.value}
@@ -225,9 +267,9 @@ export default function ContactPage() {
 
           {/* Portfolio/Website Section */}
           <div className="mt-12">
-            <a 
-              href="https://ahsan-tech-hub.blogspot.com/" 
-              target="_blank" 
+            <a
+              href="https://ahsan-tech-hub.blogspot.com/"
+              target="_blank"
               rel="noopener noreferrer"
               className="group block"
             >
@@ -238,8 +280,12 @@ export default function ContactPage() {
                       <Globe className="h-8 w-8 text-primary" />
                     </div>
                     <div className="text-center sm:text-left">
-                      <h3 className="text-2xl font-black text-foreground">Official Portfolio</h3>
-                      <p className="font-bold text-muted-foreground">Discover more projects and technical articles.</p>
+                      <h3 className="text-2xl font-black text-foreground">
+                        Official Portfolio
+                      </h3>
+                      <p className="font-bold text-muted-foreground">
+                        Discover more projects and technical articles.
+                      </p>
                     </div>
                   </div>
                   <Button className="rounded-2xl h-14 px-8 font-black text-sm uppercase tracking-widest gap-3 shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
@@ -256,9 +302,14 @@ export default function ContactPage() {
             <div className="space-y-8">
               {/* Compliance Notice */}
               <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8 space-y-4">
-                <h3 className="text-lg font-black text-foreground">Your Privacy & Security</h3>
+                <h3 className="text-lg font-black text-foreground">
+                  Your Privacy & Security
+                </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  At Ahsan AI Hub, we are committed to protecting your data and privacy. We comply with international data protection standards and implement industry-leading security measures to safeguard your personal information.
+                  At Ahsan AI Hub, we are committed to protecting your data and
+                  privacy. We comply with international data protection
+                  standards and implement industry-leading security measures to
+                  safeguard your personal information.
                 </p>
               </div>
 
@@ -266,18 +317,28 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card className="border-border/50 bg-card/40 backdrop-blur-md rounded-2xl p-6">
                   <CardContent className="p-0 space-y-3">
-                    <h4 className="font-black text-foreground text-base">Privacy Policy</h4>
+                    <h4 className="font-black text-foreground text-base">
+                      Privacy Policy
+                    </h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      We collect and process data to provide our services. Your information is protected with modern encryption and is never shared with third parties without your consent. Learn how we handle your data.
+                      We collect and process data to provide our services. Your
+                      information is protected with modern encryption and is
+                      never shared with third parties without your consent.
+                      Learn how we handle your data.
                     </p>
                   </CardContent>
                 </Card>
 
                 <Card className="border-border/50 bg-card/40 backdrop-blur-md rounded-2xl p-6">
                   <CardContent className="p-0 space-y-3">
-                    <h4 className="font-black text-foreground text-base">Terms of Service</h4>
+                    <h4 className="font-black text-foreground text-base">
+                      Terms of Service
+                    </h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      By using Ahsan AI Hub, you agree to our terms and conditions. Our service is provided as-is and we reserve the right to modify terms with notice. Please review our full terms before using our platform.
+                      By using Ahsan AI Hub, you agree to our terms and
+                      conditions. Our service is provided as-is and we reserve
+                      the right to modify terms with notice. Please review our
+                      full terms before using our platform.
                     </p>
                   </CardContent>
                 </Card>
