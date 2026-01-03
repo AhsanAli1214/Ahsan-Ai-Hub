@@ -145,6 +145,69 @@ export default function SettingsPage() {
     }
   };
 
+  const handleBiometricToggle = async (enabled: boolean) => {
+    if (enabled) {
+      try {
+        if (!('PublicKeyCredential' in window)) {
+          throw new Error('Biometric authentication is not supported on this browser.');
+        }
+
+        // Generate a random challenge
+        const challenge = new Uint8Array(32);
+        window.crypto.getRandomValues(challenge);
+
+        // Create a new credential (passkey registration)
+        const credential = await navigator.credentials.create({
+          publicKey: {
+            challenge,
+            rp: {
+              name: "Ahsan AI Hub",
+              id: window.location.hostname,
+            },
+            user: {
+              id: new Uint8Array(16),
+              name: "user@ahsan-ai-hub",
+              displayName: "Ahsan AI Hub User",
+            },
+            pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
+            authenticatorSelection: {
+              userVerification: "required",
+              residentKey: "required",
+              requireResidentKey: true,
+            },
+            timeout: 60000,
+            attestation: "none",
+          }
+        }) as any;
+
+        if (credential) {
+          // Store the credential ID to use it later for verification
+          localStorage.setItem('biometricCredentialId', credential.id);
+          setBiometricEnabled(true);
+          toast({
+            title: 'Biometric Enabled',
+            description: 'Your passkey has been created successfully. The app will now require biometric verification to unlock.',
+          });
+        }
+      } catch (err: any) {
+        console.error('Passkey registration failed:', err);
+        setBiometricEnabled(false);
+        toast({
+          variant: 'destructive',
+          title: 'Registration Failed',
+          description: err.message || 'Could not create a passkey. Please ensure your device supports biometrics.',
+        });
+      }
+    } else {
+      setBiometricEnabled(false);
+      localStorage.removeItem('biometricCredentialId');
+      toast({
+        title: 'Biometric Disabled',
+        description: 'Biometric protection has been turned off.',
+      });
+    }
+  };
+
   if (!mounted) {
     return (
       <div className="flex h-full flex-col">
@@ -377,7 +440,7 @@ export default function SettingsPage() {
                 <Switch
                   id="biometric-switch"
                   checked={biometricEnabled}
-                  onCheckedChange={setBiometricEnabled}
+                  onCheckedChange={handleBiometricToggle}
                 />
               </div>
             </CardContent>
