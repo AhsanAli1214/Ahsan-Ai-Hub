@@ -360,6 +360,17 @@ body {
 
   body {
     @apply bg-background text-foreground;
+    content-visibility: auto;
+  }
+}
+
+@layer utilities {
+  .content-visibility-auto {
+    content-visibility: auto;
+  }
+  
+  .will-change-transform {
+    will-change: transform;
   }
 }
 
