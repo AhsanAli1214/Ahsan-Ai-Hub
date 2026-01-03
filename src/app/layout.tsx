@@ -186,19 +186,36 @@ export default function RootLayout({
             poppins.variable,
           )}
         >
-          {siteStatusConfig.mode === 'maintenance' && <MaintenanceOverlay />}
-          {siteStatusConfig.mode === 'coming-soon' && <ComingSoonOverlay />}
-          
-          {siteStatusConfig.mode === 'live' ? (
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {/* ... existing live site structure ... */}
-            </ThemeProvider>
-          ) : null}
+          {siteStatusConfig.mode === "maintenance" && <MaintenanceOverlay />}
+          {siteStatusConfig.mode === "coming-soon" && <ComingSoonOverlay />}
+
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AppProvider>
+              <ChatHistoryProvider>
+                <div
+                  className={cn(
+                    "flex min-h-screen flex-col bg-background transition-colors duration-300",
+                    siteStatusConfig.mode !== "live" && "hidden",
+                  )}
+                >
+                  <AnnouncementBanner {...announcementConfig} />
+                  <ConnectionStatus />
+                  <main className="flex-1 pb-20 sm:pb-0">{children}</main>
+                  <Toaster />
+                  <CookieBanner />
+                  <PWAInstall />
+                  <BiometricLock />
+                  <Analytics />
+                  <SpeedInsights />
+                </div>
+              </ChatHistoryProvider>
+            </AppProvider>
+          </ThemeProvider>
         </body>
       </html>
     </ViewTransitions>
