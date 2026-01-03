@@ -389,7 +389,6 @@ export default function RootLayout({
                   src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
                   strategy="worker"
                   async
-                  fetchPriority="low"
                 />
                 <Script
                   id="onesignal-init"
