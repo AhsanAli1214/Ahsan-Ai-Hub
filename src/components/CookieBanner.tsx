@@ -34,7 +34,7 @@ export function CookieBanner() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-6 right-6 z-[100] md:left-auto md:right-8 md:max-w-[440px]"
+          className="fixed bottom-24 left-6 right-6 z-[110] md:left-auto md:right-8 md:max-w-[440px] md:bottom-8"
         >
           <div className="relative overflow-hidden rounded-[2.5rem] bg-black/95 border border-white/10 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl">
             {/* Background Accent */}

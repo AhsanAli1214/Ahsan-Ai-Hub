@@ -17,10 +17,10 @@ const FooterWrapper = dynamic(() => import("@/components/layout/FooterWrapper").
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="md:flex md:justify-center w-full">
+      <div className="relative flex min-h-screen w-full flex-col md:flex-row md:justify-center">
         <AppSidebar />
-        <main className="flex-1 bg-background pb-20 md:pb-0 md:max-w-7xl flex flex-col min-h-screen">
-          <div className="flex-1 animate-in fade-in duration-300">
+        <main className="flex-1 flex flex-col min-h-screen md:max-w-7xl w-full">
+          <div className="flex-1 pb-24 md:pb-0">
             {children}
           </div>
           <FooterWrapper />
