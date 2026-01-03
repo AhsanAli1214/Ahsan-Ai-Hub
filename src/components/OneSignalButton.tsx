@@ -27,9 +27,13 @@ export function OneSignalButton() {
         
         // Correct logic: Subscribed means optedIn is true AND optedOut is false AND permission is granted
         setIsSubscribed(isOptedIn && !isOptedOut && (permission === true || permission === 'granted'));
+        
+        // Force a small delay to ensure the UI catches up with OneSignal's internal state
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
       } catch (err) {
         console.error("Status Update Error:", err);
-      } finally {
         setIsLoading(false);
       }
     } else {
