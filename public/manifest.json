@@ -7,33 +7,57 @@
   "id": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
+  "background_color": "#09090b",
+  "theme_color": "#3b82f6",
+  "background_sync": true,
+  "periodic_background_sync": true,
+  "handle_links": "auto",
+  "orientation": "portrait",
+  "prefer_related_applications": false,
   "capture_links": "existing-client-navigate",
   "launch_handler": {
     "client_mode": ["focus-existing", "auto"]
   },
-  "file_handlers": [
+  "icons": [
     {
-      "action": "/recommendations",
-      "accept": {
-        "text/plain": [".txt"],
-        "application/pdf": [".pdf"],
-        "image/*": [".png", ".jpg", ".jpeg", ".webp"]
-      }
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "share_target": {
-    "action": "/recommendations",
-    "method": "GET",
-    "params": {
-      "title": "title",
-      "text": "text",
-      "url": "url"
+  "screenshots": [
+    {
+      "src": "/screenshot-540.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshot-desktop.png",
+      "sizes": "1024x576",
+      "type": "image/png",
+      "form_factor": "wide"
     }
-  },
-  "dir": "ltr",
-  "lang": "en-US",
-  "orientation": "portrait-primary",
-  "prefer_related_applications": false,
+  ],
   "shortcuts": [
     {
       "name": "AI Chat",
@@ -76,9 +100,6 @@
     }
   ],
   "categories": ["productivity", "utilities", "ai"],
-  "launch_handler": {
-    "client_mode": ["focus-existing", "auto"]
-  },
   "edge_side_panel": {
     "preferred_width": 400
   },
@@ -101,4 +122,6 @@
       "url": "url"
     }
   },
+  "dir": "ltr",
+  "lang": "en-US"
 }
