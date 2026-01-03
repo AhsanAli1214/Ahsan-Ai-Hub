@@ -430,7 +430,19 @@ export default function RootLayout({
                   allowLocalhostAsSecureOrigin: true,
                   serviceWorkerParam: { scope: "/" },
                   serviceWorkerPath: "OneSignalSDKWorker.js",
+                  notificationClickHandler: function(event) {
+                    console.log('Notification clicked:', event);
+                  }
                 });
+                
+                // Only prompt for push if not already subscribed and in standalone mode
+                const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+                if (isStandalone) {
+                  const isPushSupported = OneSignal.Notifications.isPushSupported();
+                  if (isPushSupported) {
+                    await OneSignal.Notifications.requestPermission();
+                  }
+                }
               } catch (e) {
                 // Silent error handling for OneSignal
               }

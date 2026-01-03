@@ -116,22 +116,43 @@ self.addEventListener('periodicsync', (event) => {
 });
 
 self.addEventListener('push', (event) => {
-  const data = event.data ? event.data.json() : {};
+  let data = {};
+  try {
+    data = event.data ? event.data.json() : {};
+  } catch (e) {
+    data = { body: event.data ? event.data.text() : 'New update available!' };
+  }
+  
   const title = data.title || 'Ahsan AI Hub';
   const options = {
     body: data.body || 'New update available!',
     icon: '/icon-192.png',
     badge: '/icon-192.png',
+    vibrate: [100, 50, 100],
     data: {
-      url: data.url || '/'
-    }
+      url: data.url || '/',
+      dateOfArrival: Date.now(),
+      primaryKey: '1'
+    },
+    actions: [
+      { action: 'explore', title: 'Open App', icon: '/icon-192.png' },
+      { action: 'close', title: 'Close', icon: '/icon-192.png' }
+    ],
+    tag: 'ahsan-ai-notification',
+    renotify: true,
+    requireInteraction: true
   };
   
   event.waitUntil(
-    Promise.all([
-      self.registration.showNotification(title, options),
-      updateBadge(1) // Show badge on notification
-    ])
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clients => {
+      // Logic to only show notification if not already in focus or if specifically requested
+      const isAppInstalled = self.matchMedia && self.matchMedia('(display-mode: standalone)').matches;
+      
+      return Promise.all([
+        self.registration.showNotification(title, options),
+        updateBadge(1)
+      ]);
+    })
   );
 });
 

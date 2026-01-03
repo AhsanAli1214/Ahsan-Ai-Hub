@@ -13,7 +13,13 @@
   "periodic_background_sync": true,
   "handle_links": "auto",
   "orientation": "portrait",
-  "prefer_related_applications": false,
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://ahsan-ai-hub.vercel.app/manifest.json"
+    }
+  ],
   "capture_links": "existing-client-navigate",
   "launch_handler": {
     "client_mode": ["focus-existing", "auto"]
