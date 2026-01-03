@@ -205,11 +205,12 @@ export default function RootLayout({
                 >
                   <AnnouncementBanner {...announcementConfig} />
                   <ConnectionStatus />
-                  <main className="flex-1 pb-20 sm:pb-0">{children}</main>
+                  <BiometricLock>
+                    <main className="flex-1 pb-20 sm:pb-0">{children}</main>
+                  </BiometricLock>
                   <Toaster />
                   <CookieBanner />
                   <PWAInstall />
-                  <BiometricLock />
                   <Analytics />
                   <SpeedInsights />
                 </div>
