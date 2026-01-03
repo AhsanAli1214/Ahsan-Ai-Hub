@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  swcMinify: true,
   experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',
