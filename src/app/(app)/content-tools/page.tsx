@@ -560,6 +560,42 @@ export default function ContentToolsPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleShare = async () => {
+    try {
+      if ('contacts' in navigator && 'ContactsManager' in window) {
+        const props = ['name', 'email', 'tel'];
+        const opts = { multiple: true };
+        const contacts = await (navigator as any).contacts.select(props, opts);
+        
+        if (contacts.length > 0) {
+          const shareData = {
+            title: 'Shared AI Content from Ahsan AI Hub',
+            text: output,
+            url: window.location.href,
+          };
+          
+          if (navigator.share) {
+            await navigator.share(shareData);
+            toast({ title: 'Shared successfully!' });
+          }
+        }
+      } else if (navigator.share) {
+        await navigator.share({
+          title: 'Shared AI Content from Ahsan AI Hub',
+          text: output,
+          url: window.location.href,
+        });
+        toast({ title: 'Shared successfully!' });
+      } else {
+        toast({ title: 'Share not supported', description: 'Your browser does not support sharing.' });
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        toast({ variant: 'destructive', title: 'Share failed', description: 'Could not share content.' });
+      }
+    }
+  };
+
   const handleDownload = (format: 'txt' | 'pdf') => {
     const element = document.createElement("a");
     const file = new Blob([output], {type: 'text/plain'});
@@ -1326,6 +1362,14 @@ export default function ContentToolsPage() {
                       >
                         {copied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
                         {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleShare}
+                        className="rounded-lg font-black text-[10px] uppercase tracking-widest hover:bg-primary/10 border-primary/20 gap-2 h-9"
+                      >
+                        <Share2 className="h-3.5 w-3.5" /> Share
                       </Button>
                       <Button
                         variant="outline"

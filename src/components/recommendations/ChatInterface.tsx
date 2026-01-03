@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn, parseLinks } from '@/lib/utils';
-import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Volume2, Pause, Play, ChevronDown, Link as LinkIcon, User, Save, FileCode } from 'lucide-react';
+import { Bot, Copy, Send, User as UserIcon, Lightbulb, ExternalLink, Languages, Loader2, Volume2, Pause, Play, ChevronDown, Link as LinkIcon, User, Save, FileCode, Share2 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card } from '@/components/ui/card';
@@ -42,7 +42,8 @@ function MessageBubble({
     isBuffering: boolean,
     onPauseAudio: () => void,
     onReportError?: (error: string) => void,
-    onToggleOriginal?: (messageId: string) => void
+    onToggleOriginal?: (messageId: string) => void,
+    onShare: (text: string) => void
 }) {
   const { toast } = useToast();
   const isUser = message.role === 'user';
@@ -268,6 +269,15 @@ function MessageBubble({
         >
           <Copy className="h-4 w-4 text-muted-foreground" />
         </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-7 w-7 opacity-80 hover:opacity-100"
+          onClick={() => onShare(message.content)}
+          title="Share with contacts"
+        >
+          <Share2 className="h-4 w-4 text-muted-foreground" />
+        </Button>
         {!isUser && (
           <>
             <Button
@@ -435,6 +445,44 @@ export function ChatInterface({
     };
   }, []);
   
+  const handleShare = async (text: string) => {
+    try {
+      if ('contacts' in navigator && 'ContactsManager' in window) {
+        const props = ['name', 'email', 'tel'];
+        const opts = { multiple: true };
+        const contacts = await (navigator as any).contacts.select(props, opts);
+        
+        if (contacts.length > 0) {
+          const shareData = {
+            title: 'Shared AI Content from Ahsan AI Hub',
+            text: text,
+            url: window.location.href,
+          };
+          
+          if (navigator.share) {
+            await navigator.share(shareData);
+            toast({ title: 'Shared successfully!' });
+          } else {
+            toast({ title: 'Share not supported', description: 'Your browser supports contact picking but not direct sharing.' });
+          }
+        }
+      } else if (navigator.share) {
+        await navigator.share({
+          title: 'Shared AI Content from Ahsan AI Hub',
+          text: text,
+          url: window.location.href,
+        });
+        toast({ title: 'Shared successfully!' });
+      } else {
+        toast({ title: 'Share not supported', description: 'Your browser does not support the Contact Picker or Web Share API.' });
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        toast({ variant: 'destructive', title: 'Share failed', description: 'Could not share content.' });
+      }
+    }
+  };
+
   const handleReportError = async (errorMsg: string) => {
     try {
       const result = await reportErrorAction({
@@ -700,6 +748,7 @@ export function ChatInterface({
                 onPauseAudio={handlePauseAudio}
                 onReportError={(error) => handleReportError(error)}
                 onToggleOriginal={handleToggleOriginal}
+                onShare={handleShare}
                 />
             ))
           )}
