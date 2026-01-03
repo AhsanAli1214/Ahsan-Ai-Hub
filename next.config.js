@@ -39,6 +39,9 @@ const nextConfig = {
       'tailwind-merge'
     ],
     scrollRestoration: true,
+    optimizeCss: true,
+    browsersListForSwc: true,
+    legacyBrowsers: false,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

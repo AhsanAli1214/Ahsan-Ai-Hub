@@ -159,6 +159,13 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head>
           <link
+            rel="preload"
+            href="/logo.png"
+            as="image"
+            type="image/png"
+            fetchPriority="high"
+          />
+          <link
             rel="preconnect"
             href="https://cdn.onesignal.com"
             crossOrigin="anonymous"
@@ -382,6 +389,7 @@ export default function RootLayout({
                   src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
                   strategy="worker"
                   async
+                  fetchPriority="low"
                 />
                 <Script
                   id="onesignal-init"

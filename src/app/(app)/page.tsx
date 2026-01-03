@@ -96,6 +96,7 @@ export default function HomePage() {
                   className="object-contain"
                   loading="eager"
                   fetchPriority="high"
+                  decoding="async"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
