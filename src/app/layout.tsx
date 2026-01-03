@@ -111,9 +111,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  other: {
-    "screen-orientation": "portrait",
-  },
   itunes: {
     appId: "com.ahsan_ai_hub.twa",
   },
