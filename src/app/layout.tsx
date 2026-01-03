@@ -43,7 +43,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://ahsan-ai-hub.vercel.app"),
   alternates: {
-    canonical: "/",
+    canonical: "https://ahsan-ai-hub.vercel.app",
   },
   title: {
     default: "Ahsan Ai Hub - #1 Free AI Chat, Writing & Code Tools No Login",

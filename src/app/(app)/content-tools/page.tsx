@@ -385,22 +385,9 @@ export default function ContentToolsPage() {
         if (twitterDesc) {
           twitterDesc.setAttribute('content', meta.description);
         }
-        
-        // Update canonical link
-        let canonical = document.querySelector('link[rel="canonical"]');
-        if (!canonical) {
-          canonical = document.createElement('link');
-          canonical.setAttribute('rel', 'canonical');
-          document.head.appendChild(canonical);
-        }
-        canonical.setAttribute('href', `https://ahsan-ai-hub.vercel.app/content-tools?tool=${selectedTool}`);
       }
     } else {
       document.title = 'Free AI Content Tools - Best Writing, Coding & Study Hub | Ahsan AI Hub';
-      const canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) {
-        canonical.setAttribute('href', 'https://ahsan-ai-hub.vercel.app/content-tools');
-      }
     }
   }, [selectedTool]);
 

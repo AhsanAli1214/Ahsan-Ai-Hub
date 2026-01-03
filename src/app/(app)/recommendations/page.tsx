@@ -18,14 +18,6 @@ export default function RecommendationsPage() {
       document.head.appendChild(metaKeywords);
     }
     metaKeywords.setAttribute('content', "free AI chat, anonymous AI, no login chatbot, Gemini AI, privacy-first chat, Ahsan AI, AI assistant online");
-    
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', "https://ahsan-ai-hub.vercel.app/recommendations");
   }, []);
 
   const searchParams = useSearchParams();
