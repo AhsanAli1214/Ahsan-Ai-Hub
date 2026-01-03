@@ -360,23 +360,12 @@ body {
 
   body {
     @apply bg-background text-foreground;
-    content-visibility: auto;
-  }
-}
-
-@layer utilities {
-  .content-visibility-auto {
-    content-visibility: auto;
-  }
-  
-  .will-change-transform {
-    will-change: transform;
   }
 }
 
 @layer components {
   .btm-nav {
-    @apply fixed bottom-0 left-0 right-0 z-[100] flex h-20 items-stretch border-t bg-background/95 backdrop-blur-md shadow-lg;
+    @apply fixed bottom-0 left-0 right-0 z-50 flex h-20 items-stretch border-t bg-background/95 backdrop-blur-md shadow-lg;
     padding-bottom: env(safe-area-inset-bottom);
   }
 
@@ -430,9 +419,9 @@ body {
   }
 
   /* AI Sensey Widget Optimization */
-  #aisensy-wa-widget, #bs-webchat-container, .botsailor-webchat-container {
-    bottom: 90px !important;
-    z-index: 90 !important;
+  #aisensy-wa-widget {
+    transform: scale(0.7) !important;
+    transform-origin: bottom right !important;
   }
 
   #df-btn-cont {
