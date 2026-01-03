@@ -21,6 +21,7 @@ const inter = Inter({
   variable: '--font-inter',
   display: 'swap',
   preload: true,
+  adjustFontFallback: true,
 });
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ const poppins = Poppins({
   variable: '--font-poppins',
   display: 'swap',
   preload: true,
+  adjustFontFallback: true,
 });
 
 export const viewport: Viewport = {
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
     default: 'Ahsan Ai Hub - #1 Free AI Chat, Writing & Code Tools No Login',
     template: '%s | Ahsan Ai Hub'
   },
-  description: 'Ahsan AI Hub by Ahsan Ali Wadani: #1 World\'s best free AI chat assistant, blog writer, and productivity suite. No login, no signup, 100% private. Use advanced AI tools for writing, coding, math, and translation developed by Ahsan Ali.',
+  description: 'Ahsan AI Hub by Ahsan Ali Wadani: The world\'s best free AI chat assistant with no login required. Access premium AI writing, blog generation, resume building, code explaining, and math solving tools for free. 100% private, zero signup, and developed by Ahsan Ali.',
   keywords: [
     'Ahsan AI', 'Ahsan Ai Hub', 'Ahsan Ali AI', 'Ahsan Ali Wadani', 'Ahsan Wadani', 
     'free AI chat no login', 'best free AI chatbot 2026', 'AI writer free no signup',
@@ -56,12 +58,7 @@ export const metadata: Metadata = {
     'AI blog generator free', 'AI study assistant free', 'free AI translation online',
     'advanced AI companion', 'free AI productivity hub', 'unlimited free AI tools',
     'Ahsan AI Hub by Ahsan Ali', 'best free AI 2026', 'Ahsan AI feedback', 'AI tool suggestions',
-    'privacy-first AI feedback', 'google genkit ai tools', 'nextjs 15 ai hub',
-    'free ChatGPT alternative no login', 'private AI content generator', 'no registration AI tools',
-    'AI email writer free', 'AI story generator free', 'free AI debugger online',
-    'best AI for students no login', 'anonymous AI writing assistant', 'Ahsan Ali Wadani developer',
-    'secure AI chat platform', 'AI productivity suite free', 'premium AI tools free no login',
-    'Ahsan Ali Wadani official AI', 'free AI text enhancer', 'no tracking AI chat'
+    'privacy-first AI feedback', 'google genkit ai tools', 'nextjs 15 ai hub'
   ],
   manifest: '/manifest.json',
   appleWebApp: {
