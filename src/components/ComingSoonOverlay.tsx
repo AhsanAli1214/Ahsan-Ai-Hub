@@ -100,13 +100,9 @@ export const ComingSoonOverlay = () => {
             </span>
           </h1>
 
-          <p className="max-w-2xl mx-auto text-base sm:text-xl text-white/60 mb-10 leading-relaxed px-4">
-            {siteStatusConfig.comingSoon.description}
-          </p>
-
           <div className="w-full max-w-md mb-12 sm:mb-20 flex flex-col items-center gap-4">
             <div className="text-white/60 text-sm font-medium">Subscribe to launch notifications:</div>
-            <div id="onesignal-customlink-container" className="onesignal-customlink-container w-full min-h-[60px]"></div>
+            <div id="onesignal-customlink-container" className="onesignal-customlink-container w-full h-full"></div>
           </div>
 
           {/* Countdown - Better desktop scaling */}
