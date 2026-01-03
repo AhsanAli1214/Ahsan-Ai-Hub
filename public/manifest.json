@@ -7,12 +7,32 @@
   "id": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
-  "background_color": "#09090b",
-  "theme_color": "#3b82f6",
-  "background_sync": true,
-  "periodic_background_sync": true,
-  "handle_links": "auto",
-  "orientation": "any",
+  "capture_links": "existing-client-navigate",
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "file_handlers": [
+    {
+      "action": "/recommendations",
+      "accept": {
+        "text/plain": [".txt"],
+        "application/pdf": [".pdf"],
+        "image/*": [".png", ".jpg", ".jpeg", ".webp"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/recommendations",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "dir": "ltr",
+  "lang": "en-US",
+  "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "shortcuts": [
     {

@@ -67,39 +67,31 @@ export function PWAInstall() {
       localStorage.setItem('pwa-install-available', 'true');
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
-    window.addEventListener('pwa-installable', handleInstallableEvent);
-
-    // Advanced PWA: Badge Support
-    if ('setAppBadge' in navigator) {
-      const checkBadges = () => {
-        const historyCount = JSON.parse(localStorage.getItem('chat-history') || '[]').length;
-        if (historyCount > 0) {
-          navigator.setAppBadge(historyCount).catch(() => {});
-        } else {
-          navigator.clearAppBadge().catch(() => {});
-        }
+    // Advanced PWA: Wake Lock Support
+    if ('wakeLock' in navigator) {
+      let wakeLock: any = null;
+      const requestWakeLock = async () => {
+        try {
+          wakeLock = await (navigator as any).wakeLock.request('screen');
+        } catch (err) {}
       };
-      checkBadges();
-      window.addEventListener('storage', checkBadges);
+      document.addEventListener('visibilitychange', () => {
+        if (wakeLock !== null && document.visibilityState === 'visible') {
+          requestWakeLock();
+        }
+      });
     }
 
-    // Advanced PWA: Share Target Handling
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const sharedTitle = urlParams.get('title');
-      const sharedText = urlParams.get('text');
-      const sharedUrl = urlParams.get('url');
-      if (sharedTitle || sharedText || sharedUrl) {
-        // Handle shared content
+    // Advanced PWA: Vibrate on Interaction
+    const handleVibrate = () => {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(10);
       }
-    }
-    if (localStorage.getItem('pwa-install-available') === 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
-      setShowInstallPrompt(true);
-    }
+    };
+    window.addEventListener('click', handleVibrate);
 
     return () => {
+      window.removeEventListener('click', handleVibrate);
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
       window.removeEventListener('pwa-installable', handleInstallableEvent);
