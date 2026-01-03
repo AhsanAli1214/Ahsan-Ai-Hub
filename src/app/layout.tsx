@@ -419,32 +419,27 @@ export default function RootLayout({
           />
           <Script
             id="onesignal-init"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
             window.OneSignalDeferred = window.OneSignalDeferred || [];
             OneSignalDeferred.push(async function(OneSignal) {
               try {
+                const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+                
                 await OneSignal.init({
                   appId: "8a693786-f992-42d3-adfb-56a230adcea5",
                   allowLocalhostAsSecureOrigin: true,
                   serviceWorkerParam: { scope: "/" },
                   serviceWorkerPath: "OneSignalSDKWorker.js",
-                  notificationClickHandler: function(event) {
-                    console.log('Notification clicked:', event);
-                  }
                 });
-                
-                // Only prompt for push if not already subscribed and in standalone mode
-                const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+                // Always try to register if in standalone mode for immediate notifications
                 if (isStandalone) {
-                  const isPushSupported = OneSignal.Notifications.isPushSupported();
-                  if (isPushSupported) {
-                    await OneSignal.Notifications.requestPermission();
-                  }
+                  await OneSignal.Notifications.requestPermission();
                 }
               } catch (e) {
-                // Silent error handling for OneSignal
+                console.error('OneSignal error:', e);
               }
             });
         `,
