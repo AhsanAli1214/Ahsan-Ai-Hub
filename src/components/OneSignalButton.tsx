@@ -56,6 +56,15 @@ export function OneSignalButton() {
           if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
              window.OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
           }
+          
+          // Add a listener for the native notification permission change if possible
+          if (navigator.permissions && navigator.permissions.query) {
+            navigator.permissions.query({ name: 'notifications' as PermissionName }).then((permissionStatus) => {
+              permissionStatus.onchange = () => {
+                updateStatus();
+              };
+            });
+          }
         }
       };
 
@@ -71,6 +80,9 @@ export function OneSignalButton() {
       return () => {
         if (window.OneSignal) {
           window.OneSignal.Notifications.removeEventListener('permissionChange', updateStatus);
+          if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
+             window.OneSignal.User.PushSubscription.removeEventListener('change', updateStatus);
+          }
         }
       };
     }
