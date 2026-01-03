@@ -129,5 +129,6 @@
       "protocol": "web+ahsan",
       "url": "/recommendations?q=%s"
     }
-  ]
+  ],
+  "permissions": ["notifications", "push", "background-fetch", "background-sync"]
 }

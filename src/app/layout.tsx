@@ -398,6 +398,9 @@ export default function RootLayout({
                     try {
                       await OneSignal.init({
                         appId: "8a693786-f992-42d3-adfb-56a230adcea5",
+                        allowLocalhostAsSecureOrigin: true,
+                        serviceWorkerParam: { scope: "/" },
+                        serviceWorkerPath: "OneSignalSDKWorker.js",
                       });
                     } catch (e) {
                       // Silent error handling for OneSignal
