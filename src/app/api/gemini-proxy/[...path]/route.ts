@@ -20,7 +20,8 @@ function getNextKeyIndex() {
   return null;
 }
 
-export async function POST(req: Request, { params }: { params: { path: string[] } }) {
+export async function POST(req: Request, context: { params: Promise<{ path: string[] }> }) {
+  const params = await context.params;
   const path = params.path.join('/');
   const searchParams = new URL(req.url).searchParams;
   
@@ -72,7 +73,7 @@ export async function POST(req: Request, { params }: { params: { path: string[] 
   return NextResponse.json({ error: "All Gemini API keys exhausted or failed.", details: lastError }, { status: 429 });
 }
 
-export async function GET(req: Request, { params }: { params: { path: string[] } }) {
+export async function GET(req: Request, context: { params: Promise<{ path: string[] }> }) {
    // Handle GET if needed (though Gemini is mostly POST)
-   return POST(req, { params });
+   return POST(req, context);
 }
