@@ -71,7 +71,30 @@ export function PWAInstall() {
     window.addEventListener('appinstalled', handleAppInstalled);
     window.addEventListener('pwa-installable', handleInstallableEvent);
 
-    // Check if we should show the prompt immediately (e.g. from local storage)
+    // Advanced PWA: Badge Support
+    if ('setAppBadge' in navigator) {
+      const checkBadges = () => {
+        const historyCount = JSON.parse(localStorage.getItem('chat-history') || '[]').length;
+        if (historyCount > 0) {
+          navigator.setAppBadge(historyCount).catch(() => {});
+        } else {
+          navigator.clearAppBadge().catch(() => {});
+        }
+      };
+      checkBadges();
+      window.addEventListener('storage', checkBadges);
+    }
+
+    // Advanced PWA: Share Target Handling
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedTitle = urlParams.get('title');
+      const sharedText = urlParams.get('text');
+      const sharedUrl = urlParams.get('url');
+      if (sharedTitle || sharedText || sharedUrl) {
+        // Handle shared content
+      }
+    }
     if (localStorage.getItem('pwa-install-available') === 'true' && !window.matchMedia('(display-mode: standalone)').matches) {
       setShowInstallPrompt(true);
     }
