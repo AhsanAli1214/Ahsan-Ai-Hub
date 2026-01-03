@@ -176,9 +176,6 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <head>
-          <OneSignalScript />
-        </head>
         <body
           className={cn(
             "font-body antialiased",
@@ -186,6 +183,7 @@ export default function RootLayout({
             poppins.variable,
           )}
         >
+          <OneSignalScript />
           {siteStatusConfig.mode === 'maintenance' && <MaintenanceOverlay />}
           {siteStatusConfig.mode === 'coming-soon' && <ComingSoonOverlay />}
           
