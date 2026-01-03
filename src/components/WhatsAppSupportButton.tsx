@@ -68,7 +68,8 @@ Thank you for your support! 🙏`;
         href={waLink}
         target="_blank" 
         rel="noopener noreferrer"
-        className={cn("support-btn", className)}
+        aria-label="Contact Ahsan AI Hub Support on WhatsApp"
+        className={cn("support-btn focus-visible:ring-4 focus-visible:ring-primary", className)}
       >
         <MessageCircle className="h-5 w-5" />
         Contact Ahsan AI Hub Support

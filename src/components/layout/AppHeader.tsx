@@ -21,8 +21,8 @@ export function AppHeader({ title }: { title: string }) {
           variant="ghost" 
           size="icon"
           onClick={handleMobileMenuToggle}
-          className="rounded-lg h-10 w-10 flex items-center justify-center"
-          aria-label="Open mobile menu"
+          className="rounded-lg h-10 w-10 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Open navigation menu"
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
         </Button>

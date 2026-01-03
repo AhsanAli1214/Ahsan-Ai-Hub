@@ -61,10 +61,10 @@ export function AppSidebar() {
         </div>
         <Button
           onClick={handleNewConversation}
-          className="w-full gap-3 rounded-2xl h-14 bg-primary/10 text-primary hover:bg-primary/20 border-2 border-primary/30 font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary/10 hover:shadow-2xl hover:shadow-primary/20 group"
+          className="w-full gap-3 rounded-2xl h-14 bg-primary/10 text-primary hover:bg-primary/20 border-2 border-primary/30 font-bold transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary/10 hover:shadow-2xl hover:shadow-primary/20 group focus-visible:ring-2 focus-visible:ring-primary"
           variant="ghost"
           size="lg"
-          title="Start a new conversation with AI Chat"
+          aria-label="Start a new AI Chat conversation"
         >
           <div className="relative">
             <Plus className="h-6 w-6 transition-transform duration-300" />

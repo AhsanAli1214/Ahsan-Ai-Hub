@@ -75,13 +75,13 @@ export function Footer() {
 
             {/* Products */}
             <div className="space-y-4">
-              <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Products</h4>
+              <h2 className="font-bold text-foreground text-sm uppercase tracking-wider">Products</h2>
               <ul className="space-y-2.5">
                 {footerSections.products.map((item) => (
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
                     >
                       {item.label}
                     </Link>
@@ -92,13 +92,13 @@ export function Footer() {
 
             {/* Company */}
             <div className="space-y-4">
-              <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Company</h4>
+              <h2 className="font-bold text-foreground text-sm uppercase tracking-wider">Company</h2>
               <ul className="space-y-2.5">
                 {footerSections.company.map((item) => (
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
                     >
                       {item.label}
                     </Link>
@@ -109,13 +109,13 @@ export function Footer() {
 
             {/* Legal */}
             <div className="space-y-4">
-              <h4 className="font-bold text-foreground text-sm uppercase tracking-wider">Legal</h4>
+              <h2 className="font-bold text-foreground text-sm uppercase tracking-wider">Legal</h2>
               <ul className="space-y-2.5">
                 {footerSections.legal.map((item) => (
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
                     >
                       {item.label}
                     </Link>

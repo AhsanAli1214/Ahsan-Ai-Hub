@@ -144,8 +144,9 @@ export function OneSignalButton() {
       <Button
         onClick={handleToggleNotifications}
         disabled={isLoading}
+        aria-label={isSubscribed ? "Disable push notifications" : "Enable push notifications"}
         className={cn(
-          'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl',
+          'w-full gap-3 transition-all duration-300 font-semibold py-6 text-base rounded-2xl focus-visible:ring-2 focus-visible:ring-primary',
           isSubscribed
         ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
         : 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg shadow-primary/20'
