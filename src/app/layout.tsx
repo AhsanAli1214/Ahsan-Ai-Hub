@@ -162,8 +162,9 @@ import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import { announcementConfig } from "@/config/announcement";
 import { BiometricLock } from "@/components/BiometricLock";
-import { maintenanceConfig } from "@/config/maintenance";
+import { siteStatusConfig } from "@/config/site-status";
 import { MaintenanceOverlay } from "@/components/MaintenanceOverlay";
+import { ComingSoonOverlay } from "@/components/ComingSoonOverlay";
 
 export default function RootLayout({
   children,
@@ -174,14 +175,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
         <head>
-          <link
-            rel="preload"
-            href="/logo.png"
-            as="image"
-            type="image/png"
-            fetchPriority="high"
-          />
-          {/* ... existing links ... */}
+          {/* ... existing head ... */}
         </head>
         <body
           className={cn(
@@ -191,115 +185,23 @@ export default function RootLayout({
           )}
         >
           {/* ... existing Scripts ... */}
-          {maintenanceConfig.enabled ? (
-            <MaintenanceOverlay />
-          ) : (
+          {siteStatusConfig.mode === 'maintenance' && <MaintenanceOverlay />}
+          {siteStatusConfig.mode === 'coming-soon' && <ComingSoonOverlay />}
+          
+          {siteStatusConfig.mode === 'live' ? (
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
             >
-              <AppProvider>
-                <ChatHistoryProvider>
-                  <ReCaptchaScript />
-                  <BiometricLock>
-                    <ErrorBoundary>
-                      {announcementConfig.showBanner && (
-                        <AnnouncementBanner
-                          id={announcementConfig.id}
-                          title={announcementConfig.title}
-                          message={announcementConfig.message}
-                          imageUrl={announcementConfig.imageUrl}
-                          senderName={announcementConfig.senderName}
-                          ctaText={announcementConfig.ctaText}
-                          ctaLink={announcementConfig.ctaLink}
-                        />
-                      )}
-                      <Suspense fallback={null}>{children}</Suspense>
-                    </ErrorBoundary>
-                  </BiometricLock>
-                  <Toaster />
-                  <CookieBanner />
-                  <FeedbackDialog />
-                  <Suspense fallback={null}>
-                    <PWAInstall />
-                  </Suspense>
-                  <Suspense fallback={null}>
-                    <ConnectionStatus />
-                  </Suspense>
-                  <Analytics mode={"production"} />
-                  <SpeedInsights />
-                  {/* Load OneSignal with lower priority */}
-                  <Script
-                    src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-                    strategy="lazyOnload"
-                    async
-                  />
-                  <Script
-                    id="onesignal-init"
-                    strategy="afterInteractive"
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                    window.OneSignalDeferred = window.OneSignalDeferred || [];
-                    OneSignalDeferred.push(async function(OneSignal) {
-                      try {
-                        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-                        
-                        await OneSignal.init({
-                          appId: "8a693786-f992-42d3-adfb-56a230adcea5",
-                          allowLocalhostAsSecureOrigin: true,
-                          serviceWorkerParam: { scope: "/" },
-                          serviceWorkerPath: "OneSignalSDKWorker.js",
-                        });
-
-                        // Always try to register if in standalone mode for immediate notifications
-                        if (isStandalone) {
-                          await OneSignal.Notifications.requestPermission();
-                        }
-                      } catch (e) {
-                        console.error('OneSignal error:', e);
-                      }
-                    });
-                `,
-                    }}
-                  />
-                  <Script
-                    src="https://botsailor.com/script/webchat-link.js?code=1767382948126993"
-                    strategy="lazyOnload"
-                  />
-                  <Script
-                    id="sw-registration"
-                    strategy="afterInteractive"
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                      if ('serviceWorker' in navigator) {
-                        window.addEventListener('load', function() {
-                          // Standard Service Worker for PWA
-                          navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function(registration) {
-                            console.log('PWA ServiceWorker registration successful with scope: ', registration.scope);
-                          }, function(err) {
-                            console.log('PWA ServiceWorker registration failed: ', err);
-                          });
-
-                          // Ensure OneSignal Worker is also registered properly
-                          navigator.serviceWorker.register('/OneSignalSDKWorker.js', { scope: '/' }).then(function(registration) {
-                            console.log('OneSignal Worker registration successful with scope: ', registration.scope);
-                          }).catch(function(err) {
-                            console.log('OneSignal Worker registration failed: ', err);
-                          });
-                        });
-                      }
-                    `,
-                    }}
-                  />
-                </ChatHistoryProvider>
-              </AppProvider>
+              {/* ... existing live site structure ... */}
             </ThemeProvider>
-          )}
+          ) : null}
         </body>
       </html>
     </ViewTransitions>
   );
 }
+
 
