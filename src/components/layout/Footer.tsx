@@ -39,7 +39,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative bg-background/95 backdrop-blur-xl border-t border-border/40">
+    <footer className="relative bg-background/95 backdrop-blur-xl border-t border-border/40 pb-20 md:pb-0">
       {/* Top decorative gradient */}
       <div className="absolute top-0 left-0 right-0 h-px bg-primary/20" />
       
