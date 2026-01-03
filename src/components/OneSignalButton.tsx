@@ -48,6 +48,7 @@ export function OneSignalButton() {
           clearInterval(checkOneSignal);
           await updateStatus();
           window.OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
+          window.OneSignal.Notifications.addEventListener('subscriptionChange', updateStatus);
         }
       }, 500);
 

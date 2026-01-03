@@ -64,7 +64,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       if (storedTyping) setEnableTypingIndicatorValue(JSON.parse(storedTyping));
       if (storedBiometric === 'true') {
         setBiometricEnabledValue(true);
-        setIsLocked(true);
+        // Session-based locking: only lock if not already unlocked this session
+        const sessionUnlocked = typeof window !== 'undefined' ? sessionStorage.getItem('sessionUnlocked') : null;
+        if (!sessionUnlocked) {
+          setIsLocked(true);
+        }
       }
     } catch (e) {
     }

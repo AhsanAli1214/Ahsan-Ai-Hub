@@ -192,7 +192,7 @@ export default function ContactPage() {
                   
                   <CardContent className="p-8 sm:p-10 flex flex-col h-full">
                     <div className="flex items-center justify-between mb-8">
-                      <div className={cn("rounded-2xl p-4 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3", method.bg)}>
+                      <div className={cn("rounded-2xl p-4 transition-all duration-500 group-hover:scale-110", method.bg)}>
                         <method.icon className={cn("h-8 w-8", method.color)} />
                       </div>
                       {method.badge && (

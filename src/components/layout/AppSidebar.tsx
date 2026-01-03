@@ -67,7 +67,7 @@ export function AppSidebar() {
           title="Start a new conversation with AI Chat"
         >
           <div className="relative">
-            <Plus className="h-6 w-6 group-hover:rotate-90 transition-transform duration-300" />
+            <Plus className="h-6 w-6 transition-transform duration-300" />
           </div>
           <span className="group-data-[state=collapsed]/sidebar:hidden inline text-base font-bold">New Chat</span>
         </Button>

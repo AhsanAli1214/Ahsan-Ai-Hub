@@ -170,7 +170,7 @@ export default function FaqPage() {
             {FAQ_CATEGORIES.map((cat) => (
               <Card key={cat.id} className="group cursor-pointer border-accent/10 bg-card/50 backdrop-blur-sm transition-all hover:scale-105 hover:border-accent/40 hover:shadow-xl">
                 <CardContent className="p-6 text-center space-y-3">
-                  <div className={`mx-auto w-12 h-12 rounded-xl ${cat.bg} ${cat.color} flex items-center justify-center transition-transform group-hover:rotate-12`}>
+                  <div className={`mx-auto w-12 h-12 rounded-xl ${cat.bg} ${cat.color} flex items-center justify-center transition-transform`}>
                     <cat.icon className="h-6 w-6" />
                   </div>
                   <h3 className="font-bold text-sm tracking-wide uppercase">{cat.name}</h3>

@@ -40,8 +40,10 @@ export function BiometricLock({ children }: { children: React.ReactNode }) {
 
         await (navigator as any).credentials.get(options);
         setIsLocked(false);
+        sessionStorage.setItem('sessionUnlocked', 'true');
       } else {
         setIsLocked(false);
+        sessionStorage.setItem('sessionUnlocked', 'true');
       }
     } catch (err) {
       console.error('Biometric authentication failed:', err);
