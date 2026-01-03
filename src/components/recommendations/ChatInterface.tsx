@@ -599,6 +599,15 @@ export function ChatInterface({
     setActiveMessageId(null);
   };
 
+  const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
+        behavior,
+      });
+    }
+  };
+
   return (
     <div className="flex h-full w-full flex-col bg-background relative overflow-hidden">
       <div className="flex-1 overflow-hidden">
