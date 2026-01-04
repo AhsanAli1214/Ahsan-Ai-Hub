@@ -209,7 +209,9 @@ export default function RootLayout({
                     siteStatusConfig.mode !== "live" && "hidden",
                   )}
                 >
-                  <AnnouncementBanner {...announcementConfig} />
+                  {announcementConfig.showBanner && (
+                    <AnnouncementBanner {...announcementConfig} />
+                  )}
                   <ConnectionStatus />
                   <BiometricLock>
                     <main className="flex-1 pb-20 sm:pb-0">{children}</main>
