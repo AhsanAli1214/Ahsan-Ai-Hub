@@ -9,7 +9,7 @@
 
 export const siteStatusConfig = {
   // SET MODE TO: 'maintenance', 'coming-soon', or 'live'
-  mode: "live",
+  mode: "coming-soon",
 
   // 1. MAINTENANCE SETTINGS (For fixing errors)
   maintenance: {
@@ -21,7 +21,7 @@ export const siteStatusConfig = {
 
   // 2. COMING SOON SETTINGS (For official launch)
   comingSoon: {
-    targetDate: "2026-01-05T14:00:00Z",
+    targetDate: "2026-01-06T14:00:00Z",
     siteName: "Ahsan AI Hub",
     tagline: "Coming Soon",
     description:
