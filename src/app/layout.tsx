@@ -45,6 +45,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ahsan-ai-hub.vercel.app"),
   alternates: {
     canonical: "https://ahsan-ai-hub.vercel.app",
+    languages: {
+      'en-US': 'https://ahsan-ai-hub.vercel.app',
+    },
   },
   title: {
     default: "Ahsan Ai Hub - #1 Free AI Chat, Writing & Code Tools No Login",
@@ -154,12 +157,6 @@ export const metadata: Metadata = {
   verification: {
     google: "C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4",
   },
-  alternates: {
-    canonical: "https://ahsan-ai-hub.vercel.app",
-    languages: {
-      'en-US': 'https://ahsan-ai-hub.vercel.app',
-    },
-  },
   other: {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
@@ -250,5 +247,3 @@ export default function RootLayout({
     </ViewTransitions>
   );
 }
-
-

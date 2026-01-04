@@ -8,13 +8,15 @@
   "operatingSystem": "All",
   "author": {
     "@type": "Person",
-    "name": "Ahsan Ali"
+    "name": "Ahsan Ali Wadani",
+    "url": "https://ahsan-ai-hub.vercel.app/about"
   },
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
+  "image": "https://ahsan-ai-hub.vercel.app/og-image.png",
   "featureList": [
     "Free AI Chat Assistant",
     "Professional Writing Studio",
