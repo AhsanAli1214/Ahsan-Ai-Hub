@@ -463,38 +463,6 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
 
-          {/* Data Management */}
-          <Card>
-             <CardHeader>
-              <CardTitle>Data Management</CardTitle>
-              <CardDescription>
-                Manage your local application data.
-              </CardDescription>
-            </CardHeader>
-             <CardContent>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive" className="w-full sm:w-auto">
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Clear Chat History
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your chat history from this browser.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={handleClearHistory}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-            </CardContent>
-          </Card>
-
           {/* Info Section */}
           <Card className="bg-accent/15">
             <CardHeader>
