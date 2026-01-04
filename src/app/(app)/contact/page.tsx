@@ -40,7 +40,7 @@ export default function ContactPage() {
   const handleWhatsAppOpen = () => {
     const pageTitle = document.title;
     const pageUrl = window.location.href;
-    const phoneNumber = "923145656371";
+    const phoneNumber = "15557646555";
     const device = /Mobi|Android/i.test(navigator.userAgent)
       ? "Mobile"
       : "Desktop";
