@@ -192,6 +192,10 @@ export default function RootLayout({
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
           <OneSignalScript />
+          <Script 
+            src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
+            strategy="afterInteractive"
+          />
         </head>
         <body
           className={cn(
