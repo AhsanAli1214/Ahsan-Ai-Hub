@@ -40,6 +40,12 @@ const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').t
 const WhatsAppSupportButton = dynamic(() => import('@/components/WhatsAppSupportButton').then(mod => mod.WhatsAppSupportButton), { ssr: false });
 const AppHeader = dynamic(() => import('@/components/layout/AppHeader').then(mod => mod.AppHeader), { ssr: true });
 
+const AnnouncementBanner = dynamic(() => import('@/components/AnnouncementBanner').then(mod => ({ default: mod.AnnouncementBanner })), { ssr: false });
+const Toaster = dynamic(() => import('@/components/ui/toaster').then(mod => ({ default: mod.Toaster })), { ssr: false });
+const CookieBanner = dynamic(() => import('@/components/CookieBanner').then(mod => ({ default: mod.CookieBanner })), { ssr: false });
+const PWAInstall = dynamic(() => import('@/components/PWAInstall').then(mod => ({ default: mod.PWAInstall })), { ssr: false });
+const FeedbackDialog = dynamic(() => import('@/components/FeedbackDialog').then(mod => ({ default: mod.FeedbackDialog })), { ssr: false });
+
 const QUICK_ACTIONS = [
   { id: '1', label: 'Rewrite Text', icon: BookText, prompt: 'Please rewrite this text to be clearer: ' },
   { id: '2', label: 'Explain Code', icon: Code, prompt: 'Can you explain this code: ' },
