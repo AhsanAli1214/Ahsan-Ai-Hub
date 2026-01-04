@@ -7,9 +7,9 @@ export function OneSignalScript() {
     <>
       <Script
         src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
-      <Script id="onesignal-init" strategy="lazyOnload">
+      <Script id="onesignal-init" strategy="afterInteractive">
         {`
           window.OneSignalDeferred = window.OneSignalDeferred || [];
           OneSignalDeferred.push(async function(OneSignal) {
