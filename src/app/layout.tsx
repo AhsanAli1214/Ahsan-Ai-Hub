@@ -33,11 +33,12 @@ const poppins = Poppins({
 });
 
 export const viewport: Viewport = {
+  themeColor: "#3b82f6",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  themeColor: "#3b82f6",
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -157,6 +158,7 @@ export const metadata: Metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover",
     "screen-orientation": "portrait",
   },
 };
