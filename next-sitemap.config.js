@@ -6,11 +6,33 @@ module.exports = {
   changefreq: "daily",
   priority: 1.0,
   exclude: ['/api/*'],
+  autoLastmod: true,
+  generateIndexSitemap: true,
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/images/',
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/tool-icons/',
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/*.png',
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/*.jpg',
+      },
+      {
+        userAgent: 'Googlebot-Image',
+        allow: '/*.jpeg',
       },
     ],
     additionalSitemaps: [

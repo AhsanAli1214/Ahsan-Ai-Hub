@@ -154,6 +154,12 @@ export const metadata: Metadata = {
   verification: {
     google: "C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4",
   },
+  alternates: {
+    canonical: "https://ahsan-ai-hub.vercel.app",
+    languages: {
+      'en-US': 'https://ahsan-ai-hub.vercel.app',
+    },
+  },
   other: {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
@@ -163,6 +169,7 @@ export const metadata: Metadata = {
     "screen-orientation": "portrait",
     "x5-orientation": "portrait",
     "layoutMode": "fitscreen",
+    "google-site-verification": "C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4",
   },
 };
 
