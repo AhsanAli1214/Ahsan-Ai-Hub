@@ -19,7 +19,7 @@ export function OneSignalButton() {
   const { toast } = useToast();
 
   const updateStatus = async () => {
-    if (typeof window !== 'undefined' && window.OneSignal && typeof window.OneSignal.Notifications !== 'undefined') {
+    if (typeof window !== 'undefined' && window.OneSignal) {
       try {
         const isOptedIn = await window.OneSignal.User.PushSubscription.optedIn;
         const isOptedOut = await window.OneSignal.User.PushSubscription.optedOut;
@@ -44,15 +44,19 @@ export function OneSignalButton() {
       }
 
       const initOneSignal = async () => {
-        if (window.OneSignal && window.OneSignal.Notifications) {
+        // Access OneSignal via OneSignalDeferred for safety
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        window.OneSignalDeferred.push(async function(OneSignal: any) {
           await updateStatus();
           
-          window.OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
-          
-          if (window.OneSignal.User && window.OneSignal.User.PushSubscription) {
-             window.OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
+          if (OneSignal.Notifications) {
+            OneSignal.Notifications.addEventListener('permissionChange', updateStatus);
           }
-        }
+          
+          if (OneSignal.User && OneSignal.User.PushSubscription) {
+             OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
+          }
+        });
       };
 
       // Start loading while we check for OneSignal
