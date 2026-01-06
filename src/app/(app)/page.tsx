@@ -149,7 +149,7 @@ export default function HomePage() {
               <div className="flex-1 space-y-8">
                 <h2 className="text-4xl md:text-6xl font-black text-zinc-900 dark:text-white leading-[1] tracking-tight">
                   Premium AI <br />Experience <br />
-                  <span className="text-primary">100% Privacy-First</span>
+                  <span className="text-primary whitespace-nowrap">100% Privacy-First</span>
                 </h2>
                 <div className="flex flex-col gap-3 max-w-md">
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-zinc-200 dark:border-white/5 hover:bg-zinc-50 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
