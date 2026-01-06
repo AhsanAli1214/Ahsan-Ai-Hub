@@ -236,6 +236,7 @@ export default function RootLayout({
                     <AnnouncementBanner {...announcementConfig} />
                   )}
                   <ConnectionStatus />
+                  <ReCaptchaScript />
                   <BiometricLock>
                     <main className="flex-1 pb-20 sm:pb-0">{children}</main>
                   </BiometricLock>

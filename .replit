@@ -49,3 +49,4 @@ build = ["pnpm", "run", "build"]
 [userenv.shared]
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY = "6LesbDcsAAAAALuDdNtUQEhyOP8O7K9vd0VSpsew"
 RESEND_API_KEY = "re_KR7CZXv4_LEgnhzyqGErmQVmeZRzGR2EP"
+RECAPTCHA_SECRET_KEY = "6LesbDcsAAAAAFZU8-pDcGFMwax2uIQen20VtIrW"
