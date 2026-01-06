@@ -92,14 +92,14 @@ export default function HomePage() {
         <article className="mx-auto max-w-4xl space-y-8">
           <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-              <div className="relative flex h-36 w-36 shrink-0 items-center justify-center">
+              <div className="relative flex h-48 w-48 shrink-0 items-center justify-center">
                 <Image 
                   src="/logo.png" 
                   alt="Ahsan AI Hub Logo" 
-                  width={144} 
-                  height={144} 
+                  width={192} 
+                  height={192} 
                   priority 
-                  className="h-auto w-full object-contain"
+                  className="h-auto w-full object-contain brightness-100 dark:brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)] transition-all duration-300"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
