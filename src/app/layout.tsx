@@ -128,7 +128,7 @@ export const metadata: Metadata = {
       "Use Ahsan AI Hub for free: AI chat assistant, text rewriter, and code explainer. Features biometric lock for privacy, secure chat sharing, and local chat history saving. 100% private, no login, developed by Ahsan Ali.",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://ahsan-ai-hub.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "Ahsan AI Hub - The World's Most Powerful Privacy-First Free AI Companion",
@@ -142,7 +142,7 @@ export const metadata: Metadata = {
     title: "Ahsan AI Hub - Free AI Chat & Professional Tools (No Signup)",
     description:
       "Experience the world's most private free AI hub. Developed by Ahsan Ali. Features advanced chat, writing, and coding tools without login.",
-    images: ["/og-image.png"],
+    images: ["https://ahsan-ai-hub.vercel.app/og-image.png"],
   },
   robots: {
     index: true,

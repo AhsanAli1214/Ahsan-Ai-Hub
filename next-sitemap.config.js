@@ -21,6 +21,10 @@ module.exports = {
       },
       {
         userAgent: 'Googlebot-Image',
+        allow: '/',
+      },
+      {
+        userAgent: 'Googlebot-Image',
         allow: '/images/',
       },
       {
