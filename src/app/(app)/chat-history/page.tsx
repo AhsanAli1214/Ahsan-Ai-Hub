@@ -3,7 +3,7 @@ import { ChatHistory } from '@/components/ChatHistory';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Chat History | Nisha Ai',
+  title: 'Chat History | Ahsan Ai Hub',
   description: 'Manage and review your past AI conversations.',
 };
 
