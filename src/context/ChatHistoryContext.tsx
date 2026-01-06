@@ -145,12 +145,10 @@ export function ChatHistoryProvider({ children }: { children: ReactNode }) {
   };
 
   const deleteAllSessions = () => {
-    if (confirm('Are you sure you want to delete all chat sessions? This cannot be undone.')) {
-      setSessionsState([]);
-      saveSessions([]);
-      setCurrentSessionIdState(null);
-      saveCurrentSessionId(null);
-    }
+    setSessionsState([]);
+    saveSessions([]);
+    setCurrentSessionIdState(null);
+    saveCurrentSessionId(null);
   };
 
   const switchSession = (id: string) => {
