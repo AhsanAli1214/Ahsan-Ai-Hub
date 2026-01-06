@@ -27,7 +27,7 @@ export function AppHeader({ title }: { title: string }) {
           <Menu className="h-5 w-5" aria-hidden="true" />
         </Button>
       </div>
-      <h1 className="font-headline text-xl font-bold md:text-2xl flex-1 tracking-tight">{title}</h1>
+      <h1 className="font-headline text-xl font-bold md:text-2xl flex-1 tracking-tight text-foreground">{title}</h1>
       <div className={cn("ml-auto flex items-center gap-2 md:gap-4", "w-auto")}>
       </div>
     </header>

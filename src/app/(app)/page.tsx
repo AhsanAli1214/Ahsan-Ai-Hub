@@ -99,7 +99,7 @@ export default function HomePage() {
                   width={144} 
                   height={144} 
                   priority 
-                  className="object-contain"
+                  className="h-auto w-full object-contain"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
