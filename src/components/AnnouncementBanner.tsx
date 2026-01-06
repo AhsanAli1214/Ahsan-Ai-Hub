@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AhsanAiHubLogo } from '@/components/icons';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion/client';
 
 interface AnnouncementProps {
   id: string;
@@ -44,14 +45,15 @@ export function AnnouncementBanner({
 
   return (
     <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0, y: "-50%", x: "-50%" }}
-          animate={{ scale: 1, opacity: 1, y: "-50%", x: "-50%" }}
-          exit={{ scale: 0.9, opacity: 0, y: "-50%", x: "-50%" }}
-          className="fixed left-1/2 top-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl"
-        >
-          <Card className="relative overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
+  {isVisible && (
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.9, opacity: 0 }}
+      className="fixed left-1/2 top-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2"
+    >
+      <Card className="relative overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
+
             {/* Background Glow */}
             <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/10 blur-[60px]" />
             <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-blue-500/10 blur-[60px]" />
@@ -78,22 +80,24 @@ export function AnnouncementBanner({
                   onClick={handleClose}
                   className="absolute right-4 top-4 rounded-full p-2 text-zinc-400 transition-colors hover:bg-white/10 hover:text-white"
                   aria-label="Close announcement"
+                  type="button"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
 
                 <div className="mb-4 flex items-center gap-4">
+                  <div className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center text-primary shrink-0">
                     <Image 
                       src="/logo.png" 
                       alt="Ahsan AI Hub" 
-                      width={64} 
-                      height={64} 
-                      className="object-contain p-1"
+                      width={80} 
+                      height={80} 
+                      className="object-contain"
                     />
                   </div>
                   <div>
-                    <h3 className="text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
-                    <p className="text-xs font-medium text-zinc-500">Official Announcement</p>
+                    <h3 className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
+                    <p className="text-[10px] md:text-xs font-medium text-zinc-500">Official Announcement</p>
                   </div>
                 </div>
 
@@ -117,6 +121,7 @@ export function AnnouncementBanner({
                       asChild
                       size="sm"
                       className="rounded-xl bg-primary px-6 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20"
+                      onClick={handleClose}
                     >
                       <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="gap-2">
                         {ctaText} <ExternalLink className="h-3 w-3" />
