@@ -167,6 +167,10 @@ export const metadata: Metadata = {
     "x5-orientation": "portrait",
     "layoutMode": "fitscreen",
     "google-site-verification": "C3kD33pr8zGcgloDD-hhPTHJVKhicxKot5N39asPcX4",
+    "ahsan-ai-hub-version": "1.0.0",
+    "developer": "Ahsan Ali Wadani",
+    "rating": "General",
+    "distribution": "Global",
   },
 };
 
