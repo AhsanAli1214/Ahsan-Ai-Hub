@@ -12,7 +12,7 @@ export function WhatsAppSupportButton({ className }: WhatsAppSupportButtonProps)
   const [waLink, setWaLink] = useState('#');
 
   useEffect(() => {
-    const phoneNumber = "15557646555"; // Ahsan AI Hub WhatsApp
+    const phoneNumber = "923316041183"; // Ahsan AI Hub WhatsApp
     const pageTitle = document.title;
     const pageUrl = window.location.href;
     const device = /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop";
