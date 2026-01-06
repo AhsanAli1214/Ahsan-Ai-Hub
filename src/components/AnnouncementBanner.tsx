@@ -90,7 +90,7 @@ export function AnnouncementBanner({
                       alt="Ahsan AI Hub" 
                       width={80} 
                       height={80} 
-                      className="object-contain"
+                      className="h-auto w-full object-contain"
                     />
                   </div>
                   <div>

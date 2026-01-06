@@ -193,6 +193,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="preconnect" href="https://botsailor.com" />
+          <link rel="preconnect" href="https://bot-data.s3.ap-southeast-1.wasabisys.com" />
           <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
