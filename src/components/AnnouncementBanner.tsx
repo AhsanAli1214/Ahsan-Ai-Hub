@@ -57,20 +57,20 @@ export function AnnouncementBanner({
             <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-blue-500/10 blur-[60px]" />
 
             <div className="relative flex flex-col md:flex-row">
-              {/* Image / Logo Section */}
+              {/* Image Section */}
               {imageUrl && (
-              <div className="relative h-48 w-full shrink-0 md:h-auto md:w-48">
-              <Image
-               src={imageUrl}
-               alt={title}
-               width={192}
-               height={192}
-               className="h-full w-full object-contain"
-              priority
-                />
-              </div>
+                <div className="relative h-48 w-full shrink-0 md:h-auto md:w-48">
+                  <Image 
+                    src={imageUrl} 
+                    alt={title} 
+                    width={192}
+                    height={192}
+                    className="h-full w-full object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 md:bg-gradient-to-r" />
+                </div>
               )}
-
 
               {/* Content Section */}
               <div className="flex flex-1 flex-col p-6 md:p-8">
@@ -83,14 +83,16 @@ export function AnnouncementBanner({
                 </button>
 
                 <div className="mb-4 flex items-center gap-4">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/20 text-primary border border-primary/20 shadow-xl shadow-primary/20">
-                    <Image 
-                      src="/logo.png" 
-                      alt="Ahsan AI Hub" 
-                      width={64} 
-                      height={64} 
-                      className="object-contain p-1"
-                    />
+                 <Image 
+                  src="/logo.png" 
+                  alt="Ahsan AI Hub" 
+                  width={64} 
+                  height={64} 
+                  className="object-contain"
+                  priority
+                  />
+               </div>
+
                   </div>
                   <div>
                     <h3 className="text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
