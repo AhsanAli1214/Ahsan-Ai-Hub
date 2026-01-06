@@ -263,7 +263,7 @@ export default function SettingsPage() {
                         onClick={() => {
                           document.documentElement.setAttribute('data-theme', colorTheme.id);
                           localStorage.setItem('selectedColorTheme', colorTheme.id);
-                          window.dispatchEvent(new Event('themechange'));
+                          window.dispatchEvent(new Event('storage'));
                         }}
                         title={colorTheme.label}
                         className={cn(

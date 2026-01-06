@@ -207,6 +207,18 @@ export default function RootLayout({
             src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
             strategy="afterInteractive"
           />
+          <Script id="theme-color-persistence" strategy="beforeInteractive">
+            {`
+              (function() {
+                try {
+                  const theme = localStorage.getItem('selectedColorTheme');
+                  if (theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                  }
+                } catch (e) {}
+              })();
+            `}
+          </Script>
         </head>
         <body
           className={cn(
