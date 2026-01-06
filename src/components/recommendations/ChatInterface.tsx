@@ -456,6 +456,11 @@ export function ChatInterface({
   const handleSend = async () => {
     if (!input.trim()) return;
 
+    let sessionId = currentSession?.id;
+    if (!sessionId) {
+      sessionId = createSession('New Chat');
+    }
+
     if (!isOnline) {
       const offlineMsg: Message = {
         id: Date.now().toString(),
