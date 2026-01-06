@@ -131,9 +131,9 @@ export default function HomePage() {
           </section>
 
           <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-100 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-zinc-200 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
-            {/* Background Decorative Elements */}
-            <div className="absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
-            <div className="absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
+            {/* Background Decorative Elements - Hidden on mobile for performance */}
+            <div className="hidden md:block absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
+            <div className="hidden md:block absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
             
             <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
               <div className="flex-1 space-y-8">
@@ -148,7 +148,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Zero Login</p>
-                      <p className="text-[10px] text-zinc-800 dark:text-zinc-300 mt-0.5">Instant access without accounts or personal data.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Instant access without accounts or personal data.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
@@ -157,7 +157,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Local Storage</p>
-                      <p className="text-[10px] text-zinc-800 dark:text-zinc-300 mt-0.5">All history stays in your browser. We see nothing.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">All history stays in your browser. We see nothing.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
@@ -166,7 +166,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-800 dark:text-zinc-300 mt-0.5">Native app experience on any device, anywhere.</p>
+                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Native app experience on any device, anywhere.</p>
                     </div>
                   </div>
                 </div>
@@ -222,7 +222,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1 space-y-3 text-center lg:text-left">
                   <h3 className="text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight">Ahsan AI Hub for Mobile</h3>
-                  <p className="text-zinc-800 dark:text-zinc-300 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
+                  <p className="text-zinc-700 dark:text-zinc-300 font-medium">Experience the full power of Ahsan AI as a native app on your home screen. Fast, private, and always ready.</p>
                   <div className="flex flex-col gap-4 sm:flex-row pt-6">
                     <div className="w-full sm:w-auto sm:min-w-[240px]">
                       <PWAInstallButton />

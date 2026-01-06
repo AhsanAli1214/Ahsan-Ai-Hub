@@ -200,6 +200,7 @@ export default function RootLayout({
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+          <link rel="preload" href="/logo.png" as="image" />
           <OneSignalScript />
           <Script 
             src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
