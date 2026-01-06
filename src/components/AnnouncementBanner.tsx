@@ -83,16 +83,13 @@ export function AnnouncementBanner({
                 </button>
 
                 <div className="mb-4 flex items-center gap-4">
-                 <Image 
-                  src="/logo.png" 
-                  alt="Ahsan AI Hub" 
-                  width={64} 
-                  height={64} 
-                  className="object-contain"
-                  priority
-                  />
-               </div>
-
+                    <Image 
+                      src="/logo.png" 
+                      alt="Ahsan AI Hub" 
+                      width={64} 
+                      height={64} 
+                      className="object-contain p-1"
+                    />
                   </div>
                   <div>
                     <h3 className="text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
