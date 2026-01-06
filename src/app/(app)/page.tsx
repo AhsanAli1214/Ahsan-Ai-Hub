@@ -115,16 +115,6 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-              <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-accent-foreground/20 shadow-xl">
-                <Image 
-                  src="https://i.postimg.cc/9MCrhhPk/colorful-welcome-lettering-modern-banner-invitation-1017-50216.avif" 
-                  alt="Ahsan Ali Wadani - Developer of Ahsan AI Hub" 
-                  fill
-                  sizes="96px"
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
               <Button asChild size="lg" variant="secondary" className="hidden md:flex shadow-lg" aria-label="Start chatting with AI">
                 <Link href="/recommendations">
                   <MessageCircle className="mr-2 h-5 w-5" aria-hidden="true" />
