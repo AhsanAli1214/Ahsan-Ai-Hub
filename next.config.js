@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
+  allowedDevOrigins: ['*'],
   experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',
@@ -41,7 +42,6 @@ const nextConfig = {
     scrollRestoration: true,
     optimizeCss: true,
     serverSourceMaps: false,
-    bundlePagesRouterDependencies: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

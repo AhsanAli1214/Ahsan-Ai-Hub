@@ -5,9 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Bell, ExternalLink, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { AhsanAiHubLogo } from '@/components/icons';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion/client';
 
 interface AnnouncementProps {
   id: string;
