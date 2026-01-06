@@ -57,20 +57,20 @@ export function AnnouncementBanner({
             <div className="absolute -left-20 -bottom-20 h-40 w-40 rounded-full bg-blue-500/10 blur-[60px]" />
 
             <div className="relative flex flex-col md:flex-row">
-              {/* Image Section */}
+              {/* Image / Logo Section */}
               {imageUrl && (
-                <div className="relative h-48 w-full shrink-0 md:h-auto md:w-48">
-                  <Image 
-                    src={imageUrl} 
-                    alt={title} 
-                    width={192}
-                    height={192}
-                    className="h-full w-full object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 md:bg-gradient-to-r" />
-                </div>
+              <div className="relative h-48 w-full shrink-0 md:h-auto md:w-48">
+              <Image
+               src={imageUrl}
+               alt={title}
+               width={192}
+               height={192}
+               className="h-full w-full object-contain"
+              priority
+                />
+              </div>
               )}
+
 
               {/* Content Section */}
               <div className="flex flex-1 flex-col p-6 md:p-8">
