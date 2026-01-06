@@ -82,16 +82,12 @@ export function ChatHistory() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-card border border-border/40 rounded-[2rem] shadow-2xl overflow-hidden backdrop-blur-md">
-      <div className="p-8 border-b bg-muted/20">
-        <h2 className="text-2xl font-black tracking-tight">Past Conversations</h2>
-        <p className="text-sm font-medium text-muted-foreground mt-1">Reuse, delete, or manage your chat history sessions.</p>
-      </div>
-      <div className="p-8 border-b bg-card/50 backdrop-blur-sm space-y-6">
-        <div className="flex gap-4">
+    <div className="flex flex-col h-full bg-background/50">
+      <div className="p-4 border-b bg-card/50 backdrop-blur-sm space-y-3">
+        <div className="flex gap-2">
           <Button
             onClick={handleNewChat}
-            className="flex-1 h-14 gap-3 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 font-black uppercase tracking-widest text-xs"
+            className="flex-1 gap-2 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 font-semibold"
             variant="default"
           >
             <Plus className="h-5 w-5" />
@@ -100,12 +96,12 @@ export function ChatHistory() {
           {sessions.length > 0 && (
             <Button
               onClick={handleDeleteAllClick}
-              className="h-14 w-14 rounded-2xl bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all border border-destructive/20 shadow-lg shadow-destructive/5"
+              className="gap-2 rounded-xl bg-destructive/5 text-destructive hover:bg-destructive/15 transition-colors border-destructive/10"
               variant="outline"
               size="icon"
               title="Clear all history"
             >
-              <Trash2 className="h-6 w-6" />
+              <Trash2 className="h-5 w-5" />
             </Button>
           )}
         </div>
@@ -127,15 +123,15 @@ export function ChatHistory() {
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="p-8 space-y-4">
+        <div className="p-4 space-y-3">
           {sessions.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 text-center space-y-6">
-              <div className="bg-primary/10 p-6 rounded-[2rem] border border-primary/20 shadow-2xl shadow-primary/10">
-                <MessageSquare className="h-12 w-12 text-primary" />
+            <div className="flex flex-col items-center justify-center py-12 text-center space-y-4">
+              <div className="bg-muted/30 p-4 rounded-full">
+                <MessageSquare className="h-8 w-8 text-muted-foreground/40" />
               </div>
-              <div className="space-y-2">
-                <p className="text-xl font-black tracking-tight">No conversations yet</p>
-                <p className="text-sm font-medium text-muted-foreground max-w-[240px] leading-relaxed">Your AI chat history will appear here for quick access.</p>
+              <div className="space-y-1">
+                <p className="text-sm font-semibold text-foreground">No conversations yet</p>
+                <p className="text-xs text-muted-foreground max-w-[180px]">Your AI chat history will appear here for quick access.</p>
               </div>
             </div>
           ) : (
@@ -143,43 +139,43 @@ export function ChatHistory() {
               <Card
                 key={session.id}
                 className={cn(
-                  'relative group border-border/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 active:scale-[0.98] cursor-pointer rounded-[2rem] overflow-hidden',
+                  'relative group border-transparent transition-all duration-300 hover:shadow-md hover:scale-[1.01] active:scale-[0.99] cursor-pointer',
                   currentSessionId === session.id 
-                    ? 'bg-primary/5 border-primary/30 shadow-xl shadow-primary/5' 
-                    : 'bg-card/40 hover:bg-accent/10'
+                    ? 'bg-primary/5 border-primary/20 shadow-sm' 
+                    : 'bg-card border-border/40 hover:bg-accent/5'
                 )}
                 onClick={() => handleSessionClick(session.id)}
               >
                 {currentSessionId === session.id && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-r-full shadow-[2px_0_10px_rgba(59,130,246,0.5)]" />
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full" />
                 )}
                 
-                <div className="p-6">
-                  <div className="flex items-center gap-4 min-w-0">
+                <div className="p-4">
+                  <div className="flex items-start gap-2 min-w-0">
                     <div className={cn(
-                      "h-14 w-14 shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg",
-                      currentSessionId === session.id ? "bg-primary text-primary-foreground shadow-primary/20" : "bg-muted/50 text-muted-foreground border border-border/40"
+                      "h-10 w-10 shrink-0 rounded-xl flex items-center justify-center transition-colors",
+                      currentSessionId === session.id ? "bg-primary/10 text-primary" : "bg-muted/50 text-muted-foreground"
                     )}>
-                      <MessageSquare className="h-7 w-7" />
+                      <MessageSquare className="h-5 w-5" />
                     </div>
                     
-                    <div className="flex-1 min-w-0 space-y-1.5">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="text-lg font-black truncate tracking-tight text-foreground group-hover:text-primary transition-colors">
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-sm font-bold truncate">
                           {session.title}
                         </p>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 whitespace-nowrap bg-muted/30 px-2 py-1 rounded-full">
+                        <span className="text-[10px] font-medium text-muted-foreground/60 whitespace-nowrap">
                           {formatDate(session.updatedAt)}
                         </span>
                       </div>
                       
-                      <div className="flex items-center gap-3">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black bg-primary/10 text-primary uppercase tracking-wider border border-primary/10">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-muted/50 text-muted-foreground/80 uppercase">
                           {session.messages.length} messages
                         </span>
                         {session.messages.length > 0 && (
-                          <p className="text-xs font-medium text-muted-foreground truncate italic opacity-70 group-hover:opacity-100 transition-opacity">
-                            "{session.messages[session.messages.length - 1].content.substring(0, 45)}..."
+                          <p className="text-[11px] text-muted-foreground truncate italic">
+                            "{session.messages[session.messages.length - 1].content.substring(0, 30)}..."
                           </p>
                         )}
                       </div>
@@ -188,11 +184,11 @@ export function ChatHistory() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-10 w-10 rounded-xl p-0 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-destructive/20 hover:text-destructive active:scale-90"
+                      className="h-8 w-8 rounded-lg p-0 flex-shrink-0 opacity-60 hover:opacity-100 group-hover:opacity-100 transition-all duration-200 hover:bg-destructive/10 hover:text-destructive"
                       onClick={(e) => handleDeleteClick(e, session.id)}
                       title="Delete conversation"
                     >
-                      <Trash2 className="h-5 w-5" />
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
