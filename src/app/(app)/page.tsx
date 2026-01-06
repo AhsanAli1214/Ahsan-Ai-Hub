@@ -153,7 +153,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
                     <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
-                      <Lock className="h-5 w-5 text-primary" />
+                      <Eye className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Local Storage</p>
@@ -162,7 +162,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
                     <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
-                      <Lock className="h-5 w-5 text-primary" />
+                      <Smartphone className="h-5 w-5 text-primary" />
                     </div>
                     <div>
                       <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">PWA Powered</p>
