@@ -58,66 +58,66 @@ const FAQData = [
     q: "How can I contact the developer for feedback or issues?", 
     a: "You can reach out directly via the Contact page or email me at tickets@ahsan-ai-hub.p.tawk.email. I personally review all feedback to improve the platform." 
   },
+  { 
+    cat: 'general',
+    q: "Can I use Ahsan AI Hub on my mobile device?", 
+    a: "Absolutely! Ahsan AI Hub is a highly optimized Progressive Web App (PWA). You can install it on your home screen for a native app-like experience with offline support and faster access." 
+  },
   
   // Features
   { 
     cat: 'features',
     q: "What AI model powers Ahsan AI Hub?", 
-    a: "We use cutting-edge language models through the Google Genkit framework. This ensures lightning-fast response times and high intelligence for complex tasks like coding and creative writing." 
+    a: "We use the latest high-performance models from Google (Gemini 2.5 Flash) integrated through the Google Genkit framework. This ensures incredibly fast response times and state-of-the-art accuracy." 
   },
   { 
     cat: 'features',
     q: "How do the 'Personality Modes' work?", 
-    a: "In Settings, you can switch between modes like 'Professional' (for business/work), 'Teacher' (for learning), 'Creative' (for stories/art), or 'Friendly' (for casual chat). This changes how the AI structures its tone and vocabulary." 
+    a: "In Settings, you can switch between modes like 'Professional', 'Teacher', 'Creative', or 'Friendly'. This intelligently adjusts the AI's tone, vocabulary, and logic to suit your specific needs." 
   },
   { 
     cat: 'features',
     q: "Can I use the app for audio translations?", 
-    a: "Yes! Every AI message includes a speaker icon for text-to-speech and a translation menu. You can translate responses into 50+ languages and listen to them instantly, making it a great tool for language learning." 
+    a: "Yes! Every response includes high-quality Text-to-Speech and translation support for 50+ languages. You can translate any answer and listen to it instantly." 
   },
   { 
     cat: 'features',
-    q: "What are 'Smart Prompts'?", 
-    a: "Smart Prompts are expertly crafted conversation starters designed to show you what the AI is capable of. They help you get high-quality results without having to think of a complex prompt yourself." 
+    q: "Does the Math Solver support image processing?", 
+    a: "Yes, our Math Solver uses advanced AI Vision. You can upload or snap a photo of a math problem, and the AI will analyze the image and provide a step-by-step solution." 
   },
   
   // Privacy
   { 
     cat: 'privacy',
     q: "Where is my chat history stored?", 
-    a: "Your chat history never leaves your device. It is stored in your browser's local storage. This means if you clear your browser data or use a different device, the history will reset. We do this to ensure your absolute privacy." 
+    a: "Your privacy is our priority. All chat history is stored locally in your browser's encrypted storage (Local/IndexedDB). We never see, touch, or store your conversations on any server." 
   },
   { 
     cat: 'privacy',
-    q: "Does Ahsan AI Hub use my data to train AI?", 
-    a: "No. Since we don't store your personal conversations on our servers, your data is not used for training. You are interacting with the model through an encrypted API connection." 
+    q: "Is there a biometric lock feature?", 
+    a: "Yes! To protect your local chats from others who might use your device, you can enable the Biometric Lock in settings. This requires your fingerprint or face ID to open the app." 
   },
   { 
     cat: 'privacy',
-    q: "Is there any tracking or analytics?", 
-    a: "We use minimal, anonymous performance analytics (like Vercel Analytics) to ensure the site is running fast and without errors. We do NOT track individual user identities or message content." 
+    q: "How do I clear my data?", 
+    a: "Since all data is local, you can clear it instantly by going to Settings > Data Management and clicking 'Clear All Data'. This wipes everything from your device immediately." 
   },
 
   // Technical
   { 
     cat: 'technical',
     q: "How do I install the app on my phone or computer?", 
-    a: "Since this is a Progressive Web App (PWA), you can install it without an app store. On Chrome (Android/Desktop), click the 'Install App' button or the 'Add to Home Screen' option in your browser menu. On Safari (iOS), tap 'Share' then 'Add to Home Screen'." 
+    a: "On Android/Desktop, click the 'Install App' button in the menu. On iOS, tap the 'Share' icon in Safari and select 'Add to Home Screen'. No app store is required!" 
   },
   { 
     cat: 'technical',
-    q: "What should I do if the AI stops responding?", 
-    a: "First, check your internet connection. If you're online and it's still stuck, try refreshing the page. If the issue persists, use the 'Report Error' button that appears when a crash is detected to notify the developer." 
+    q: "Does Ahsan AI Hub support offline use?", 
+    a: "The app shell and your saved chat history are available offline. However, generating new AI responses or solving math problems requires an internet connection." 
   },
   { 
     cat: 'technical',
-    q: "Can I use Ahsan AI Hub while offline?", 
-    a: "While the interface and your saved chat history work offline, generating new AI responses requires an active internet connection to communicate with the AI models." 
-  },
-  { 
-    cat: 'technical',
-    q: "Does it support dark mode?", 
-    a: "Yes! The app follows your system preference by default, but you can manually toggle between Light and Dark themes in the Settings page." 
+    q: "What if the AI stops responding?", 
+    a: "This is usually due to a momentary network hiccup. Try refreshing the page or checking your connection. Our 'Connection Status' tool at the top will alert you if your signal is weak." 
   }
 ];
 
@@ -148,19 +148,20 @@ export default function FaqPage() {
           
 
           {/* Enhanced Hero Section */}
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/20 via-primary/5 to-accent/20 border border-primary/20 p-10 md:p-16 text-center">
-            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl animate-pulse" />
-            <div className="relative">
-              <div className="flex justify-center mb-6">
-                <div className="rounded-2xl bg-primary/20 p-5 backdrop-blur-md shadow-inner">
-                  <HelpCircle className="h-12 w-12 text-primary" />
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary/30 via-primary/10 to-accent/30 border border-primary/30 p-10 md:p-20 text-center shadow-2xl">
+            <div className="absolute -top-10 -right-10 h-64 w-64 rounded-full bg-primary/20 blur-3xl animate-pulse" />
+            <div className="absolute -bottom-10 -left-10 h-64 w-64 rounded-full bg-accent/20 blur-3xl animate-pulse delay-700" />
+            <div className="relative z-10">
+              <div className="flex justify-center mb-8">
+                <div className="rounded-[2rem] bg-background/50 p-6 backdrop-blur-xl border border-white/20 shadow-2xl animate-bounce-slow">
+                  <HelpCircle className="h-16 w-16 text-primary drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]" />
                 </div>
               </div>
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground mb-4">
-                How can we help?
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
+                Help Center
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Explore our comprehensive guides and frequently asked questions about Ahsan AI Hub. Developed by Ahsan Ali Wadani, our privacy-first platform offers free AI chat, story writing, and 50+ language translations with zero tracking.
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
+                Find answers to everything about Ahsan AI Hub. Developed by <span className="text-primary font-bold">Ahsan Ali Wadani</span>, our privacy-first platform delivers free, secure, and world-class AI intelligence.
               </p>
             </div>
           </div>
