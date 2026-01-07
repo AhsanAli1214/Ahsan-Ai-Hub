@@ -67,17 +67,36 @@ export function PWAInstall() {
       localStorage.setItem('pwa-install-available', 'true');
     };
 
-    // Advanced PWA: Wake Lock Support
-    if ('wakeLock' in navigator) {
-      let wakeLock: any = null;
-      const requestWakeLock = async () => {
+    // Advanced PWA: Wake Lock and Periodic Sync Request
+    if ('wakeLock' in navigator || 'periodicSync' in (navigator as any).serviceWorker || 'sync' in (navigator as any).serviceWorker) {
+      const requestPersistence = async () => {
         try {
-          wakeLock = await (navigator as any).wakeLock.request('screen');
-        } catch (err) {}
+          // Request Wake Lock if supported
+          if ('wakeLock' in navigator) {
+            await (navigator as any).wakeLock.request('screen');
+          }
+          
+          // Request Periodic Sync permission
+          const registration = await navigator.serviceWorker.ready;
+          if ('periodicSync' in registration) {
+            const status = await (navigator as any).permissions.query({
+              name: 'periodic-background-sync',
+            });
+            if (status.state === 'granted') {
+              await (registration as any).periodicSync.register('content-sync', {
+                minInterval: 24 * 60 * 60 * 1000,
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('Persistence features not fully supported:', err);
+        }
       };
+
+      requestPersistence();
       document.addEventListener('visibilitychange', () => {
-        if (wakeLock !== null && document.visibilityState === 'visible') {
-          requestWakeLock();
+        if (document.visibilityState === 'visible') {
+          requestPersistence();
         }
       });
     }

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ahsan-ai-hub-v5-1767766987';
+const CACHE_NAME = 'ahsan-ai-hub-v5-1767767102';
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
@@ -26,7 +26,12 @@ self.addEventListener('activate', (event) => {
             .map((cacheName) => caches.delete(cacheName))
         );
       }),
-      self.clients.claim()
+      self.clients.claim(),
+      // Periodic Sync to keep SW alive and sync data
+      'periodicSync' in self.registration ? 
+        self.registration.periodicSync.register('content-sync', {
+          minInterval: 24 * 60 * 60 * 1000 
+        }) : Promise.resolve()
     ])
   );
 });
@@ -40,7 +45,6 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
@@ -57,6 +61,22 @@ self.addEventListener('fetch', (event) => {
       });
     })
   );
+});
+
+// Keep Alive via Periodic Sync
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'content-sync') {
+    event.waitUntil(
+      caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+    );
+  }
+});
+
+// Background Sync
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-data') {
+    console.log('Background sync triggered');
+  }
 });
 
 // Real-time Push Notifications
