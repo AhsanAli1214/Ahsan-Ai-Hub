@@ -45,7 +45,9 @@ const nextConfig = {
     scrollRestoration: true,
     optimizeCss: true,
     serverSourceMaps: false,
+    bundleAnalyzer: process.env.ANALYZE === 'true',
   },
+  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },

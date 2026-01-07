@@ -104,6 +104,7 @@ export default function HomePage() {
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
+                  sizes="(max-width: 768px) 144px, 192px"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">

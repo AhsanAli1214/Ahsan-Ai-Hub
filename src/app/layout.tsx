@@ -201,6 +201,7 @@ export default function RootLayout({
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
           <link rel="preload" href="/logo.png" as="image" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
           <Script 
             src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
