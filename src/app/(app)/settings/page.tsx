@@ -79,12 +79,12 @@ const THEME_MODES = [
 ];
 
 const COLOR_THEMES = [
-  { id: 'default', label: 'Blue (Default)', color: 'bg-blue-500' },
-  { id: 'aurora', label: 'Aurora (Purple)', color: 'bg-purple-500' },
-  { id: 'ocean', label: 'Ocean (Teal)', color: 'bg-cyan-500' },
-  { id: 'sunset', label: 'Sunset (Orange)', color: 'bg-orange-500' },
-  { id: 'forest', label: 'Forest (Green)', color: 'bg-green-500' },
-  { id: 'midnight', label: 'Midnight (Navy)', color: 'bg-indigo-700' },
+  { id: 'default', label: 'Blue (Default)', color: 'bg-blue-500', value: '221.2 83.2% 53.3%' },
+  { id: 'aurora', label: 'Aurora (Purple)', color: 'bg-purple-500', value: '262.1 83.3% 57.8%' },
+  { id: 'ocean', label: 'Ocean (Teal)', color: 'bg-cyan-500', value: '188.7 94.5% 42.7%' },
+  { id: 'sunset', label: 'Sunset (Orange)', color: 'bg-orange-500', value: '24.6 95% 53.1%' },
+  { id: 'forest', label: 'Forest (Green)', color: 'bg-green-500', value: '142.1 76.2% 36.3%' },
+  { id: 'midnight', label: 'Midnight (Navy)', color: 'bg-indigo-700', value: '243.4 75.4% 58.6%' },
 ];
 
 const RESPONSE_LENGTH_MODES = [
@@ -263,6 +263,10 @@ export default function SettingsPage() {
                         onClick={() => {
                           document.documentElement.setAttribute('data-theme', colorTheme.id);
                           localStorage.setItem('selectedColorTheme', colorTheme.id);
+                          if ((colorTheme as any).value) {
+                            document.documentElement.style.setProperty('--primary', (colorTheme as any).value);
+                            localStorage.setItem('customAccentColor', (colorTheme as any).value);
+                          }
                           window.dispatchEvent(new Event('storage'));
                         }}
                         title={colorTheme.label}

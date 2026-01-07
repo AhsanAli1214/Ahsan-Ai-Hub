@@ -216,6 +216,10 @@ export default function RootLayout({
                   if (theme) {
                     document.documentElement.setAttribute('data-theme', theme);
                   }
+                  const customAccent = localStorage.getItem('customAccentColor');
+                  if (customAccent) {
+                    document.documentElement.style.setProperty('--primary', customAccent);
+                  }
                 } catch (e) {}
               })();
             `}
