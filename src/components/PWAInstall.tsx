@@ -60,6 +60,12 @@ export function PWAInstall() {
       localStorage.setItem('pwa-install-available', 'true');
     };
 
+    const handleVibrate = () => {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(50);
+      }
+    };
+
     const handleInstallableEvent = (e: any) => {
       console.log('pwa-installable custom event captured');
       setDeferredPrompt(e.detail as BeforeInstallPromptEvent);
