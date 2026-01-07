@@ -722,7 +722,7 @@ export function ChatInterface({
             
             <div className="flex-1 flex items-center relative bg-[#010201] rounded-[1.8rem] border border-white/5 group-focus-within:border-primary/40 overflow-hidden shadow-2xl transition-all duration-500">
                 {/* .white / .border animated overlay equivalent using a pseudo-gradient */}
-                <div className="absolute inset-0 bg-conic-gradient from-transparent via-primary/10 to-transparent opacity-0 group-focus-within:opacity-100 animate-[spin_4s_linear_infinite] pointer-events-none"></div>
+                <div className="absolute inset-0 bg-conic-gradient opacity-0 group-focus-within:opacity-100 animate-spin-slow pointer-events-none blur-[2px]"></div>
                 
                 <Textarea
                     value={input}
