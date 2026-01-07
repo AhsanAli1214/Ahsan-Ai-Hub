@@ -1,5 +1,5 @@
 export const announcementConfig = {
-  id: "welcome-v8", // Change this ID whenever you want to show the banner again to everyone
+  id: "welcome-v7", // Change this ID whenever you want to show the banner again to everyone
   title: "Welcome to Ahsan AI Hub",
   message:
     "Discover the world of artificial intelligence, explore innovative tools, and unlock your creativity. We’re here to empower you with knowledge, solutions, and AI-driven insights—right at your fingertips.",
@@ -8,5 +8,5 @@ export const announcementConfig = {
   senderName: "Ahsan Ali",
   ctaText: "Explore Tools",
   ctaLink: "/content-tools",
-  showBanner: false, // Set to false to hide the banner completely
+  showBanner: true, // Set to false to hide the banner completely
 };
