@@ -418,6 +418,10 @@ export function ChatInterface({
 
   const processMessage = async (content: string) => {
     setIsLoading(true);
+    // Badge API: Update badge to show a task is in progress (dot)
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('app-badge-update', { detail: { count: 1 } }));
+    }
     try {
       const result = await getRecommendationsAction({
         interests: content,
@@ -450,6 +454,10 @@ export function ChatInterface({
       });
     } finally {
       setIsLoading(false);
+      // Badge API: Clear badge when task is completed
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('app-badge-update', { detail: { count: 0 } }));
+      }
     }
   };
 
