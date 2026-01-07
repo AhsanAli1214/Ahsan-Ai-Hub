@@ -220,21 +220,30 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col bg-background/50">
       <AppHeader title="Settings" />
-      <div className="flex-1 overflow-y-auto p-4 lg:p-6">
-        <div className="mx-auto max-w-3xl space-y-8">
-          {/* Theme */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Theme</CardTitle>
-              <CardDescription>
-                Select the theme and color scheme for the application.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <p className="text-sm font-medium mb-4">Light/Dark Mode</p>
+      <div className="flex-1 overflow-y-auto px-4 py-8 lg:px-10">
+        <div className="mx-auto max-w-4xl space-y-10 pb-24">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-black tracking-tight text-foreground md:text-4xl">Preferences</h1>
+            <p className="text-muted-foreground">Customize your AI experience and application interface.</p>
+          </div>
+
+          {/* Theme Section */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-1 bg-primary rounded-full" />
+              <h2 className="text-xl font-bold tracking-tight">Appearance</h2>
+            </div>
+            
+            <Card className="border-accent/10 bg-card/30 backdrop-blur-md shadow-xl overflow-hidden">
+              <CardHeader className="border-b border-accent/5 bg-accent/5">
+                <CardTitle className="text-lg">Display Theme</CardTitle>
+                <CardDescription>
+                  Switch between light and dark modes or let your system decide.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-6 space-y-8">
                 <div className="grid grid-cols-3 gap-4">
                   {THEME_MODES.map((mode) => {
                     const isActive = theme === mode.id;
@@ -243,172 +252,170 @@ export default function SettingsPage() {
                         key={mode.id}
                         variant={isActive ? 'default' : 'outline'}
                         onClick={() => setTheme(mode.id)}
-                        className="flex h-auto flex-col items-center justify-center gap-2 rounded-lg p-4"
+                        className={cn(
+                          "flex h-24 flex-col items-center justify-center gap-3 rounded-2xl transition-all duration-300",
+                          isActive ? "shadow-lg shadow-primary/20 scale-105" : "hover:bg-accent/10 border-accent/10"
+                        )}
                       >
-                        <mode.icon className="h-6 w-6" />
-                        <span>{mode.label}</span>
+                        <mode.icon className={cn("h-7 w-7", isActive ? "text-primary-foreground" : "text-primary")} />
+                        <span className="font-bold text-xs uppercase tracking-widest">{mode.label}</span>
                       </Button>
                     );
                   })}
                 </div>
-              </div>
-              <div>
-                <p className="text-sm font-medium mb-4">Color Scheme</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                  {COLOR_THEMES.map((colorTheme) => {
-                    const isSelected = typeof window !== 'undefined' && document.documentElement.getAttribute('data-theme') === colorTheme.id;
+
+                <div className="space-y-4">
+                  <Label className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Accent Color</Label>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
+                    {COLOR_THEMES.map((colorTheme) => {
+                      const isSelected = typeof window !== 'undefined' && document.documentElement.getAttribute('data-theme') === colorTheme.id;
+                      return (
+                        <button
+                          key={colorTheme.id}
+                          onClick={() => {
+                            document.documentElement.setAttribute('data-theme', colorTheme.id);
+                            localStorage.setItem('selectedColorTheme', colorTheme.id);
+                            if ((colorTheme as any).value) {
+                              document.documentElement.style.setProperty('--primary', (colorTheme as any).value);
+                              localStorage.setItem('customAccentColor', (colorTheme as any).value);
+                            }
+                            window.dispatchEvent(new Event('storage'));
+                          }}
+                          className={cn(
+                            "group relative flex flex-col items-center gap-3 p-3 rounded-2xl transition-all border-2",
+                            isSelected ? 'border-primary bg-primary/10 shadow-lg' : 'border-transparent hover:bg-accent/5'
+                          )}
+                        >
+                          <div className={cn(
+                            "h-12 w-12 rounded-xl shadow-inner transition-transform group-hover:scale-110",
+                            colorTheme.color
+                          )} />
+                          <span className="text-[10px] text-center font-black uppercase tracking-tighter opacity-70 leading-none">
+                            {colorTheme.label.split(' ')[0]}
+                          </span>
+                          {isSelected && (
+                            <div className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
+                              <Check className="h-3 w-3" />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* AI Configuration */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-1 bg-primary rounded-full" />
+              <h2 className="text-xl font-bold tracking-tight">AI Behavior</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Personality */}
+              <Card className="border-accent/10 bg-card/30 backdrop-blur-md shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Intelligence Tone</CardTitle>
+                  <CardDescription>Adjust how the AI communicates with you.</CardDescription>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 gap-3">
+                  {PERSONALITY_MODES.map((mode) => {
+                    const isActive = personalityMode === mode.id;
                     return (
                       <button
-                        key={colorTheme.id}
-                        onClick={() => {
-                          document.documentElement.setAttribute('data-theme', colorTheme.id);
-                          localStorage.setItem('selectedColorTheme', colorTheme.id);
-                          if ((colorTheme as any).value) {
-                            document.documentElement.style.setProperty('--primary', (colorTheme as any).value);
-                            localStorage.setItem('customAccentColor', (colorTheme as any).value);
-                          }
-                          window.dispatchEvent(new Event('storage'));
-                        }}
-                        title={colorTheme.label}
+                        key={mode.id}
+                        onClick={() => setPersonalityMode(mode.id as PersonalityMode)}
                         className={cn(
-                          "flex flex-col items-center gap-2 p-2 rounded-lg transition-all border-2",
-                          isSelected ? 'border-primary bg-primary/10' : 'border-transparent hover:bg-muted'
+                          "flex items-center gap-4 p-4 rounded-2xl border-2 transition-all text-left",
+                          isActive ? "border-primary bg-primary/10" : "border-transparent hover:bg-accent/5"
                         )}
                       >
-                        <div className={`h-10 w-10 rounded-lg ${colorTheme.color}`} />
-                        <span className="text-xs text-center font-medium">{colorTheme.label}</span>
+                        <div className={cn(
+                          "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
+                          isActive ? "bg-primary text-primary-foreground" : "bg-accent/10 text-primary"
+                        )}>
+                          <mode.icon className="h-6 w-6" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-sm leading-none mb-1">{mode.label}</h3>
+                          <p className="text-xs text-muted-foreground leading-tight">{mode.description}</p>
+                        </div>
                       </button>
                     );
                   })}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
 
-          {/* Response Length */}
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Response Length</CardTitle>
-              <CardDescription>
-                Choose how detailed the AI responses should be
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {RESPONSE_LENGTH_MODES.map((mode) => {
-                const isActive = responseLength === mode.id;
-                return (
-                  <Card
-                    key={mode.id}
-                    onClick={() =>
-                      setResponseLength(mode.id as ResponseLength)
-                    }
-                    className={cn(
-                      'cursor-pointer transition-all hover:shadow-md',
-                      isActive
-                        ? 'border-accent ring-2 ring-accent'
-                        : 'border'
-                    )}
-                  >
-                    <CardContent className="flex flex-col items-center gap-2 p-4">
-                      <div
+              {/* Length */}
+              <Card className="border-accent/10 bg-card/30 backdrop-blur-md shadow-xl">
+                <CardHeader>
+                  <CardTitle className="text-lg">Response Detail</CardTitle>
+                  <CardDescription>Control the depth of AI generated content.</CardDescription>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 gap-3">
+                  {RESPONSE_LENGTH_MODES.map((mode) => {
+                    const isActive = responseLength === mode.id;
+                    return (
+                      <button
+                        key={mode.id}
+                        onClick={() => setResponseLength(mode.id as ResponseLength)}
                         className={cn(
-                          'flex h-10 w-10 items-center justify-center rounded-lg',
-                          isActive
-                            ? 'bg-accent text-accent-foreground'
-                            : 'bg-secondary text-secondary-foreground'
+                          "flex items-center gap-4 p-4 rounded-2xl border-2 transition-all text-left",
+                          isActive ? "border-primary bg-primary/10" : "border-transparent hover:bg-accent/5"
                         )}
                       >
-                        <mode.icon className="h-5 w-5" />
-                      </div>
-                      <h3 className="font-semibold">{mode.label}</h3>
-                      <p className="text-xs text-muted-foreground text-center">
-                        {mode.description}
-                      </p>
-                      {isActive && (
-                        <div className="mt-2 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                          <Check className="h-4 w-4" />
+                        <div className={cn(
+                          "flex h-12 w-12 items-center justify-center rounded-xl transition-colors",
+                          isActive ? "bg-primary text-primary-foreground" : "bg-accent/10 text-primary"
+                        )}>
+                          <mode.icon className="h-6 w-6" />
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </CardContent>
-          </Card>
-
-          {/* AI Personality */}
-          <Card>
-            <CardHeader>
-              <CardTitle>AI Personality</CardTitle>
-              <CardDescription>
-                Choose how the AI responds to you
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {PERSONALITY_MODES.map((mode) => {
-                const isActive = personalityMode === mode.id;
-                return (
-                  <Card
-                    key={mode.id}
-                    onClick={() =>
-                      setPersonalityMode(mode.id as PersonalityMode)
-                    }
-                    className={cn(
-                      'cursor-pointer transition-all hover:shadow-md',
-                      isActive
-                        ? 'border-accent ring-2 ring-accent'
-                        : 'border'
-                    )}
-                  >
-                    <CardContent className="flex items-center gap-4 p-4">
-                      <div
-                        className={cn(
-                          'flex h-10 w-10 items-center justify-center rounded-lg',
-                          isActive
-                            ? 'bg-accent text-accent-foreground'
-                            : 'bg-secondary text-secondary-foreground'
-                        )}
-                      >
-                        <mode.icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold">{mode.label}</h3>
-                        <p className="text-xs text-muted-foreground">
-                          {mode.description}
-                        </p>
-                      </div>
-                      {isActive && (
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-accent text-accent-foreground">
-                          <Check className="h-4 w-4" />
+                        <div className="flex-1">
+                          <h3 className="font-bold text-sm leading-none mb-1">{mode.label}</h3>
+                          <p className="text-xs text-muted-foreground leading-tight">{mode.description}</p>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </CardContent>
-          </Card>
+                      </button>
+                    );
+                  })}
+                </CardContent>
+              </Card>
+            </div>
+          </section>
 
-          {/* UI & Feedback */}
-          <Card>
-            <CardHeader>
-              <CardTitle>UI & Feedback</CardTitle>
-              <CardDescription>
-                Customize the look and feel of the application
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between rounded-lg border p-4">
-                <div>
-                  <Label
-                    htmlFor="animations-switch"
-                    className="font-semibold"
-                  >
-                    Animation Effects
+          {/* Security & System */}
+          <section className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-1 bg-primary rounded-full" />
+              <h2 className="text-xl font-bold tracking-tight">Security & Experience</h2>
+            </div>
+
+            <Card className="border-accent/10 bg-card/30 backdrop-blur-md shadow-xl divide-y divide-accent/5">
+              <div className="flex items-center justify-between p-6">
+                <div className="space-y-1">
+                  <Label htmlFor="biometric-switch" className="text-base font-bold flex items-center gap-2">
+                    <Fingerprint className="h-5 w-5 text-primary" />
+                    Biometric Lock
                   </Label>
-                  <p className="text-sm text-muted-foreground">
-                    Enable or disable chat animations and transitions.
-                  </p>
+                  <p className="text-sm text-muted-foreground">Require TouchID/FaceID to access your local chats.</p>
+                </div>
+                <Switch
+                  id="biometric-switch"
+                  checked={biometricEnabled}
+                  onCheckedChange={handleBiometricToggle}
+                  className="data-[state=checked]:bg-primary"
+                />
+              </div>
+
+              <div className="flex items-center justify-between p-6">
+                <div className="space-y-1">
+                  <Label htmlFor="animations-switch" className="text-base font-bold flex items-center gap-2">
+                    <Zap className="h-5 w-5 text-primary" />
+                    Visual Effects
+                  </Label>
+                  <p className="text-sm text-muted-foreground">Enable smooth transitions and AI thinking animations.</p>
                 </div>
                 <Switch
                   id="animations-switch"
@@ -416,70 +423,47 @@ export default function SettingsPage() {
                   onCheckedChange={setEnableAnimations}
                 />
               </div>
-              <div className="flex items-center justify-between rounded-lg border p-4">
-                <div>
-                  <Label htmlFor="typing-switch" className="font-semibold">
-                    Typing Indicator
-                  </Label>
-                  <p className="text-sm text-muted-foreground">
-                    Show or hide the AI typing animation.
-                  </p>
-                </div>
-                <Switch
-                  id="typing-switch"
-                  checked={enableTypingIndicator}
-                  onCheckedChange={setEnableTypingIndicator}
-                />
-              </div>
-              <div className="flex items-center justify-between rounded-lg border p-4 bg-primary/5 border-primary/20">
-                <div>
-                  <Label htmlFor="biometric-switch" className="font-semibold flex items-center gap-2">
-                    <Fingerprint className="h-4 w-4" />
-                    Biometric Security
-                  </Label>
-                  <p className="text-sm text-muted-foreground">
-                    Use Fingerprint or Face ID to lock the app.
-                  </p>
-                </div>
-                <Switch
-                  id="biometric-switch"
-                  checked={biometricEnabled}
-                  onCheckedChange={handleBiometricToggle}
-                />
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Push Notifications */}
-          <Card className="bg-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="text-foreground">Push Notifications</CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Get notified about updates and new features
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device.
-              </p>
-              <div className='onesignal-customlink-container mb-4'></div>
-              <OneSignalButton />
-            </CardContent>
-          </Card>
 
-          {/* Info Section */}
-          <Card className="bg-accent/15">
-            <CardHeader>
-              <CardTitle>About Settings</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
-                Your preferences are automatically saved to your browser.
-                Customize your AI personality, interface theme, and interaction
-                feedback to match your style.
-              </p>
-            </CardContent>
-          </Card>
+              <div className="p-6 space-y-4">
+                <div className="space-y-1">
+                  <h3 className="text-base font-bold flex items-center gap-2 text-destructive">
+                    <Trash2 className="h-5 w-5" />
+                    Danger Zone
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Permanently delete all data from this device.</p>
+                </div>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" className="w-full sm:w-auto rounded-xl font-bold shadow-lg shadow-destructive/20">
+                      Reset All App Data
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent className="rounded-[2rem] border-destructive/20 bg-background/95 backdrop-blur-xl">
+                    <AlertDialogHeader>
+                      <AlertDialogTitle className="text-2xl font-black">Absolute Deletion?</AlertDialogTitle>
+                      <AlertDialogDescription className="text-base">
+                        This action cannot be undone. All your local chat history, custom settings, and biometric configurations will be wiped permanently.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter className="gap-3">
+                      <AlertDialogCancel className="rounded-2xl font-bold border-accent/20">Keep My Data</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleClearHistory} className="rounded-2xl font-bold bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                        Wipe Everything
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </Card>
+          </section>
+
+          {/* Footer Info */}
+          <footer className="pt-10 pb-20 text-center space-y-6">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-accent/5 border border-accent/10">
+              <Smile className="h-5 w-5 text-primary" />
+              <span className="text-sm font-bold text-muted-foreground">Settings are saved locally to your device.</span>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
