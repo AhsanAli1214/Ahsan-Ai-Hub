@@ -707,23 +707,8 @@ export function ChatInterface({
       )}
       <div className="fixed bottom-0 left-0 right-0 z-30 px-3 sm:px-4 py-3 sm:py-4 w-full pb-[calc(1rem+env(safe-area-inset-bottom))] mb-20 md:mb-0 pointer-events-none">
         <div className="mx-auto w-full max-w-4xl flex justify-center pointer-events-auto">
-           <div className="flex items-end gap-2 sm:gap-3 w-full relative group">
-            {/* 
-                THE PERFECT GLOW SYSTEM
-                Pixel-perfect match to provided code, but using Tailwind + CSS variables 
-                to respect the website's dynamic color scheme.
-            */}
-            
-            {/* .glow equivalent */}
-            <div className="absolute -inset-2 rounded-[2.5rem] bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40 blur-[30px] opacity-40 group-focus-within:opacity-70 group-hover:opacity-60 transition-all duration-1000"></div>
-            
-            {/* .darkBorderBg / .border / .white layers */}
-            <div className="absolute -inset-0.5 rounded-[2rem] bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 blur-[2px] opacity-50 group-focus-within:opacity-100 transition-all duration-700"></div>
-            
-            <div className="flex-1 flex items-center relative bg-[#010201] rounded-[1.8rem] border border-white/5 group-focus-within:border-primary/40 overflow-hidden shadow-2xl transition-all duration-500">
-                {/* .white / .border animated overlay equivalent using a pseudo-gradient */}
-                <div className="absolute inset-0 bg-conic-gradient opacity-0 group-focus-within:opacity-100 animate-spin-slow pointer-events-none blur-[2px]"></div>
-                
+           <div className="flex items-end gap-2 sm:gap-3 w-full bg-background/80 backdrop-blur-lg p-2 rounded-3xl border border-border/40 shadow-2xl">
+            <div className="flex-1 flex items-center relative">
                 <Textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -733,28 +718,25 @@ export function ChatInterface({
                         handleSend();
                     }
                     }}
-                    placeholder="Type your message to Ahsan AI..."
-                    className="flex-1 resize-none rounded-2xl border-0 bg-transparent shadow-none focus-visible:ring-0 text-sm sm:text-base min-h-[64px] py-5 pl-6 pr-14 text-white placeholder:text-[#c0b9c0] selection:bg-primary/30"
+                    placeholder="Ask me anything..."
+                    className="flex-1 resize-none rounded-2xl border border-border bg-background shadow-none focus-visible:ring-1 focus-visible:ring-primary text-sm sm:text-base min-h-[44px] py-3 pl-4 pr-12"
                     rows={1}
                     disabled={isLoading}
                 />
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                   <VoiceInput 
                       onTranscript={(text) => setInput(prev => prev + (prev ? ' ' : '') + text)} 
                   />
                 </div>
             </div>
-            
             <Button 
                 onClick={handleSend} 
                 disabled={isLoading || !input.trim()} 
                 size="icon" 
-                className="h-16 w-16 shrink-0 rounded-[1.8rem] shadow-xl shadow-primary/20 transition-all duration-500 hover:scale-105 active:scale-95 bg-primary text-primary-foreground relative overflow-hidden group/btn"
+                className="h-10 w-10 sm:h-11 sm:w-11 shrink-0 rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary text-primary-foreground"
             >
-                {/* Internal button glow */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
-                {isLoading ? <Loader2 className="h-7 w-7 animate-spin" /> : <Send className="h-7 w-7" />}
-                <span className="sr-only">Send Message</span>
+                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+                <span className="sr-only">Send</span>
             </Button>
            </div>
         </div>
