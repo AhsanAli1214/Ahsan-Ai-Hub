@@ -166,7 +166,7 @@ Thank you for your support! 🙏`;
               id="contact-heading"
               className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]"
             >
-              Get in <span className="text-primary">Touch</span>
+              Contact Ahsan Ali Wadani - Ahsan AI Hub Support
             </h1>
             <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">
               Skip the forms. Connect with us directly through our official
