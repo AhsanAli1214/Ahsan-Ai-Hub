@@ -4,6 +4,9 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   allowedDevOrigins: ['*'],
+  devIndicators: {
+    position: 'bottom-right',
+  },
   experimental: {
     optimizePackageImports: [
       '@radix-ui/react-accordion',
