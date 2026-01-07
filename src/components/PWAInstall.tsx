@@ -98,9 +98,14 @@ export function PWAInstall() {
   }, [toast]);
 
   const handleNotificationClick = () => {
-        try {
-          setNotificationsEnabled(Notification.permission === 'granted');
-        } catch (e) {
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        setNotificationsEnabled(permission === 'granted');
+        if (permission === 'granted') {
+          toast({
+            title: "Notifications Enabled",
+            description: "You'll now receive updates from Ahsan AI Hub.",
+          });
         }
       });
     }
