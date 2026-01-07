@@ -371,10 +371,29 @@ export function ChatInterface({
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
 
-  const messages = currentSession?.messages || [];
-
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // Handle Share Target and Protocol Handler data
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedText = urlParams.get('text') || urlParams.get('title');
+    const sharedUrl = urlParams.get('url');
+    const protocolQuery = urlParams.get('q');
+
+    let combinedPrompt = '';
+    if (sharedText) combinedPrompt += sharedText;
+    if (sharedUrl) combinedPrompt += (combinedPrompt ? '\n' : '') + sharedUrl;
+    if (protocolQuery) combinedPrompt = protocolQuery;
+
+    if (combinedPrompt && !isLoading && messages.length === 0) {
+      setInput(combinedPrompt);
+      // Automatically send if it's a direct share or protocol launch
+      setTimeout(() => {
+        const sendBtn = document.querySelector('button[aria-label="Send message"]') as HTMLButtonElement;
+        if (sendBtn) sendBtn.click();
+      }, 500);
+    }
+  }, []);
 
     const handleOnline = () => {
       setIsOnline(true);
