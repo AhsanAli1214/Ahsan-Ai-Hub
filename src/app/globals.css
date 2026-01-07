@@ -360,7 +360,6 @@ body {
 
   body {
     @apply bg-background text-foreground;
-    content-visibility: auto;
   }
 }
 
@@ -412,7 +411,7 @@ body {
 
 @layer components {
   .btm-nav {
-    @apply fixed bottom-0 left-0 right-0 z-[9999] flex h-20 items-stretch border-t bg-background/95 backdrop-blur-md shadow-lg;
+    @apply fixed bottom-0 left-0 right-0 z-50 flex h-20 items-stretch border-t bg-background/95 backdrop-blur-md shadow-lg;
     padding-bottom: env(safe-area-inset-bottom);
   }
 
