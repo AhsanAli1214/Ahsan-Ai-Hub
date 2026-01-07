@@ -166,11 +166,10 @@ Thank you for your support! 🙏`;
               id="contact-heading"
               className="text-5xl sm:text-7xl font-black tracking-tight text-foreground leading-[1.1]"
             >
-              Contact Ahsan Ali Wadani - Ahsan AI Hub Support
+              Contact Ahsan Ali Wadani - Ahsan AI Hub Support & Collaboration
             </h1>
             <p className="mx-auto max-w-2xl text-lg sm:text-xl text-muted-foreground font-medium leading-relaxed">
-              Skip the forms. Connect with us directly through our official
-              channels for the fastest support and collaboration.
+              Have a question or a project in mind? Ahsan AI Hub is dedicated to providing the best free AI experience. Reach out to the developer, Ahsan Ali Wadani, for support, feedback, or potential collaborations. We are here to help you get the most out of our privacy-first AI tools.
             </p>
 
             <div className="pt-8 flex justify-center">
