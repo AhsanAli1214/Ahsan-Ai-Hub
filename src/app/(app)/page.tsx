@@ -262,7 +262,10 @@ export default function HomePage() {
                 <Smartphone className="h-6 w-6 text-primary" />
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">Get real-time updates directly on your device. Click the notification bell to subscribe.</p>
+                <p className="text-sm text-muted-foreground">Get real-time updates directly on your device. Click the button below to subscribe.</p>
+                <div className="flex justify-center py-2">
+                  <div data-pushify-button></div>
+                </div>
               </CardContent>
             </Card>
           </section>

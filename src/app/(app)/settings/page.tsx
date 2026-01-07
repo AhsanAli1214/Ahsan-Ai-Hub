@@ -457,6 +457,9 @@ export default function SettingsPage() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device via Pushify.
               </p>
+              <div className="flex justify-start py-2">
+                <div data-pushify-button></div>
+              </div>
             </CardContent>
           </Card>
 
