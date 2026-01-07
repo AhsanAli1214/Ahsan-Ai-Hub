@@ -367,6 +367,7 @@ export function ChatInterface({
   const scrollViewportRef = useRef<HTMLDivElement>(null);
   const { personalityMode, responseLength, enableAnimations, enableTypingIndicator } = useAppContext();
   const { currentSession, addMessage, updateCurrentSessionTitle, createSession, updateMessage, offlineQueue, addToOfflineQueue, syncOfflineMessages } = useChatHistory();
+  const messages = currentSession?.messages || [];
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
