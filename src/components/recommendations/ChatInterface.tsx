@@ -721,7 +721,7 @@ export function ChatInterface({
                         handleSend();
                     }
                     }}
-                    placeholder="Ask me anything..."
+                    placeholder="Type your message to Ahsan AI..."
                     className="flex-1 resize-none rounded-2xl border-0 bg-transparent shadow-none focus-visible:ring-0 text-sm sm:text-base min-h-[56px] py-4 pl-5 pr-12"
                     rows={1}
                     disabled={isLoading}
@@ -739,7 +739,7 @@ export function ChatInterface({
                 className="h-14 w-14 shrink-0 rounded-[1.5rem] shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 bg-primary text-primary-foreground group-focus-within:ring-2 ring-primary/20"
             >
                 {isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : <Send className="h-6 w-6" />}
-                <span className="sr-only">Send</span>
+                <span className="sr-only">Send Message</span>
             </Button>
            </div>
         </div>
