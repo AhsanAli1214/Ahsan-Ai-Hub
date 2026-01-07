@@ -101,13 +101,19 @@ export function PWAInstall() {
       });
     }
 
-    // Advanced PWA: Vibrate on Interaction
-    const handleVibrate = () => {
-      if ('vibrate' in navigator) {
-        navigator.vibrate(10);
-      }
-    };
-    window.addEventListener('click', handleVibrate);
+    // Advanced PWA: Badge API Support
+    if ('setAppBadge' in navigator) {
+      window.addEventListener('app-badge-update', ((e: CustomEvent) => {
+        const count = e.detail?.count;
+        if (count !== undefined) {
+          if (count > 0) {
+            (navigator as any).setAppBadge(count).catch(() => {});
+          } else {
+            (navigator as any).clearAppBadge().catch(() => {});
+          }
+        }
+      }) as EventListener);
+    }
 
     return () => {
       window.removeEventListener('click', handleVibrate);
