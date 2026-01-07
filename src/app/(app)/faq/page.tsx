@@ -118,6 +118,21 @@ const FAQData = [
     cat: 'technical',
     q: "What if the AI stops responding?", 
     a: "This is usually due to a momentary network hiccup. Try refreshing the page or checking your connection. Our 'Connection Status' tool at the top will alert you if your signal is weak." 
+  },
+  { 
+    cat: 'general',
+    q: "Can I share my AI conversations?", 
+    a: "Yes! Every chat session has a 'Share' option that generates a secure, anonymous transcript link. You can share your AI-powered insights with anyone without revealing your identity." 
+  },
+  { 
+    cat: 'features',
+    q: "Does it support image-to-text or OCR?", 
+    a: "Our Math Solver and Vision Assistant both support high-speed OCR (Optical Character Recognition). You can upload images, and the AI will extract and process the text instantly." 
+  },
+  { 
+    cat: 'privacy',
+    q: "How does the 'Incognito Mode' work?", 
+    a: "When you enable Incognito Mode in Settings, your chat history is not even saved to your local device. Once you close the tab, all session data is permanently erased." 
   }
 ];
 
