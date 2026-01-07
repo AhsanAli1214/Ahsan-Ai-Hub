@@ -395,6 +395,9 @@ export function ChatInterface({
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const handleOnline = () => {
       setIsOnline(true);
       if (offlineQueue.length > 0) {
