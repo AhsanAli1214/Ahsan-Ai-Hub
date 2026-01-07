@@ -200,7 +200,7 @@ export default function RootLayout({
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-          <link rel="preload" href="/logo.png" as="image" />
+          <link rel="preload" href="/logo.png" as="image" fetchPriority="high" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
           <Script id="register-sw" strategy="afterInteractive">
