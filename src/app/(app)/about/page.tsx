@@ -121,12 +121,12 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />
       <AppHeader title="About the Developer" />
-          <div className="mx-auto max-w-5xl space-y-12 pb-20">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground text-center mb-8">
-              About Ahsan Ali - Creator of Ahsan AI Hub
-            </h1>
-            
-            {/* Hero Section */}
+      <div className="flex-1 overflow-y-auto p-4 lg:p-8">
+        <div className="mx-auto max-w-5xl space-y-12 pb-20">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground text-center mb-8">
+            About Ahsan Ali - Creator of Ahsan AI Hub
+          </h1>
+          
           <section className="relative overflow-hidden rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-md shadow-2xl">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
@@ -169,7 +169,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Detailed About Section */}
           <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <Card className="lg:col-span-2 border-accent/20 bg-card/50 p-8 space-y-6">
               <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
@@ -204,7 +203,6 @@ export default function AboutPage() {
             </Card>
           </section>
 
-          {/* Mission & Vision */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Card className="group relative overflow-hidden border-accent/20 bg-card/50 transition-all hover:border-accent/40">
               <div className="absolute top-0 left-0 h-1 w-full bg-accent" />
@@ -252,7 +250,6 @@ export default function AboutPage() {
             </Card>
           </div>
 
-          {/* What is Ahsan AI Hub Section */}
           <section className="space-y-6">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               <h2 className="text-3xl font-bold tracking-tight">What is Ahsan AI Hub?</h2>
@@ -290,7 +287,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Social Connect */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="space-y-4">
               <h3 className="text-2xl font-bold">Connect & Collaborate</h3>
