@@ -73,7 +73,7 @@ export function AnnouncementBanner({
               )}
 
               {/* Content Section */}
-              <div className="flex flex-1 flex-col p-6 md:p-8">
+              <div className="flex flex-1 flex-col p-6 md:p-8 items-center text-center md:items-start md:text-left">
                 <button
                   onClick={handleClose}
                   className="absolute right-4 top-4 rounded-full p-2 text-zinc-400 transition-colors hover:bg-white/10 hover:text-white"
@@ -83,7 +83,7 @@ export function AnnouncementBanner({
                   <X className="h-5 w-5" aria-hidden="true" />
                 </button>
 
-                <div className="mb-4 flex items-center gap-4">
+                <div className="mb-4 flex flex-col md:flex-row items-center gap-4">
                   <div className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center text-primary shrink-0">
                     <Image 
                       src="/logo.png" 
@@ -93,18 +93,18 @@ export function AnnouncementBanner({
                       className="h-auto w-full object-contain"
                     />
                   </div>
-                  <div>
+                  <div className="flex flex-col items-center md:items-start">
                     <h3 className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-zinc-100">Ahsan AI Hub</h3>
                     <p className="text-[10px] md:text-xs font-medium text-zinc-500">Official Announcement</p>
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 w-full">
                   <h4 className="text-xl font-black tracking-tight text-white md:text-2xl">{title}</h4>
                   <p className="text-sm font-medium leading-relaxed text-zinc-400">{message}</p>
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 w-full">
                   <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-full bg-zinc-800 border border-white/5 flex items-center justify-center">
                       <Sparkles className="h-4 w-4 text-primary" />
@@ -118,10 +118,10 @@ export function AnnouncementBanner({
                     <Button 
                       asChild
                       size="sm"
-                      className="rounded-xl bg-primary px-6 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20"
+                      className="rounded-xl bg-primary px-6 font-black uppercase tracking-widest text-[10px] shadow-lg shadow-primary/20 w-full md:w-auto"
                       onClick={handleClose}
                     >
-                      <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="gap-2">
+                      <a href={ctaLink} target="_blank" rel="noopener noreferrer" className="gap-2 justify-center">
                         {ctaText} <ExternalLink className="h-3 w-3" />
                       </a>
                     </Button>
