@@ -96,6 +96,10 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=31536000, immutable'
+          },
+          {
+            key: 'Link',
+            value: '<https://cdn.onesignal.com>; rel=preconnect, <https://fonts.googleapis.com>; rel=preconnect, <https://va.vercel-scripts.com>; rel=preconnect'
           }
         ],
       },

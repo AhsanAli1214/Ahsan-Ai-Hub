@@ -12,6 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
 
 declare global {
   interface Window {
+    OneSignalDeferred: any[];
   }
 }
 
@@ -98,14 +99,12 @@ export function PWAInstall() {
   }, [toast]);
 
   const handleNotificationClick = () => {
-    if ('Notification' in window) {
-      Notification.requestPermission().then((permission) => {
-        setNotificationsEnabled(permission === 'granted');
-        if (permission === 'granted') {
-          toast({
-            title: "Notifications Enabled",
-            description: "You'll now receive updates from Ahsan AI Hub.",
-          });
+    if (typeof window !== 'undefined' && window.OneSignalDeferred) {
+      window.OneSignalDeferred.push(async function(OneSignal: any) {
+        try {
+          await OneSignal.Notifications.requestPermission();
+          setNotificationsEnabled(Notification.permission === 'granted');
+        } catch (e) {
         }
       });
     }

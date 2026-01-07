@@ -42,7 +42,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { PWAInstall } from "@/components/PWAInstall";
+import { OneSignalButton } from '@/components/OneSignalButton';
+import { PWAInstall } from '@/components/PWAInstall';
 
 const PERSONALITY_MODES = [
   {
@@ -457,9 +458,8 @@ export default function SettingsPage() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device.
               </p>
-              <div className="flex justify-start py-2">
-                <div data-pushify-button></div>
-              </div>
+              <div className='onesignal-customlink-container mb-4'></div>
+              <OneSignalButton />
             </CardContent>
           </Card>
 

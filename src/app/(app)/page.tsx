@@ -29,6 +29,10 @@ import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 // Performance: Lazy load heavy components
 const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { ssr: true });
 const ConnectionStatus = dynamic(() => import('@/components/network/ConnectionStatus').then(mod => mod.ConnectionStatus), { ssr: false });
+const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
+  ssr: false,
+  loading: () => <div className="h-10 w-32 animate-pulse rounded-lg bg-muted" /> 
+});
 const PWAInstallButton = dynamic(() => import('@/components/PWAInstallButton').then(mod => mod.PWAInstallButton), { 
   ssr: false,
   loading: () => <div className="h-14 w-full animate-pulse rounded-2xl bg-muted" />
@@ -262,10 +266,7 @@ export default function HomePage() {
                 <Smartphone className="h-6 w-6 text-primary" />
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">Get real-time updates directly on your device. Click the button below to subscribe.</p>
-                <div className="flex justify-center py-2">
-                  <div data-pushify-button></div>
-                </div>
+                <OneSignalButton />
               </CardContent>
             </Card>
           </section>
