@@ -1,4 +1,5 @@
-const CACHE_NAME = 'ahsan-ai-hub-v6-1767767793';
+// Advanced Service Worker for Ahsan AI Hub
+const CACHE_NAME = 'ahsan-ai-hub-v7-1767807000';
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
@@ -6,16 +7,22 @@ const ASSETS_TO_CACHE = [
   '/icon-192.png',
   '/icon-512.png',
   '/logo.png',
-  '/manifest.json'
+  '/manifest.json',
+  '/globals.css'
 ];
 
+// Install Event
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Opened cache');
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
   );
   self.skipWaiting();
 });
 
+// Activate Event
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     Promise.all([
@@ -31,6 +38,18 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Background Sync for AI Tasks
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-ai-query') {
+    event.waitUntil(retryAIQueries());
+  }
+});
+
+async function retryAIQueries() {
+  console.log('Background sync: Retrying pending AI queries...');
+  // Logic to process queued queries from IndexedDB would go here
+}
+
 // Periodic Sync for Widget Data
 self.addEventListener('periodicsync', (event) => {
   if (event.tag === 'ai-tip-update') {
@@ -41,16 +60,17 @@ self.addEventListener('periodicsync', (event) => {
 async function updateWidgetData() {
   try {
     const response = await fetch('/api/pwa/widget');
-    const data = await response.json();
-    
-    // Update the widget data in the manifest-defined data file
-    const cache = await caches.open(CACHE_NAME);
-    await cache.put('/widgets/ai-tip-data.json', new Response(JSON.stringify(data)));
+    if (response.ok) {
+      const data = await response.json();
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put('/widgets/ai-tip-data.json', new Response(JSON.stringify(data)));
+    }
   } catch (err) {
     console.error('Widget update failed:', err);
   }
 }
 
+// Fetch Event with Enhanced Offline Strategy
 self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
@@ -58,19 +78,31 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
+
   if (event.request.method !== 'GET') return;
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      const fetchedResponse = fetch(event.request).then((networkResponse) => {
-        if (networkResponse.status === 200) {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
+      if (cachedResponse) {
+        // Return cached response but refresh in background (Stale-While-Revalidate)
+        fetch(event.request).then((networkResponse) => {
+          if (networkResponse.ok) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
+          }
+        }).catch(() => {});
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          return networkResponse;
         }
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
         return networkResponse;
       });
-      return cachedResponse || fetchedResponse;
     })
   );
 });

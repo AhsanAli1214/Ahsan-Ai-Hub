@@ -66,7 +66,7 @@
     {
       "name": "AI Chat",
       "short_name": "Chat",
-      "description": "Start an AI conversation",
+      "description": "Start a secure AI conversation",
       "url": "/recommendations",
       "icons": [
         {
@@ -79,7 +79,7 @@
     {
       "name": "Math Solver",
       "short_name": "Math",
-      "description": "Solve math problems with AI",
+      "description": "Solve math problems with AI Vision",
       "url": "/content-tools?tool=math",
       "icons": [
         {
@@ -90,10 +90,23 @@
       ]
     },
     {
-      "name": "Content Tools",
-      "short_name": "Tools",
-      "description": "Access AI content generation tools",
-      "url": "/content-tools",
+      "name": "Story Writer",
+      "short_name": "Story",
+      "description": "Create creative AI stories",
+      "url": "/content-tools?tool=story",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Translate",
+      "short_name": "Translate",
+      "description": "50+ Languages AI Translator",
+      "url": "/content-tools?tool=translator",
       "icons": [
         {
           "src": "/icon-192.png",

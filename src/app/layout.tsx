@@ -203,6 +203,24 @@ export default function RootLayout({
           <link rel="preload" href="/logo.png" as="image" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
+          <Script id="register-sw" strategy="afterInteractive">
+            {`
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful');
+                    
+                    // Background Sync
+                    if ('sync' in registration) {
+                      registration.sync.register('sync-ai-query').catch(err => console.log('Sync registration failed', err));
+                    }
+                  }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                  });
+                });
+              }
+            `}
+          </Script>
           <Script 
             src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
             strategy="afterInteractive"
