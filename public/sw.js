@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ahsan-ai-hub-v5-1767767102';
+const CACHE_NAME = 'ahsan-ai-hub-v6-1767767793';
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
@@ -26,17 +26,31 @@ self.addEventListener('activate', (event) => {
             .map((cacheName) => caches.delete(cacheName))
         );
       }),
-      self.clients.claim(),
-      // Periodic Sync to keep SW alive and sync data
-      'periodicSync' in self.registration ? 
-        self.registration.periodicSync.register('content-sync', {
-          minInterval: 24 * 60 * 60 * 1000 
-        }) : Promise.resolve()
+      self.clients.claim()
     ])
   );
 });
 
-// Advanced Fetch Strategy: Stale-While-Revalidate
+// Periodic Sync for Widget Data
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'ai-tip-update') {
+    event.waitUntil(updateWidgetData());
+  }
+});
+
+async function updateWidgetData() {
+  try {
+    const response = await fetch('/api/pwa/widget');
+    const data = await response.json();
+    
+    // Update the widget data in the manifest-defined data file
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put('/widgets/ai-tip-data.json', new Response(JSON.stringify(data)));
+  } catch (err) {
+    console.error('Widget update failed:', err);
+  }
+}
+
 self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
@@ -44,42 +58,24 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
-
   if (event.request.method !== 'GET') return;
-
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(event.request).then((cachedResponse) => {
-        const fetchedResponse = fetch(event.request).then((networkResponse) => {
-          if (networkResponse.status === 200) {
+    caches.match(event.request).then((cachedResponse) => {
+      const fetchedResponse = fetch(event.request).then((networkResponse) => {
+        if (networkResponse.status === 200) {
+          return caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, networkResponse.clone());
-          }
-          return networkResponse;
-        });
-
-        return cachedResponse || fetchedResponse;
+            return networkResponse;
+          });
+        }
+        return networkResponse;
       });
+      return cachedResponse || fetchedResponse;
     })
   );
 });
 
-// Keep Alive via Periodic Sync
-self.addEventListener('periodicsync', (event) => {
-  if (event.tag === 'content-sync') {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
-    );
-  }
-});
-
-// Background Sync
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-data') {
-    console.log('Background sync triggered');
-  }
-});
-
-// Real-time Push Notifications
+// Push Notifications
 self.addEventListener('push', (event) => {
   let data = {};
   try {
@@ -87,7 +83,6 @@ self.addEventListener('push', (event) => {
   } catch (e) {
     data = { body: event.data ? event.data.text() : 'New update from Ahsan AI Hub!' };
   }
-  
   const title = data.title || 'Ahsan AI Hub';
   const options = {
     body: data.body || 'Open the app to see what is new.',
@@ -97,34 +92,23 @@ self.addEventListener('push', (event) => {
     tag: 'ahsan-ai-notification',
     renotify: true,
     requireInteraction: true,
-    data: {
-      url: data.url || '/recommendations'
-    },
+    data: { url: data.url || '/recommendations' },
     actions: [
       { action: 'open', title: 'Open App' },
       { action: 'close', title: 'Dismiss' }
     ]
   };
-  
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
+  event.waitUntil(self.registration.showNotification(title, options));
 });
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const urlToOpen = event.notification.data.url;
-
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
       for (const client of windowClients) {
-        if (client.url.includes(self.location.origin) && 'focus' in client) {
-          return client.focus();
-        }
+        if (client.url.includes(self.location.origin) && 'focus' in client) return client.focus();
       }
-      if (clients.openWindow) {
-        return clients.openWindow(urlToOpen);
-      }
+      if (clients.openWindow) return clients.openWindow(event.notification.data.url);
     })
   );
 });

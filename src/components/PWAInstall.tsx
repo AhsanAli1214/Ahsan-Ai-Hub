@@ -86,6 +86,9 @@ export function PWAInstall() {
               await (registration as any).periodicSync.register('content-sync', {
                 minInterval: 24 * 60 * 60 * 1000,
               });
+              await (registration as any).periodicSync.register('ai-tip-update', {
+                minInterval: 12 * 60 * 60 * 1000, // Update twice a day
+              });
             }
           }
         } catch (err) {
