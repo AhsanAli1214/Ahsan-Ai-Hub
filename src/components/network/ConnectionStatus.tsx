@@ -31,14 +31,13 @@ export function ConnectionStatus() {
           description: "Your connection has been restored.",
           variant: "default",
           className: "bg-green-600 text-white border-none",
+          duration: 3000,
         });
       }
 
-      // Hide status indicator after 3 seconds if online
-      if (online) {
-        const timer = setTimeout(() => setShowStatus(false), 3000);
-        return () => clearTimeout(timer);
-      }
+      // Hide status indicator after 3 seconds
+      const timer = setTimeout(() => setShowStatus(false), 3000);
+      return () => clearTimeout(timer);
     };
 
     const checkNetworkSpeed = () => {
@@ -55,7 +54,10 @@ export function ConnectionStatus() {
               description: "Your network speed is low. AI responses might take longer.",
               variant: "default",
               className: "bg-yellow-600 text-white border-none",
+              duration: 3000,
             });
+            // Hide slow status indicator after 3 seconds
+            setTimeout(() => setShowStatus(false), 3000);
           }
         };
         connection.addEventListener('change', updateSpeed);
