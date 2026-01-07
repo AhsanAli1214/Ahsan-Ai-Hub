@@ -200,7 +200,7 @@ export default function RootLayout({
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-          <link rel="preload" href="/logo.png" as="image" fetchPriority="high" />
+          <link rel="preload" href="/logo.png" as="image" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
           <Script id="register-sw" strategy="afterInteractive">
@@ -209,12 +209,12 @@ export default function RootLayout({
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js').then(function(registration) {
                     console.log('ServiceWorker registration successful');
-                    
-                    // Background Sync
                     if ('sync' in registration) {
-                      registration.sync.register('sync-ai-query').catch(err => console.log('Sync registration failed', err));
+                      registration.sync.register('sync-ai-query').catch(function(err) { 
+                        console.log('Sync registration failed', err); 
+                      });
                     }
-                  }, function(err) {
+                  }).catch(function(err) {
                     console.log('ServiceWorker registration failed: ', err);
                   });
                 });

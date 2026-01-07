@@ -101,9 +101,7 @@ export default function HomePage() {
                   style={{ width: 'auto', height: 'auto' }}
                   priority 
                   className="h-auto w-full object-contain brightness-100 dark:brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)] transition-all duration-300"
-                  fetchPriority="high"
                   decoding="async"
-                  sizes="(max-width: 768px) 144px, 192px"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
