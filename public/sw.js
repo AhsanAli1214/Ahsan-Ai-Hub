@@ -1,30 +1,10 @@
-const CACHE_NAME = 'ahsan-ai-hub-v4-2026-01-03';
+const CACHE_NAME = 'ahsan-ai-hub-v5-1767766987';
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
-  '/about',
-  '/content-tools',
-  '/faq',
-  '/contact',
-  '/settings',
-  '/chat-history',
-  '/recommendations',
-  '/features',
-  '/privacy',
-  '/terms',
-  '/data-rights',
-  '/cookies',
-  '/download-apk',
-  '/api-reference',
-  '/community',
-  '/blog',
-  '/careers',
-  '/docs',
-  OFFLINE_URL,
+  '/offline.html',
   '/icon-192.png',
   '/icon-512.png',
-  '/icon-maskable-192.png',
-  '/icon-maskable-512.png',
   '/logo.png',
   '/manifest.json'
 ];
@@ -46,13 +26,36 @@ self.addEventListener('activate', (event) => {
             .map((cacheName) => caches.delete(cacheName))
         );
       }),
-      self.clients.claim(),
-      // Keep service worker alive
-      'periodicSync' in self.registration ? 
-        self.registration.periodicSync.register('app-keep-alive', {
-          minInterval: 24 * 60 * 60 * 1000 
-        }) : Promise.resolve()
+      self.clients.claim()
     ])
+  );
+});
+
+// Advanced Fetch Strategy: Stale-While-Revalidate
+self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(OFFLINE_URL))
+    );
+    return;
+  }
+
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.match(event.request).then((cachedResponse) => {
+        const fetchedResponse = fetch(event.request).then((networkResponse) => {
+          if (networkResponse.status === 200) {
+            cache.put(event.request, networkResponse.clone());
+          }
+          return networkResponse;
+        });
+
+        return cachedResponse || fetchedResponse;
+      });
+    })
   );
 });
 
@@ -94,36 +97,14 @@ self.addEventListener('notificationclick', (event) => {
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
-      // If a window is already open, focus it
       for (const client of windowClients) {
         if (client.url.includes(self.location.origin) && 'focus' in client) {
           return client.focus();
         }
       }
-      // If no window is open, open a new one
       if (clients.openWindow) {
         return clients.openWindow(urlToOpen);
       }
     })
-  );
-});
-
-// Background Sync for feedback or other data
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-data') {
-    // Implement sync logic if needed
-  }
-});
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match(OFFLINE_URL))
-    );
-    return;
-  }
-  
-  event.respondWith(
-    caches.match(event.request).then((response) => response || fetch(event.request))
   );
 });

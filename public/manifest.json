@@ -77,10 +77,10 @@
       ]
     },
     {
-      "name": "Content Tools",
-      "short_name": "Tools",
-      "description": "Access AI content generation tools",
-      "url": "/content-tools",
+      "name": "Math Solver",
+      "short_name": "Math",
+      "description": "Solve math problems with AI",
+      "url": "/content-tools?tool=math",
       "icons": [
         {
           "src": "/icon-192.png",
@@ -90,10 +90,10 @@
       ]
     },
     {
-      "name": "Chat History",
-      "short_name": "History",
-      "description": "View your recent chats",
-      "url": "/chat-history",
+      "name": "Content Tools",
+      "short_name": "Tools",
+      "description": "Access AI content generation tools",
+      "url": "/content-tools",
       "icons": [
         {
           "src": "/icon-192.png",

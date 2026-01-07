@@ -161,6 +161,8 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "theme-color": "#3b82f6",
     "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover, orientation=portrait",
+    "apple-touch-fullscreen": "yes",
+    "mobile-web-app-capable": "yes",
     "screen-orientation": "portrait",
     "x5-orientation": "portrait",
     "layoutMode": "fitscreen",
