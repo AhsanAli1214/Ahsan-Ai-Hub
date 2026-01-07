@@ -43,7 +43,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="btm-nav md:hidden border-t bg-background/80 backdrop-blur-lg safe-area-bottom h-20 z-[100]">
+    <nav className="btm-nav md:hidden border-t bg-background/80 backdrop-blur-lg safe-area-bottom h-20 z-[9999]">
       {navItems.map((item) => {
         const isActive = pathname === item.href;
         return (
