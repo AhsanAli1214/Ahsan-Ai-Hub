@@ -1,0 +1,25 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Math Solver"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Quickly solve any math equation with Ahsan AI.",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Solve Math Now",
+      "url": "https://ahsan-ai-hub.vercel.app/content-tools?tool=math"
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5"
+}

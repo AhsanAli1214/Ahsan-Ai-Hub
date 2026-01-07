@@ -1,0 +1,25 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Ahsan AI Tip of the Day"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${tip}",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Open Ahsan AI Hub",
+      "url": "https://ahsan-ai-hub.vercel.app"
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5"
+}

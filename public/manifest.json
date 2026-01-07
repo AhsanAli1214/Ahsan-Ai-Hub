@@ -126,6 +126,42 @@
       "url": "url"
     }
   },
+  "widgets": [
+    {
+      "name": "AI Tip of the Day",
+      "short_name": "AI Tip",
+      "description": "Daily productivity tips from Ahsan AI",
+      "tag": "ai-tip",
+      "template": "ai-tip-widget",
+      "ms_ac_template": "widgets/ai-tip.json",
+      "data": "widgets/ai-tip-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Math Solver Quick-Launch",
+      "short_name": "Math",
+      "description": "Instantly solve any math problem",
+      "tag": "math-solver",
+      "template": "math-widget",
+      "ms_ac_template": "widgets/math-solver.json",
+      "data": "widgets/math-solver-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
   "dir": "ltr",
   "lang": "en-US",
   "protocol_handlers": [
