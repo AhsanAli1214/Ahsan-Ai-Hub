@@ -48,9 +48,10 @@ export function AnnouncementBanner({
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
-      className="fixed left-1/2 top-1/2 z-[100] w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
     >
-      <Card className="relative overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={handleClose} />
+      <Card className="relative w-full max-w-2xl overflow-hidden border-primary/20 bg-zinc-950/90 p-0 shadow-2xl backdrop-blur-xl">
 
             {/* Background Glow */}
             <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-primary/10 blur-[60px]" />
