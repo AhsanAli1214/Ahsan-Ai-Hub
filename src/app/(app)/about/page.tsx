@@ -121,11 +121,12 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutSchema) }}
       />
       <AppHeader title="About the Developer" />
-      <div className="flex-1 overflow-y-auto p-4 lg:p-8">
-        <div className="mx-auto max-w-5xl space-y-12 pb-20">
-          <h1 id="about-heading" className="sr-only">About Ahsan Ali - Developer of Ahsan AI Hub</h1>
-          
-          {/* Hero Section */}
+          <div className="mx-auto max-w-5xl space-y-12 pb-20">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground text-center mb-8">
+              About Ahsan Ali - Creator of Ahsan AI Hub
+            </h1>
+            
+            {/* Hero Section */}
           <section className="relative overflow-hidden rounded-3xl border border-accent/20 bg-card/50 backdrop-blur-md shadow-2xl">
             <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />

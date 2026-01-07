@@ -13,7 +13,7 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/*', '/_next/*'],
+        disallow: ['/api/*'],
       },
       {
         userAgent: 'Googlebot',
