@@ -383,6 +383,11 @@ body {
   * {
     @apply border-border;
   }
+}
+
+body {
+  @apply bg-background text-foreground;
+}
 
 /* OneSignal Custom Link Styling */
 .onesignal-customlink-container {
