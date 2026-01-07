@@ -183,7 +183,7 @@ import { siteStatusConfig } from "@/config/site-status";
 import { MaintenanceOverlay } from "@/components/MaintenanceOverlay";
 import { ComingSoonOverlay } from "@/components/ComingSoonOverlay";
 
-import { OneSignalScript } from "@/components/OneSignalScript";
+import { PushifyScript } from "@/components/PushifyScript";
 
 export default function RootLayout({
   children,
@@ -196,12 +196,10 @@ export default function RootLayout({
         <head>
           <link rel="preconnect" href="https://botsailor.com" />
           <link rel="preconnect" href="https://bot-data.s3.ap-southeast-1.wasabisys.com" />
-          <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
           <link rel="preload" href="/logo.png" as="image" />
-          <OneSignalScript />
+          <PushifyScript />
           <Script 
             src="https://botsailor.com/script/webchat-link.js?code=1767382948126993" 
             strategy="afterInteractive"

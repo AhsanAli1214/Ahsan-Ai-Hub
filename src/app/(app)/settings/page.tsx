@@ -42,8 +42,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { OneSignalButton } from '@/components/OneSignalButton';
-import { PWAInstall } from '@/components/PWAInstall';
+import { PWAInstall } from "@/components/PWAInstall";
 
 const PERSONALITY_MODES = [
   {
@@ -456,10 +455,8 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device.
+                Enable push notifications to receive alerts about new features, updates, and important announcements directly on your device via Pushify.
               </p>
-              <div className='onesignal-customlink-container mb-4'></div>
-              <OneSignalButton />
             </CardContent>
           </Card>
 
