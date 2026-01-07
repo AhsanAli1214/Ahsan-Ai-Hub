@@ -12,7 +12,6 @@ interface BeforeInstallPromptEvent extends Event {
 
 declare global {
   interface Window {
-    OneSignalDeferred: any[];
   }
 }
 
@@ -99,10 +98,7 @@ export function PWAInstall() {
   }, [toast]);
 
   const handleNotificationClick = () => {
-    if (typeof window !== 'undefined' && window.OneSignalDeferred) {
-      window.OneSignalDeferred.push(async function(OneSignal: any) {
         try {
-          await OneSignal.Notifications.requestPermission();
           setNotificationsEnabled(Notification.permission === 'granted');
         } catch (e) {
         }

@@ -99,7 +99,6 @@ const nextConfig = {
           },
           {
             key: 'Link',
-            value: '<https://cdn.onesignal.com>; rel=preconnect, <https://fonts.googleapis.com>; rel=preconnect, <https://va.vercel-scripts.com>; rel=preconnect'
           }
         ],
       },

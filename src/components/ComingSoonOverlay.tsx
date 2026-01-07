@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { siteStatusConfig } from "@/config/site-status";
 import Image from "next/image";
-import { OneSignalButton } from "@/components/OneSignalButton";
 
 const CountdownItem = ({ value, label }: { value: number; label: string }) => (
   <div className="flex flex-col items-center justify-center p-4 sm:p-8 bg-white/5 border border-white/10 rounded-2xl sm:rounded-[2rem] backdrop-blur-xl min-w-[75px] sm:min-w-[140px] shadow-2xl transition-all hover:bg-white/10 hover:border-white/20 group">
@@ -105,8 +104,6 @@ export const ComingSoonOverlay = () => {
               Subscribe to launch notifications:
             </div>
             <div
-              id="onesignal-customlink-container"
-              className="onesignal-customlink-container w-full h-full"
             ></div>
           </div>
 

@@ -363,8 +363,6 @@ body {
   }
 }
 
-/* OneSignal Custom Link Styling */
-.onesignal-customlink-container {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -373,13 +371,11 @@ body {
 }
 
 /* Fallback if SDK doesn't style it */
-.onesignal-customlink-container:empty::after {
   content: "Loading notifications...";
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.875rem;
 }
 
-.onesignal-customlink-container .onesignal-customlink-button {
   width: 100% !important;
   max-width: 400px !important;
   padding: 1rem 2rem !important;
@@ -399,13 +395,11 @@ body {
   align-items: center !important;
 }
 
-.onesignal-customlink-container .onesignal-customlink-button:hover {
   background-color: #2563eb !important; /* blue-600 */
   transform: translateY(-2px) !important;
   box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4), 0 10px 10px -5px rgba(59, 130, 246, 0.1) !important;
 }
 
-.onesignal-customlink-container .onesignal-customlink-button.subscribed {
   background-color: #10b981 !important; /* emerald-500 */
 }
 
