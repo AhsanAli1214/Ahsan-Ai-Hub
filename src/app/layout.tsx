@@ -210,13 +210,12 @@ export default function RootLayout({
                   navigator.serviceWorker.register('/sw.js').then(function(registration) {
                     console.log('ServiceWorker registration successful');
                     
+                    // Background Sync
                     if ('sync' in registration) {
-                      registration.sync.register('sync-ai-query').catch(function(err) {
-                        console.log('Sync registration failed');
-                      });
+                      registration.sync.register('sync-ai-query').catch(err => console.log('Sync registration failed', err));
                     }
-                  }).catch(function(err) {
-                    console.log('ServiceWorker registration failed');
+                  }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
                   });
                 });
               }
@@ -273,9 +272,7 @@ export default function RootLayout({
                   <ConnectionStatus />
                   <ReCaptchaScript />
                   <BiometricLock>
-                    <Suspense fallback={<div className="flex-1" />}>
-                      <main className="flex-1 pb-20 sm:pb-0">{children}</main>
-                    </Suspense>
+                    <main className="flex-1 pb-20 sm:pb-0">{children}</main>
                   </BiometricLock>
                   <Toaster />
                   <CookieBanner />

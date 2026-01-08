@@ -31,14 +31,14 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
   const {
     isListening,
     isSupported,
-    transcript,
     interimTranscript,
     startListening,
     stopListening,
   } = useVoiceInput({
     onTranscript: (text) => {
       onTranscript(text);
-      // Removed auto-close to allow for longer dictation
+      setIsOpen(false);
+      setStep('language');
     },
     onError: (error) => {
       setStep('language');
@@ -64,10 +64,6 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
     stopListening();
     setIsOpen(false);
     setStep('language');
-    toast({
-      title: "Success",
-      description: "Text captured successfully!",
-    });
   };
 
   if (!isSupported) return null;
@@ -238,19 +234,14 @@ export function VoiceInput({ onTranscript, className }: VoiceInputProps) {
                     <div className="relative group">
                       <div className="absolute -inset-1 bg-gradient-to-b from-primary/5 to-transparent rounded-[2rem] blur opacity-50 transition duration-1000 group-hover:opacity-100" />
                       <div className="relative min-h-[120px] max-h-[180px] overflow-y-auto p-6 rounded-[2rem] bg-muted/50 border border-primary/5 italic text-base text-center leading-relaxed backdrop-blur-md shadow-inner scrollbar-none">
-                        {(transcript || interimTranscript) ? (
-                          <motion.div 
+                        {interimTranscript ? (
+                          <motion.span 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
-                            className="text-foreground font-semibold flex flex-col gap-2"
+                            className="text-foreground font-semibold bg-clip-text"
                           >
-                            {transcript && <span className="opacity-70">{transcript}</span>}
-                            {interimTranscript && (
-                              <span className="text-primary animate-pulse">
-                                {interimTranscript}
-                              </span>
-                            )}
-                          </motion.div>
+                            {interimTranscript}
+                          </motion.span>
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center gap-3 py-4">
                             <motion.div

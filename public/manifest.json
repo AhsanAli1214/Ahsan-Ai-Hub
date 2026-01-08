@@ -6,6 +6,7 @@
   "scope": "/",
   "id": "/",
   "categories": ["productivity", "utilities", "ai", "education", "lifestyle"],
+  "orientation": "portrait",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
   "theme_color": "#3b82f6",
@@ -115,6 +116,7 @@
       ]
     }
   ],
+  "categories": ["productivity", "utilities", "ai"],
   "edge_side_panel": {
     "preferred_width": 400
   },
