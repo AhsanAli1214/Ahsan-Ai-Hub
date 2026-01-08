@@ -76,23 +76,25 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
       resetSilenceTimer();
       let interim = '';
       
-      // Keep track of the results we've already processed to avoid duplicates
-      // Browsers sometimes re-emit results or trigger the event multiple times
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
+        const transcriptText = result[0].transcript;
         
-        // Only process results that are finalized and haven't been processed yet
         if (result.isFinal) {
           if (i > lastProcessedIndexRef.current) {
-            const final = result[0].transcript.trim();
+            const final = transcriptText.trim();
             if (final) {
-              setTranscript(prev => prev + (prev ? ' ' : '') + final);
-              onTranscript(final);
+              setTranscript(prev => {
+                const newTranscript = prev + (prev ? ' ' : '') + final;
+                // Add a small delay to ensure state is updated before callback
+                setTimeout(() => onTranscript(newTranscript), 0);
+                return newTranscript;
+              });
             }
             lastProcessedIndexRef.current = i;
           }
         } else {
-          interim += result[0].transcript;
+          interim += transcriptText;
         }
       }
 
@@ -101,14 +103,39 @@ export function useVoiceInput({ onTranscript, onError }: VoiceInputOptions) {
 
     recognitionRef.current.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
+      
+      const errorMessages: Record<string, string> = {
+        'network': 'Network error occurred. Check your connection.',
+        'not-allowed': 'Microphone access denied. Please enable it in settings.',
+        'no-speech': 'No speech detected. Please try again.',
+        'aborted': 'Voice input stopped.',
+        'audio-capture': 'Audio capture failed.',
+        'service-not-allowed': 'Voice service not allowed.',
+      };
+
+      if (event.error === 'no-speech') {
+        // Silent fail for no-speech to avoid annoying popups during continuous mode
+        return;
+      }
+
       setIsListening(false);
-      if (onError && event.error !== 'no-speech') {
-        onError(event.error === 'not-allowed' ? 'Microphone access denied' : event.error);
+      if (onError) {
+        onError(errorMessages[event.error] || `Error: ${event.error}`);
       }
     };
 
     recognitionRef.current.onend = () => {
-      setIsListening(false);
+      // Auto-restart if we're still supposed to be listening
+      // This makes it "Continuous" even if the browser stops it after silence
+      if (isListening) {
+        try {
+          recognitionRef.current.start();
+        } catch (e) {
+          setIsListening(false);
+        }
+      } else {
+        setIsListening(false);
+      }
     };
 
     recognitionRef.current.onstart = () => {
