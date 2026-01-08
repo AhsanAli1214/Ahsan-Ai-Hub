@@ -209,12 +209,12 @@ export default function RootLayout({
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js').then(function(registration) {
                     console.log('ServiceWorker registration successful');
+                    
+                    // Background Sync
                     if ('sync' in registration) {
-                      registration.sync.register('sync-ai-query').catch(function(err) { 
-                        console.log('Sync registration failed', err); 
-                      });
+                      registration.sync.register('sync-ai-query').catch(err => console.log('Sync registration failed', err));
                     }
-                  }).catch(function(err) {
+                  }, function(err) {
                     console.log('ServiceWorker registration failed: ', err);
                   });
                 });
