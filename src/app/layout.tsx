@@ -212,11 +212,11 @@ export default function RootLayout({
                     
                     if ('sync' in registration) {
                       registration.sync.register('sync-ai-query').catch(function(err) {
-                        console.log('Sync registration failed', err);
+                        console.log('Sync registration failed');
                       });
                     }
                   }).catch(function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
+                    console.log('ServiceWorker registration failed');
                   });
                 });
               }
