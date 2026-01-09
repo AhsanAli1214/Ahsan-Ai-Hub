@@ -56,6 +56,9 @@ export function OneSignalButton() {
           if (OneSignal.User && OneSignal.User.PushSubscription) {
              OneSignal.User.PushSubscription.addEventListener('change', updateStatus);
           }
+          
+          // Force update after init
+          setTimeout(updateStatus, 1000);
         });
       };
 
