@@ -46,7 +46,6 @@ const nextConfig = {
     scrollRestoration: true,
     optimizeCss: true,
     serverSourceMaps: false,
-    nextScriptWorkers: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
