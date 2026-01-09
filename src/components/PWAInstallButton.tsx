@@ -76,8 +76,12 @@ export function PWAInstallButton({ className }: { className?: string }) {
     }
   }, [toast]);
 
-  const handleInstallClick = async (specificPrompt?: BeforeInstallPromptEvent) => {
-    const promptToUse = specificPrompt || deferredPrompt;
+  const handleInstallClick = async (event?: React.MouseEvent | BeforeInstallPromptEvent) => {
+    // If it's a BeforeInstallPromptEvent (from the toast action), use it directly
+    // If it's a MouseEvent (from the button), use the deferredPrompt from state
+    const promptToUse = (event && 'prompt' in event) 
+      ? (event as BeforeInstallPromptEvent) 
+      : deferredPrompt;
     
     if (!promptToUse) {
       toast({
