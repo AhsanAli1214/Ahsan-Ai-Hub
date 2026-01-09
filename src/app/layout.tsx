@@ -198,8 +198,10 @@ export default function RootLayout({
           <link rel="preconnect" href="https://bot-data.s3.ap-southeast-1.wasabisys.com" />
           <link rel="dns-prefetch" href="https://cdn.onesignal.com" />
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+          <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
           <link rel="preload" href="/logo.png" as="image" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
