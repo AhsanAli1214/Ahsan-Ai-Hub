@@ -81,10 +81,10 @@ export function PWAInstallButton({ className }: { className?: string }) {
     
     if (!promptToUse) {
       toast({
-        title: 'Installation Instructions',
+        title: 'Installation Info',
         description: isInstalled 
-          ? 'App is already installed on your device!' 
-          : 'To install: Tap the browser menu (⋮) and select "Install app" or "Add to Home screen".',
+          ? 'App is already installed!' 
+          : 'To install: Tap the 3-dot menu (⋮) and select "Install app" or "Add to Home screen".',
       });
       return;
     }
@@ -97,9 +97,18 @@ export function PWAInstallButton({ className }: { className?: string }) {
       if (outcome === 'accepted') {
         setIsInstalled(true);
         setDeferredPrompt(null);
+        toast({
+          title: '✓ Installation Started',
+          description: 'Ahsan AI Hub is being added to your device.',
+        });
       }
     } catch (error) {
       console.error('PWA Install Error:', error);
+      toast({
+        title: 'Install failed',
+        description: 'Please try again from your browser menu.',
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }
