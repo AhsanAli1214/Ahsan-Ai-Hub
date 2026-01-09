@@ -34,6 +34,20 @@ export function PWAInstallButton({ className }: { className?: string }) {
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       // Immediately notify other components that installation is available
       window.dispatchEvent(new CustomEvent('pwa-installable', { detail: e }));
+      
+      // Auto-show toast if not installed to encourage installation
+      if (!localStorage.getItem('pwa-install-prompt-shown')) {
+        toast({
+          title: 'Ahsan AI Hub is Ready',
+          description: 'Install our official app for a faster, private experience!',
+          action: (
+            <Button size="sm" onClick={() => handleInstallClick(e as BeforeInstallPromptEvent)}>
+              Install Now
+            </Button>
+          ),
+        });
+        localStorage.setItem('pwa-install-prompt-shown', 'true');
+      }
     };
 
     const handleAppInstalled = () => {
@@ -42,7 +56,7 @@ export function PWAInstallButton({ className }: { className?: string }) {
       localStorage.setItem('pwa-installed', 'true');
       toast({
         title: '✓ App Installed Successfully!',
-        description: 'Ahsan AI Hub is now installed. You can launch it from your home screen or app drawer.',
+        description: 'Ahsan AI Hub is now installed. You can launch it from your home screen.',
       });
     };
 
@@ -55,13 +69,6 @@ export function PWAInstallButton({ className }: { className?: string }) {
       window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.addEventListener('appinstalled', handleAppInstalled);
 
-      // Check if the event was already fired before listener was attached
-      // Some browsers (like Mobile Chrome) might fire it early
-      if ('BeforeInstallPromptEvent' in window) {
-        // Unfortunately there's no way to retroactively grab the event,
-        // but removing the delay helps capture it if it fires during hydration
-      }
-
       return () => {
         window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
         window.removeEventListener('appinstalled', handleAppInstalled);
@@ -69,42 +76,30 @@ export function PWAInstallButton({ className }: { className?: string }) {
     }
   }, [toast]);
 
-  const handleInstallClick = async () => {
-    // If we don't have the prompt yet, provide instructions
-    if (!deferredPrompt) {
+  const handleInstallClick = async (specificPrompt?: BeforeInstallPromptEvent) => {
+    const promptToUse = specificPrompt || deferredPrompt;
+    
+    if (!promptToUse) {
       toast({
         title: 'Installation Instructions',
         description: isInstalled 
           ? 'App is already installed on your device!' 
-          : 'To install: Use your browser menu (⋮) and select "Install app" or "Add to Home screen".',
+          : 'To install: Tap the browser menu (⋮) and select "Install app" or "Add to Home screen".',
       });
       return;
     }
 
     setIsLoading(true);
     try {
-      await deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+      await promptToUse.prompt();
+      const { outcome } = await promptToUse.userChoice;
 
       if (outcome === 'accepted') {
         setIsInstalled(true);
         setDeferredPrompt(null);
-        toast({
-          title: '✓ App Installation Started',
-          description: 'Ahsan AI Hub will appear on your home screen shortly.',
-        });
-      } else {
-        toast({
-          title: 'Installation Cancelled',
-          description: 'You can install the app anytime from your browser menu.',
-        });
       }
     } catch (error) {
-      toast({
-        title: 'Installation Error',
-        description: 'Please try again or use download APK option.',
-        variant: 'destructive',
-      });
+      console.error('PWA Install Error:', error);
     } finally {
       setIsLoading(false);
     }
