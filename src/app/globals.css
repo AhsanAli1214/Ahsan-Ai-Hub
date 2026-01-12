@@ -464,11 +464,16 @@ body {
     @apply transition-colors duration-200;
   }
 
-  /* AI Sensey Widget Optimization */
-  #aisensy-wa-widget {
-    transform: scale(0.7) !important;
-    transform-origin: bottom right !important;
-  }
+  /* Smooth scrolling and rendering optimization */
+.overflow-y-auto {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mx-auto.max-w-4xl > * {
+  contain-intrinsic-size: auto 300px;
+}
 
   #df-btn-cont {
     bottom: 16px !important;
