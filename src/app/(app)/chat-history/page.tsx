@@ -1,5 +1,6 @@
 import { AppHeader } from '@/components/layout/AppHeader';
 import { ChatHistory } from '@/components/ChatHistory';
+import { LocalHistorySearch } from '@/components/SmartFeatures';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,8 +13,9 @@ export default function ChatHistoryPage() {
     <div className="flex h-full flex-col bg-background">
       <AppHeader title="Chat History" />
       <div className="flex-1 overflow-hidden">
-        <div className="container max-w-4xl mx-auto h-full p-4 md:p-6">
-          <div className="bg-card border rounded-xl shadow-sm h-full flex flex-col overflow-hidden">
+        <div className="container max-w-4xl mx-auto h-full p-4 md:p-6 space-y-4 flex flex-col">
+          <LocalHistorySearch />
+          <div className="bg-card border rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
             <div className="p-4 border-b bg-muted/30">
               <h2 className="text-lg font-semibold">Past Conversations</h2>
               <p className="text-sm text-muted-foreground">Reuse, delete, or manage your chat history sessions.</p>

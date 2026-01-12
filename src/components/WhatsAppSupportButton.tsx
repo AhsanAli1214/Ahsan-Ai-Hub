@@ -43,24 +43,40 @@ Thank you for your support! 🙏`;
         .support-btn {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          background: linear-gradient(135deg, #0f172a, #312e81);
+          justify-content: center;
+          gap: 12px;
+          background: linear-gradient(135deg, #22245b, #312e81, #1e1b4b);
+          background-size: 200% auto;
           color: #ffffff;
-          padding: 14px 26px;
-          border-radius: 14px;
-          font-size: 15px;
-          font-weight: 600;
+          padding: 16px 28px;
+          border-radius: 18px;
+          font-size: 14px;
+          font-weight: 800;
           text-decoration: none;
-          box-shadow: 0 15px 35px rgba(15,23,42,0.45);
-          transition: all 0.3s ease;
-          border: none;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          box-shadow: 0 10px 25px -5px rgba(34, 36, 91, 0.4), 0 8px 10px -6px rgba(34, 36, 91, 0.4);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           cursor: pointer;
+          animation: gradient 5s ease infinite;
+        }
+
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         .support-btn:hover {
-          transform: translateY(-2px) scale(1.03);
-          box-shadow: 0 22px 50px rgba(49,46,129,0.6);
-          color: #ffffff;
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 20px 35px -5px rgba(34, 36, 91, 0.5), 0 12px 15px -8px rgba(34, 36, 91, 0.5);
+          border-color: rgba(255, 255, 255, 0.2);
+          filter: brightness(1.1);
+        }
+
+        .support-btn:active {
+          transform: translateY(0) scale(0.98);
         }
       `}</style>
       <a 
