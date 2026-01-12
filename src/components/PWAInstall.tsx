@@ -76,15 +76,20 @@ export function PWAInstall() {
       localStorage.setItem('pwa-install-available', 'true');
     };
 
-    // Advanced PWA: Wake Lock and Periodic Sync Request
-    if ('wakeLock' in navigator || 'periodicSync' in (navigator as any).serviceWorker || 'sync' in (navigator as any).serviceWorker) {
-      const requestPersistence = async () => {
+    // Advanced PWA: Badge API, Wake Lock, and Share Target Handling
+    if ('setAppBadge' in navigator || 'wakeLock' in navigator || 'share' in navigator) {
+      const setupAdvancedFeatures = async () => {
         try {
           // Request Wake Lock if supported
           if ('wakeLock' in navigator) {
             await (navigator as any).wakeLock.request('screen');
           }
           
+          // Advanced PWA: Badge API Initial Clear
+          if ('clearAppBadge' in navigator) {
+            await (navigator as any).clearAppBadge();
+          }
+
           // Request Periodic Sync permission
           const registration = await navigator.serviceWorker.ready;
           if ('periodicSync' in registration) {
@@ -92,25 +97,26 @@ export function PWAInstall() {
               name: 'periodic-background-sync',
             });
             if (status.state === 'granted') {
-              await (registration as any).periodicSync.register('content-sync', {
-                minInterval: 24 * 60 * 60 * 1000,
-              });
               await (registration as any).periodicSync.register('ai-tip-update', {
-                minInterval: 12 * 60 * 60 * 1000, // Update twice a day
+                minInterval: 12 * 60 * 60 * 1000,
               });
             }
           }
         } catch (err) {
-          console.warn('Persistence features not fully supported:', err);
+          console.warn('Advanced PWA features setup error:', err);
         }
       };
 
-      requestPersistence();
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-          requestPersistence();
-        }
+      setupAdvancedFeatures();
+    }
+
+    // App Shortcuts & Theme Color Sync
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      const observer = new MutationObserver(() => {
+        // Sync PWA theme color with app theme if needed
       });
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
     }
 
     // Advanced PWA: Badge API Support
