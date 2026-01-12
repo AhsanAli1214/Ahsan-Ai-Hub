@@ -45,38 +45,69 @@ Thank you for your support! 🙏`;
           align-items: center;
           justify-content: center;
           gap: 12px;
-          background: linear-gradient(135deg, #22245b, #312e81, #1e1b4b);
+          background: linear-gradient(135deg, #22245b, #4338ca, #1e1b4b);
           background-size: 200% auto;
           color: #ffffff;
-          padding: 16px 28px;
-          border-radius: 18px;
-          font-size: 14px;
+          padding: 16px 32px;
+          border-radius: 20px;
+          font-size: 13px;
           font-weight: 800;
           text-decoration: none;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          box-shadow: 0 10px 25px -5px rgba(34, 36, 91, 0.4), 0 8px 10px -6px rgba(34, 36, 91, 0.4);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          letter-spacing: 0.15em;
+          box-shadow: 
+            0 10px 15px -3px rgba(34, 36, 91, 0.3),
+            0 4px 6px -2px rgba(34, 36, 91, 0.05),
+            inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
           border: 1px solid rgba(255, 255, 255, 0.1);
           cursor: pointer;
-          animation: gradient 5s ease infinite;
+          animation: premium-gradient 6s ease infinite;
+          position: relative;
+          overflow: hidden;
         }
 
-        @keyframes gradient {
+        @keyframes premium-gradient {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
 
+        .support-btn::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+          );
+          transition: all 0.6s;
+        }
+
+        .support-btn:hover::before {
+          left: 100%;
+        }
+
         .support-btn:hover {
-          transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 20px 35px -5px rgba(34, 36, 91, 0.5), 0 12px 15px -8px rgba(34, 36, 91, 0.5);
-          border-color: rgba(255, 255, 255, 0.2);
-          filter: brightness(1.1);
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 
+            0 25px 50px -12px rgba(34, 36, 91, 0.5),
+            0 0 20px rgba(67, 56, 202, 0.4);
+          border-color: rgba(255, 255, 255, 0.3);
+          filter: brightness(1.15);
         }
 
         .support-btn:active {
-          transform: translateY(0) scale(0.98);
+          transform: translateY(-1px) scale(0.98);
+        }
+
+        .support-icon {
+          filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
         }
       `}</style>
       <a 
@@ -87,7 +118,7 @@ Thank you for your support! 🙏`;
         aria-label="Contact Ahsan AI Hub Support on WhatsApp"
         className={cn("support-btn focus-visible:ring-4 focus-visible:ring-primary", className)}
       >
-        <MessageCircle className="h-5 w-5" />
+        <MessageCircle className="h-5 w-5 support-icon" />
         Contact Ahsan AI Hub Support
       </a>
     </>
