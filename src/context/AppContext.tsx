@@ -30,6 +30,8 @@ interface AppContextType {
   isLocked: boolean;
   setIsLocked: (locked: boolean) => void;
   clearChatHistory: () => void;
+  toolsUsedToday: number;
+  incrementToolUsage: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -44,6 +46,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [biometricEnabled, setBiometricEnabledValue] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [toolsUsedToday, setToolsUsedToday] = useState(0);
 
   useEffect(() => {
     setIsMounted(true);
@@ -70,9 +73,37 @@ export function AppProvider({ children }: { children: ReactNode }) {
           setIsLocked(true);
         }
       }
+
+      // Initialize App Badging logic
+      const storedCount = localStorage.getItem('toolsUsedCount');
+      const today = new Date().toDateString();
+      const lastReset = localStorage.getItem('toolsUsedLastReset');
+
+      if (lastReset !== today) {
+        localStorage.setItem('toolsUsedCount', '0');
+        localStorage.setItem('toolsUsedLastReset', today);
+        setToolsUsedToday(0);
+      } else if (storedCount) {
+        const count = parseInt(storedCount);
+        setToolsUsedToday(count);
+        updateBadge(count);
+      }
     } catch (e) {
     }
   }, []);
+
+  const updateBadge = (count: number) => {
+    if (typeof navigator !== 'undefined' && 'setAppBadge' in navigator && count > 0) {
+      (navigator as any).setAppBadge(count).catch(() => {});
+    }
+  };
+
+  const incrementToolUsage = () => {
+    const newCount = toolsUsedToday + 1;
+    setToolsUsedToday(newCount);
+    localStorage.setItem('toolsUsedCount', newCount.toString());
+    updateBadge(newCount);
+  };
 
   const setGeminiApiKey = (key: string | null) => {
     setGeminiApiKeyValue(key);
@@ -149,6 +180,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         biometricEnabled, setBiometricEnabled,
         isLocked, setIsLocked,
         clearChatHistory,
+        toolsUsedToday,
+        incrementToolUsage,
     }}>
       {children}
     </AppContext.Provider>
