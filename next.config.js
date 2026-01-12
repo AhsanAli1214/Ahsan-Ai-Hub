@@ -40,12 +40,12 @@ const nextConfig = {
       'firebase',
       'zod',
       'clsx',
-      'tailwind-merge',
-      'lucide-react'
+      'tailwind-merge'
     ],
     scrollRestoration: true,
     optimizeCss: true,
     serverSourceMaps: false,
+    bundlePagesRouterDependencies: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

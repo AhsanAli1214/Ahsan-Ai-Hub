@@ -27,7 +27,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 
 // Performance: Lazy load heavy components
-const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { ssr: true });
+const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { 
+  ssr: true,
+  loading: () => <div className="h-48 w-48 animate-pulse rounded-full bg-muted" />
+});
 const ConnectionStatus = dynamic(() => import('@/components/network/ConnectionStatus').then(mod => mod.ConnectionStatus), { ssr: false });
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
   ssr: false,
