@@ -37,25 +37,44 @@ export function OneSignalScript() {
                     },
                     unsubscribeEnabled: true
                   }
+                },
+                welcomeNotification: {
+                  disable: false,
+                  title: "Welcome to Ahsan AI Hub!",
+                  message: "You'll now receive revolutionary AI updates."
                 }
               });
 
-              // PWA Specific registration check
+              // Enhanced PWA Permission & Registration logic
               const isPWA = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
+              
               if (isPWA) {
                 OneSignal.User.addTag("pwa_app", "true");
                 
+                const pushSubscription = OneSignal.User.PushSubscription;
+                
+                // Automatically prompt for permission in PWA if not granted
+                if (Notification.permission === 'default') {
+                  setTimeout(async () => {
+                    try {
+                      await OneSignal.Notifications.requestPermission();
+                    } catch (e) {
+                      console.error("PWA auto-prompt error:", e);
+                    }
+                  }, 3000); // Small delay for better UX
+                }
+                
                 const checkSubscription = async () => {
-                  const pushSubscription = OneSignal.User.PushSubscription;
-                  if (pushSubscription && pushSubscription.id) {
+                  const currentSub = OneSignal.User.PushSubscription;
+                  if (currentSub && currentSub.id) {
                     try {
                       await fetch('/api/onesignal/register', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
-                          deviceId: pushSubscription.id,
+                          deviceId: currentSub.id,
                           deviceType: 5,
-                          identifier: pushSubscription.id 
+                          identifier: currentSub.id 
                         })
                       });
                     } catch (err) {
@@ -64,9 +83,9 @@ export function OneSignalScript() {
                   }
                 };
 
-                // Check immediately and on change
-                checkSubscription();
+                // Listen for subscription changes and permission changes
                 OneSignal.User.PushSubscription.addEventListener("change", checkSubscription);
+                checkSubscription();
               }
             } catch (e) {
               console.error("OneSignal Init Error:", e);
