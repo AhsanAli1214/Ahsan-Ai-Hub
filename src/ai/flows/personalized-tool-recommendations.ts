@@ -18,6 +18,10 @@ const PersonalizedToolRecommendationsInputSchema = z.object({
     .describe('A description of the users recent activity.'),
   personality: z.string().optional().describe('The personality mode for the AI assistant.'),
   responseLength: z.string().optional().describe('The desired response length: short, medium, or explained.'),
+  history: z.array(z.object({
+    role: z.enum(['user', 'assistant']),
+    content: z.string()
+  })).optional().describe('The conversation history for context.'),
 });
 export type PersonalizedToolRecommendationsInput = z.infer<typeof PersonalizedToolRecommendationsInputSchema>;
 
@@ -105,6 +109,11 @@ Creator Information:
 ---
 ${DEVELOPER_INFO}
 ---
+
+Conversation History (most recent messages):
+{{#each history}}
+{{role}}: {{{content}}}
+{{/each}}
 
 User's current message: {{{interests}}}
 User's previous activity (for context, do not mention it directly): {{{previousActivity}}}

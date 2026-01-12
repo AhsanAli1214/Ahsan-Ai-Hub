@@ -446,11 +446,18 @@ export function ChatInterface({
       window.dispatchEvent(new CustomEvent('app-badge-update', { detail: { count: 1 } }));
     }
     try {
+      // Get last 10 messages for context
+      const historyContext = messages.slice(-10).map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }));
+
       const result = await getRecommendationsAction({
         interests: content,
-        previousActivity: 'No previous activity provided.',
+        previousActivity: 'User is engaged in a conversation.',
         personality: personalityMode,
         responseLength: responseLength,
+        history: historyContext,
       });
 
       if (result.success && result.data) {

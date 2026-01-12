@@ -40,6 +40,7 @@ export async function getRecommendationsAction(
     const recommendations = await getPersonalizedToolRecommendations(input);
     return { success: true, data: recommendations };
   } catch (error) {
+    console.error('AI Flow Error:', error);
     const errorMessage = error instanceof Error && error.message.includes('429')
       ? 'Our AI is currently very busy handling other requests. Please try again in a moment.'
       : 'I encountered an unexpected issue. Please click the report button below so I can fix it, or try again.';
