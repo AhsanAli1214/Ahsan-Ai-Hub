@@ -122,27 +122,36 @@ function MessageBubble({
   }
 
   return (
-    <div className="group relative flex flex-col">
+    <div className="group relative flex flex-col py-8 border-b border-border/40 last:border-0">
        <div
         className={cn(
-          'flex items-start gap-2 sm:gap-3 w-full',
-          isUser ? 'justify-end' : 'justify-start'
+          'flex items-start gap-3 w-full'
         )}
       >
-        {!isUser && (
-           <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full mt-1" />
-        )}
         <div
           className={cn(
-            'relative max-w-[85%] xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl rounded-3xl p-3 sm:p-4 break-words overflow-hidden shadow-md transition-all duration-200',
-            isUser
-              ? 'rounded-br-lg bg-primary text-primary-foreground shadow-lg'
-              : isError
-                ? 'rounded-bl-lg border border-destructive/50 bg-destructive/10 text-destructive shadow-lg'
-                : 'rounded-bl-lg border border-accent/20 bg-card backdrop-blur-sm shadow-lg hover:shadow-xl hover:border-accent/40'
+            'relative w-full p-1 break-words overflow-hidden transition-all duration-200',
+            isError
+              ? 'border border-destructive/50 bg-destructive/10 text-destructive rounded-xl p-4'
+              : ''
           )}
         >
-          <div className="break-words">
+          <div className="flex items-center gap-3 mb-4">
+            {isUser ? (
+              <div className="flex items-center gap-3 font-bold text-sm">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
+                  <UserIcon className="h-5 w-5" />
+                </div>
+                <span className="text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">You</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3 font-bold text-sm">
+                <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full shadow-sm" />
+                <span className="text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">Ahsan AI</span>
+              </div>
+            )}
+          </div>
+          <div className={cn("break-words pl-11", isUser ? "text-foreground/90 text-lg" : "text-foreground text-lg leading-relaxed")}>
             {isError ? (
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 font-semibold text-destructive">
@@ -260,11 +269,11 @@ function MessageBubble({
           </div>
         )}
       </div>
-      <div className={cn("mt-1 flex items-center gap-1 flex-wrap", isUser ? 'self-end' : 'self-start' )}>
+      <div className={cn("mt-4 flex items-center gap-2 flex-wrap pl-11", isUser ? 'self-start' : 'self-start' )}>
         <Button
           variant="ghost"
           size="icon"
-          className="h-7 w-7 opacity-80 hover:opacity-100"
+          className="h-8 w-8 opacity-60 hover:opacity-100 hover:bg-accent"
           onClick={() => handleCopy(message.content)}
           title="Copy"
         >
@@ -273,9 +282,9 @@ function MessageBubble({
         <Button
           variant="ghost"
           size="icon"
-          className="h-7 w-7 opacity-80 hover:opacity-100"
+          className="h-8 w-8 opacity-60 hover:opacity-100 hover:bg-accent"
           onClick={() => onShare(message.content)}
-          title="Share with contacts"
+          title="Share"
         >
           <Share2 className="h-4 w-4 text-muted-foreground" />
         </Button>
@@ -335,12 +344,15 @@ function MessageBubble({
 
 function TypingIndicator() {
   return (
-    <div className="flex items-start gap-3">
-       <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full" />
-      <div className="flex items-center space-x-1 rounded-2xl border bg-card p-3">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.3s]" />
-        <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground [animation-delay:-0.15s]" />
-        <span className="h-2 w-2 animate-pulse rounded-full bg-muted-foreground" />
+    <div className="flex flex-col py-8">
+      <div className="flex items-center gap-3 mb-4">
+        <AhsanAiHubLogo className="h-8 w-8 shrink-0 rounded-full shadow-sm" />
+        <span className="text-zinc-900 dark:text-zinc-100 font-bold text-sm uppercase tracking-wider">Ahsan AI</span>
+      </div>
+      <div className="flex items-center space-x-1 pl-11">
+        <span className="h-2 w-2 animate-bounce rounded-full bg-muted-foreground/40 [animation-delay:-0.3s]" />
+        <span className="h-2 w-2 animate-bounce rounded-full bg-muted-foreground/40 [animation-delay:-0.15s]" />
+        <span className="h-2 w-2 animate-bounce rounded-full bg-muted-foreground/40" />
       </div>
     </div>
   );
