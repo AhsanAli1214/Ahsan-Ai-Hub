@@ -50,11 +50,6 @@ export function BottomNav() {
           <Link
             href={item.href}
             key={item.href}
-            onClick={() => {
-              if (typeof window !== 'undefined') {
-                navigator.vibrate?.(10);
-              }
-            }}
             className={cn(
               "btm-nav-item transition-all duration-300 flex flex-col items-center justify-center gap-1",
               isActive

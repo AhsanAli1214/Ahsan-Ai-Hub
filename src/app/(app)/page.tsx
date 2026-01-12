@@ -24,11 +24,14 @@ import {
 
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { AhsanAiHubLogo } from '@/components/icons';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 
 import { SmartWidgets, LocalHistorySearch } from '@/components/SmartFeatures';
 
+const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { 
+  ssr: true,
+  loading: () => <div className="h-48 w-48 animate-pulse rounded-full bg-muted" />
+});
 const ConnectionStatus = dynamic(() => import('@/components/network/ConnectionStatus').then(mod => mod.ConnectionStatus), { ssr: false });
 const OneSignalButton = dynamic(() => import('@/components/OneSignalButton').then(mod => mod.OneSignalButton), { 
   ssr: false,
@@ -71,27 +74,8 @@ const PERSONALITY_MODES_CONFIG: Record<PersonalityMode, { label: string; icon: R
 };
 
 export default function HomePage() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   const { personalityMode } = useAppContext();
   const currentMode = PERSONALITY_MODES_CONFIG[personalityMode] || PERSONALITY_MODES_CONFIG.creative;
-
-  if (!isMounted) {
-    return (
-      <main className="flex h-full flex-col bg-background">
-        <div className="flex-1 p-4 lg:p-6">
-          <div className="mx-auto max-w-4xl space-y-8 animate-pulse">
-            <div className="h-64 w-full rounded-2xl bg-muted" />
-            <div className="h-48 w-full rounded-[2.5rem] bg-muted" />
-          </div>
-        </div>
-      </main>
-    );
-  }
 
   return (
     <main className="flex h-full flex-col" aria-labelledby="home-heading">
@@ -112,9 +96,21 @@ export default function HomePage() {
         <article className="mx-auto max-w-4xl space-y-8">
           <section className="rounded-2xl bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-                  <div className="relative flex h-32 w-32 md:h-48 md:w-48 shrink-0 items-center justify-center">
-                    <AhsanAiHubLogo className="h-full w-full object-contain brightness-100 dark:brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)] transition-all duration-300" />
-                  </div>
+              <div className="relative flex h-32 w-32 md:h-48 md:w-48 shrink-0 items-center justify-center">
+                <Image 
+                  src="/logo.png" 
+                  alt="Ahsan AI Hub Logo" 
+                  width={192} 
+                  height={192} 
+                  style={{ width: '100%', height: 'auto', maxWidth: '192px' }}
+                  priority 
+                  className="h-auto w-full object-contain brightness-100 dark:brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)] transition-all duration-300"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  sizes="(max-width: 768px) 128px, 192px"
+                />
+              </div>
               <div className="flex-1 text-center md:text-left">
                 <h2 id="hero-heading" className="font-headline text-3xl font-bold md:text-4xl tracking-tight">Ahsan Ai Hub</h2>
                 <p className="mt-1 text-lg text-accent-foreground/90 leading-tight">Your Intelligent AI Companion</p>
