@@ -41,13 +41,18 @@ export function PWAInstallButton({ className }: { className?: string }) {
           title: 'Ahsan AI Hub is Ready',
           description: 'Install our official app for a faster, private experience!',
           action: (
-            <Button size="sm" onClick={() => handleInstallClick(e as BeforeInstallPromptEvent)}>
+            <Button size="sm" onClick={() => (e as BeforeInstallPromptEvent).prompt()}>
               Install Now
             </Button>
           ),
         });
         localStorage.setItem('pwa-install-prompt-shown', 'true');
       }
+    };
+
+    const handleCustomInstallReady = (e: any) => {
+      console.log('pwa-install-ready custom event captured');
+      setDeferredPrompt(e.detail as BeforeInstallPromptEvent);
     };
 
     const handleAppInstalled = () => {
@@ -68,10 +73,12 @@ export function PWAInstallButton({ className }: { className?: string }) {
 
       window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.addEventListener('appinstalled', handleAppInstalled);
+      window.addEventListener('pwa-install-ready', handleCustomInstallReady);
 
       return () => {
         window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
         window.removeEventListener('appinstalled', handleAppInstalled);
+        window.removeEventListener('pwa-install-ready', handleCustomInstallReady);
       };
     }
   }, [toast]);

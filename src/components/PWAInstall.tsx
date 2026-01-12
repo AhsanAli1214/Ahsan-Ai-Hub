@@ -56,7 +56,10 @@ export function PWAInstall() {
       console.log('beforeinstallprompt event fired - PWA is installable');
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setShowInstallPrompt(true);
-      // Ensure the button is visible even if the state was dismissed before
+      
+      // Dispatch custom event for the UI button
+      window.dispatchEvent(new CustomEvent('pwa-install-ready', { detail: e }));
+      
       localStorage.setItem('pwa-install-available', 'true');
     };
 
