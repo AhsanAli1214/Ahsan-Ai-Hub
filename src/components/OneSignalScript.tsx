@@ -39,6 +39,23 @@ export function OneSignalScript() {
                   }
                 }
               });
+
+              // PWA Specific registration check
+              if (window.matchMedia('(display-mode: standalone)').matches) {
+                OneSignal.User.addTag("pwa_app", "true");
+                const userId = OneSignal.User.PushSubscription.id;
+                if (userId) {
+                  fetch('/api/onesignal/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                      deviceId: userId,
+                      deviceType: 5, // Web
+                      identifier: userId 
+                    })
+                  }).catch(console.error);
+                }
+              }
             } catch (e) {
               console.error("OneSignal Init Error:", e);
             }
