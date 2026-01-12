@@ -7,16 +7,13 @@
   "categories": ["productivity", "utilities", "ai", "education", "lifestyle"],
   "orientation": "portrait",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
+  "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
   "theme_color": "#3b82f6",
   "background_color": "#09090b",
-  "prefer_related_applications": true,
-  "related_applications": [
-    {
-      "platform": "webapp",
-      "url": "https://ahsan-ai-hub.vercel.app/manifest.json"
-    }
-  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "scope": "/",
+  "start_url": "/?source=pwa",
   "capture_links": "existing-client-navigate",
   "launch_handler": {
     "client_mode": ["focus-existing", "auto"]

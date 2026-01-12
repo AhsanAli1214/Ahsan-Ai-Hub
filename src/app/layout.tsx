@@ -202,7 +202,12 @@ export default function RootLayout({
           <link rel="preconnect" href="https://cdn.onesignal.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
-          <link rel="preload" href="/logo.png" as="image" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-title" content="Ahsan AI Hub" />
+          <link rel="apple-touch-icon" href="/icon-192.png" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
           <Script id="register-sw" strategy="afterInteractive">

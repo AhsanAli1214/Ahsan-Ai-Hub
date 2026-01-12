@@ -1,5 +1,5 @@
 // Advanced Service Worker for Ahsan AI Hub
-const CACHE_NAME = 'ahsan-ai-hub-v7-1767807000';
+const CACHE_NAME = 'ahsan-ai-hub-v8-' + Date.now();
 const OFFLINE_URL = '/offline.html';
 const ASSETS_TO_CACHE = [
   '/',
