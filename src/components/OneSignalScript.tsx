@@ -9,11 +9,15 @@ export function OneSignalScript() {
         src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
         strategy="afterInteractive"
       />
-      <Script id="onesignal-init" strategy="afterInteractive">
+      <Script id="onesignal-init" strategy="lazyOnload">
         {`
           window.OneSignalDeferred = window.OneSignalDeferred || [];
           window.OneSignalDeferred.push(async function(OneSignal) {
             try {
+              // Set a flag to prevent multiple initializations
+              if (window.__onesignal_initialized) return;
+              window.__onesignal_initialized = true;
+
               await OneSignal.init({
                 appId: "8a693786-f992-42d3-adfb-56a230adcea5",
                 safari_web_id: "web.onesignal.auto.123456789",

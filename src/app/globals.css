@@ -360,7 +360,28 @@ body {
 
   body {
     @apply bg-background text-foreground;
+    -webkit-overflow-scrolling: touch;
   }
+}
+
+/* Optimization for smooth scrolling and rendering */
+* {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.overflow-y-auto {
+  scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+}
+
+/* Fix for slow rendering on scroll */
+.mx-auto.max-w-4xl > * {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 200px;
 }
 
 /* OneSignal Custom Link Styling */

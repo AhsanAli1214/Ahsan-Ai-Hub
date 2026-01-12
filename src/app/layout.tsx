@@ -210,17 +210,12 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/icon-192.png" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
-          <Script id="register-sw" strategy="afterInteractive">
+          <Script id="register-sw" strategy="lazyOnload">
             {`
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                  navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(function(registration) {
                     console.log('ServiceWorker registration successful');
-                    
-                    // Background Sync
-                    if ('sync' in registration) {
-                      registration.sync.register('sync-ai-query').catch(err => console.log('Sync registration failed', err));
-                    }
                   }, function(err) {
                     console.log('ServiceWorker registration failed: ', err);
                   });
@@ -248,6 +243,10 @@ export default function RootLayout({
               })();
             `}
           </Script>
+          <style dangerouslySetInnerHTML={{ __html: `
+            .no-scroll { overflow: hidden; }
+            .content-visible { opacity: 1 !important; }
+          ` }} />
         </head>
         <body
           className={cn(
