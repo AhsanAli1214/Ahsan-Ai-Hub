@@ -26,7 +26,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 
-// Performance: Lazy load heavy components
+import { SmartWidgets, LocalHistorySearch } from '@/components/SmartFeatures';
+
 const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { 
   ssr: true,
   loading: () => <div className="h-48 w-48 animate-pulse rounded-full bg-muted" />
@@ -93,6 +94,11 @@ export default function HomePage() {
       <ConnectionStatus />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <article className="mx-auto max-w-4xl space-y-8">
+          <section className="space-y-4">
+            <LocalHistorySearch />
+            <SmartWidgets />
+          </section>
+
           <section className="rounded-2xl bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
               <div className="relative flex h-32 w-32 md:h-48 md:w-48 shrink-0 items-center justify-center">
