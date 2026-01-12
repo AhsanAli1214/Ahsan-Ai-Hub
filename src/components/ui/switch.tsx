@@ -4,16 +4,15 @@ import * as React from "react"
 import * as SwitchPrimitives from "@radix-ui/react-switch"
 
 import { cn } from "@/lib/utils"
-import { useHaptics } from "@/hooks/use-haptics"
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, onCheckedChange, ...props }, ref) => {
-  const { lightTap } = useHaptics()
-  
   const handleCheckedChange = (checked: boolean) => {
-    lightTap()
+    if (typeof window !== 'undefined') {
+      navigator.vibrate?.(10)
+    }
     if (onCheckedChange) onCheckedChange(checked)
   }
 

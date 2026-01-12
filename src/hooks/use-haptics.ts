@@ -1,14 +1,16 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+
+const noop = () => {};
 
 export const useHaptics = () => {
   const vibrate = useCallback((pattern: number | number[] = 10) => {
-    if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+    if (typeof window !== 'undefined' && typeof navigator !== 'undefined' && 'vibrate' in navigator) {
       try {
         navigator.vibrate(pattern);
       } catch (e) {
-        console.warn('Haptic feedback not supported or failed:', e);
+        // Ignore haptic errors
       }
     }
   }, []);
@@ -19,5 +21,12 @@ export const useHaptics = () => {
   const successTap = useCallback(() => vibrate([10, 30, 10]), [vibrate]);
   const errorTap = useCallback(() => vibrate([50, 50, 50]), [vibrate]);
 
-  return { lightTap, mediumTap, heavyTap, successTap, errorTap, vibrate };
+  return useMemo(() => ({
+    lightTap,
+    mediumTap,
+    heavyTap,
+    successTap,
+    errorTap,
+    vibrate
+  }), [lightTap, mediumTap, heavyTap, successTap, errorTap, vibrate]);
 };

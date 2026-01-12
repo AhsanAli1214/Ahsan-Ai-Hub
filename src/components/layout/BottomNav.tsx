@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/components/ui/sidebar";
-import { useHaptics } from "@/hooks/use-haptics";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -42,7 +41,6 @@ const moreItems = [
 
 export function BottomNav() {
   const pathname = usePathname();
-  const { lightTap } = useHaptics();
 
   return (
     <nav className="btm-nav md:hidden border-t bg-background/80 backdrop-blur-lg safe-area-bottom h-20 z-[50]">
@@ -52,7 +50,11 @@ export function BottomNav() {
           <Link
             href={item.href}
             key={item.href}
-            onClick={() => lightTap()}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                navigator.vibrate?.(10);
+              }
+            }}
             className={cn(
               "btm-nav-item transition-all duration-300 flex flex-col items-center justify-center gap-1",
               isActive
