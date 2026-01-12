@@ -45,7 +45,6 @@ const nextConfig = {
     scrollRestoration: true,
     optimizeCss: true,
     serverSourceMaps: false,
-    bundlePagesRouterDependencies: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

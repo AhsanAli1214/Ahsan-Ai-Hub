@@ -7,6 +7,7 @@ export async function POST(request: Request) {
     const apiKey = process.env.ONESIGNAL_REST_API_KEY;
 
     if (!apiKey) {
+      console.error('OneSignal API key not configured in environment variables');
       return NextResponse.json({ error: 'OneSignal API key not configured' }, { status: 500 });
     }
 
@@ -18,17 +19,17 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         app_id: appId,
-        device_type: deviceType || 11, // 11 is for Huawei or generic web, but usually handled by SDK. 
-        // For server API, 11 is "Huawei", 1 is "iOS", 0 is "Android".
-        // However, the documentation for "add-a-device" uses integers. 
-        // 5 is Windows/Chrome/Firefox/Safari.
+        device_type: deviceType || 5, // 5 is Chrome/Web
         identifier: identifier,
-        // For PWA, we might want to tag it
-        tags: { pwa: 'true' }
+        tags: { pwa: 'true', pwa_app: 'true' }
       }),
     });
 
     const data = await response.json();
+    if (!response.ok) {
+      console.error('OneSignal API Error:', data);
+      return NextResponse.json(data, { status: response.status });
+    }
     return NextResponse.json(data);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

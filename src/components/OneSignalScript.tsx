@@ -43,15 +43,15 @@ export function OneSignalScript() {
               // PWA Specific registration check
               if (window.matchMedia('(display-mode: standalone)').matches) {
                 OneSignal.User.addTag("pwa_app", "true");
-                const userId = OneSignal.User.PushSubscription.id;
-                if (userId) {
+                const pushSubscription = OneSignal.User.PushSubscription;
+                if (pushSubscription && pushSubscription.id) {
                   fetch('/api/onesignal/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
-                      deviceId: userId,
+                      deviceId: pushSubscription.id,
                       deviceType: 5, // Web
-                      identifier: userId 
+                      identifier: pushSubscription.id 
                     })
                   }).catch(console.error);
                 }
