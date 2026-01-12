@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
-  allowedDevOrigins: ['*'],
+  allowedDevOrigins: ['*.replit.dev', '*.repl.co', '*.replit.app'],
   devIndicators: {
     position: 'bottom-right',
   },
