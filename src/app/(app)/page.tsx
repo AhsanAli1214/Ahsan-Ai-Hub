@@ -94,9 +94,8 @@ export default function HomePage() {
       <ConnectionStatus />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <article className="mx-auto max-w-4xl space-y-8">
-          <section className="space-y-4">
+          <section className="pt-2">
             <LocalHistorySearch />
-            <SmartWidgets />
           </section>
 
           <section className="rounded-2xl bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
@@ -146,66 +145,73 @@ export default function HomePage() {
             <div className="hidden md:block absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
             <div className="hidden md:block absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
             
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-              <div className="flex-1 space-y-8">
-                <h2 className="text-4xl md:text-6xl font-black text-zinc-900 dark:text-zinc-100 leading-[1] tracking-tight">
-                  Premium AI <br />Experience <br />
-                  <span className="text-primary whitespace-nowrap">100% Privacy-First</span>
-                </h2>
-                <div className="flex flex-col gap-3 max-w-md">
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
-                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
-                      <Lock className="h-5 w-5 text-primary" />
+            <div className="relative z-10 space-y-10">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                <div className="flex-1 space-y-8">
+                  <h2 className="text-4xl md:text-6xl font-black text-zinc-900 dark:text-zinc-100 leading-[1] tracking-tight">
+                    Premium AI <br />Experience <br />
+                    <span className="text-primary whitespace-nowrap">100% Privacy-First</span>
+                  </h2>
+                  <div className="flex flex-col gap-3 max-w-md">
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
+                      <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
+                        <Lock className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Zero Login</p>
+                        <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Instant access without accounts or personal data.</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Zero Login</p>
-                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Instant access without accounts or personal data.</p>
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
+                      <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
+                        <Eye className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Local Storage</p>
+                        <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">All history stays in your browser. We see nothing.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
-                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
-                      <Eye className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">Local Storage</p>
-                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">All history stays in your browser. We see nothing.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
-                    <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
-                      <Smartphone className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">PWA Powered</p>
-                      <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Native app experience on any device, anywhere.</p>
+                    <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors shadow-sm">
+                      <div className="bg-primary/10 p-2 rounded-lg" aria-hidden="true">
+                        <Smartphone className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">PWA Powered</p>
+                        <p className="text-[10px] text-zinc-700 dark:text-zinc-300 mt-0.5">Native app experience on any device, anywhere.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <div className="flex flex-col gap-3 w-full lg:w-64">
+                  <Suspense fallback={null}>
+                    <WhatsAppSupportButton 
+                      className="w-full h-14 rounded-2xl bg-[#22245b] hover:bg-[#22245b]/90 text-white border-none font-bold text-xs uppercase tracking-wider gap-2 shadow-lg" 
+                    />
+                  </Suspense>
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-widest gap-2 shadow-xl shadow-primary/20"
+                  >
+                    <Link href="/recommendations">
+                      START EXPLORING <Zap className="h-4 w-4 fill-current" />
+                    </Link>
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    asChild 
+                    className="w-full h-12 rounded-2xl text-zinc-600 dark:text-zinc-400 font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-primary/10 hover:text-primary transition-all border border-zinc-200/50 dark:border-white/10 hover:border-primary/20 bg-white/50 dark:bg-white/5"
+                  >
+                    <Link href="/privacy" className="flex items-center justify-center gap-2">
+                      <Shield className="h-3 w-3" /> PRIVACY POLICY
+                    </Link>
+                  </Button>
+                </div>
               </div>
-              <div className="flex flex-col gap-3 w-full lg:w-64">
-                <Suspense fallback={null}>
-                  <WhatsAppSupportButton 
-                    className="w-full h-14 rounded-2xl bg-[#22245b] hover:bg-[#22245b]/90 text-white border-none font-bold text-xs uppercase tracking-wider gap-2 shadow-lg" 
-                  />
-                </Suspense>
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-widest gap-2 shadow-xl shadow-primary/20"
-                >
-                  <Link href="/recommendations">
-                    START EXPLORING <Zap className="h-4 w-4 fill-current" />
-                  </Link>
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  asChild 
-                  className="w-full h-12 rounded-2xl text-zinc-600 dark:text-zinc-400 font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-primary/10 hover:text-primary transition-all border border-zinc-200/50 dark:border-white/10 hover:border-primary/20 bg-white/50 dark:bg-white/5"
-                >
-                  <Link href="/privacy" className="flex items-center justify-center gap-2">
-                    <Shield className="h-3 w-3" /> PRIVACY POLICY
-                  </Link>
-                </Button>
+
+              {/* Injected Smart Widgets under the Premium Card content */}
+              <div className="pt-8 border-t border-zinc-200 dark:border-white/10">
+                <SmartWidgets />
               </div>
             </div>
           </div>
