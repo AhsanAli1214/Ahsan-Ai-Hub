@@ -93,21 +93,21 @@ export default function HomePage() {
       <ConnectionStatus />
       <div className="flex-1 overflow-y-auto p-4 lg:p-6">
         <article className="mx-auto max-w-4xl space-y-8">
-          <section className="rounded-lg bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
+          <section className="rounded-2xl bg-accent p-6 text-accent-foreground shadow-md md:p-8" aria-labelledby="hero-heading">
             <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-              <div className="relative flex h-36 w-36 md:h-48 md:w-48 shrink-0 items-center justify-center">
+              <div className="relative flex h-32 w-32 md:h-48 md:w-48 shrink-0 items-center justify-center">
                 <Image 
                   src="/logo.png" 
                   alt="Ahsan AI Hub Logo" 
                   width={192} 
                   height={192} 
-                  style={{ width: '192px', height: 'auto' }}
+                  style={{ width: '100%', height: 'auto', maxWidth: '192px' }}
                   priority 
                   className="h-auto w-full object-contain brightness-100 dark:brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)] transition-all duration-300"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
-                  sizes="(max-width: 768px) 144px, 192px"
+                  sizes="(max-width: 768px) 128px, 192px"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
@@ -135,7 +135,7 @@ export default function HomePage() {
             </Button>
           </section>
 
-          <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-100 dark:bg-black/40 backdrop-blur-xl p-8 md:p-12 shadow-2xl border border-zinc-200 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-zinc-100 dark:bg-black/40 backdrop-blur-xl p-6 sm:p-8 md:p-12 shadow-2xl border border-zinc-200 dark:border-white/10 transition-all duration-500 hover:shadow-primary/5 hover:border-zinc-300 dark:hover:border-white/20">
             {/* Background Decorative Elements - Hidden on mobile for performance */}
             <div className="hidden md:block absolute -top-24 -right-24 h-80 w-80 bg-primary/20 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/30" />
             <div className="hidden md:block absolute -bottom-24 -left-24 h-80 w-80 bg-primary/10 blur-[120px] rounded-full transition-all duration-700 group-hover:bg-primary/20" />
@@ -205,8 +205,8 @@ export default function HomePage() {
           </div>
 
           <div>
-            <h2 className="mb-4 font-headline text-xl font-semibold">Quick Actions</h2>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <h2 className="mb-4 font-headline text-xl font-semibold px-2 sm:px-0">Quick Actions</h2>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
               {QUICK_ACTIONS.map((action) => (
                 <Link href={`/recommendations?initialPrompt=${encodeURIComponent(action.prompt)}`} key={action.id}>
                   <Card className="flex h-full flex-col items-center justify-center p-4 text-center transition-transform hover:scale-105">
@@ -276,9 +276,9 @@ export default function HomePage() {
             </Card>
           </section>
 
-          <section className="pb-12">
-            <h2 className="mb-4 font-headline text-xl font-semibold">Smart Prompts</h2>
-            <div className="flex flex-wrap gap-2">
+          <section className="pb-24 sm:pb-12">
+            <h2 className="mb-4 font-headline text-xl font-semibold px-2 sm:px-0">Smart Prompts</h2>
+            <div className="flex flex-wrap gap-2 px-2 sm:px-0">
               {SMART_PROMPTS.map((prompt, index) => (
                 <Button key={index} variant="outline" asChild><Link href={`/recommendations?initialPrompt=${encodeURIComponent(prompt.prompt)}`}>{prompt.label}</Link></Button>
               ))}
