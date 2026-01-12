@@ -8,5 +8,5 @@ export const announcementConfig = {
   senderName: "Ahsan Ali",
   ctaText: "Explore Tools",
   ctaLink: "/content-tools",
-  showBanner: true, // Set to false to hide the banner completely
+  showBanner: false, // Set to false to hide the banner completely
 };

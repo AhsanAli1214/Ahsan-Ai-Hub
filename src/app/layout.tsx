@@ -268,7 +268,7 @@ export default function RootLayout({
                     siteStatusConfig.mode !== "live" && "hidden",
                   )}
                 >
-                  {announcementConfig.showBanner && (
+                  {announcementConfig?.showBanner === true && (
                     <AnnouncementBanner {...announcementConfig} />
                   )}
                   <ConnectionStatus />
