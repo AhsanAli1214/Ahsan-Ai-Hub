@@ -26,7 +26,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { useAppContext, type PersonalityMode } from '@/context/AppContext';
 
-import { SmartWidgets, LocalHistorySearch } from '@/components/SmartFeatures';
+const SmartWidgets = dynamic(() => import('@/components/SmartFeatures').then(mod => mod.SmartWidgets), { 
+  ssr: false,
+  loading: () => <div className="h-64 w-full animate-pulse rounded-2xl bg-muted" />
+});
+const LocalHistorySearch = dynamic(() => import('@/components/SmartFeatures').then(mod => mod.LocalHistorySearch), { ssr: false });
 
 const AhsanAiHubLogo = dynamic(() => import('@/components/icons').then(mod => mod.AhsanAiHubLogo), { 
   ssr: true,

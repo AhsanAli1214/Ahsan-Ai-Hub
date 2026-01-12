@@ -471,8 +471,15 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Optimization for smooth rendering and scrolling */
 .mx-auto.max-w-4xl > * {
-  contain-intrinsic-size: auto 300px;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px; /* Better estimate for card heights */
+}
+
+/* Ensure smooth image loading */
+img {
+  content-visibility: auto;
 }
 
   #df-btn-cont {
