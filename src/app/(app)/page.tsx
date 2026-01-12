@@ -208,13 +208,12 @@ export default function HomePage() {
                   </Button>
                 </div>
               </div>
-
-              {/* Injected Smart Widgets under the Premium Card content */}
-              <div className="pt-8 border-t border-zinc-200 dark:border-white/10">
-                <SmartWidgets />
-              </div>
             </div>
           </div>
+
+          <section className="space-y-4">
+            <SmartWidgets />
+          </section>
 
           <div>
             <h2 className="mb-4 font-headline text-xl font-semibold px-2 sm:px-0">Quick Actions</h2>
