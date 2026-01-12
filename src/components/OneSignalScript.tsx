@@ -41,20 +41,32 @@ export function OneSignalScript() {
               });
 
               // PWA Specific registration check
-              if (window.matchMedia('(display-mode: standalone)').matches) {
+              const isPWA = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
+              if (isPWA) {
                 OneSignal.User.addTag("pwa_app", "true");
-                const pushSubscription = OneSignal.User.PushSubscription;
-                if (pushSubscription && pushSubscription.id) {
-                  fetch('/api/onesignal/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                      deviceId: pushSubscription.id,
-                      deviceType: 5, // Web
-                      identifier: pushSubscription.id 
-                    })
-                  }).catch(console.error);
-                }
+                
+                const checkSubscription = async () => {
+                  const pushSubscription = OneSignal.User.PushSubscription;
+                  if (pushSubscription && pushSubscription.id) {
+                    try {
+                      await fetch('/api/onesignal/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                          deviceId: pushSubscription.id,
+                          deviceType: 5,
+                          identifier: pushSubscription.id 
+                        })
+                      });
+                    } catch (err) {
+                      console.error("PWA registration fetch error:", err);
+                    }
+                  }
+                };
+
+                // Check immediately and on change
+                checkSubscription();
+                OneSignal.User.PushSubscription.addEventListener("change", checkSubscription);
               }
             } catch (e) {
               console.error("OneSignal Init Error:", e);
