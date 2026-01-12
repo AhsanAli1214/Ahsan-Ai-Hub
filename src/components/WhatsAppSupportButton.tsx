@@ -44,70 +44,85 @@ Thank you for your support! 🙏`;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 12px;
-          background: linear-gradient(135deg, #22245b, #4338ca, #1e1b4b);
+          gap: 16px;
+          background: linear-gradient(145deg, #1e1b4b, #2e2a77, #1e1b4b);
           background-size: 200% auto;
           color: #ffffff;
-          padding: 16px 32px;
-          border-radius: 20px;
-          font-size: 13px;
+          padding: 20px 42px;
+          border-radius: 24px;
+          font-size: 15px;
           font-weight: 800;
           text-decoration: none;
           text-transform: uppercase;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.18em;
           box-shadow: 
-            0 10px 15px -3px rgba(34, 36, 91, 0.3),
-            0 4px 6px -2px rgba(34, 36, 91, 0.05),
-            inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
-          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+            0 25px 35px -10px rgba(0, 0, 0, 0.4),
+            0 12px 15px -8px rgba(0, 0, 0, 0.3),
+            inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           cursor: pointer;
-          animation: premium-gradient 6s ease infinite;
           position: relative;
           overflow: hidden;
+          animation: float-shimmer 6s ease-in-out infinite;
         }
 
-        @keyframes premium-gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
+        @keyframes float-shimmer {
+          0%, 100% { 
+            transform: translateY(0) scale(1);
+            background-position: 0% 50%;
+            box-shadow: 0 25px 35px -10px rgba(0, 0, 0, 0.4), 0 12px 15px -8px rgba(0, 0, 0, 0.3);
+          }
+          50% { 
+            transform: translateY(-8px) scale(1.02);
+            background-position: 100% 50%;
+            box-shadow: 0 35px 45px -12px rgba(49, 46, 129, 0.5), 0 15px 18px -10px rgba(49, 46, 129, 0.4);
+          }
         }
 
         .support-btn::before {
           content: "";
           position: absolute;
           top: 0;
-          left: -100%;
-          width: 100%;
+          left: -150%;
+          width: 200%;
           height: 100%;
           background: linear-gradient(
             120deg,
             transparent,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.3),
             transparent
           );
-          transition: all 0.6s;
+          transition: all 0.8s;
+          pointer-events: none;
         }
 
         .support-btn:hover::before {
-          left: 100%;
+          left: 150%;
         }
 
         .support-btn:hover {
-          transform: translateY(-4px) scale(1.02);
-          box-shadow: 
-            0 25px 50px -12px rgba(34, 36, 91, 0.5),
-            0 0 20px rgba(67, 56, 202, 0.4);
-          border-color: rgba(255, 255, 255, 0.3);
-          filter: brightness(1.15);
+          border-color: rgba(255, 255, 255, 0.5);
+          filter: brightness(1.2);
+          color: #ffffff;
         }
 
         .support-btn:active {
-          transform: translateY(-1px) scale(0.98);
+          transform: translateY(-2px) scale(0.97);
+          transition: all 0.1s;
         }
 
-        .support-icon {
-          filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+        .support-icon-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.15);
+          padding: 10px;
+          border-radius: 14px;
+          margin-right: -4px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(4px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
       `}</style>
       <a 
@@ -118,8 +133,10 @@ Thank you for your support! 🙏`;
         aria-label="Contact Ahsan AI Hub Support on WhatsApp"
         className={cn("support-btn focus-visible:ring-4 focus-visible:ring-primary", className)}
       >
-        <MessageCircle className="h-5 w-5 support-icon" />
-        Contact Ahsan AI Hub Support
+        <span className="support-icon-wrapper">
+          <MessageCircle className="h-5 w-5" />
+        </span>
+        Contact Support
       </a>
     </>
   );
