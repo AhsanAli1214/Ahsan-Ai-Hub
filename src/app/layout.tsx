@@ -224,6 +224,27 @@ export default function RootLayout({
           <link rel="apple-touch-icon" href="/icon-192.png" />
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
           <OneSignalScript />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Ahsan AI Hub",
+                "url": "https://ahsan-ai-hub.vercel.app",
+                "author": {
+                  "@type": "Person",
+                  "name": "Ahsan Ali Wadani"
+                },
+                "description": "The world's best free AI chat assistant with no login required. Access premium AI writing, blog generation, resume building, code explaining, and math solving tools for free.",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://ahsan-ai-hub.vercel.app/?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
+              })
+            }}
+          />
           <Script id="register-sw" strategy="afterInteractive">
             {`
               if ('serviceWorker' in navigator) {

@@ -1,39 +1,3 @@
-# *
 User-agent: *
 Allow: /
-Disallow: /api/*
-
-# Googlebot
-User-agent: Googlebot
-Allow: /
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /images/
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /tool-icons/
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /*.png
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /*.jpg
-
-# Googlebot-Image
-User-agent: Googlebot-Image
-Allow: /*.jpeg
-
-# Host
-Host: https://ahsan-ai-hub.vercel.app
-
-# Sitemaps
 Sitemap: https://ahsan-ai-hub.vercel.app/sitemap.xml
-Sitemap: https://ahsan-ai-hub.vercel.app/api/sitemap
