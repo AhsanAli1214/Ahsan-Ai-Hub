@@ -98,11 +98,11 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=31536000, immutable'
+            value: 'public, max-age=31536000, s-maxage=31536000, stale-while-revalidate=59, immutable'
           },
           {
             key: 'Link',
-            value: '<https://cdn.onesignal.com>; rel=preconnect, <https://fonts.googleapis.com>; rel=preconnect, <https://va.vercel-scripts.com>; rel=preconnect'
+            value: '<https://cdn.onesignal.com>; rel=preconnect, <https://fonts.googleapis.com>; rel=preconnect, <https://va.vercel-scripts.com>; rel=preconnect, <https://botsailor.com>; rel=preconnect'
           }
         ],
       },
