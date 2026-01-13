@@ -50,6 +50,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setIsMounted(true);
+    if (typeof window === 'undefined') return;
     try {
       const storedApiKey = localStorage.getItem('geminiApiKey');
       const storedPersonality = localStorage.getItem('personalityMode') as PersonalityMode;
